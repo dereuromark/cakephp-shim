@@ -53,12 +53,12 @@ class ShimComponentTest extends ShimTestCase {
 		Configure::write('App.warnAboutNamedParams', true);
 
 		$referer = '/foobar';
-		$this->request->expects($this->any())
+		$this->request->expects($this->once())
 			->method('referer')
 			->with(true)
 			->will($this->returnValue($referer));
 
-		$this->ShimController = new TestShimComponentController(new CakeRequest(), new CakeResponse());
+		$this->ShimController = new TestShimComponentController($this->request, new CakeResponse());
 		$this->ShimController->request->params['named'] = ['x' => 'y'];
 
 		$this->ShimController->constructClasses();
