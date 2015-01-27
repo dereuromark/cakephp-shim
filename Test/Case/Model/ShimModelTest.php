@@ -59,6 +59,42 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * Testing missing contain warnings
+	 *
+	 * @return void
+	 */
+	public function testFind() {
+		Configure::write('App.warnAboutMissingContain', true);
+
+		$this->User->find('first');
+	}
+
+	/**
+	 * Testing missing contain warnings
+	 *
+	 * @return void
+	 */
+	public function testFindRecursive() {
+		Configure::write('App.warnAboutMissingContain', true);
+
+		$this->User->recursive = 0;
+		$this->User->find('first', ['contain' => []]);
+	}
+
+	/**
+	 * Testing missing contain warnings
+	 *
+	 * @expectedException CakeException
+	 * @return void
+	 */
+	public function testFindWrongRecursive() {
+		Configure::write('App.warnAboutMissingContain', true);
+
+		$this->User->recursive = 0;
+		$this->User->find('first');
+	}
+
+	/**
 	 * ShimModelTest::testDeconstruct()
 	 *
 	 * @return void

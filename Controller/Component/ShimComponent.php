@@ -1,8 +1,6 @@
 <?php
 
 App::uses('Component', 'Controller');
-App::uses('Sanitize', 'Utility');
-App::uses('Hash', 'Utility');
 
 /**
  * A component included in every app to take care of common stuff.
@@ -21,11 +19,20 @@ class ShimComponent extends Component {
 	 * @return void
 	 */
 	public function startup(Controller $Controller = null) {
+		if (!Configure::read('App.warnAboutNamedParams')) {
+			return;
+		}
+
 		// Deprecation notices, but only for internally triggered ones
-		if (Configure::read('App.warnAboutNamedParams')) {
-			if (!empty($Controller->request->params['named']) && ($referer = $Controller->request->referer(true)) && $referer !== '/') {
-				trigger_error('Named params ' . json_encode($Controller->request->params['named']) . ' - from ' . $referer, E_USER_DEPRECATED);
+		if (
+			$Controller->name !== 'CakeError' && !empty($Controller->request->params['named'])
+			&& ($referer = $Controller->request->referer(true)) && $referer !== '/'
+		) {
+			$message = 'Named params ' . json_encode($Controller->request->params['named']) . ' - from ' . $referer;
+			if (Configure::read('debug')) {
+				throw new CakeException($message);
 			}
+			trigger_error($message, E_USER_DEPRECATED);
 		}
 	}
 
