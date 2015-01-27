@@ -1,0 +1,37 @@
+{
+	"name": "dereuromark/cakephp-shim",
+	"type": "cakephp-plugin",
+	"description": "A CakePHP plugin to shim applications between major framework versions.",
+	"keywords": ["cakephp", "plugin", "shim", "helpers"],
+	"homepage": "https://github.com/dereuromark/cakephp-shim",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Mark Scherer",
+			"homepage": "http://www.dereuromark.de",
+			"role": "Maintainer"
+		}
+	],
+	"require": {
+		"php": ">=5.4",
+		"cakephp/cakephp": "3.0.x-dev"
+	},
+	"support": {
+		"source": "https://github.com/dereuromark/cakephp-shim"
+	},
+	"autoload": {
+		"psr-4": {
+			"Shim\\": "src",
+			"Shim\\Test\\Fixture\\": "tests\\Fixture"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Shim\\Test\\": "tests",
+			"Cake\\Test\\": "vendor/cakephp/cakephp/tests"
+		}
+	},
+	"extra": {
+		"installer-name": "Shim"
+	}
+}
