@@ -29,3 +29,9 @@ or
 ```php
 Plugin::loadAll(...);
 ```
+
+## Notes
+Please don't forget that your application's composer.json file needs to require [cakephp/plugin-installer](https://github.com/cakephp/plugin-installer):
+```
+composer require cakephp/plugin-installer:*
+```
