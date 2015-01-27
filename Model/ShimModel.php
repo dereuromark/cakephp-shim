@@ -1,7 +1,5 @@
 <?php
 App::uses('Model', 'Model');
-App::uses('Utility', 'Tools.Utility');
-App::uses('Hash', 'Utility');
 
 /**
  * Model enhancements for Cake2
@@ -28,6 +26,22 @@ class ShimModel extends Model {
 		if (!Configure::read('Model.disablePrefixing')) {
 			$this->prefixOrderProperty();
 		}
+	}
+
+	/**
+	 * Detect missing contain in querys to help getting rid of recursive > -1 globally
+	 *
+	 * @param string $type
+	 * @param array $query
+	 * @return mixed
+	 */
+	public function find($type = 'first', $query = array()) {
+		if ((bool)Configure::read('App.warnAboutMissingContain') !== false) {
+			if ($this->alias !== 'Session' && $this->recursive !== -1 && !isset($query['contain'])) {
+				trigger_error('No recursive -1 or contain used for this query in ' . $this->alias . ': ' . print_r($query, true), E_USER_WARNING);
+			}
+		}
+		return parent::find($type, $query);
 	}
 
 	/**

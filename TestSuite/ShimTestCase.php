@@ -1,6 +1,6 @@
 <?php
 
-abstract class ShimCakeTestCase extends CakeTestCase {
+abstract class ShimTestCase extends CakeTestCase {
 
 	/**
 	 * Opposite wrapper method of assertWithinMargin.
@@ -10,11 +10,42 @@ abstract class ShimCakeTestCase extends CakeTestCase {
 	 * @param float $margin
 	 * @param string $message
 	 * @return void
+	 * @deprecated Please use assertNotWithinRange() instead
 	 */
 	protected static function assertNotWithinMargin($result, $expected, $margin, $message = '') {
 		$upper = $result + $margin;
 		$lower = $result - $margin;
 		return static::assertFalse((($expected <= $upper) && ($expected >= $lower)), $message);
+	}
+
+	/**
+	 * Compatibility function to test if a value is between an acceptable range.
+	 *
+	 * @param float $result
+	 * @param float $expected
+	 * @param float $margin
+	 * @param string $message
+	 * @return void
+	 */
+	protected static function assertWithinRange($expected, $result, $margin, $message = '') {
+		$upper = $result + $margin;
+		$lower = $result - $margin;
+		static::assertTrue((($expected <= $upper) && ($expected >= $lower)), $message);
+	}
+
+	/**
+	 * Compatibility function to test if a value is not between an acceptable range.
+	 *
+	 * @param float $result
+	 * @param float $expected
+	 * @param float $margin
+	 * @param string $message
+	 * @return void
+	 */
+	protected static function assertNotWithinRange($expected, $result, $margin, $message = '') {
+		$upper = $result + $margin;
+		$lower = $result - $margin;
+		static::assertTrue((($expected > $upper) || ($expected < $lower)), $message);
 	}
 
 	/**
