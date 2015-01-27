@@ -151,7 +151,7 @@ class ShimModelTest extends ShimCakeTestCase {
 	 * @return void
 	 */
 	public function testDeleteAllRaw() {
-		$result = $this->User->deleteAllRaw(['user !=' => 'foo', 'created <' => date(FORMAT_DB_DATE), 'id >' => 1]);
+		$result = $this->User->deleteAllRaw(['user !=' => 'foo', 'created <' => date('Y-m-d'), 'id >' => 1]);
 		$this->assertTrue($result);
 		$result = $this->User->getAffectedRows();
 		$this->assertIdentical(3, $result);
