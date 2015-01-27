@@ -5,8 +5,14 @@
 
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
 
-## This branch is for backporting 3.x to 2.x
-or to shim certain 3.x functionality/features in 2.x.
+## This branch is for shimming 2.x in 3.x
+It provides compatability wrapper access to 2.x functionality in 3.x.
+This is mainly useful when upgrading large applications to the next major framework version.
+Tons of code needs to be adjusted, using this Shim plugin a few lines less need to be touched.
+Especially the ORM layer, which would need heavy refactoring, requires quite a few lines less
+of that.
+
+**This plugin requires CakePHP 3.0+.**
 
 ## Installation
 Please see [SETUP.md](/SETUP.md)
