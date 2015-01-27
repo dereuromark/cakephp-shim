@@ -14,22 +14,10 @@
 	],
 	"require": {
 		"php": ">=5.4",
-		"cakephp/cakephp": "3.0.x-dev"
+		"composer/installers": "*"
 	},
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"
-	},
-	"autoload": {
-		"psr-4": {
-			"Shim\\": "src",
-			"Shim\\Test\\Fixture\\": "tests\\Fixture"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Shim\\Test\\": "tests",
-			"Cake\\Test\\": "vendor/cakephp/cakephp/tests"
-		}
 	},
 	"extra": {
 		"installer-name": "Shim"
