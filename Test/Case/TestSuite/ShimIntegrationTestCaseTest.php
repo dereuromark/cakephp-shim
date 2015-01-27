@@ -1,6 +1,6 @@
 <?php
 App::uses('ShimIntegrationTestCase', 'Shim.TestSuite');
-App::uses('ShimCakeTestCase', 'Shim.TestSuite');
+App::uses('ShimTestCase', 'Shim.TestSuite');
 
 class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 

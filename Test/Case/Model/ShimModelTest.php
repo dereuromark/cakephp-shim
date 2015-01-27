@@ -1,8 +1,8 @@
 <?php
 App::uses('ShimModel', 'Shim.Model');
-App::uses('ShimCakeTestCase', 'Shim.TestSuite');
+App::uses('ShimTestCase', 'Shim.TestSuite');
 
-class ShimModelTest extends ShimCakeTestCase {
+class ShimModelTest extends ShimTestCase {
 
 	public $Post;
 
