@@ -3,6 +3,7 @@ App::uses('ShimControllerTestCase', 'Shim.TestSuite');
 App::uses('Router', 'Routing');
 App::uses('Dispatcher', 'Routing');
 App::uses('EventManager', 'Event');
+App::uses('CakeSession', 'Model/Datasource');
 
 /**
  * A test case class intended to make integration tests of
@@ -17,7 +18,7 @@ App::uses('EventManager', 'Event');
  * more of your code easily and avoid some of the maintenance pitfalls
  * that mock objects create.
  */
-abstract class IntegrationTestCase extends ShimControllerTestCase {
+abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 
 	/**
 	 * The data used to build the next request.
@@ -185,12 +186,21 @@ abstract class IntegrationTestCase extends ShimControllerTestCase {
 		$this->_request = $this->controller->request;
 		$this->_requestSession = $this->controller->Session;
 
+		// Shim result of https://github.com/cakephp/cakephp/pull/5744 for earlier versions
+		if ((float)Configure::version() <= 2.6) {
+			$header = $this->_response->header();
+			if (isset($header['Location']) && $this->_response->statusCode() === 200) {
+				$this->_response->statusCode(302);
+			}
+		}
+
 		return $result;
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 
+		// Workaround for https://github.com/cakephp/cakephp/pull/5558 for earlier versions
 		if ((float)Configure::version() >= 2.7) {
 			CakeSession::clear(false);
 		} else {

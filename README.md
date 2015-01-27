@@ -4,6 +4,7 @@
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
+It also provides some small fixes.
 
 ## This branch is for backporting 3.x to 2.x
 or to shim certain 3.x functionality/features in 2.x.
