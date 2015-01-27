@@ -1,0 +1,44 @@
+<?php
+App::uses('Controller', 'Controller');
+
+/**
+ * DRY Controller stuff
+ */
+class ShimController extends Controller {
+
+	/**
+	 * @var array
+	 * @link https://github.com/cakephp/cakephp/pull/857
+	 */
+	public $paginate = [];
+
+	/**
+	 * Add headers for IE8 etc to fix caching issues in those stupid browsers
+	 *
+	 * @overwrite to fix IE cacheing issues
+	 * @return void
+	 */
+	public function disableCache() {
+		$this->response->header([
+			'Pragma' => 'no-cache',
+		]);
+		return parent::disableCache();
+	}
+
+	/**
+	 * Handles automatic pagination of model records.
+	 *
+	 * @overwrite to support defaults like limit, querystring settings
+	 * @param Model|string $object Model to paginate (e.g: model instance, or 'Model', or 'Model.InnerModel')
+	 * @param string|array $scope Conditions to use while paginating
+	 * @param array $whitelist List of allowed options for paging
+	 * @return array Model query results
+	 */
+	public function paginate($object = null, $scope = [], $whitelist = []) {
+		if ($defaultSettings = (array)Configure::read('Paginator')) {
+			$this->paginate += $defaultSettings;
+		}
+		return parent::paginate($object, $scope, $whitelist);
+	}
+
+}
