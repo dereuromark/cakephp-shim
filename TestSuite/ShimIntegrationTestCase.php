@@ -200,6 +200,10 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	public function tearDown() {
 		parent::tearDown();
 
+		// Workaround for now that would work(null does not work!)
+		//$_SESSION = array();
+		//return;
+
 		// Workaround for https://github.com/cakephp/cakephp/pull/5558 for earlier versions
 		if (false && (float)Configure::version() >= 2.7) {
 			CakeSession::clear(false);
