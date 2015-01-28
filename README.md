@@ -40,6 +40,7 @@ for WebTestRunner and additional debugging tools.
 - Controller::disableCache() to help to write that directive to the browser for all (even IE).
 
 ## TODO
+- Add auto-301-redirects for named params => query strings.
 - Backport CakePHP 3.0 core FlashComponent and FlashHelper.
 
 ## More shims

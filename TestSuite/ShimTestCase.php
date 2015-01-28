@@ -100,7 +100,7 @@ abstract class ShimTestCase extends CakeTestCase {
 	}
 
 	/**
-	 * MyCakeTestCase::isDebug()
+	 * ShimTestCase::isDebug()
 	 *
 	 * @return bool Success
 	 */
