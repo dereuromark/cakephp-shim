@@ -16,6 +16,9 @@
 		"php": ">=5.4",
 		"composer/installers": "*"
 	},
+	"suggest": {
+		"ircmaxell/password-compat": "PHP5.4 compatability for the PHP5.5 password hashing functionality."
+	},
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"
 	},

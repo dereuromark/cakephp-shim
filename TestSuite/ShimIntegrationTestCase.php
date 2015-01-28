@@ -201,7 +201,7 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 		parent::tearDown();
 
 		// Workaround for https://github.com/cakephp/cakephp/pull/5558 for earlier versions
-		if ((float)Configure::version() >= 2.7) {
+		if (false && (float)Configure::version() >= 2.7) {
 			CakeSession::clear(false);
 		} else {
 			$keys = array_keys((array)CakeSession::read());

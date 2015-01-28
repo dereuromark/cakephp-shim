@@ -3,7 +3,7 @@
  * A Compatibility library with PHP 5.5's simplified password hashing API.
  *
  * Include it via require:
- *   require CakePlugin::path('Tools') . 'Lib/Bootstrap/Password.php';
+ *   require CakePlugin::path('Shim') . 'Lib/Bootstrap/Password.php';
  *
  * @author Anthony Ferrara <ircmaxell@php.net>
  * @license http://opensource.org/licenses/mit-license.html MIT
