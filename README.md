@@ -26,6 +26,13 @@ Please see [SETUP.md](/SETUP.md)
 Please see [Docs](/docs)
 
 ## Main shims
+
+### ModernPasswordHasher / FallbackPasswordHasher
+Already use the PHP5.5+ password functionality with the ModernPasswordHasher class and the Passwordable behavior. Easily upgradable to 3.x in minutes then.
+That includes auto-conversation (on-the-fly upon login) of old hashs to the new ones via `Fallback` password hasher class.
+
+### More shims
+- PasswordHasherFactory to easily load your hasher classes.
 - Model::updateAllJoinless() - since 3.x won't join updateAll() anymore.
 - Model::deleteAllJoinless() - since 3.x won't join updateAll() anymore.
 - IntegrationTestCase (replaces the deprecated ControllerTestCase)
@@ -35,9 +42,12 @@ for WebTestRunner and additional debugging tools.
 - Assert contain (and report wrong recursive level) if desired using `Configure::write('App.warnAboutMissingContain', true)`
 - Controller::paginate() loading config defaults and providing query string pagination by default.
 - Bootstrap configuration for out-of-the-box query string functionality for CakeDC Search plugin.
+- Header monitor via `App.monitorHeaders` to assert no output is done before the response class.
 
 ## Main fixes
 - Controller::disableCache() to help to write that directive to the browser for all (even IE).
+- Auto-aliasing for models' "order" properties.
+
 
 ## TODO
 - Add auto-301-redirects for named params => query strings.
@@ -49,18 +59,11 @@ can be found in my [Tools plugin](https://github.com/dereuromark/cakephp-tools) 
 ### FlashComponent and FlashHelper
 A 3.x branch-off that allows stackable flash messages.
 
-### ModernPasswordHasher
-Already use the PHP5.5+ password functionality with the ModernPasswordHasher class and the Passwordable behavior. Easily upgradable to 3.x in minutes then.
-That includes auto-conversation (on-the-fly upon login) of old hashs to the new ones via `Fallback` password hasher class.
-
 ### RssView
 Use RssView (and view-less action) instead of the akward and limited helper approach.
 
 ### TestConsoleOutput
 TestConsoleOutput() for stdout and stderr instead of mocks. Less fiddling around.
-
-### Refactor controllers
-using header monitoring and `Configure::read('App.monitorHeaders')`.
 
 ... and [more](https://github.com/dereuromark/cakephp-tools/blob/master/docs/Shims.md)
 
