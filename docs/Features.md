@@ -9,6 +9,21 @@ recursive -1 and not having a contain key in the options array. Those most likel
 too much (or at least uncontrolled) data, which should be avoided, as 3.x won't do this either.
 Better to be exact now.
 
+Use the FormShim helper to find very difficult to detect issues around Form::end():
+```php
+$this->Form->end('Some string');
+// should be
+$this->Form->submit('Some string');
+$this->Form->end();
+```
+In 3.x that will simply not output anything anymore (silent error so to speak). As such, you need to go away from that as soon as possible.
+By extending that helper you make sure you catch all of those in time:
+```php
+//public $helpers = array('Form');
+// use this instead:
+public $helpers = array('Form' => array('className' => 'Shim.FormShim'));
+```
+
 
 ### Debugging
 Use `Configure::write('App.monitorHeader', true);` to assert, that all controller actions
