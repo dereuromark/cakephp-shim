@@ -20,7 +20,7 @@ All new code ideally is as close to 3.x as it gets, making the future upgrade as
 **This plugin requires CakePHP 2.5+** (ideally you always use the current stable version).
 
 ## Installation
-Please see [SETUP.md](/SETUP.md)
+Please see [SETUP.md](docs/SETUP.md)
 
 ## Usage
 Please see [Docs](/docs)
@@ -46,18 +46,19 @@ for WebTestRunner and additional debugging tools.
 
 ## Main fixes
 - Controller::disableCache() to help to write that directive to the browser for all (even IE).
-- Auto-aliasing for models' "order" properties.
+- Correct auto-aliasing for models' `$order` property.
 
 
 ## TODO
-- Add auto-301-redirects for named params => query strings.
-- Backport CakePHP 3.0 core FlashComponent and FlashHelper.
+- Add auto-301-redirects (or 404s) for named params => query strings.
+- Maybe backport CakePHP 3.0 core FlashComponent and FlashHelper.
 
 ## More shims
 can be found in my [Tools plugin](https://github.com/dereuromark/cakephp-tools) directly:
 
 ### FlashComponent and FlashHelper
-A 3.x branch-off that allows stackable flash messages.
+A 3.x branch-off that allows stackable flash messages. It uses the same syntax as in 3.x, so you can 
+flawlessly upgrade without touching the flash functionality.
 
 ### RssView
 Use RssView (and view-less action) instead of the akward and limited helper approach.
@@ -66,5 +67,13 @@ Use RssView (and view-less action) instead of the akward and limited helper appr
 TestConsoleOutput() for stdout and stderr instead of mocks. Less fiddling around.
 
 ... and [more](https://github.com/dereuromark/cakephp-tools/blob/master/docs/Shims.md)
+
+
+## Stay up to date
+It is wise to always use the current master (latest minor framework version).
+This can usually be one by replacing the core folder (or composer config) and a few tweaks here and there.
+
+Read the migration guides of the official documentation on that one.
+You can also leverage the [Upgrade plugin](https://github.com/dereuromark/cakephp-upgrade) to automate some if it.
 
 Also see [these tips](https://github.com/dereuromark/cakephp-upgrade/wiki/Tips-Upgrading-to-CakePHP-2.x).
