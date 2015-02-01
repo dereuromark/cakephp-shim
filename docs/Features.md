@@ -5,7 +5,7 @@ Use `Configure::write('App.warnAboutNamedParams', true)` to warn about named par
 should have been migrated to query strins. This way you can detect and fix them.
 
 Use `Configure::write('App.warnAboutMissingContain', true)` to warn about models not being
-recursive -1 and not havin a contain key in the options array. Those most likely fetch
+recursive -1 and not having a contain key in the options array. Those most likely fetch
 too much (or at least uncontrolled) data, which should be avoided, as 3.x won't do this either.
 Better to be exact now.
 
