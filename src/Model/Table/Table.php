@@ -47,7 +47,10 @@ class Table extends CakeTable {
 			}
 		}
 
-		if ($this->hasField($this->createdField) || $this->hasField($this->modifiedField)) {
+		if (
+            $this->createdField && $this->hasField($this->createdField)
+            || $this->modifiedField && $this->hasField($this->modifiedField)
+        ) {
 			$this->addBehavior('Timestamp');
 		}
 	}

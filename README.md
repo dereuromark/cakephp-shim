@@ -18,10 +18,10 @@ of that.
 **This plugin requires CakePHP 3.0+.**
 
 ## Installation
-Please see [SETUP.md](/SETUP.md)
+Please see [SETUP.md](docs/SETUP.md)
 
 ## Usage
-Please see [Docs](/docs)
+Please see [Docs](docs)
 
 ## Main shims
 - Table::find('first') support.

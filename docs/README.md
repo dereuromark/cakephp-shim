@@ -97,3 +97,7 @@ $this->debug($var);
 ```
 Sometimes it can be useful to have additional debug output, which will only be
 printed with one of the above verbose flags set. This is a quick convenience wrapper to do so.
+
+
+### Features
+See [Features](Features.md).
