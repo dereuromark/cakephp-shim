@@ -23,6 +23,7 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 		$this->get(array('controller' => 'items', 'action' => 'index'));
 		$this->assertResponseCode(200);
 		$this->assertNoRedirect();
+		$this->assertResponseNotEmpty();
 		$this->assertResponseContains('My Index Test ctp');
 	}
 
@@ -69,6 +70,7 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 
 		// Make sure we dont have cross contamination from the previous test
 		$this->assertSession(null, 'Auth.User.id');
+		$this->assertResponseEmpty();
 	}
 
 	/**
