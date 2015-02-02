@@ -1,32 +1,18 @@
 ## Shim plugin Documentation
 
 ### Installation
-usin composer and `composer require dereuromark/cakephp-shim:[version].*`:
-
-```
-"require": {
-	"dereuromark/cakephp-tools": "[version].*"
-}
-```
-This will install the plugin into APP/Vendor.
-
-Make sure you have `CakePlugin::load('Tools')` or `CakePlugin::loadAll()` in your bootstrap.
-
-If you want to leverage the defaults regarding query strings, use
-```
-CakePlugin::load('Tools', ['bootstrap' => true]);
-```
+See [Setup docs](SETUP.md).
 
 ### Basics
 To profit from the basics, you can extend the controller and model class and include the component.
-```
+```php
 App::uses('ShimModel', 'Shim.Model');
 
 class AppModel extends ShimModel {
 }
 ```
 
-```
+```php
 App::uses('ShimController', 'Shim.Controller');
 
 class AppController extends ShimController {
@@ -38,7 +24,7 @@ class AppController extends ShimController {
 
 
 For test cases you can extend the test case:
-```
+```php
 App::uses('ShimTestCase', 'Shim.TestSuite');
 
 class MyNameModelTest extends ShimTestCase {
@@ -46,7 +32,7 @@ class MyNameModelTest extends ShimTestCase {
 ```
 
 For controller tests you can extend the 3.x backport of IntegrationTestCase:
-```
+```php
 App::uses('ShimIntegrationTestCase', 'Shim.TestSuite');
 
 class MyNameControllerTest extends ShimIntegrationTestCase {
@@ -57,6 +43,7 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 		$this->get(['controller' => 'my_name', 'action' => 'index']);
 		$this->assertResponseCode(200);
 		$this->assertNoRedirect();
+        $this->assertResponseContains('Some HTML snippet or text.');
 	}
 
 	public function testAddPost() {
@@ -73,6 +60,8 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 
 }
 ```
+This uses the same syntax as in 3.x then. When upgrading your 2.x app you will
+not have to touch this much then. A real time saver when doing a lot of integration testing.
 
 ### Auth and Password Hashing
 See [Auth](Auth.md)
