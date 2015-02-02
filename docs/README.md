@@ -43,6 +43,7 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 		$this->get(['controller' => 'my_name', 'action' => 'index']);
 		$this->assertResponseCode(200);
 		$this->assertNoRedirect();
+		$this->assertResponseNotEmpty();
         $this->assertResponseContains('Some HTML snippet or text.');
 	}
 
@@ -52,6 +53,7 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 		);
 		$this->post(['controller' => 'my_name', 'action' => 'add'], $data);
 		$this->assertResponseCode(302);
+		$this->assertResponseEmpty();
 		$this->assertRedirect(['controller' => 'my_name', 'action' => 'index']);
 		$this->assertSession('Saved!'), 'Message.flash.message');
 	}
