@@ -16,7 +16,8 @@ $this->Form->end('Some string');
 $this->Form->submit('Some string');
 $this->Form->end();
 ```
-In 3.x that will simply not output anything anymore (silent error so to speak). As such, you need to go away from that as soon as possible.
+In 3.x that will simply not output anything anymore (~~silent error so to speak~~ fixed in [5810](https://github.com/cakephp/cakephp/pull/5810)). 
+As such, you need to go away from that as soon as possible.
 By extending that helper you make sure you catch all of those in time:
 ```php
 //public $helpers = array('Form');
