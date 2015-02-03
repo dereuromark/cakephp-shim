@@ -1,5 +1,6 @@
 <?php
 App::uses('Model', 'Model');
+App::uses('RecordNotFoundException', 'Shim.Error');
 
 /**
  * Model enhancements for Cake2
@@ -262,4 +263,50 @@ class ShimModel extends Model {
 		$this->validator()->remove($field);
 	}
 
+	/**
+	 * Shortcut method to find a specific entry via primary key.
+	 * This has the same behavior as in 3.x.
+	 *
+	 * It is best to pass the id directly:
+	 *
+	 *   $record = $this->Model->get($id);
+	 *
+	 * @param mixed $id
+	 * @param array $options Options for find(). Used to be fields array/string.
+	 * @param array $contain Deprecated - use
+	 * @return mixed
+	 */
+	public function get($id = null, $options = []) {
+		if (is_array($id)) {
+			$column = $id[0];
+			$value = $id[1];
+		} else {
+			$column = $this->primaryKey;
+			$value = $id;
+			if ($value === null) {
+				$value = $this->id;
+			}
+		}
+		if (!$value) {
+			return [];
+		}
+		
+		if (!isset($options['contain'])) {
+			$options['contain'] = array();
+		}
+		if (!isset($options['conditions'])) {
+			$options['conditions'] = array();
+		}
+		$options['conditions'] = array_merge($options['conditions'], [$this->alias . '.' . $column => $value]);
+		
+		$result = $this->find('first', $options);
+		if (!$result) {
+			throw new RecordNotFoundException(sprintf(
+				'Record not found in model "%s"',
+				$this->alias
+			));
+		}
+		return $result;
+	}
+	
 }

@@ -30,7 +30,20 @@ class ShimModelTest extends ShimTestCase {
 	 *
 	 * @return void
 	 */
-	public function _testGet() {
+	public function testMagicFind() {
+		$res = $this->Post->findById(2);
+		$this->assertNotEmpty($res);
+
+		$res = $this->Post->findById(121212);
+		$this->assertEmpty($res);
+	}
+
+	/**
+	 * ShimModelTest::testGet()
+	 *
+	 * @return void
+	 */
+	public function testGet() {
 		$record = $this->Post->get(2);
 		$this->assertEquals(2, $record['Post']['id']);
 
@@ -40,11 +53,16 @@ class ShimModelTest extends ShimTestCase {
 		$record = $this->Post->get(2, ['fields' => ['id', 'title', 'body'], 'contain' => ['Author']]);
 		$this->assertEquals(3, count($record['Post']));
 		$this->assertEquals(3, $record['Author']['id']);
-
-		// BC
-		$record = $this->Post->get(2, ['id', 'title', 'body'], ['Author']);
-		$this->assertEquals(3, count($record['Post']));
-		$this->assertEquals(3, $record['Author']['id']);
+	}
+ 
+	/**
+	 * ShimModelTest::testGetFail()
+	 *
+	 * @expectedException RECORDNOTFOUNDEXCEPTION
+	 * @return void
+	 */
+	public function testGetFail() {
+		$this->Post->get(2222);
 	}
 
 	/**
