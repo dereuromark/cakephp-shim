@@ -11,14 +11,14 @@ Better to be exact now.
 
 Note: You can also throw exceptions (ShimException) in debug mode, if that is more useful for you, by using
 `Configure::write('App.warnAboutMissingContain', 'exception')`.
-In this case you should then create a custom `APP/View/Errors/shim.ctp` file as copy from an existing one (or re-use the
-generic `App/View/Errors/error500.ctp` one), and at least
+In this case you should then create a custom `APP/View/Errors/shim.ctp` file as copy from an existing one, and at least
 add this snippet to have some details on the query being executed:
 ```php
 <?php if ($details = Configure::read('Exception.details')) { ?>
 	<?php debug($details); ?>
 <?php } ?>
 ```
+You can also just re-use the generic `App/View/Errors/error500.ctp` and add the snippet there.
 
 Use `Configure::write('App.deprecateField', true);` to warn about `field()` usage, which is highly
 unusable with Containable and without a global recursive level of -1. So better to use this Shim plugin's
@@ -47,7 +47,7 @@ You can also use the FormShim and HtmlShim helpers to detect leftovers of deprec
 ### Debugging
 Use `Configure::write('App.monitorHeader', true);` to assert, that all controller actions
 don't (accidentally) sent any headers prior to the actual response->send() call.
-It will throw an exception in debug mode, and trigger an error in productive mode.
+It will throw an exception (ShimException) in debug mode, and trigger an error in productive mode.
 
 Make sure your AppController extends the Shim plugin ShimController:
 ```php

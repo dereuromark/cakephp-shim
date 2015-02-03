@@ -22,7 +22,7 @@ if (!defined('PASSWORD_BCRYPT')) {
  */
 class FallbackPasswordHasherTest extends ShimTestCase {
 
-	public $fixtures = ['plugin.shim.tools_auth_user'];
+	public $fixtures = ['core.cake_session', 'plugin.shim.tools_auth_user'];
 
 	public $Controller;
 

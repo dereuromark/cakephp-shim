@@ -53,7 +53,7 @@ for WebTestRunner and additional debugging tools.
 
 ## TODO
 - Add auto-301-redirects (or 404s) for named params => query strings.
-- Maybe backport CakePHP 3.0 core FlashComponent and FlashHelper.
+- (Maybe backport CakePHP 3.0 core FlashComponent and FlashHelper - will probably be a 2.7 feature soon)
 
 ## More shims
 can be found in my [Tools plugin](https://github.com/dereuromark/cakephp-tools) directly:
