@@ -27,7 +27,7 @@ class ShimComponent extends Component {
 		}
 
 		// Deprecation notices, but only for internally triggered ones
-		if (Configure::read('App.warnAboutNamedParams') && ($referer = $Controller->request->referer(true)) && $referer !== '/') {
+		if (Configure::read('Shim.warnAboutNamedParams') && ($referer = $Controller->request->referer(true)) && $referer !== '/') {
 			$message = 'Named params ' . json_encode($Controller->request->params['named']) . ' - from ' . $referer;
 			if (Configure::read('debug')) {
 				throw new ShimException($message);
@@ -35,7 +35,7 @@ class ShimComponent extends Component {
 			trigger_error($message, E_USER_DEPRECATED);
 		}
 
-		if ($handle = Configure::read('App.handleNamedParams')) {
+		if ($handle = Configure::read('Shim.handleNamedParams')) {
 			if ($handle === 'exception') {
 				throw new NotFoundException();
 			}

@@ -43,9 +43,9 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 ### Quick-Start
 For your bootstrap/Configure:
 ```php
-Configure::write('App.warnAboutNamedParams', true);
-Configure::write('App.warnAboutMissingContain', true);
-Configure::write('App.monitorHeaders', true);
+Configure::write('Shim.warnAboutNamedParams', true);
+Configure::write('Shim.warnAboutMissingContain', true);
+Configure::write('Shim.monitorHeaders', true);
 ```
 and don't forget to include the Plugin bootstrap file.
 

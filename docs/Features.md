@@ -1,19 +1,19 @@
 ## Features
 
 ### Upgrade helpers
-Use `Configure::write('App.warnAboutNamedParams', true)` to warn about named param leftovers, that
+Use `Configure::write('Shim.warnAboutNamedParams', true)` to warn about named param leftovers, that
 should have been migrated to query strings. This way you can detect and fix them.
-After you finished migrating them, you can use `Configure::write('App.handleNamedParams', true)` to 301-redirect all
+After you finished migrating them, you can use `Configure::write('Shim.handleNamedParams', true)` to 301-redirect all
 to the corresponding new query string URLs. Note that in debug mode, it will be a 302 redirect as debugging would be more difficult otherwise.
-If you rather throw a 404 exception, use `Configure::write('App.handleNamedParams', 'exception')`.
+If you rather throw a 404 exception, use `Configure::write('Shim.handleNamedParams', 'exception')`.
 
-Use `Configure::write('App.warnAboutMissingContain', true)` to warn about models not being
+Use `Configure::write('Shim.warnAboutMissingContain', true)` to warn about models not being
 recursive -1 and not having a contain key in the options array. Those most likely fetch
 too much (or at least uncontrolled) data, which should be avoided, as 3.x won't do this either.
 Better to be exact now.
 
 Note: You can also throw exceptions (ShimException) in debug mode, if that is more useful for you, by using
-`Configure::write('App.warnAboutMissingContain', 'exception')`.
+`Configure::write('Shim.warnAboutMissingContain', 'exception')`.
 In this case you should then create a custom `APP/View/Errors/shim.ctp` file as copy from an existing one, and at least
 add this snippet to have some details on the query being executed:
 ```php
@@ -23,7 +23,7 @@ add this snippet to have some details on the query being executed:
 ```
 You can also just re-use the generic `App/View/Errors/error500.ctp` and add the snippet there.
 
-Use `Configure::write('App.deprecateField', true);` to warn about `field()` usage, which is highly
+Use `Configure::write('Shim.deprecateField', true);` to warn about `field()` usage, which is highly
 unusable with Containable and without a global recursive level of -1. So better to use this Shim plugin's
 `fieldByConditions()` which will be supported in 3.x via the corresponding plugin version then.
 Or switch to `find()` directly.
@@ -48,7 +48,7 @@ You can also use the FormShim and HtmlShim helpers to detect leftovers of deprec
 
 
 ### Debugging
-Use `Configure::write('App.monitorHeader', true);` to assert, that all controller actions
+Use `Configure::write('Shim.monitorHeader', true);` to assert, that all controller actions
 don't (accidentally) sent any headers prior to the actual response->send() call.
 It will throw an exception (ShimException) in debug mode, and trigger an error in productive mode.
 

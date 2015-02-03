@@ -18,13 +18,13 @@ class ShimModelTest extends ShimTestCase {
 		$this->Post = ClassRegistry::init('ShimAppModelPost');
 		$this->User = ClassRegistry::init('ShimAppModelUser');
 
-		Configure::write('App.warnAboutMissingContain', false);
-		Configure::write('App.deprecateField', false);
+		Configure::write('Shim.warnAboutMissingContain', false);
+		Configure::write('Shim.deprecateField', false);
 	}
 
 	public function tearDown() {
-		Configure::write('App.warnAboutMissingContain', false);
-		Configure::write('App.deprecateField', false);
+		Configure::write('Shim.warnAboutMissingContain', false);
+		Configure::write('Shim.deprecateField', false);
 
 		parent::tearDown();
 	}
@@ -79,7 +79,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testField() {
-		Configure::write('App.warnAboutMissingContain', true);
+		Configure::write('Shim.warnAboutMissingContain', true);
 
 		$is = $this->Post->field('title');
 		$this->assertSame('First Post', $is);
@@ -90,8 +90,8 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFieldDeprecated() {
-		Configure::write('App.warnAboutMissingContain', true);
-		Configure::write('App.deprecateField', true);
+		Configure::write('Shim.warnAboutMissingContain', true);
+		Configure::write('Shim.deprecateField', true);
 
 		$this->Post->field('title');
 	}
@@ -100,7 +100,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFieldByConditions() {
-		Configure::write('App.warnAboutMissingContain', true);
+		Configure::write('Shim.warnAboutMissingContain', true);
 
 		$is = $this->Post->fieldByConditions('title', ['title LIKE' => 'S%']);
 		$this->assertSame('Second Post', $is);
@@ -123,7 +123,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFind() {
-		Configure::write('App.warnAboutMissingContain', true);
+		Configure::write('Shim.warnAboutMissingContain', true);
 
 		$this->User->find('first');
 	}
@@ -134,7 +134,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindRecursive() {
-		Configure::write('App.warnAboutMissingContain', true);
+		Configure::write('Shim.warnAboutMissingContain', true);
 
 		$this->User->recursive = 0;
 		$this->User->find('first', ['contain' => []]);
@@ -147,7 +147,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindWrongRecursive() {
-		Configure::write('App.warnAboutMissingContain', true);
+		Configure::write('Shim.warnAboutMissingContain', true);
 
 		$this->User->recursive = 0;
 		$this->User->find('first');
@@ -160,7 +160,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindWrongRecursiveException() {
-		Configure::write('App.warnAboutMissingContain', 'exception');
+		Configure::write('Shim.warnAboutMissingContain', 'exception');
 
 		$this->User->recursive = 0;
 		$this->User->find('first');

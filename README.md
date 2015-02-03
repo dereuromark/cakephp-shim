@@ -39,11 +39,11 @@ That includes auto-conversation (on-the-fly upon login) of old hashs to the new 
 - IntegrationTestCase (replaces the deprecated ControllerTestCase)
 - Shimmed ControllerTestCase (defaults to GET by default) including referrer reset
 for WebTestRunner and additional debugging tools.
-- Assert query strings (and report usage of deprecated named params) if desired using `Configure::write('App.warnAboutNamedParams', true)`
-- Assert contain (and report wrong recursive level) if desired using `Configure::write('App.warnAboutMissingContain', true)`
+- Assert query strings (and report usage of deprecated named params) if desired using `Configure::write('Shim.warnAboutNamedParams', true)`
+- Assert contain (and report wrong recursive level) if desired using `Configure::write('Shim.warnAboutMissingContain', true)`
 - Controller::paginate() loading config defaults and providing query string pagination by default.
 - Bootstrap configuration for out-of-the-box query string functionality for CakeDC Search plugin.
-- Header monitor via `App.monitorHeaders` to assert no output is done before the response class.
+- Header monitor via `Shim.monitorHeaders` to assert no output is done before the response class.
 - FormShim and HtmlShim helpers for detection of view deprecations.
 - Auto-301-redirects (or 404s) for named params => query strings.
 

@@ -22,15 +22,15 @@ class ShimComponentTest extends ShimTestCase {
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
 
-		Configure::write('App.warnAboutNamedParams', false);
-		Configure::write('App.handleNamedParams', false);
+		Configure::write('Shim.warnAboutNamedParams', false);
+		Configure::write('Shim.handleNamedParams', false);
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 
   	unset($this->ShimController);
-  	Configure::delete('App.warnAboutNamedParams');
+  	Configure::delete('Shim.warnAboutNamedParams');
 	}
 
 	/**
@@ -39,7 +39,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testUrlQueryStrings() {
-		Configure::write('App.warnAboutNamedParams', true);
+		Configure::write('Shim.warnAboutNamedParams', true);
 
 		$this->ShimController = new TestShimComponentController(new CakeRequest('/foo/bar?page=3'), new CakeResponse());
 		$this->ShimController->constructClasses();
@@ -53,7 +53,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testUrlNamedParams() {
-		Configure::write('App.warnAboutNamedParams', true);
+		Configure::write('Shim.warnAboutNamedParams', true);
 
 		$referer = '/foobar';
 		$this->request->expects($this->once())
@@ -72,7 +72,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testRedirect() {
-		Configure::write('App.handleNamedParams', true);
+		Configure::write('Shim.handleNamedParams', true);
 
 		$request = new CakeRequest();
 		$request->params['controller'] = 'my_controller';

@@ -38,7 +38,7 @@ class ShimModel extends Model {
 	 * @return mixed
 	 */
 	public function find($type = 'first', $query = array()) {
-		if ($warn = Configure::read('App.warnAboutMissingContain')) {
+		if ($warn = Configure::read('Shim.warnAboutMissingContain')) {
 			if ($this->alias !== 'Session' && $this->recursive !== -1 && !isset($query['contain'])) {
 				$message = 'No recursive -1 or contain used for the query in ' . $this->alias;
 				if (Configure::read('debug') && $warn === 'exception') {
@@ -52,8 +52,8 @@ class ShimModel extends Model {
 	}
 
 	/**
-	 * Overwrite field to automatically add contain() to avoid above `App.warnAboutMissingContain`
-	 * notices here. Also triggers deprecation notice if `App.deprecateField` is enabled as this method
+	 * Overwrite field to automatically add contain() to avoid above `Shim.warnAboutMissingContain`
+	 * notices here. Also triggers deprecation notice if `Shim.deprecateField` is enabled as this method
 	 * will not be directly 3.x compatible without the 3.x shim pendant.
 	 *
 	 * @param mixed $name
@@ -62,7 +62,7 @@ class ShimModel extends Model {
 	 * @return void
 	 */
 	public function field($name, $conditions = null, $order = null) {
-		if (Configure::read('App.deprecateField')) {
+		if (Configure::read('Shim.deprecateField')) {
 			trigger_error('field() is deprecated in the shim context. Use shimmed fieldByConditions() or find() instead.', E_USER_DEPRECATED);
 		}
 		$options = [];

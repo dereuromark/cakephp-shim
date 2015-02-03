@@ -9,3 +9,6 @@ Configure::write('Search', array(
 			'presetForm' => array('paramType' => 'querystring')
 		)
 ));
+
+// Shims
+// Add them in your own bootstrap.

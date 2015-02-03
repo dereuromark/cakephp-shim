@@ -50,7 +50,7 @@ class ShimController extends Controller {
 	public function afterFilter() {
 		parent::afterFilter();
 
-		if (Configure::read('App.monitorHeaders') && $this->name !== 'CakeError') {
+		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'CakeError') {
 			if (headers_sent($filename, $linenum)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $linenum);
 				if (Configure::read('debug')) {
