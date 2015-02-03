@@ -35,6 +35,7 @@ That includes auto-conversation (on-the-fly upon login) of old hashs to the new 
 - PasswordHasherFactory to easily load your hasher classes.
 - Model::updateAllJoinless() - since 3.x won't join updateAll() anymore.
 - Model::deleteAllJoinless() - since 3.x won't join updateAll() anymore.
+- Model::get() the new 3.x way.
 - IntegrationTestCase (replaces the deprecated ControllerTestCase)
 - Shimmed ControllerTestCase (defaults to GET by default) including referrer reset
 for WebTestRunner and additional debugging tools.
@@ -43,6 +44,7 @@ for WebTestRunner and additional debugging tools.
 - Controller::paginate() loading config defaults and providing query string pagination by default.
 - Bootstrap configuration for out-of-the-box query string functionality for CakeDC Search plugin.
 - Header monitor via `App.monitorHeaders` to assert no output is done before the response class.
+- FormShim and HtmlShim helpers for detection of view deprecations.
 
 ## Main fixes
 - Controller::disableCache() to help to write that directive to the browser for all (even IE).
@@ -57,7 +59,7 @@ for WebTestRunner and additional debugging tools.
 can be found in my [Tools plugin](https://github.com/dereuromark/cakephp-tools) directly:
 
 ### FlashComponent and FlashHelper
-A 3.x branch-off that allows stackable flash messages. It uses the same syntax as in 3.x, so you can 
+A 3.x branch-off that allows stackable flash messages. It uses the same syntax as in 3.x, so you can
 flawlessly upgrade without touching the flash functionality.
 
 ### RssView
