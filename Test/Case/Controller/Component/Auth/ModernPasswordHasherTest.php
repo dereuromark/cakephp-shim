@@ -10,6 +10,7 @@ App::uses('CakeRequest', 'Network');
 App::uses('CakeResponse', 'Network');
 App::uses('Model', 'Model');
 App::uses('CakeSession', 'Model/Datasource');
+App::uses('PasswordHasherFactory', 'Shim.Controller/Component/Auth');
 
 if (!defined('PASSWORD_BCRYPT')) {
 	require CakePlugin::path('Shim') . 'Lib/Bootstrap/Password.php';
@@ -159,6 +160,7 @@ class TestModernPasswordHasherUser extends Model {
 	 * @return PasswordHasher
 	 */
 	protected function _getPasswordHasher($hasher) {
+		return PasswordHasherFactory::build($hasher);
 		$class = $hasher;
 		$config = [];
 		if (is_array($hasher)) {

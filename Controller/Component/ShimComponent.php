@@ -1,6 +1,7 @@
 <?php
 
 App::uses('Component', 'Controller');
+App::uses('ShimException', 'Shim.Error');
 
 /**
  * A component included in every app to take care of common stuff.
@@ -30,7 +31,7 @@ class ShimComponent extends Component {
 		) {
 			$message = 'Named params ' . json_encode($Controller->request->params['named']) . ' - from ' . $referer;
 			if (Configure::read('debug')) {
-				throw new CakeException($message);
+				throw new ShimException($message);
 			}
 			trigger_error($message, E_USER_DEPRECATED);
 		}

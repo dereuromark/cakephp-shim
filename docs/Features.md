@@ -8,8 +8,17 @@ Use `Configure::write('App.warnAboutMissingContain', true)` to warn about models
 recursive -1 and not having a contain key in the options array. Those most likely fetch
 too much (or at least uncontrolled) data, which should be avoided, as 3.x won't do this either.
 Better to be exact now.
-Note: You can also throw exceptions in debug mode, if that is more useful for you, by using
+
+Note: You can also throw exceptions (ShimException) in debug mode, if that is more useful for you, by using
 `Configure::write('App.warnAboutMissingContain', 'exception')`.
+In this case you should then create a custom `APP/View/Errors/shim.ctp` file as copy from an existing one (or re-use the
+generic `App/View/Errors/error500.ctp` one), and at least
+add this snippet to have some details on the query being executed:
+```php
+<?php if ($details = Configure::read('Exception.details')) { ?>
+	<?php debug($details); ?>
+<?php } ?>
+```
 
 Use `Configure::write('App.deprecateField', true);` to warn about `field()` usage, which is highly
 unusable with Containable and without a global recursive level of -1. So better to use this Shim plugin's

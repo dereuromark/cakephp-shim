@@ -1,6 +1,7 @@
 <?php
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
+App::uses('ShimException', 'Shim.Error');
 
 /**
  * Model enhancements for Cake2
@@ -39,10 +40,11 @@ class ShimModel extends Model {
 	public function find($type = 'first', $query = array()) {
 		if ($warn = Configure::read('App.warnAboutMissingContain')) {
 			if ($this->alias !== 'Session' && $this->recursive !== -1 && !isset($query['contain'])) {
-				$message = 'No recursive -1 or contain used for this query in ' . $this->alias . ': ' . print_r($query, true);
+				$message = 'No recursive -1 or contain used for the query in ' . $this->alias;
 				if (Configure::read('debug') && $warn === 'exception') {
-					throw new CakeException($message);
+					throw new ShimException($message, 500, $query);
 				}
+				$message .= ': ' . print_r($query, true);
 				trigger_error($message, E_USER_WARNING);
 			}
 		}

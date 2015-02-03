@@ -22,6 +22,13 @@ class ShimModelTest extends ShimTestCase {
 		Configure::write('App.deprecateField', false);
 	}
 
+	public function tearDown() {
+		Configure::write('App.warnAboutMissingContain', false);
+		Configure::write('App.deprecateField', false);
+
+		parent::tearDown();
+	}
+
 	public function testObject() {
 		$this->Post = ClassRegistry::init('ShimModel');
 		$this->assertTrue(is_object($this->Post));

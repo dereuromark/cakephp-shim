@@ -1,5 +1,6 @@
 <?php
 App::uses('Controller', 'Controller');
+App::uses('ShimException', 'Shim.Error');
 
 /**
  * DRY Controller stuff
@@ -35,9 +36,9 @@ class ShimController extends Controller {
 	 * @return array Model query results
 	 */
 	public function paginate($object = null, $scope = [], $whitelist = []) {
-		if ($defaultSettings = (array)Configure::read('Paginator')) {
-			$this->paginate += $defaultSettings;
-		}
+		$defaultSettings = (array)Configure::read('Paginator') + ['contain' => []];
+		$this->paginate += $defaultSettings;
+
 		return parent::paginate($object, $scope, $whitelist);
 	}
 
@@ -53,7 +54,7 @@ class ShimController extends Controller {
 			if (headers_sent($filename, $linenum)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $linenum);
 				if (Configure::read('debug')) {
-					throw new CakeException($message);
+					throw new ShimException($message);
 				}
 				trigger_error($message);
 			}
