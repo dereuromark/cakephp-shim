@@ -41,7 +41,7 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 ```
 
 ### Auth and Password Hashing
-See [Auth](Auth.md)
+See [Auth](Auth.md).
 
 ### Model
 See [Model](Model.md).

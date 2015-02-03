@@ -8,6 +8,13 @@ Use `Configure::write('App.warnAboutMissingContain', true)` to warn about models
 recursive -1 and not having a contain key in the options array. Those most likely fetch
 too much (or at least uncontrolled) data, which should be avoided, as 3.x won't do this either.
 Better to be exact now.
+Note: You can also throw exceptions in debug mode, if that is more useful for you, by using
+`Configure::write('App.warnAboutMissingContain', 'exception')`.
+
+Use `Configure::write('App.deprecateField', true);` to warn about `field()` usage, which is highly
+unusable with Containable and without a global recursive level of -1. So better to use this Shim plugin's
+`fieldByConditions()` which will be supported in 3.x via the corresponding plugin version then.
+Or switch to `find()` directly.
 
 Use the FormShim helper to find very difficult to detect issues around Form::end():
 ```php
@@ -16,7 +23,7 @@ $this->Form->end('Some string');
 $this->Form->submit('Some string');
 $this->Form->end();
 ```
-In 3.x that will simply not output anything anymore (~~silent error so to speak~~ fixed in [5810](https://github.com/cakephp/cakephp/pull/5810)). 
+In 3.x that will simply not output anything anymore (~~silent error so to speak~~ fixed in [5810](https://github.com/cakephp/cakephp/pull/5810)).
 As such, you need to go away from that as soon as possible.
 By extending that helper you make sure you catch all of those in time:
 ```php

@@ -17,6 +17,9 @@ class ShimModelTest extends ShimTestCase {
 
 		$this->Post = ClassRegistry::init('ShimAppModelPost');
 		$this->User = ClassRegistry::init('ShimAppModelUser');
+
+		Configure::write('App.warnAboutMissingContain', false);
+		Configure::write('App.deprecateField', false);
 	}
 
 	public function testObject() {
@@ -39,7 +42,7 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
-	 * ShimModelTest::testGet()
+	 * Test the better findById()
 	 *
 	 * @return void
 	 */
@@ -54,7 +57,7 @@ class ShimModelTest extends ShimTestCase {
 		$this->assertEquals(3, count($record['Post']));
 		$this->assertEquals(3, $record['Author']['id']);
 	}
- 
+
 	/**
 	 * ShimModelTest::testGetFail()
 	 *
@@ -66,14 +69,45 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
-	 * More tests in ShimModel Test directly
-	 *
 	 * @return void
 	 */
-	public function _testGetFalse() {
-		$this->User->order = [];
-		$is = $this->User->get('xyz');
-		$this->assertSame([], $is);
+	public function testField() {
+		Configure::write('App.warnAboutMissingContain', true);
+
+		$is = $this->Post->field('title');
+		$this->assertSame('First Post', $is);
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @return void
+	 */
+	public function testFieldDeprecated() {
+		Configure::write('App.warnAboutMissingContain', true);
+		Configure::write('App.deprecateField', true);
+
+		$this->Post->field('title');
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFieldByConditions() {
+		Configure::write('App.warnAboutMissingContain', true);
+
+		$is = $this->Post->fieldByConditions('title', ['title LIKE' => 'S%']);
+		$this->assertSame('Second Post', $is);
+
+		$is = $this->Post->fieldByConditions('title', ['title LIKE' => '%'], ['order' => array('title' => 'DESC')]);
+		$this->assertSame('Third Post', $is);
+	}
+
+	/**
+	 * @expectedException CakeException
+	 * @return void
+	 */
+	public function testFieldInvalid() {
+		$this->Post->field('fooooo');
 	}
 
 	/**
@@ -102,11 +136,24 @@ class ShimModelTest extends ShimTestCase {
 	/**
 	 * Testing missing contain warnings
 	 *
-	 * @expectedException CakeException
+	 * @expectedException PHPUnit_Framework_Error_Warning
 	 * @return void
 	 */
 	public function testFindWrongRecursive() {
 		Configure::write('App.warnAboutMissingContain', true);
+
+		$this->User->recursive = 0;
+		$this->User->find('first');
+	}
+
+	/**
+	 * Testing missing contain warnings
+	 *
+	 * @expectedException CakeException
+	 * @return void
+	 */
+	public function testFindWrongRecursiveException() {
+		Configure::write('App.warnAboutMissingContain', 'exception');
 
 		$this->User->recursive = 0;
 		$this->User->find('first');
