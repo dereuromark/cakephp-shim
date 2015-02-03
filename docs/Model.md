@@ -9,18 +9,18 @@ Former way:
 App::uses('AppController', 'Controller');
 
 class PostsController extends AppController {
-    
-    /**
-     * @throws NotFoundException If record cannot be found.
-     */
-    public function view($id = null) {
-        $record = $this->Post->findById($id);
-        if (!$record) {
-            throw new NotFoundException();
-        }
-        ...
-    }
-    
+	
+	/**
+	 * @throws NotFoundException If record cannot be found.
+	 */
+	public function view($id = null) {
+		$record = $this->Post->findById($id);
+		if (!$record) {
+			throw new NotFoundException();
+		}
+		...
+	}
+	
 }
 ```
 
@@ -29,13 +29,13 @@ New way:
 App::uses('AppController', 'Controller');
 
 class PostsController extends AppController {
-    
-    /**
-     * @throws RecordNotFoundException If record cannot be found.
-     */
-    public function view($id = null) {
-        $record = $this->Post->get($id);
-        ...
-    }
+	
+	/**
+	 * @throws RecordNotFoundException If record cannot be found.
+	 */
+	public function view($id = null) {
+		$record = $this->Post->get($id);
+		...
+	}
 }
 ```

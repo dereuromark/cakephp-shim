@@ -250,7 +250,7 @@ class ShimModel extends Model {
 	 *
 	 * @param string $field The name of the field to invalidate
 	 * @param mixed $value Name of validation rule that was not failed, or validation message to
-	 *    be returned. If no validation key is provided, defaults to true.
+	 *   be returned. If no validation key is provided, defaults to true.
 	 * @param bool $last If this should be the last validation check for this validation run
 	 * @return void
 	 */

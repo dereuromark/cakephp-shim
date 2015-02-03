@@ -15,7 +15,7 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 		$this->assertResponseCode(200);
 		$this->assertNoRedirect();
 		$this->assertResponseNotEmpty();
-        $this->assertResponseContains('Some HTML snippet or text.');
+		$this->assertResponseContains('Some HTML snippet or text.');
 	}
 
 	public function testAddPost() {
