@@ -15,6 +15,24 @@ class FormShimHelperTest extends ShimTestCase {
 	/**
 	 * @return void
 	 */
+	public function testPostLink() {
+		$result = $this->Form->postLink('Foo', '/bar', ['confirm' => 'Some string here']);
+        $expected = '<a href="#" onclick="if (confirm(&quot;Some string here&quot;)) { document';
+		$this->assertContains($expected, $result);
+	}
+
+	/**
+     * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @return void
+	 */
+	public function testPostLinkInvalid() {
+		$this->Form->postLink('Foo', '/bar', [], 'Some string here');
+	}
+    
+
+	/**
+	 * @return void
+	 */
 	public function testEnd() {
 		$result = $this->Form->end();
 		$this->assertSame('</form>', $result);

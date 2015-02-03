@@ -2,7 +2,7 @@
 
 ### Upgrade helpers
 Use `Configure::write('App.warnAboutNamedParams', true)` to warn about named param leftovers, that
-should have been migrated to query strins. This way you can detect and fix them.
+should have been migrated to query strings. This way you can detect and fix them.
 
 Use `Configure::write('App.warnAboutMissingContain', true)` to warn about models not being
 recursive -1 and not having a contain key in the options array. Those most likely fetch
@@ -25,10 +25,12 @@ By extending that helper you make sure you catch all of those in time:
 public $helpers = array('Form' => array('className' => 'Shim.FormShim'));
 ```
 
+You can also use the FormShim and HtmlShim helpers to detect leftovers of deprecated `$confirmMessage` usage in link() and postLink().
+
 
 ### Debugging
 Use `Configure::write('App.monitorHeader', true);` to assert, that all controller actions
-don't (accidently) sent any headers prior to the actual response->send() call.
+don't (accidentally) sent any headers prior to the actual response->send() call.
 It will throw an exception in debug mode, and trigger an error in productive mode.
 
 Make sure your AppController extends the Shim plugin ShimController:
@@ -41,6 +43,5 @@ App::uses('ShimController', 'Shim.Controller');
 class AppController extends ShimController {
 ```
 
-By default it is not active, and when activated via bootstrap you can always temporarally or
+By default it is not active, and when activated via bootstrap you can always temporally or
 locally deactivate it for specific controllers/actions.
-
