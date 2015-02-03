@@ -243,6 +243,15 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	}
 
 	/**
+	 * Assert that the response status code is in the 2xx/3xx range.
+	 *
+	 * @return void
+	 */
+	public function assertResponseSuccess() {
+		$this->_assertStatus(200, 308, 'Status code is not between 200 and 308');
+	}
+
+	/**
 	 * Assert that the response status code is in the 4xx range.
 	 *
 	 * @return void
