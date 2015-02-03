@@ -22,8 +22,8 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	public function testBasic() {
 		$this->get(array('controller' => 'items', 'action' => 'index'));
 		$this->assertResponseCode(200);
-		$this->assertReponseOk();
-		$this->assertReponseSuccess();
+		$this->assertResponseOk();
+		$this->assertResponseSuccess();
 		$this->assertNoRedirect();
 		$this->assertResponseNotEmpty();
 		$this->assertResponseContains('My Index Test ctp');
