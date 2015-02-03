@@ -14,6 +14,7 @@ class AllShimTest extends PHPUnit_Framework_TestSuite {
 
 		$path = dirname(__FILE__);
 		$Suite->addTestDirectoryRecursive($path . DS . 'Model');
+		$Suite->addTestDirectoryRecursive($path . DS . 'View');
 		$Suite->addTestDirectoryRecursive($path . DS . 'Controller');
 		$Suite->addTestDirectoryRecursive($path . DS . 'TestSuite');
 
