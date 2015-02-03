@@ -205,24 +205,6 @@ class TestFallbackPasswordHasherUser extends Model {
 	 */
 	protected function _getPasswordHasher($hasher) {
 		return PasswordHasherFactory::build($hasher);
-
-		$class = $hasher;
-		$config = [];
-		if (is_array($hasher)) {
-			$class = $hasher['className'];
-			unset($hasher['className']);
-			$config = $hasher;
-		}
-		list($plugin, $class) = pluginSplit($class, true);
-		$className = $class . 'PasswordHasher';
-		App::uses($className, $plugin . 'Controller/Component/Auth');
-		if (!class_exists($className)) {
-			throw new CakeException(sprintf('Password hasher class "%s" was not found.', $class));
-		}
-		if (!is_subclass_of($className, 'AbstractPasswordHasher')) {
-			throw new CakeException('Password hasher must extend AbstractPasswordHasher class.');
-		}
-		return new $className($config);
 	}
 
 }
