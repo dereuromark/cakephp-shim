@@ -3,6 +3,9 @@
 ### Upgrade helpers
 Use `Configure::write('App.warnAboutNamedParams', true)` to warn about named param leftovers, that
 should have been migrated to query strings. This way you can detect and fix them.
+After you finished migrating them, you can use `Configure::write('App.handleNamedParams', true)` to 301-redirect all
+to the corresponding new query string URLs. Note that in debug mode, it will be a 302 redirect as debugging would be more difficult otherwise.
+If you rather throw a 404 exception, use `Configure::write('App.handleNamedParams', 'exception')`.
 
 Use `Configure::write('App.warnAboutMissingContain', true)` to warn about models not being
 recursive -1 and not having a contain key in the options array. Those most likely fetch

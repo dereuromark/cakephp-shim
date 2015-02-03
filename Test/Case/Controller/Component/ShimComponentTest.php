@@ -21,6 +21,9 @@ class ShimComponentTest extends ShimTestCase {
 		$this->ShimController = new TestShimComponentController($this->request, new CakeResponse());
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
+
+		Configure::write('App.warnAboutNamedParams', false);
+		Configure::write('App.handleNamedParams', false);
 	}
 
 	public function tearDown() {
@@ -65,6 +68,30 @@ class ShimComponentTest extends ShimTestCase {
 		$this->ShimController->startupProcess();
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testRedirect() {
+		Configure::write('App.handleNamedParams', true);
+
+		$request = new CakeRequest();
+		$request->params['controller'] = 'my_controller';
+		$request->params['action'] = 'my_action';
+		$request->params['named'] = ['x' => 'y'];
+		$request->query = ['a' => 'b'];
+
+		$response = $this->getMock('CakeResponse', ['send']);
+		$this->ShimController = new TestShimComponentController($request, $response);
+
+		$this->ShimController->constructClasses();
+		$this->ShimController->startupProcess();
+
+		$header = $response->header();
+		$expected = '/my_controller/my_action?a=b&x=y';
+		$this->assertContains($expected, $header['Location']);
+		$this->assertSame(302, $response->statusCode());
+	}
+
 }
 
 class TestShimComponentController extends ShimController {
@@ -73,4 +100,11 @@ class TestShimComponentController extends ShimController {
 
 	public $components = ['Shim.Shim'];
 
+	/**
+	 * Mock out
+	 *
+	 * @return void
+	 */
+	public function _stop($status = 0) {
+	}
 }

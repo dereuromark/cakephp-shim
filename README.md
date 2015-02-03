@@ -45,14 +45,15 @@ for WebTestRunner and additional debugging tools.
 - Bootstrap configuration for out-of-the-box query string functionality for CakeDC Search plugin.
 - Header monitor via `App.monitorHeaders` to assert no output is done before the response class.
 - FormShim and HtmlShim helpers for detection of view deprecations.
+- Auto-301-redirects (or 404s) for named params => query strings.
 
 ## Main fixes
 - Controller::disableCache() to help to write that directive to the browser for all (even IE).
 - Correct auto-aliasing for models' `$order` property.
 
-
 ## TODO
-- Add auto-301-redirects (or 404s) for named params => query strings.
+- SEO dispatching filter to prevent duplicate content via multiple ways of accessing an action.
+- Add warnings about deprecated `$this->data` access in Controller, about request `$this->...` usage in a controller or component.
 - (Maybe backport CakePHP 3.0 core FlashComponent and FlashHelper - will probably be a 2.7 feature soon)
 
 ## More shims
