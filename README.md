@@ -60,7 +60,6 @@ Using the `SeoDispatcher` filter we can fix that.
 - Correct auto-aliasing for models' `$order` property.
 
 ## TODO
-- SEO dispatching filter to prevent duplicate content via multiple ways of accessing an action.
 - Add warnings about deprecated `$this->data` access in Controller, about request `$this->...` usage in a controller or component.
 - (Maybe backport CakePHP 3.0 core FlashComponent and FlashHelper - will probably be a 2.7 feature soon)
 
