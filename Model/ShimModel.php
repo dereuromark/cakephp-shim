@@ -28,6 +28,20 @@ class ShimModel extends Model {
 		if (!Configure::read('Model.disablePrefixing')) {
 			$this->prefixOrderProperty();
 		}
+
+		$event = new CakeEvent('Model.initialize', $this, compact('id', 'table', 'ds'));
+		$this->getEventManager()->dispatch($event);
+	}
+
+	/**
+	 * Implemented events.
+	 *
+	 * @return array.
+	 */
+	public function implementedEvents() {
+		return (array_merge(parent::implementedEvents(), array(
+			'Model.initialize' => 'initialize',
+		)));
 	}
 
 	/**
@@ -407,6 +421,56 @@ class ShimModel extends Model {
 	public function record($id, array $options = []) {
 		$options += ['noException' => true];
 		return $this->get($id, $options);
+	}
+
+	/**
+	 * Model initialization callback.
+	 *
+	 * @return void
+	 */
+	public function initialize() {
+	}
+
+	public function loadBehavior($behavior, $options) {
+		return $this->Behaviors->load($behavior, $options);
+	}
+
+	protected function _setAssoc($type, $name, $options = array()) {
+		$this->bindModel(array(
+			$type => array(
+				$name => $options
+			)
+		), true);
+	}
+
+	public function hasOne($associated, $options = array()) {
+		$this->_setAssoc('hasOne', $associated, $options);
+	}
+
+	public function hasMany($associated, $options = array()) {
+		$this->_setAssoc('hasMany', $associated, $options);
+	}
+
+	public function belongsToMany($associated, $options = array()) {
+		$this->_setAssoc('hasAndbelongsToMany', $associated, $options);
+	}
+
+	public function belongsTo($associated, $options = array()) {
+		$this->_setAssoc('belongsTo', $associated, $options);
+	}
+
+	public function primaryKey($primaryKey = null) {
+		if (!empty($primaryKey)) {
+			$this->primaryKey = $primaryKey;
+		}
+		return $this->primaryKey;
+	}
+
+	public function table($table = null) {
+		if (!empty($table)) {
+			$this->useTable = $table;
+		}
+		return $this->useTable;
 	}
 
 }
