@@ -44,6 +44,22 @@ class PostsController extends AppController {
 }
 ```
 
+The main problem of `findById()` in 2.x is, that you cannot add any options, and also no
+contain or recursive key - this would be vital to ensure 3.x portability, though.
+With the second `$options` argument, you can easily "contain" or add other find() option keys.
+And it also by default behaves like recursive -1, which is also nice.
+
+#### record()
+This method, as convenience wrapper, works like getById(), only with the full functionality from get() - and without the exception being thrown when
+the record is not found.
+```php
+$record = $this->Post->record($id, $options);
+if (!$record){
+	return false;
+}
+...
+```
+
 ### fieldByConditions()
 This method is a better fit than the current field() method, as it provides a way to add $options (and contain in general).
 Please switch from field() to this method when using the shims. It will help ease the migration towards 3.x.

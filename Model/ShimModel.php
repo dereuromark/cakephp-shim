@@ -356,11 +356,11 @@ class ShimModel extends Model {
 	 *   $record = $this->Model->get($id);
 	 *
 	 * @param mixed $id
-	 * @param array $options Options for find(). Used to be fields array/string.
-	 * @param array $contain Deprecated - use
+	 * @param array $options Options for find().
 	 * @return mixed
+	 * @throws RecordNotFoundException If record not found.
 	 */
-	public function get($id = null, $options = []) {
+	public function get($id, array $options = []) {
 		if (is_array($id)) {
 			$column = $id[0];
 			$value = $id[1];
@@ -384,13 +384,29 @@ class ShimModel extends Model {
 		$options['conditions'] = array_merge($options['conditions'], [$this->alias . '.' . $column => $value]);
 
 		$result = $this->find('first', $options);
-		if (!$result) {
+		if (!$result && empty($options['noException'])) {
 			throw new RecordNotFoundException(sprintf(
 				'Record not found in model "%s"',
 				$this->alias
 			));
 		}
 		return $result;
+	}
+
+	/**
+	 * Shortcut method to find a specific entry via primary key.
+	 * Wraps ShimModel::get() for an exception free response.
+	 * This eases upgrading to 3.x as it can then be quicker replaced.
+	 *
+	 *   $record = $this->Model->record($id);
+	 *
+	 * @param mixed $id
+	 * @param array $options Options for find().
+	 * @return array
+	 */
+	public function record($id, array $options = []) {
+		$options += ['noException' => true];
+		return $this->get($id, $options);
 	}
 
 }

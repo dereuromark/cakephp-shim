@@ -74,6 +74,33 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * Test the better findById()
+	 *
+	 * @return void
+	 */
+	public function testRecord() {
+		$record = $this->Post->record(2);
+		$this->assertEquals(2, $record['Post']['id']);
+
+		$record = $this->Post->record(2, ['fields' => ['id', 'created']]);
+		$this->assertEquals(2, count($record['Post']));
+
+		$record = $this->Post->record(2, ['fields' => ['id', 'title', 'body'], 'contain' => ['Author']]);
+		$this->assertEquals(3, count($record['Post']));
+		$this->assertEquals(3, $record['Author']['id']);
+	}
+
+	/**
+	 * ShimModelTest::testRecordFail()
+	 *
+	 * @return void
+	 */
+	public function testRecordFail() {
+		$res = $this->Post->record(2222);
+		$this->assertSame([], $res);
+	}
+
+	/**
 	 * @return void
 	 */
 	public function testField() {
