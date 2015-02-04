@@ -52,8 +52,8 @@ This can create duplicate content issues with Google and other search engines, a
 to the same page in different variations:
 - /controllerName/action_name
 - /ControllerName/ActionName
-- /controller_name/action_name (correct)
-All three route it just fine, which shouldn't happen.
+- /controller_name/action_name (correct as per conventions)
+All three URLs route it just fine, which shouldn't happen.
 
 Use the SeoDispatcher filter to handle this.
 First, enable it in your bootstrap:
@@ -68,9 +68,11 @@ If you want to temporarilly disable the redirect in debug mode, you can append `
 
 If you want to 404 instead, use `Configure::write('Shim.handleSeo', 'exception')`.
 
-Note: this filter uses 3-4 Inflector calls per request. This is pretty much nothing, so the overhead
-is minimal compared to the benefit it brings. So don't worry about using this in productive and heavy-traffic
-sites.
+Note: this filter uses 3-4 Inflector calls per request. This is pretty much nothing (in comparison to the
+whole dispatching process), so the overhead is minimal compared to the benefit it brings.
+Don't worry about using this in productive and heavy-traffic sites.
+
+Also note: It expects you to follow the conventions: Consistent "snake_case" usage for URLs and for actions.
 
 ### Debugging
 Use `Configure::write('Shim.monitorHeader', true);` to assert, that all controller actions
