@@ -110,7 +110,32 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
-	 * @expectedException CakeException
+	 * @return void
+	 */
+	public function testFieldImplicitId() {
+		Configure::write('Shim.deprecateField', false);
+
+		$this->Post->id = 2;
+		$is = $this->Post->field('title');
+		$this->assertSame('Second Post', $is);
+
+		$is = $this->Post->fieldByConditions('Post.title', ['title LIKE' => '%'], ['order' => ['title' => 'DESC']]);
+		$this->assertSame('Third Post', $is);
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @return void
+	 */
+	public function testFieldImplicitIdWarning() {
+		Configure::write('Shim.deprecateField', true);
+
+		$this->Post->id = 2;
+		$this->Post->field('title');
+	}
+
+	/**
+	 * @expectedException PDOException
 	 * @return void
 	 */
 	public function testFieldInvalid() {
