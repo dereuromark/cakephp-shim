@@ -29,7 +29,7 @@ Please see [Docs](/docs)
 
 ### ModernPasswordHasher / FallbackPasswordHasher
 Already use the PHP5.5+ password functionality with the ModernPasswordHasher class and the Passwordable behavior. Easily upgradable to 3.x in minutes then.
-That includes auto-conversation (on-the-fly upon login) of old hashs to the new ones via `Fallback` password hasher class.
+That includes auto-conversion (on-the-fly upon login) of old hashs to the new ones via `Fallback` password hasher class.
 
 ### More shims
 - PasswordHasherFactory to easily load your hasher classes.
