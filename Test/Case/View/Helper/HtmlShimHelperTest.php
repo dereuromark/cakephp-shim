@@ -55,11 +55,11 @@ class HtmlShimHelperTest extends ShimTestCase {
 		$expected = '<link rel="baz" type="text/css" href="/css/foo/bar.css" />';
 		$this->assertSame($expected, $result);
 	}
-	
+
 }
 
 class HtmlShimTestHelper extends HtmlShimHelper {
-	
+
 	public function css($path, $options = array()) {
 		if (!is_array($options)) {
 			$rel = $options;
@@ -71,10 +71,10 @@ class HtmlShimTestHelper extends HtmlShimHelper {
 				$options = func_get_arg(2) + $options;
 			}
 			unset($rel);
-			
+
 			//trigger_error('The second argument needs to be an array. Use `rel` key in $options instead.', E_USER_DEPRECATED);
 		}
 		return parent::css($path, $options);
 	}
-	
+
 }

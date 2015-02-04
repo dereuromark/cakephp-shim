@@ -15,7 +15,6 @@ class ShimControllerTest extends ControllerTestCase {
 		$this->ShimController = new TestShimController(new CakeRequest(), new CakeResponse());
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
-
 	}
 
 	public function tearDown() {

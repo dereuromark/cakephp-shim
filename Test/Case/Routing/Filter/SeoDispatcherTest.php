@@ -9,22 +9,22 @@ App::uses('Dispatcher', 'Routing');
  */
 class SeoDispatcherTest extends CakeTestCase {
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 		Configure::write('Dispatcher.filters', []);
 		Configure::write('Routing.prefixes', []);
 	}
 
-/**
- * test that Seo filters work
- *
- * @return void
- */
+	/**
+	 * test that Seo filters work
+	 *
+	 * @return void
+	 */
 	public function testSeoFilter() {
 		$filter = new SeoDispatcher();
 

@@ -70,7 +70,7 @@ class HtmlShimHelper extends HtmlHelper {
 				$options = func_get_arg(2) + $options;
 			}
 			unset($rel);
-			
+
 			trigger_error('The second argument needs to be an array. Use `rel` key in $options instead.', E_USER_DEPRECATED);
 		}
 		return parent::css($path, $options);

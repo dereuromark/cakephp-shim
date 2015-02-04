@@ -2,6 +2,7 @@
 
 App::uses('AbstractPasswordHasher', 'Controller/Component/Auth');
 App::uses('PasswordHasherFactory', 'Shim.Controller/Component/Auth');
+
 /**
  * A backport of the 3.x FallbackPasswordHasher class.
  *
