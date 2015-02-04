@@ -7,11 +7,11 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		App::build(array(
-			'Controller' => array(CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Controller' . DS),
-			'Model' => array(CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
-			'View' => array(CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'View' . DS)
-		), App::RESET);
+		App::build([
+			'Controller' => [CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Controller' . DS],
+			'Model' => [CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Model' . DS],
+			'View' => [CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'View' . DS]
+		], App::RESET);
 	}
 
 	/**
@@ -20,7 +20,7 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	 * @return void
 	 */
 	public function testBasic() {
-		$this->get(array('controller' => 'items', 'action' => 'index'));
+		$this->get(['controller' => 'items', 'action' => 'index']);
 		$this->assertResponseCode(200);
 		$this->assertResponseOk();
 		$this->assertResponseSuccess();
@@ -35,10 +35,10 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	 * @return void
 	 */
 	public function testPosting() {
-		$data = array(
+		$data = [
 			'key' => 'sth'
-		);
-		$this->post(array('controller' => 'items', 'action' => 'posting'), $data);
+		];
+		$this->post(['controller' => 'items', 'action' => 'posting'], $data);
 		$this->assertResponseCode(200);
 		$this->assertNoRedirect();
 	}
@@ -49,9 +49,9 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	 * @return void
 	 */
 	public function testSession() {
-		$this->session(array('Auth.User.id' => 1));
+		$this->session(['Auth.User.id' => 1]);
 
-		$this->get(array('controller' => 'items', 'action' => 'session'));
+		$this->get(['controller' => 'items', 'action' => 'session']);
 		$this->assertResponseCode(200);
 		$this->assertNoRedirect();
 
@@ -64,7 +64,7 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	 * @return void
 	 */
 	public function testRedirecting() {
-		$this->get(array('controller' => 'items', 'action' => 'redirecting'));
+		$this->get(['controller' => 'items', 'action' => 'redirecting']);
 		$this->assertResponseCode(302);
 		$this->assertRedirect('/foobar');
 
@@ -83,7 +83,7 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	 * @return void
 	 */
 	public function testExceptional() {
-		$this->get(array('controller' => 'items', 'action' => 'exceptional'));
+		$this->get(['controller' => 'items', 'action' => 'exceptional']);
 	}
 
 }

@@ -40,8 +40,22 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 }
 ```
 
+### Quick-Start
+For your bootstrap/Configure:
+```php
+Configure::write('Shim.warnAboutNamedParams', true);
+Configure::write('Shim.warnAboutMissingContain', true);
+Configure::write('Shim.monitorHeaders', true);
+```
+and don't forget to include the Plugin bootstrap file.
+
+In a cleanly written 2.x app there shouldn't be any errors visible now.
+For all others it means some work to get to this ideal state.
+
+See the detailed docs for explanations on each topic.
+
 ### Auth and Password Hashing
-See [Auth](Auth.md)
+See [Auth](Auth.md).
 
 ### Model
 See [Model](Model.md).

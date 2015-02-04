@@ -15,7 +15,6 @@ class ShimControllerTest extends ControllerTestCase {
 		$this->ShimController = new TestShimController(new CakeRequest(), new CakeResponse());
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
-
 	}
 
 	public function tearDown() {
@@ -54,9 +53,9 @@ class ShimControllerTest extends ControllerTestCase {
 	public function testPaginate() {
 		Configure::write('Paginator.paramType', 'querystring');
 
-		$this->ShimController->paginate = array(
+		$this->ShimController->paginate = [
 			'limit' => 2,
-		) + $this->ShimController->paginate;
+		] + $this->ShimController->paginate;
 
 		$result = $this->ShimController->paginate();
 		$this->assertNotEmpty($result);
@@ -74,9 +73,9 @@ class ShimControllerTest extends ControllerTestCase {
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
 
-		$this->ShimController->paginate = array(
+		$this->ShimController->paginate = [
 			'limit' => 2,
-		) + $this->ShimController->paginate;
+		] + $this->ShimController->paginate;
 
 		$result = $this->ShimController->paginate();
 		$this->assertNotEmpty($result);

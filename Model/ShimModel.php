@@ -1,6 +1,7 @@
 <?php
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
+App::uses('ShimException', 'Shim.Error');
 
 /**
  * Model enhancements for Cake2
@@ -36,17 +37,75 @@ class ShimModel extends Model {
 	 * @param array $query
 	 * @return mixed
 	 */
-	public function find($type = 'first', $query = array()) {
-		if ((bool)Configure::read('App.warnAboutMissingContain') !== false) {
+	public function find($type = 'first', $query = []) {
+		if ($warn = Configure::read('Shim.warnAboutMissingContain')) {
 			if ($this->alias !== 'Session' && $this->recursive !== -1 && !isset($query['contain'])) {
-				$message = 'No recursive -1 or contain used for this query in ' . $this->alias . ': ' . print_r($query, true);
-				if (Configure::read('debug')) {
-					throw new CakeException($message);
+				$message = 'No recursive -1 or contain used for the query in ' . $this->alias;
+				if (Configure::read('debug') && $warn === 'exception') {
+					throw new ShimException($message, 500, $query);
 				}
+				$message .= ': ' . print_r($query, true);
 				trigger_error($message, E_USER_WARNING);
 			}
 		}
 		return parent::find($type, $query);
+	}
+
+	/**
+	 * Overwrite field to automatically add contain() to avoid above `Shim.warnAboutMissingContain`
+	 * notices here. Also triggers deprecation notice if `Shim.deprecateField` is enabled as this method
+	 * will not be directly 3.x compatible without the 3.x shim pendant.
+	 *
+	 * @param mixed $name
+	 * @param mixed $conditions
+	 * @param mixed $order
+	 * @return void
+	 */
+	public function field($name, $conditions = null, $order = null) {
+		if (Configure::read('Shim.deprecateField')) {
+			trigger_error('field() is deprecated in the shim context. Use shimmed fieldByConditions() or find() instead.', E_USER_DEPRECATED);
+		}
+		$options = [];
+		if ($order !== null) {
+			$options['order'] = $order;
+		}
+		return $this->fieldByConditions($name, (array)$conditions, $options);
+	}
+
+	/**
+	 * Shim of 2.x field() method with the possibility of providing contain, recursive and other
+	 * options keys along with it.
+	 *
+	 * @param string $name
+	 * @param array $conditions
+	 * @param array $options Custom options (order, contain, ...)
+	 * @return mixed Field value or false if not found.
+	 */
+	public function fieldByConditions($name, array $conditions = [], array $customOptions = []) {
+		$options = ['conditions' => $conditions];
+		$customOptions += ['contain' => []];
+		$options += $customOptions;
+
+		$data = $this->find('first', $options);
+		if (!$data) {
+			return false;
+		}
+
+		if (strpos($name, '.') === false) {
+			if (isset($data[$this->alias][$name])) {
+				return $data[$this->alias][$name];
+			}
+		} else {
+			$name = explode('.', $name);
+			if (isset($data[$name[0]][$name[1]])) {
+				return $data[$name[0]][$name[1]];
+			}
+		}
+
+		if (isset($data[0]) && count($data[0]) > 0) {
+			return array_shift($data[0]);
+		}
+		throw new CakeException('Invalid call');
 	}
 
 	/**
@@ -290,15 +349,15 @@ class ShimModel extends Model {
 		if (!$value) {
 			return [];
 		}
-		
+
 		if (!isset($options['contain'])) {
-			$options['contain'] = array();
+			$options['contain'] = [];
 		}
 		if (!isset($options['conditions'])) {
-			$options['conditions'] = array();
+			$options['conditions'] = [];
 		}
 		$options['conditions'] = array_merge($options['conditions'], [$this->alias . '.' . $column => $value]);
-		
+
 		$result = $this->find('first', $options);
 		if (!$result) {
 			throw new RecordNotFoundException(sprintf(
@@ -308,5 +367,5 @@ class ShimModel extends Model {
 		}
 		return $result;
 	}
-	
+
 }

@@ -29,7 +29,7 @@ class HtmlShimHelper extends HtmlHelper {
 	 *   argument is deprecated as of 2.6. Use `confirm` key in $options instead.
 	 * @return string An `<a />` element.
 	 */
-	public function link($title, $url = null, $options = array(), $confirmMessage = false) {
+	public function link($title, $url = null, $options = [], $confirmMessage = false) {
 		if ($confirmMessage !== false) {
 			trigger_error('$confirmMessage argument is deprecated as of 2.6. Use `confirm` key in $options instead.', E_USER_DEPRECATED);
 		}
@@ -59,10 +59,10 @@ class HtmlShimHelper extends HtmlHelper {
 	 * @return string CSS <link /> or <style /> tag, depending on the type of link.
 	 * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/html.html#HtmlHelper::css
 	 */
-	public function css($path, $options = array()) {
+	public function css($path, $options = []) {
 		if (!is_array($options)) {
 			$rel = $options;
-			$options = array();
+			$options = [];
 			if ($rel) {
 				$options['rel'] = $rel;
 			}
@@ -70,7 +70,7 @@ class HtmlShimHelper extends HtmlHelper {
 				$options = func_get_arg(2) + $options;
 			}
 			unset($rel);
-			
+
 			trigger_error('The second argument needs to be an array. Use `rel` key in $options instead.', E_USER_DEPRECATED);
 		}
 		return parent::css($path, $options);

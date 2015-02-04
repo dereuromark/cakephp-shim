@@ -5,7 +5,7 @@
  *
  */
 class RecordNotFoundException extends CakeException {
-	
+
 	/**
 	 * Constructor.
 	 *

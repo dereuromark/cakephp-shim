@@ -40,7 +40,7 @@ class FormShimHelper extends FormHelper {
 	 *   argument is deprecated as of 2.6. Use `confirm` key in $options instead.
 	 * @return string An `<a />` element.
 	 */
-	 public function postLink($title, $url = null, $options = array(), $confirmMessage = false) {
+	 public function postLink($title, $url = null, $options = [], $confirmMessage = false) {
 		if ($confirmMessage !== false) {
 			trigger_error('$confirmMessage argument is deprecated as of 2.6. Use `confirm` key in $options instead.', E_USER_DEPRECATED);
 		}
@@ -61,7 +61,7 @@ class FormShimHelper extends FormHelper {
 	 *   Security Component.
 	 * @return string a closing FORM tag optional submit button.
 	 */
-	public function end($options = null, $secureAttributes = array()) {
+	public function end($options = null, $secureAttributes = []) {
 		if ($options !== null) {
 			trigger_error('Please use submit() or alike to output buttons. end() is deprecated for this.', E_USER_DEPRECATED);
 		}
