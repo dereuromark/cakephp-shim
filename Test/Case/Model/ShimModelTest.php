@@ -18,13 +18,11 @@ class ShimModelTest extends ShimTestCase {
 		$this->Post = ClassRegistry::init('ShimAppModelPost');
 		$this->User = ClassRegistry::init('ShimAppModelUser');
 
-		Configure::write('Shim.warnAboutMissingContain', false);
-		Configure::write('Shim.deprecateField', false);
+		Configure::delete('Shim');
 	}
 
 	public function tearDown() {
-		Configure::write('Shim.warnAboutMissingContain', false);
-		Configure::write('Shim.deprecateField', false);
+		Configure::delete('Shim');
 
 		parent::tearDown();
 	}

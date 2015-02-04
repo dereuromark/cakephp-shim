@@ -111,7 +111,7 @@ class ShimModel extends Model {
 		if (isset($data[0]) && count($data[0]) > 0) {
 			return array_shift($data[0]);
 		}
-		throw new CakeException('Invalid call');
+		return null;
 	}
 
 	/**
