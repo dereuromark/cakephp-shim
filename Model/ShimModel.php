@@ -62,10 +62,16 @@ class ShimModel extends Model {
 	 * @return void
 	 */
 	public function field($name, $conditions = null, $order = null) {
+		if ($conditions === null && $this->id !== false) {
+			if (Configure::read('Shim.deprecateField')) {
+				trigger_error('Using implicit Model->id is deprecated in shim context. Pass it as conditions part instead.', E_USER_DEPRECATED);
+			}
+			$conditions = array($this->alias . '.' . $this->primaryKey => $this->id);
+		}
 		if (Configure::read('Shim.deprecateField')) {
 			trigger_error('field() is deprecated in the shim context. Use shimmed fieldByConditions() or find() instead.', E_USER_DEPRECATED);
 		}
-		$options = [];
+		$options = ['fields' => $name];
 		if ($order !== null) {
 			$options['order'] = $order;
 		}
@@ -106,6 +112,25 @@ class ShimModel extends Model {
 			return array_shift($data[0]);
 		}
 		throw new CakeException('Invalid call');
+	}
+
+	/**
+	 * Saves the value of a single field to the database, based on the current
+	 * model ID.
+	 *
+	 * @param string $name Name of the table field
+	 * @param mixed $value Value of the field
+	 * @param bool|array $validate Either a boolean, or an array.
+	 *   If a boolean, indicates whether or not to validate before saving.
+	 *   If an array, allows control of 'validate', 'callbacks' and 'counterCache' options.
+	 *   See Model::save() for details of each options.
+	 * @return bool|array See Model::save() False on failure or an array of model data on success.
+	 */
+	public function saveField($name, $value, $validate = false) {
+		if (Configure::read('Shim.deprecateSaveField')) {
+			trigger_error('Deprecated in the shim context. Please use save() or updateAll() directly.', E_USER_DEPRECATED);
+		}
+		return parent::saveField($name, $value, $validate);
 	}
 
 	/**

@@ -28,6 +28,9 @@ unusable with Containable and without a global recursive level of -1. So better 
 `fieldByConditions()` which will be supported in 3.x via the corresponding plugin version then.
 Or switch to `find()` directly.
 
+use `Configure::write('Shim.deprecateSaveField', true);` to warn about `saveField()` usage which will also be
+not available in future versions and as such should be replaced by `save()` or `updateAll()` instead.
+
 Use the FormShim helper to find very difficult to detect issues around Form::end():
 ```php
 $this->Form->end('Some string');

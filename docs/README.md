@@ -46,6 +46,8 @@ For your bootstrap/Configure:
 Configure::write('Shim.warnAboutNamedParams', true);
 Configure::write('Shim.warnAboutMissingContain', true);
 Configure::write('Shim.monitorHeaders', true);
+Configure::write('Shim.deprecateField', true);
+Configure::write('Shim.deprecateSaveField', true);
 ```
 and don't forget to include the Plugin bootstrap file.
 
