@@ -42,21 +42,21 @@ class FallbackPasswordHasherTest extends ShimTestCase {
 
 		// Modern pwd account
 		$this->Controller->TestFallbackPasswordHasherUser->create();
-		$user = array(
+		$user = [
 			'username' => 'itisme',
 			'email' => '',
 			'pwd' => 'secure123456'
-		);
+		];
 		$res = $this->Controller->TestFallbackPasswordHasherUser->save($user);
 		$this->assertTrue((bool)$res);
 
 		// Old pwd account
 		$this->Controller->TestFallbackPasswordHasherUser->create();
-		$user = array(
+		$user = [
 			'username' => 'itwasme',
 			'email' => '',
 			'password' => Security::hash('123456', null, true)
-		);
+		];
 		$res = $this->Controller->TestFallbackPasswordHasherUser->save($user);
 		$this->assertTrue((bool)$res);
 
@@ -73,12 +73,12 @@ class FallbackPasswordHasherTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testBasics() {
-		$this->Controller->request->data = array(
-			'TestFallbackPasswordHasherUser' => array(
+		$this->Controller->request->data = [
+			'TestFallbackPasswordHasherUser' => [
 				'username' => 'itisme',
 				'password' => 'xyz'
-			),
-		);
+			],
+		];
 		$result = $this->Controller->Auth->login();
 		$this->assertFalse($result);
 	}
@@ -87,12 +87,12 @@ class FallbackPasswordHasherTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testLogin() {
-		$this->Controller->request->data = array(
-			'TestFallbackPasswordHasherUser' => array(
+		$this->Controller->request->data = [
+			'TestFallbackPasswordHasherUser' => [
 				'username' => 'itisme',
 				'password' => 'secure123456'
-			),
-		);
+			],
+		];
 		$result = $this->Controller->Auth->login();
 		$this->assertTrue($result);
 
@@ -105,12 +105,12 @@ class FallbackPasswordHasherTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testLoginOld() {
-		$this->Controller->request->data = array(
-			'TestFallbackPasswordHasherUser' => array(
+		$this->Controller->request->data = [
+			'TestFallbackPasswordHasherUser' => [
 				'username' => 'itwasme',
 				'password' => '123456'
-			),
-		);
+			],
+		];
 		$result = $this->Controller->Auth->login();
 		$this->assertTrue($result);
 
@@ -123,29 +123,29 @@ class FallbackPasswordHasherTest extends ShimTestCase {
 
 class TestFallbackPasswordHasherController extends Controller {
 
-	public $uses = array('Shim.TestFallbackPasswordHasherUser');
+	public $uses = ['Shim.TestFallbackPasswordHasherUser'];
 
-	public $components = array('Auth');
+	public $components = ['Auth'];
 
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		$options = array(
+		$options = [
 			'className' => 'Shim.Fallback',
-			'hashers' => array(
+			'hashers' => [
 				'Shim.Modern', 'Simple'
-			)
-		);
-		$this->Auth->authenticate = array(
-			'Form' => array(
+			]
+		];
+		$this->Auth->authenticate = [
+			'Form' => [
 				'passwordHasher' => $options,
-				'fields' => array(
+				'fields' => [
 					'username' => 'username',
 					'password' => 'password'
-				),
+				],
 				'userModel' => 'Shim.TestFallbackPasswordHasherUser'
-			)
-		);
+			]
+		];
 	}
 
 }
@@ -160,7 +160,7 @@ class TestFallbackPasswordHasherUser extends Model {
 	 * @param array $options
 	 * @return bool Success
 	 */
-	public function beforeSave($options = array()) {
+	public function beforeSave($options = []) {
 		if (!empty($this->data[$this->alias]['pwd'])) {
 			$this->data[$this->alias]['password'] = $this->hash($this->data[$this->alias]['pwd']);
 		}
@@ -172,12 +172,12 @@ class TestFallbackPasswordHasherUser extends Model {
 	 * @return string Hash
 	 */
 	public function hash($pwd) {
-		$options = array(
+		$options = [
 			'className' => 'Shim.Fallback',
-			'hashers' => array(
+			'hashers' => [
 				'Shim.Modern', 'Simple'
-			)
-		);
+			]
+		];
 		$passwordHasher = $this->_getPasswordHasher($options);
 		return $passwordHasher->hash($pwd);
 	}
@@ -187,12 +187,12 @@ class TestFallbackPasswordHasherUser extends Model {
 	 * @return bool Success
 	 */
 	public function needsRehash($pwd) {
-		$options = array(
+		$options = [
 			'className' => 'Shim.Fallback',
-			'hashers' => array(
+			'hashers' => [
 				'Shim.Modern', 'Simple'
-			)
-		);
+			]
+		];
 		$passwordHasher = $this->_getPasswordHasher($options);
 		return $passwordHasher->needsRehash($pwd);
 	}

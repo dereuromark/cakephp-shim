@@ -105,7 +105,7 @@ class ShimModelTest extends ShimTestCase {
 		$is = $this->Post->fieldByConditions('title', ['title LIKE' => 'S%']);
 		$this->assertSame('Second Post', $is);
 
-		$is = $this->Post->fieldByConditions('title', ['title LIKE' => '%'], ['order' => array('title' => 'DESC')]);
+		$is = $this->Post->fieldByConditions('title', ['title LIKE' => '%'], ['order' => ['title' => 'DESC']]);
 		$this->assertSame('Third Post', $is);
 	}
 

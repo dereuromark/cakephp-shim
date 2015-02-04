@@ -42,11 +42,11 @@ class ModernPasswordHasherTest extends ShimTestCase {
 
 		// Modern pwd account
 		$this->Controller->TestModernPasswordHasherUser->create();
-		$user = array(
+		$user = [
 			'username' => 'itisme',
 			'email' => '',
 			'pwd' => 'secure123456'
-		);
+		];
 		$res = $this->Controller->TestModernPasswordHasherUser->save($user);
 		$this->assertTrue((bool)$res);
 
@@ -64,12 +64,12 @@ class ModernPasswordHasherTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testBasics() {
-		$this->Controller->request->data = array(
-			'TestModernPasswordHasherUser' => array(
+		$this->Controller->request->data = [
+			'TestModernPasswordHasherUser' => [
 				'username' => 'itisme',
 				'password' => 'xyz'
-			),
-		);
+			],
+		];
 		$result = $this->Controller->Auth->login();
 		$this->assertFalse($result);
 	}
@@ -78,12 +78,12 @@ class ModernPasswordHasherTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testLogin() {
-		$this->Controller->request->data = array(
-			'TestModernPasswordHasherUser' => array(
+		$this->Controller->request->data = [
+			'TestModernPasswordHasherUser' => [
 				'username' => 'itisme',
 				'password' => 'secure123456'
-			),
-		);
+			],
+		];
 		$result = $this->Controller->Auth->login();
 		$this->assertTrue($result);
 
@@ -96,9 +96,9 @@ class ModernPasswordHasherTest extends ShimTestCase {
 
 class TestModernPasswordHasherController extends Controller {
 
-	public $uses = array('Shim.TestModernPasswordHasherUser');
+	public $uses = ['Shim.TestModernPasswordHasherUser'];
 
-	public $components = array('Auth');
+	public $components = ['Auth'];
 
 	/**
 	 * @return void
@@ -106,16 +106,16 @@ class TestModernPasswordHasherController extends Controller {
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->authenticate = array(
-			'Form' => array(
+		$this->Auth->authenticate = [
+			'Form' => [
 				'passwordHasher' => 'Shim.Modern',
-				'fields' => array(
+				'fields' => [
 					'username' => 'username',
 					'password' => 'password'
-				),
+				],
 				'userModel' => 'Shim.TestModernPasswordHasherUser'
-			)
-		);
+			]
+		];
 	}
 
 }
@@ -130,7 +130,7 @@ class TestModernPasswordHasherUser extends Model {
 	 * @param array $options
 	 * @return bool Success
 	 */
-	public function beforeSave($options = array()) {
+	public function beforeSave($options = []) {
 		if (!empty($this->data[$this->alias]['pwd'])) {
 			$this->data[$this->alias]['password'] = $this->hash($this->data[$this->alias]['pwd']);
 		}

@@ -45,7 +45,7 @@ class SeoDispatcher extends DispatcherFilter {
 		$fields = $this->fields;
 
 		// Convention is snake_cased URL pieces
-		$urlPieces = array();
+		$urlPieces = [];
 		$ok = true;
 		foreach ($fields as $field) {
 			if (empty($request->params[$field])) {

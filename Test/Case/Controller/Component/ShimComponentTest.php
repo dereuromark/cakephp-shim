@@ -11,11 +11,11 @@ class ShimComponentTest extends ShimTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		App::build(array(
-			'Controller' => array(CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Controller' . DS),
-			'Model' => array(CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
-			'View' => array(CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'View' . DS)
-		), App::RESET);
+		App::build([
+			'Controller' => [CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Controller' . DS],
+			'Model' => [CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'Model' . DS],
+			'View' => [CakePlugin::path('Shim') . 'Test' . DS . 'test_app' . DS . 'View' . DS]
+		], App::RESET);
 
 		$this->request = $this->getMock('CakeRequest', ['referer']);
 		$this->ShimController = new TestShimComponentController($this->request, new CakeResponse());

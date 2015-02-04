@@ -70,7 +70,7 @@ class ShimComponent extends Component {
 	protected function _buildUrl() {
 		$params = $this->Controller->request->params;
 
-		$url = array('?' => $this->Controller->request->query);
+		$url = ['?' => $this->Controller->request->query];
 		// Named params have a lower prio
 		$url['?'] += $params['named'];
 		$url['controller'] = $params['controller'];

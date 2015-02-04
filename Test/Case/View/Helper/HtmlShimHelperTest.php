@@ -60,10 +60,10 @@ class HtmlShimHelperTest extends ShimTestCase {
 
 class HtmlShimTestHelper extends HtmlShimHelper {
 
-	public function css($path, $options = array()) {
+	public function css($path, $options = []) {
 		if (!is_array($options)) {
 			$rel = $options;
-			$options = array();
+			$options = [];
 			if ($rel) {
 				$options['rel'] = $rel;
 			}

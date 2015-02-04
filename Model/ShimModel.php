@@ -37,7 +37,7 @@ class ShimModel extends Model {
 	 * @param array $query
 	 * @return mixed
 	 */
-	public function find($type = 'first', $query = array()) {
+	public function find($type = 'first', $query = []) {
 		if ($warn = Configure::read('Shim.warnAboutMissingContain')) {
 			if ($this->alias !== 'Session' && $this->recursive !== -1 && !isset($query['contain'])) {
 				$message = 'No recursive -1 or contain used for the query in ' . $this->alias;
@@ -351,10 +351,10 @@ class ShimModel extends Model {
 		}
 
 		if (!isset($options['contain'])) {
-			$options['contain'] = array();
+			$options['contain'] = [];
 		}
 		if (!isset($options['conditions'])) {
-			$options['conditions'] = array();
+			$options['conditions'] = [];
 		}
 		$options['conditions'] = array_merge($options['conditions'], [$this->alias . '.' . $column => $value]);
 

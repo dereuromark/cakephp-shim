@@ -28,7 +28,7 @@ class SeoDispatcherTest extends CakeTestCase {
 	public function testSeoFilter() {
 		$filter = new SeoDispatcher();
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$response = $this->getMock('CakeResponse', ['_sendHeader']);
 		$Dispatcher = new Dispatcher();
 		$request = new CakeRequest('controller_name/action_name');
 		$request->query = [];
@@ -37,7 +37,7 @@ class SeoDispatcherTest extends CakeTestCase {
 		$this->assertNull($filter->beforeDispatch($event));
 		$this->assertFalse($event->isStopped());
 
-		$response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$response = $this->getMock('CakeResponse', ['_sendHeader']);
 		$Dispatcher = new Dispatcher();
 		$request = new CakeRequest('controllerName/action_name');
 		$request->query = ['x' => 'y'];
@@ -47,7 +47,7 @@ class SeoDispatcherTest extends CakeTestCase {
 		$this->assertTrue($event->isStopped());
 
 		Configure::write('Routing.prefixes', ['admin']);
-		$response = $this->getMock('CakeResponse', array('_sendHeader'));
+		$response = $this->getMock('CakeResponse', ['_sendHeader']);
 		$Dispatcher = new Dispatcher();
 		$request = new CakeRequest('Admin/Shim/ControllerName/ActionName');
 		$request->query = ['x' => 'y'];
