@@ -14,6 +14,27 @@ class ShimController extends Controller {
 	public $paginate = [];
 
 	/**
+	 * Calling initialize() here because in 3.0 it's called right before that
+	 * method but we don't want to override the whole constructor just because
+	 * of that.
+	 */
+	protected function _mergeControllerVars() {
+		$this->initialize();
+		parent::_mergeControllerVars();
+	}
+
+	public function initialize() {
+	}
+
+	public function loadComponent($component, $options = array()) {
+		return $this->Components->load($component, $options);
+	}
+
+	public function components() {
+		return $this->Components;
+	}
+
+	/**
 	 * Add headers for IE8 etc to fix caching issues in those stupid browsers
 	 *
 	 * @overwrite to fix IE cacheing issues
