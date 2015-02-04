@@ -60,6 +60,8 @@ if (!$record){
 ...
 ```
 
+Note: In 3.x you can then safely replace record() usage with findById() again wherever you didn't need the second options argument :)
+
 ### fieldByConditions()
 This method is a better fit than the current field() method, as it provides a way to add $options (and contain in general).
 Please switch from field() to this method when using the shims. It will help ease the migration towards 3.x.
