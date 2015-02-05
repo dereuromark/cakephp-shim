@@ -312,12 +312,39 @@ class ShimModelTest extends ShimTestCase {
 		$result = $this->User->deleteAllRaw(['user !=' => 'foo', 'created <' => date('Y-m-d'), 'id >' => 1]);
 		$this->assertTrue($result);
 		$result = $this->User->getAffectedRows();
-		$this->assertIdentical(3, $result);
+		$this->assertSame(3, $result);
 
 		$result = $this->User->deleteAllRaw();
 		$this->assertTrue($result);
 		$result = $this->User->getAffectedRows();
-		$this->assertIdentical(1, $result);
+		$this->assertSame(1, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBehaviors() {
+		$res = $this->User->behaviors();
+		$this->assertInstanceOf('BehaviorCollection', $res);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testBehaviorsAddRemove() {
+		$result = $this->User->hasBehavior('Tree');
+		$this->assertFalse($result);
+
+		$res = $this->User->addBehavior('Tree');
+		$this->assertTrue($res);
+
+		$result = $this->User->hasBehavior('Tree');
+		$this->assertTrue($result);
+
+		$res = $this->User->removeBehavior('Tree');
+
+		$result = $this->User->hasBehavior('Tree');
+		$this->assertFalse($result);
 	}
 
 	/**

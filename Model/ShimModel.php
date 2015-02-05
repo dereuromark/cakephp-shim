@@ -424,18 +424,62 @@ class ShimModel extends Model {
 	}
 
 	/**
-	 * Model initialization callback.
+	 * Model initialization callback. To avoid overwriting constructor
+	 *
+	 * Will have param `array $config` in 3.x.
 	 *
 	 * @return void
 	 */
-	public function initialize() {
+	public function initialize($id = false, $table = null, $ds = null) {
 	}
 
-	public function loadBehavior($behavior, $options) {
+	/**
+	 * @param string $behavior
+	 * @param array $options
+	 * @return bool
+	 */
+	public function addBehavior($behavior, array $options = []) {
 		return $this->Behaviors->load($behavior, $options);
 	}
 
-	protected function _setAssoc($type, $name, $options = array()) {
+	/**
+	 * Removes a behavior from this table's behavior registry.
+	 *
+	 * Example:
+	 *
+	 * Remove a behavior from this table.
+	 *
+	 * ```
+	 * $this->removeBehavior('Tree');
+	 * ```
+	 *
+	 * @param string $name The alias that the behavior was added with.
+	 * @return void
+	 */
+	public function removeBehavior($name) {
+		$this->Behaviors->unload($name);
+	}
+
+	/**
+	 * Returns the behavior registry for this table.
+	 *
+	 * @return BehaviorRegistry
+	 */
+	public function behaviors() {
+		return $this->Behaviors;
+	}
+
+	/**
+	 * Check if a behavior with the given alias has been loaded.
+	 *
+	 * @param string $name The behavior alias to check.
+	 * @return array
+	 */
+	public function hasBehavior($name) {
+		return $this->Behaviors->loaded($name);
+	}
+
+	protected function _setAssoc($type, $name, $options = []) {
 		$this->bindModel(array(
 			$type => array(
 				$name => $options
@@ -443,22 +487,48 @@ class ShimModel extends Model {
 		), true);
 	}
 
-	public function hasOne($associated, $options = array()) {
+	/**
+	 * @param string $associated
+	 * @param array $options
+	 * @return void
+	 */
+	public function hasOne($associated, array $options = []) {
 		$this->_setAssoc('hasOne', $associated, $options);
 	}
 
-	public function hasMany($associated, $options = array()) {
+	/**
+	 * @param string $associated
+	 * @param array $options
+	 * @return void
+	 */
+	public function hasMany($associated, array $options = []) {
 		$this->_setAssoc('hasMany', $associated, $options);
 	}
 
-	public function belongsToMany($associated, $options = array()) {
+	/**
+	 * @param string $associated
+	 * @param array $options
+	 * @return void
+	 */
+	public function belongsToMany($associated, array $options = []) {
 		$this->_setAssoc('hasAndbelongsToMany', $associated, $options);
 	}
 
-	public function belongsTo($associated, $options = array()) {
+	/**
+	 * @param string $associated
+	 * @param array $options
+	 * @return void
+	 */
+	public function belongsTo($associated, array $options = []) {
 		$this->_setAssoc('belongsTo', $associated, $options);
 	}
 
+	/**
+	 * Sets/Gets primary key
+	 *
+	 * @param string|null
+	 * @return string
+	 */
 	public function primaryKey($primaryKey = null) {
 		if (!empty($primaryKey)) {
 			$this->primaryKey = $primaryKey;
@@ -466,6 +536,12 @@ class ShimModel extends Model {
 		return $this->primaryKey;
 	}
 
+	/**
+	 * Sets/Gets used table
+	 *
+	 * @param string|null
+	 * @return string
+	 */
 	public function table($table = null) {
 		if (!empty($table)) {
 			$this->useTable = $table;
@@ -473,4 +549,29 @@ class ShimModel extends Model {
 		return $this->useTable;
 	}
 
+	/**
+	 * Sets/Gets used table
+	 *
+	 * @param string|null
+	 * @return string
+	 */
+	public function displayField($key = null) {
+		if (!empty($key)) {
+			$this->displayField = $key;
+		}
+		return $this->displayField;
+	}
+
+	/**
+	 * Returns the table alias or sets a new one
+	 *
+	 * @param string|null $alias the new table alias
+	 * @return string
+	 */
+	public function alias($alias = null) {
+    	if (!empty($alias)) {
+			$this->alias = $alias;
+		}
+		return $this->alias;
+    }
 }
