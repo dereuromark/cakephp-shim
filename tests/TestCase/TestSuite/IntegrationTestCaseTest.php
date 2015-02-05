@@ -11,7 +11,7 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		Configure::write('App.namespace', 'ShimTestApp');
+		Configure::write('App.namespace', 'TestApp');
 
 		Router::connect('/:controller/:action/*', [], ['routeClass' => 'InflectedRoute']);
 		DispatcherFactory::clear();
