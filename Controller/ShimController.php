@@ -17,19 +17,39 @@ class ShimController extends Controller {
 	 * Calling initialize() here because in 3.0 it's called right before that
 	 * method but we don't want to override the whole constructor just because
 	 * of that.
+	 *
+	 * @return void
 	 */
 	protected function _mergeControllerVars() {
 		$this->initialize();
 		parent::_mergeControllerVars();
 	}
 
+	/**
+	 * Replaces the 2.x constructClasses() method to inject custom initialize() code,
+	 * as that one will be gone.
+	 *
+	 * @return void
+	 */
 	public function initialize() {
 	}
 
-	public function loadComponent($component, $options = array()) {
+	/**
+	 * Load a component dynamically.
+	 *
+	 * @param string $component Component name
+	 * @param array $options
+	 * @return Component A component object, Either the existing loaded component or a new one.
+	 */
+	public function loadComponent($component, array $options = []) {
 		return $this->Components->load($component, $options);
 	}
 
+	/**
+	 * Returns the ComponentsCollection
+	 *
+	 * @return ComponentCollection
+	 */
 	public function components() {
 		return $this->Components;
 	}

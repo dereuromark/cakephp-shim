@@ -23,7 +23,7 @@ class SeoDispatcher extends DispatcherFilter {
 	 *
 	 * @var array
 	 */
-	public $fields = ['prefix', 'plugin', 'controller', 'action'];
+	public $fields = ['prefix', 'plugin', 'controller', 'action', 'ext'];
 
 	/**
 	 * Checks if a valid URL has been requested.
