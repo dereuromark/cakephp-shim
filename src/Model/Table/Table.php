@@ -7,6 +7,7 @@ use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use Cake\ORM\Query;
 use Cake\Event\Event;
+use Cake\Datasource\Exception\RecordNotFoundException;
 
 class Table extends CakeTable {
 
@@ -166,16 +167,33 @@ class Table extends CakeTable {
 	}
 
 	/**
-	 * Shim of 2.x field() method.
+	 * Shortcut method to find a specific entry via primary key.
+	 * Wraps Table::get() for an exception free response.
+	 *
+	 *   $record = $this->Table->record($id);
+	 *
+	 * @param mixed $id
+	 * @param array $options Options for get().
+	 * @return array
+	 */
+	public function record($id, array $options = []) {
+		try {
+			return $this->get($id, $options);
+		} catch (RecordNotFoundException $e) {
+		}
+		return array();
+	}
+
+	/**
+	 * Convenience wrapper of 2.x field() method, but with $options instead.
+	 * Do NOT use with 2.x field()s. Make sure those have been replaced to fieldByConditions() instead.
 	 *
 	 * @param string $name
 	 * @param array $conditions
 	 * @return mixed Field value or null if not available
-	 * @deprecated Port to fieldByConditions() instead. Should be a simple str_replace() call.
 	 */
-	public function field($name, array $conditions = []) {
-		trigger_error('field() is deprecated. Use fieldByConditions() instead.', E_USER_DEPRECATED);
-		return $this->fieldByConditions($name, $conditions);
+	public function field($name, array $options = []) {
+		return $this->fieldByConditions($name, [], $options);
 	}
 
 	/**
@@ -185,8 +203,13 @@ class Table extends CakeTable {
 	 * @param array $conditions
 	 * @return mixed Field value or null if not available
 	 */
-	public function fieldByConditions($name, array $conditions = []) {
-		$options = ['conditions' => $conditions];
+	public function fieldByConditions($name, array $conditions = [], array $customOptions = []) {
+		$options = [];
+		if ($conditions) {
+			$options['conditions'] = $conditions;
+		}
+		$options += $customOptions;
+
 		$result = $this->find('all', $options)->first();
 		if (!$result) {
 			return null;
@@ -212,6 +235,16 @@ class Table extends CakeTable {
 		}
 
 		return $query;
+	}
+
+	/**
+	 * @param array $entity Data
+	 * @param array $options Options
+	 * @return mixed
+	 */
+	public function saveArray(array $entity, array $options = []) {
+		$entity = $this->newEntity($entity);
+		return parent::save($entity, $options);
 	}
 
 	/**

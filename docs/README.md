@@ -1,5 +1,8 @@
 # Shim plugin - Usage
 
+## Preconditions
+See [Preconditions](Preconditions.md).
+
 ## ORM
 ### Table
 Extend the Shim plugin Table class to get the functionality:
