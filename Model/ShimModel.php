@@ -53,7 +53,7 @@ class ShimModel extends Model {
 	 */
 	public function find($type = 'first', $query = []) {
 		if ($warn = Configure::read('Shim.warnAboutMissingContain')) {
-			if ($this->alias !== 'Session' && $this->recursive !== -1 && !isset($query['contain'])) {
+			if ($this->alias !== 'Session' && $this->recursive !== -1 && (!isset($query['recursive']) || (int)$query['recursive'] !== -1) && !isset($query['contain'])) {
 				$message = 'No recursive -1 or contain used for the query in ' . $this->alias;
 				if (Configure::read('debug') && $warn === 'exception') {
 					throw new ShimException($message, 500, $query);

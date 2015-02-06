@@ -217,6 +217,31 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * Testing missing contain warnings
+	 *
+	 * @return void
+	 */
+	public function testFindRecursiveInQuery() {
+		Configure::write('Shim.warnAboutMissingContain', 'exception');
+
+		$this->User->recursive = 0;
+		$this->User->find('first', ['recursive' => '-1']);
+	}
+
+	/**
+	 * Testing missing contain warnings
+	 *
+	 * @expectedException CakeException
+	 * @return void
+	 */
+	public function testFindRecursiveInQueryException() {
+		Configure::write('Shim.warnAboutMissingContain', 'exception');
+
+		$this->User->recursive = 0;
+		$this->User->find('first', ['recursive' => 0]);
+	}
+
+	/**
 	 * ShimModelTest::testDeconstruct()
 	 *
 	 * @return void
