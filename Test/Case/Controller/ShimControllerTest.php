@@ -82,6 +82,20 @@ class ShimControllerTest extends ControllerTestCase {
 		$this->assertSame(['5', '6'], Hash::extract($result, '{n}.Comment.id'));
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testLoadComponent() {
+		$is = $this->ShimController->Components->loaded('Security');
+		$this->assertFalse($is);
+
+		$is = $this->ShimController->loadComponent('Security');
+		$this->assertInstanceOf('SecurityComponent', $is);
+
+		$is = $this->ShimController->Components->loaded('Security');
+		$this->assertTrue($is);
+	}
+
 }
 
 class TestShimController extends ShimController {

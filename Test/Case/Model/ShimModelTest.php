@@ -474,25 +474,21 @@ class ShimModelTest extends ShimTestCase {
 		$this->assertEmpty($is);
 
 		$this->User->hasMany('Post');
-		$result = $this->Post->hasMany;
-
-		$this->skipIf(true);
-
-		debug($result);
-		//FIXME - empty?
-		return;
-
+		$result = $this->User->hasMany;
 		$expected = [
-			'Post' => [
-				'className' => 'Post',
-				'foreignKey' => 'user_id',
-				'conditions' => '',
-				'fields' => '',
-				'order' => '',
-				'dependent' => ''
-			]
+			'className' => 'Post',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'dependent' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 		];
-		$this->assertEquals($expected, $result);
+		$this->assertEquals($expected, $result['Post']);
 	}
 
 	/**
