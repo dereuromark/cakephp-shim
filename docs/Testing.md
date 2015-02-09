@@ -1,6 +1,6 @@
 ## Testing
 
-# IntegrationTestCase
+### IntegrationTestCase
 Successor of the ControllerTestCase - which involed way too much mocking.
 
 ```php

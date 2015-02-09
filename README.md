@@ -47,13 +47,17 @@ for WebTestRunner and additional debugging tools.
 - FormShim and HtmlShim helpers for detection of view deprecations.
 - Auto-301-redirects (or 404s) for named params => query strings.
 
-## Fixes
+## Fixes and Improvements
 
 ### SEO duplicate content prevention
 URL ambiguity can create duplicate content issues with Google and other search engines,
 as they might get a link to the same page in different variations. There should always be only exactly
 one possible way of reaching an action.
 Using the `SeoDispatcher` filter we can fix that.
+
+### Routing-Speedup
+With the `Config/routes.speedup.php` file content you can speed up your 2.6+ routing.
+It will pre-compile and cache your routes for quicker [re-use on each page load for you](docs/Routing.md).
 
 ### More fixes
 - Controller::disableCache() to help to write that directive to the browser for all (even IE).
