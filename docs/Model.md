@@ -95,3 +95,24 @@ instead.
 In 3.x all you need to do is rename them back again instead of tryig to fix all broken code.
 
 There is also `deleteAllRaw()` in case you need an atomic wrapper for this, just as `updateAll()`/`updateAllJoinless()` is.
+
+### Relation Setup wrappers
+In 3.x you would set up the relations this way:
+```php
+
+
+```
+
+### Behavior wrappers
+In 3.x there will be a few wrappers on how to interact with behaviors. Those are shimmed with this plugin:
+
+```php
+// Adding
+$this->ModelName->addBehavior('Tree');
+
+// Checking
+$this->ModelName->hasBehavior('Tree');
+
+// Removing
+$this->ModelName->removeBehavior('Tree');
+```

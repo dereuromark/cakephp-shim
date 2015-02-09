@@ -511,7 +511,7 @@ class ShimModel extends Model {
 	 * @return void
 	 */
 	public function belongsToMany($associated, array $options = []) {
-		$this->_setAssoc('hasAndbelongsToMany', $associated, $options);
+		$this->_setAssoc('hasAndBelongsToMany', $associated, $options);
 	}
 
 	/**
@@ -569,9 +569,10 @@ class ShimModel extends Model {
 	 * @return string
 	 */
 	public function alias($alias = null) {
-    	if (!empty($alias)) {
+		if (!empty($alias)) {
 			$this->alias = $alias;
 		}
 		return $this->alias;
-    }
+	}
+
 }

@@ -10,7 +10,7 @@ class ShimModelTest extends ShimTestCase {
 
 	public $modelName = 'User';
 
-	public $fixtures = ['core.user', 'core.post', 'core.author'];
+	public $fixtures = ['core.user', 'core.post', 'core.author', 'core.tag'];
 
 	public function setUp() {
 		parent::setUp();
@@ -373,6 +373,156 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testAlias() {
+		$is = $this->User->alias;
+		$this->assertSame('User', $is);
+
+		$this->User->alias('Foo');
+		$result = $this->User->alias();
+		$this->assertSame('Foo', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testTable() {
+		$is = $this->User->table;
+		$this->assertSame('users', $is);
+
+		$this->User->table('foos');
+		$result = $this->User->table();
+		$this->assertSame('foos', $result);
+	}
+
+	/**
+	 * ShimModelTest::testDisplayField()
+	 *
+	 * @return void
+	 */
+	public function testDisplayField() {
+		$is = $this->User->displayField;
+		$this->assertSame('user', $is);
+
+		$this->User->displayField('foo');
+		$result = $this->User->displayField();
+		$this->assertSame('foo', $result);
+	}
+
+	/**
+	 * ShimModelTest::testDisplayField()
+	 *
+	 * @return void
+	 */
+	public function testPrimaryKey() {
+		$is = $this->User->primaryKey;
+		$this->assertSame('id', $is);
+
+		$this->User->primaryKey('foo');
+		$result = $this->User->primaryKey();
+		$this->assertSame('foo', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRelationHasOne() {
+		$is = $this->Post->hasOne;
+		$this->assertEmpty($is);
+
+		$this->Post->hasOne('User');
+		$result = $this->Post->hasOne;
+		$expected = [
+			'User' => [
+				'className' => 'User',
+				'foreignKey' => 'post_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'dependent' => ''
+			]
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRelationBelongsTo() {
+		$is = $this->Post->belongsTo;
+		$this->assertSame(['Author'], array_keys($is));
+
+		$this->Post->belongsTo('User');
+		$result = $this->Post->belongsTo;
+		$expected = [
+			'className' => 'User',
+			'foreignKey' => 'user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'counterCache' => ''
+		];
+		$this->assertEquals($expected, $result['User']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRelationHasMany() {
+		$is = $this->User->hasMany;
+		$this->assertEmpty($is);
+
+		$this->User->hasMany('Post');
+		$result = $this->Post->hasMany;
+
+		$this->skipIf(true);
+
+		debug($result);
+		//FIXME - empty?
+		return;
+
+		$expected = [
+			'Post' => [
+				'className' => 'Post',
+				'foreignKey' => 'user_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'dependent' => ''
+			]
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRelationBelongsToMany() {
+		$is = $this->Post->hasAndBelongsToMany;
+		$this->assertEmpty($is);
+
+		$this->Post->belongsToMany('Tag');
+		$result = $this->Post->hasAndBelongsToMany;
+		$expected = [
+			'className' => 'Tag',
+			'joinTable' => 'posts_tags',
+			'with' => 'PostsTag',
+			'dynamicWith' => true,
+			'foreignKey' => 'post_id',
+			'associationForeignKey' => 'tag_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'unique' => true,
+			'finderQuery' => ''
+		];
+		$this->assertEquals($expected, $result['Tag']);
+	}
+
+	/**
 	 * Test that 2.x invalidates() can behave like 1.x invalidates()
 	 * and that you are able to abort on single errors (similar to using last=>true)
 	 *
@@ -483,6 +633,8 @@ class ShimAppModelUser extends ShimModel {
 	public $name = 'User';
 
 	public $alias = 'User';
+
+	public $displayField = 'user';
 
 }
 
