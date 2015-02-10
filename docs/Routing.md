@@ -6,6 +6,15 @@ It will pre-compile and cache your routes for quicker re-use on each page load f
 
 See the explanations inside this file on how to use.
 
+### Limitations
+There is some limitations on this approach:
+1) If you have any conditional check it will not work. The resultant is the routes with the conditional matching for the time where the cache was written.
+2) If you generate routes dynamically (ie, from database) it also cause problems. The routes are going to be generated at the time you create the cache, but if you add new routes on database it will not be available.
+3) If you have dynamic load for plugins, plugins update, etc it can be a problem as well because the cache is based on the sha1 of the routes.php on the app.
+4) There is something else when running thru console, but I can't recall what is.
+
+You might be able to still leverage it by using different cache keys or otherwise slightly modifying the script, though.
+
 ### Real life examples
 Performance analysis on some real life projects to come soon as benchmark..
 
