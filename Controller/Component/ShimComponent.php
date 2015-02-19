@@ -22,6 +22,9 @@ class ShimComponent extends Component {
 	 */
 	public function startup(Controller $Controller = null) {
 		$this->Controller = $Controller;
+
+		$this->_checkPaths();
+
 		if ($Controller->name === 'CakeError' || empty($Controller->request->params['named'])) {
 			return;
 		}
@@ -41,6 +44,42 @@ class ShimComponent extends Component {
 			}
 			// By default true to 301 redirect to the correct URL
 			return $this->_redirectNamedParams();
+		}
+	}
+
+	/**
+	 * Checks if all paths are correctly set up, only checked in debug mode for performance.
+	 *
+	 * Paths must have
+	 * - trailing DS
+	 * - DS as constant, not hardcoded /
+	 *
+	 * @return void
+	 */
+	protected function _checkPaths() {
+		if (!Configure::read('debug')) {
+			return;
+		}
+		if (!Configure::read('Shim.checkPaths')) {
+			return;
+		}
+
+		$pathArray = App::paths();
+		foreach ($pathArray as $type => $paths) {
+			foreach ($paths as $path) {
+				if (substr($path, -1, 1) !== DS) {
+					throw new Exception('All paths need to have a trailing DS.');
+				}
+				// We need to exclude some buggy case on WIN where the path would be `...\vendors/cakephp/...`, including hardcoded /
+				// Probably coming from composer or plugin installer.
+				if ($type === 'Vendor' || $type === 'Plugin') {
+					$path = str_replace('\vendors/cakephp/', DS . 'vendors' . DS . 'cakephp' . DS, $path);
+				}
+
+				if (str_replace(array('/', '\\'), DS, $path) !== $path) {
+					throw new Exception('All paths need to have a DS as separator, not a hardcoded / or \ slash.');
+				}
+			}
 		}
 	}
 

@@ -10,5 +10,11 @@ Configure::write('Search', [
 		]
 ]);
 
-// Shims
-// Add them in your own bootstrap.
+// Shims - add them in your own bootstrap/config
+//Configure::write('Shim.checkPaths', true);
+//Configure::write('Shim.warnAboutNamedParams', true);
+//Configure::write('Shim.handleNamedParams', true);
+//Configure::write('Shim.warnAboutMissingContain', true);
+//Configure::write('Shim.monitorHeaders', true);
+//Configure::write('Shim.deprecateField', true);
+//Configure::write('Shim.deprecateSaveField', true);

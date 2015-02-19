@@ -78,6 +78,9 @@ Don't worry about using this in productive and heavy-traffic sites.
 Also note: It expects you to follow the conventions: Consistent "snake_case" usage for URLs and for actions.
 
 ### Debugging
+Use  `Configure::write('App.checkPaths', true);` to assert that all paths are correctly set up, including a trailing
+`DS` and the correct directory separator (as `DS` constant).
+
 Use `Configure::write('Shim.monitorHeader', true);` to assert, that all controller actions
 don't (accidentally) sent any headers prior to the actual response->send() call.
 It will throw an exception (ShimException) in debug mode, and trigger an error in productive mode.

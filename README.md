@@ -62,6 +62,7 @@ It will pre-compile and cache your routes for quicker [re-use on each page load 
 ### More fixes
 - Controller::disableCache() to help to write that directive to the browser for all (even IE).
 - Correct auto-aliasing for models' `$order` property.
+- Auto-detect and warn about werongly set up paths.
 
 ## TODO
 - Add warnings about deprecated `$this->data` access in Controller, about request `$this->...` usage in a controller or component.
@@ -75,7 +76,7 @@ A 3.x branch-off that allows stackable flash messages. It uses the same syntax a
 flawlessly upgrade without touching the flash functionality.
 
 ### RssView
-Use RssView (and view-less action) instead of the akward and limited helper approach.
+Use RssView (and view-less action) instead of the awkward and limited helper approach.
 
 ### TestConsoleOutput
 TestConsoleOutput() for stdout and stderr instead of mocks. Less fiddling around.
