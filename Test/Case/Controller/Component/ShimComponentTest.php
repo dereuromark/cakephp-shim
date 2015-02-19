@@ -24,13 +24,14 @@ class ShimComponentTest extends ShimTestCase {
 
 		Configure::write('Shim.warnAboutNamedParams', false);
 		Configure::write('Shim.handleNamedParams', false);
+		Configure::write('Shim.checkPaths', false);
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 
-  	unset($this->ShimController);
-  	Configure::delete('Shim.warnAboutNamedParams');
+		unset($this->ShimController);
+		Configure::delete('Shim.warnAboutNamedParams');
 	}
 
 	/**
@@ -42,6 +43,45 @@ class ShimComponentTest extends ShimTestCase {
 		Configure::write('Shim.warnAboutNamedParams', true);
 
 		$this->ShimController = new TestShimComponentController(new CakeRequest('/foo/bar?page=3'), new CakeResponse());
+		$this->ShimController->constructClasses();
+		$this->ShimController->startupProcess();
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testCheckPaths() {
+		Configure::write('Shim.checkPaths', true);
+
+		$this->ShimController = new TestShimComponentController(new CakeRequest(), new CakeResponse());
+		$this->ShimController->constructClasses();
+		$this->ShimController->startupProcess();
+	}
+
+	/**
+	 * @expectedException EXCEPTION
+	 * @return void
+	 */
+	public function testCheckPathsMissingTrailingDs() {
+		Configure::write('Shim.checkPaths', true);
+
+		App::build(['View' => CakePlugin::path('Shim') . 'View' . DS. 'Foo']);
+
+		$this->ShimController = new TestShimComponentController(new CakeRequest(), new CakeResponse());
+		$this->ShimController->constructClasses();
+		$this->ShimController->startupProcess();
+	}
+
+	/**
+	 * @expectedException EXCEPTION
+	 * @return void
+	 */
+	public function testCheckPathsError() {
+		Configure::write('Shim.checkPaths', true);
+
+		App::build(['View' => CakePlugin::path('Shim') . 'View/Foo' . DS]);
+
+		$this->ShimController = new TestShimComponentController(new CakeRequest(), new CakeResponse());
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
 	}
