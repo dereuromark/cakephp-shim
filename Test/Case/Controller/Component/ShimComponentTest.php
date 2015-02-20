@@ -79,7 +79,10 @@ class ShimComponentTest extends ShimTestCase {
 	public function testCheckPathsError() {
 		Configure::write('Shim.checkPaths', true);
 
-		App::build(['View' => CakePlugin::path('Shim') . 'View/Foo' . DS]);
+		// Always use the "wrong" type of slash per OS
+		$ds = DS === '\\' ? '/' : '\\';
+
+		App::build(['View' => CakePlugin::path('Shim') . 'View' . $ds . 'Foo' . DS]);
 
 		$this->ShimController = new TestShimComponentController(new CakeRequest(), new CakeResponse());
 		$this->ShimController->constructClasses();
