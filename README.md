@@ -66,7 +66,6 @@ It will pre-compile and cache your routes for quicker [re-use on each page load 
 
 ## TODO
 - Add warnings about deprecated `$this->data` access in Controller, about request `$this->...` usage in a controller or component.
-- (Maybe backport CakePHP 3.0 core FlashComponent and FlashHelper - will probably be a 2.7 feature soon)
 
 ## More shims
 can be found in my [Tools plugin](https://github.com/dereuromark/cakephp-tools) directly:
