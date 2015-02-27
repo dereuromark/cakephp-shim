@@ -1,7 +1,7 @@
 ## Testing
 
 ### IntegrationTestCase
-Successor of the ControllerTestCase - which involed way too much mocking.
+Successor of the ControllerTestCase - which involved way too much mocking.
 
 ```php
 App::uses('ShimIntegrationTestCase', 'Shim.TestSuite');
