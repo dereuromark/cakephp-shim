@@ -49,6 +49,10 @@ public $helpers = array('Form' => array('className' => 'Shim.FormShim'));
 
 You can also use the FormShim and HtmlShim helpers to detect leftovers of deprecated `$confirmMessage` usage in link() and postLink().
 
+Use `Configure::write('Shim.disableRecursive', true);` to use `contain` always, and ignore the `$this->ModelName->recursive` setting.
+This will force you to add explicit contain statements in order for the queries to retrieve all desired data. But this would be necessary
+for 3.0 then anyway. So better start being explicit now.
+
 ### Seo
 A big problem in 2.x is the [URL casing ambiguity](https://github.com/cakephp/cakephp/issues/2125).
 This can create duplicate content issues with Google and other search engines, as they might get a link

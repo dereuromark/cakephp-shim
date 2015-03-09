@@ -77,7 +77,13 @@ class ShimController extends Controller {
 	 * @return array Model query results
 	 */
 	public function paginate($object = null, $scope = [], $whitelist = []) {
-		$defaultSettings = (array)Configure::read('Paginator') + ['contain' => []];
+		$defaultSettings = (array)Configure::read('Paginator');
+		if (Configure::read('Shim.disableRecursive')) {
+			$defaultSettings += ['contain' => []];
+		} else {
+			$defaultSettings += ['contain' => null];
+		}
+
 		$this->paginate += $defaultSettings;
 
 		return parent::paginate($object, $scope, $whitelist);
