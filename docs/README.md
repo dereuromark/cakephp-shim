@@ -48,6 +48,7 @@ Configure::write('Shim.warnAboutMissingContain', true);
 Configure::write('Shim.monitorHeaders', true);
 Configure::write('Shim.deprecateField', true);
 Configure::write('Shim.deprecateSaveField', true);
+Configure::write('Shim.disableRecursive', true);
 ```
 and don't forget to include the Plugin bootstrap file.
 
