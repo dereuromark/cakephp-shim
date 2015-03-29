@@ -129,19 +129,30 @@ class Table extends CakeTable {
 					$field = $rules;
 					$rules = [];
 				}
+
 				foreach ((array)$rules as $key => $rule) {
 					if (isset($rule['required'])) {
 						$validator->requirePresence($field, $rule['required']);
-						unset($rule['required']);
+						unset($rules[$key]['required']);
 					}
 					if (isset($rule['allowEmpty'])) {
 						$validator->allowEmpty($field, $rule['allowEmpty']);
-						unset($rule['allowEmpty']);
+						unset($rules[$key]['allowEmpty']);
 					}
 					if (isset($rule['message'])) {
 						$rules[$key]['message'] = __($rule['message']);
 					}
+
+					if (is_string($rule)) {
+						$rules[$key] = ['rule' => $rule];
+					}
+
+					if (!empty($rules[$key]['rule']) && ($rules[$key]['rule'] === 'isUnique' || $rules[$key]['rule'] === ['isUnique'])) {
+						$rules[$key]['rule'] =  'validateUnique';
+						$rules[$key]['provider'] = 'table';
+					}
 				}
+
 				$validator->add($field, $rules);
 			}
 		}
