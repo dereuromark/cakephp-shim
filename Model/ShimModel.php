@@ -148,6 +148,17 @@ class ShimModel extends Model {
 	}
 
 	/**
+	 * Deprecate hasAny()
+	 *
+	 * @param mixed $conditions
+	 * @return bool
+	 */
+	public function hasAny($conditions = null) {
+		trigger_error('Deprecated in the shim context. Please use find() directly.', E_USER_DEPRECATED);
+		return parent::hasAny($conditions);
+	}
+
+	/**
 	 * Prefixes the order property with the actual alias if its a string or array.
 	 *
 	 * The core fails on using the proper prefix when building the query with two
