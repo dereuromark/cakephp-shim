@@ -53,6 +53,14 @@ Use `Configure::write('Shim.disableRecursive', true);` to use `contain` always, 
 This will force you to add explicit contain statements in order for the queries to retrieve all desired data. But this would be necessary
 for 3.0 then anyway. So better start being explicit now.
 
+If you want to shim the new URL helper handling, you can leverage the UrlShimHelper:
+```php
+// Add this:
+public $helpers = array('Url' => array('className' => 'Shim.UrlShim'));
+```
+You can then use `$this->Url->build()` (instead of `$this->Html->url()`) already.
+Using the [Upgrade shell](https://github.com/dereuromark/cakephp-upgrade) command `cake Upgrade.Upgrade shim` you can automate the migration.
+
 ### Seo
 A big problem in 2.x is the [URL casing ambiguity](https://github.com/cakephp/cakephp/issues/2125).
 This can create duplicate content issues with Google and other search engines, as they might get a link
