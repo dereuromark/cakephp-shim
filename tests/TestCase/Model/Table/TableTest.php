@@ -29,7 +29,7 @@ class TableTest extends TestCase {
 
 		parent::tearDown();
 	}
-	
+
 	/**
 	 * ShimModelTest::testGet()
 	 *
@@ -55,9 +55,9 @@ class TableTest extends TestCase {
 		$record = $this->Posts->get(2, ['fields' => ['id', 'published']]);
 		$this->assertEquals(2, count($record->toArray()));
 
-		$record = $this->Posts->get(2, ['fields' => ['id', 'title', 'body', 'author_id'], 'contain' => ['Authors']]);
+		$record = $this->Posts->get(2, ['fields' => ['id', 'title', 'body', 'author_id', 'Authors.id'], 'contain' => ['Authors']]);
 		$this->assertEquals(5, count($record->toArray()));
-		//$this->assertEquals(3, $record['Author']['id']);
+		$this->assertEquals(3, $record->author['id']);
 	}
 
 	/**
@@ -82,9 +82,9 @@ class TableTest extends TestCase {
 		$record = $this->Posts->record(2, ['fields' => ['id', 'published']]);
 		$this->assertEquals(2, count($record->toArray()));
 
-		$record = $this->Posts->record(2, ['fields' => ['id', 'title', 'body', 'author_id'], 'contain' => ['Authors']]);
+		$record = $this->Posts->record(2, ['fields' => ['id', 'title', 'body', 'author_id', 'Authors.id'], 'contain' => ['Authors']]);
 		$this->assertEquals(5, count($record->toArray()));
-		//$this->assertEquals(3, $record['Author']['id']);
+		$this->assertEquals(3, $record->author['id']);
 	}
 
 	/**
