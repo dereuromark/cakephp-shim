@@ -17,20 +17,13 @@ App::uses('AppHelper', 'View/Helper');
 class UrlShimHelper extends AppHelper {
 
 	/**
-	 * Creates an HTML link.
+	 * Returns a URL based on provided parameters.
 	 *
-	 * ### Options
-	 *
-	 * - `escape` Set to false to disable escaping of title and attributes.
-	 * - `escapeTitle` Set to false to disable escaping of title. (Takes precedence over value of `escape`)
-	 * - `confirm` JavaScript confirmation message.
-	 *
-	 * @param string $title The content to be wrapped by <a> tags.
-	 * @param string|array $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
-	 * @param array $options Array of options and HTML attributes.
-	 * @param string $confirmMessage JavaScript confirmation message. This
-	 *   argument is deprecated as of 2.6. Use `confirm` key in $options instead.
-	 * @return string An `<a />` element.
+	 * @param string|array $url Either a relative string url like `/products/view/23` or
+	 *    an array of URL parameters. Using an array for URLs will allow you to leverage
+	 *    the reverse routing features of CakePHP.
+	 * @param bool $full If true, the full base URL will be prepended to the result
+	 * @return string Full translated URL with base path.
 	 */
 	public function build($url = null, $full = false) {
 		return parent::url($url, $full);
