@@ -23,6 +23,9 @@ add this snippet to have some details on the query being executed:
 ```
 You can also just re-use the generic `App/View/Errors/error500.ctp` and add the snippet there.
 
+Use `Configure::write('Shim.deprecateHasAny', true);` to warn about `hasAny()` usage, where a `find()` would work just fine.
+Also, this method is discontinued in 3.x, so better changing now.
+
 Use `Configure::write('Shim.deprecateField', true);` to warn about `field()` usage, which is highly
 unusable with Containable and without a global recursive level of -1. So better to use this Shim plugin's
 `fieldByConditions()` which will be supported in 3.x via the corresponding plugin version then.
