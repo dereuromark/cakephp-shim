@@ -104,3 +104,6 @@ printed with one of the above verbose flags set. This is a quick convenience wra
 
 ### Features
 See [Features](Features.md).
+
+### Not Shimmed
+See [NotShimmed](NotShimmed.md).
