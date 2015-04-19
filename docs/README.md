@@ -68,3 +68,6 @@ See [Testing](Testing.md).
 
 ### More Features
 See [Features](Features.md).
+
+### More Ideas
+See [MoreIdeas](MoreIdeas.md).
