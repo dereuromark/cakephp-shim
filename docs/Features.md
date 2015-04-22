@@ -36,12 +36,12 @@ class MyComponent extends Component {
 
 ## Model
 By using the Shim plugin Table class you can instantly re-use some 2.x behaviors.
-This is super-useful when upgrading a very large codebase and you first need to get it to 
+This is super-useful when upgrading a very large codebase and you first need to get it to
 run again - and afterwards want to start refactoring it.
 
 It will by default look if it can re-use the following (if not nothing bad happens^^):
 - `$primaryKey`
-- `$displayField`, 
+- `$displayField`,
 - `$order` (also with correct auto-aliasing)
 - `$validate` (needs minor adjustments)
 - `$actsAs`
@@ -57,3 +57,18 @@ It auto-adds Timestamp behavior if `created` or `modified` field exists in table
 To customize use `$this->createdField` or `$this->modifiedField` in your `initialize()` method
 *before* calling `parent::initialize()`.
 To deactivate simple set the two fields to `false`.
+
+## Database
+
+### UUID as BINARY(36)
+Currently CakePHP still mainly only supports/promotes CHAR(36). The BINARY types are much more performant, though.
+If you upgrade 2.x apps that use the BINARY(36) type, you can use the Shim plugin's custom type class:
+
+```php
+// In your bootstrap
+use Cake\Database\Type;
+Type::map('binary', 'App\Database\Type\BinaryType');
+```
+
+Note: BINARY(16) would even be more performant, but then you would need to manually hex() unhex() directly in the database.
+So at this point this cannot be supported yet.
