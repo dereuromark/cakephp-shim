@@ -40,4 +40,18 @@ class BinaryTypeTest extends TestCase {
 		$this->assertInternalType('resource', $result);
 	}
 
+	/**
+	 * Test generating new ids
+	 *
+	 * @return void
+	 */
+	public function testNewId() {
+		$one = $this->type->newId();
+		$two = $this->type->newId();
+
+		$this->assertNotEquals($one, $two, 'Should be different values');
+		$this->assertRegExp('/^[a-f0-9-]+$/', $one, 'Should quack like a uuid');
+		$this->assertRegExp('/^[a-f0-9-]+$/', $two, 'Should quack like a uuid');
+	}
+
 }

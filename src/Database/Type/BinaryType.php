@@ -3,6 +3,7 @@ namespace Shim\Database\Type;
 
 use Cake\Database\Driver;
 use Cake\Database\Type\BinaryType as CakeBinaryType;
+use Cake\Utility\Text;
 
 /**
  * Binary type converter.
@@ -30,6 +31,15 @@ class BinaryType extends CakeBinaryType {
 		}
 
 		return parent::toPHP($value, $driver);
+	}
+
+	/**
+	 * Generate a new UUID
+	 *
+	 * @return string A new primary key value.
+	 */
+	public function newId() {
+		return Text::uuid();
 	}
 
 }
