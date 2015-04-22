@@ -42,6 +42,7 @@ But when upgrading you might want to keep the old way until you can refactor it 
 public $helpers = array('Shim.Session');
 ```
 and you don't have to change your code.
+Note that this Session helper also provides an additional `consume()` method on top.
 
 ## Model
 By using the Shim plugin Table class you can instantly re-use some 2.x behaviors.
