@@ -1,14 +1,5 @@
 # Features
 
-## Session component shim
-The session should be used directly via `$this->request->session()` object.
-But when upgrading you might want to keep the old way until you can refactor it fully:
-```php
-$components = array('Shim.Session');
-```
-and you don't have to change your code.
-
-
 ## Controller
 When using the Shim plugin Controller class you can set your pagination defaults via
 Configure
@@ -33,6 +24,24 @@ use Shim\Controller\Component\Component;
 class MyComponent extends Component {
 }
 ```
+
+### Session component shim
+The session should be used directly via `$this->request->session()` object.
+But when upgrading you might want to keep the old way until you can refactor it fully:
+```php
+public $components = array('Shim.Session');
+```
+and you don't have to change your code.
+
+## Helper
+
+### Session helper shim
+The session should be used directly via `$this->request->session()` object.
+But when upgrading you might want to keep the old way until you can refactor it fully:
+```php
+public $helpers = array('Shim.Session');
+```
+and you don't have to change your code.
 
 ## Model
 By using the Shim plugin Table class you can instantly re-use some 2.x behaviors.
