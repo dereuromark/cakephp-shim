@@ -61,8 +61,10 @@ To deactivate simple set the two fields to `false`.
 ## Database
 
 ### UUID as BINARY(36)
-Currently CakePHP still mainly only supports/promotes CHAR(36). The BINARY types are much more performant, though.
-The clean way would be to mark those columns as uuid manually:
+Currently CakePHP still mainly only supports/promotes CHAR(36).
+The BINARY types are much more [performant](http://iops.io/blog/storing-billions-uuid-fields-mysql-innodb/), though.
+
+The clean way would be to mark those columns as type `uuid` manually:
 ```php
 // In your Table class
 protected function _initializeSchema(Table $table) {
