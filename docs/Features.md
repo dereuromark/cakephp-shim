@@ -67,8 +67,8 @@ If you upgrade 2.x apps that use the BINARY(36) type, you can use the Shim plugi
 ```php
 // In your bootstrap
 use Cake\Database\Type;
-Type::map('binary', 'App\Database\Type\BinaryType');
+Type::map('binary', 'Shim\Database\Type\BinaryType');
 ```
 
-Note: BINARY(16) would even be more performant, but then you would need to manually hex() unhex() directly in the database.
+Note: BINARY(16) would even be more performant, but then you would need to manually hex() and unhex() directly in the database.
 So at this point this cannot be supported yet.
