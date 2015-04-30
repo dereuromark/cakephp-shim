@@ -11,7 +11,7 @@ the `IN` operator is the reasonable thing here. So shimming that would not be us
 ## hasMany()
 This method most probably didn't even know about.
 It is basically a boolean wrapper around find(first) or find(count).
-Already switching to those alternatives in 2.x would have been the best approach.
+In 3.x you can also just use `exists()` as you already could in 2.x.
 
 ## Deprecations in 2.x
 See the 2.x docs regarding those. But you should have been upgraded your 2.x app already to not use
