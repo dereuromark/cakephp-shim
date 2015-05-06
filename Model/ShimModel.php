@@ -39,9 +39,9 @@ class ShimModel extends Model {
 	 * @return array.
 	 */
 	public function implementedEvents() {
-		return (array_merge(parent::implementedEvents(), array(
+		return (array_merge(parent::implementedEvents(), [
 			'Model.initialize' => 'initialize',
-		)));
+		]));
 	}
 
 	/**
@@ -80,7 +80,7 @@ class ShimModel extends Model {
 			if (Configure::read('Shim.deprecateField')) {
 				trigger_error('Using implicit Model->id is deprecated in shim context. Pass it as conditions part instead.', E_USER_DEPRECATED);
 			}
-			$conditions = array($this->alias . '.' . $this->primaryKey => $this->id);
+			$conditions = [$this->alias . '.' . $this->primaryKey => $this->id];
 		}
 		if (Configure::read('Shim.deprecateField')) {
 			trigger_error('field() is deprecated in the shim context. Use shimmed fieldByConditions() or find() instead.', E_USER_DEPRECATED);
@@ -493,11 +493,11 @@ class ShimModel extends Model {
 	}
 
 	protected function _setAssoc($type, $name, $options = []) {
-		$this->bindModel(array(
-			$type => array(
+		$this->bindModel([
+			$type => [
 				$name => $options
-			)
-		), true);
+			]
+		], true);
 	}
 
 	/**

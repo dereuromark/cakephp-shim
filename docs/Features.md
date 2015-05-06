@@ -1,5 +1,16 @@
 ## Features
 
+### Better up-to-date mobile/tablet detection
+With the 3rd party depenency MobileDetect - which is included in CakePHP 3.x by default - mobile detection is always up to date.
+Use this in your 2.x project now right away, as well.
+
+Just put this in your AppController:
+```php
+public $components = ['RequestHandler' => ['className' => 'Shim.RequestHandlerShim'];
+```
+This will automatically replace the RequestHandler site-wide, and you can use the enhanced `isMobile()` (and `isTablet()` even) detection
+on it now.
+
 ### Upgrade helpers
 Use `Configure::write('Shim.warnAboutNamedParams', true)` to warn about named param leftovers, that
 should have been migrated to query strings. This way you can detect and fix them.
@@ -45,9 +56,9 @@ In 3.x that will simply not output anything anymore (~~silent error so to speak~
 As such, you need to go away from that as soon as possible.
 By extending that helper you make sure you catch all of those in time:
 ```php
-//public $helpers = array('Form');
+//public $helpers = ['Form'];
 // use this instead:
-public $helpers = array('Form' => array('className' => 'Shim.FormShim'));
+public $helpers = ['Form' => ['className' => 'Shim.FormShim']];
 ```
 
 You can also use the FormShim and HtmlShim helpers to detect leftovers of deprecated `$confirmMessage` usage in link() and postLink().
@@ -59,7 +70,7 @@ for 3.0 then anyway. So better start being explicit now.
 If you want to shim the new URL helper handling, you can leverage the UrlShimHelper:
 ```php
 // Add this:
-public $helpers = array('Url' => array('className' => 'Shim.UrlShim'));
+public $helpers = ['Url' => ['className' => 'Shim.UrlShim']];
 ```
 You can then use `$this->Url->build()` (instead of `$this->Html->url()`) already.
 Using the [Upgrade shell](https://github.com/dereuromark/cakephp-upgrade) command `cake Upgrade.Upgrade shim` you can automate the migration.
@@ -82,7 +93,7 @@ Configure::write('Dispatcher.filters', array(
 ));
 ```
 By default it will 301-redirect to the correct URL (in debug mode 302 to avoid debugging issues).
-If you want to temporarilly disable the redirect in debug mode, you can append `?skip_seo=1` to the URL.
+If you want to temporarily disable the redirect in debug mode, you can append `?skip_seo=1` to the URL.
 
 If you want to 404 instead, use `Configure::write('Shim.handleSeo', 'exception')`.
 

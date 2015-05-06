@@ -33,15 +33,15 @@ Plugin::loadAll(...);
 In case you want the Shim bootstrap file included (recommended), you can do that in your `ROOT/config/bootstrap.php` with
 
 ```php
-Plugin::load('Shim', array('bootstrap' => true));
+Plugin::load('Shim', ['bootstrap' => true]);
 ```
 
 or
 
 ```php
-Plugin::loadAll(array(
-		'Shim' => array('bootstrap' => true)
-));
+Plugin::loadAll([
+		'Shim' => ['bootstrap' => true]
+]);
 ```
 
 That bootstrap file will set config defaults to use pagination with query strings.

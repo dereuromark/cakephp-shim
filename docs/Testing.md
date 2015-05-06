@@ -19,9 +19,9 @@ class MyNameControllerTest extends ShimIntegrationTestCase {
 	}
 
 	public function testAddPost() {
-		$data = array(
+		$data = [
 			'name' => 'foo bar'
-		);
+		];
 		$this->post(['controller' => 'my_name', 'action' => 'add'], $data);
 		$this->assertResponseCode(302);
 		$this->assertResponseEmpty();

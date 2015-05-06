@@ -31,6 +31,10 @@ Please see [Docs](/docs)
 Already use the PHP5.5+ password functionality with the ModernPasswordHasher class and the Passwordable behavior. Easily upgradable to 3.x in minutes then.
 That includes auto-conversion (on-the-fly upon login) of old hashs to the new ones via `Fallback` password hasher class.
 
+### Better up-to-date mobile/tablet detection
+With the 3rd party depenency MobileDetect - which is included in CakePHP 3.x by default - mobile detection is always up to date.
+Use this in your 2.x project now right away, as well.
+
 ### More shims
 - PasswordHasherFactory to easily load your hasher classes.
 - Model::updateAllJoinless() - since 3.x won't join updateAll() anymore.

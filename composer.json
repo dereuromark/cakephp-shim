@@ -16,8 +16,12 @@
 		"php": ">=5.4",
 		"composer/installers": "*"
 	},
+	"require-dev": {
+		"mobiledetect/mobiledetectlib": "2.*"
+	},
 	"suggest": {
-		"ircmaxell/password-compat": "PHP5.4 compatability for the PHP5.5 password hashing functionality."
+		"ircmaxell/password-compat": "PHP5.4 compatability for the PHP5.5 password hashing functionality.",
+		"mobiledetect/mobiledetectlib": "Better up-to-date mobile/tablet detection."
 	},
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"
