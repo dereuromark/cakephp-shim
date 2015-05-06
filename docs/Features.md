@@ -1,16 +1,11 @@
 # Features
 
 ## Controller
-When using the Shim plugin Controller class you can set your pagination defaults via
-Configure
-```
-'Paginator' => [
-    'limit' => ... // etc
-]
-```
-
 You can also use `disableCache()` to auto-include `'Pragma' => 'no-cache'` which
 shims it for older (IE) version to work there, as well.
+
+Using `Configure::read('Shim.monitorHeaders')` you can monitor if all headers are properly
+set via Response class and not for some reason sent prior to that.
 
 ## Component
 
