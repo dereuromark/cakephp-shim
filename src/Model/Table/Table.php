@@ -249,6 +249,8 @@ class Table extends CakeTable {
 	}
 
 	/**
+	 * Convenience wrapper when upgrading save() from 2.x.
+	 *
 	 * @param array $entity Data
 	 * @param array $options Options
 	 * @return mixed
@@ -256,6 +258,21 @@ class Table extends CakeTable {
 	public function saveArray(array $entity, array $options = []) {
 		$entity = $this->newEntity($entity);
 		return parent::save($entity, $options);
+	}
+
+	/**
+	 * Convenience wrapper when upgrading saveField() from 2.x.
+	 *
+	 * @param $id
+	 * @param $field
+	 * @param $value
+	 */
+	public function saveField($id, $field, $value) {
+		$entity = [
+			'id' => $id,
+			$field => $value
+		];
+		return $this->saveArray($entity);
 	}
 
 	/**
