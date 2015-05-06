@@ -63,6 +63,9 @@ See [Auth](Auth.md).
 ### Model
 See [Model](Model.md).
 
+### View
+See [View](View.md).
+
 ### Testing
 See [Testing](Testing.md).
 

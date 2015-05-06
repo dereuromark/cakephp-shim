@@ -21,7 +21,7 @@ and
 
 Details @ https://packagist.org/packages/dereuromark/cakephp-shim
 
-This will load the plugin (within your boostrap file):
+This will load the plugin (within your bootstrap file):
 ```php
 Plugin::load('Shim');
 ```
