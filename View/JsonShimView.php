@@ -22,7 +22,8 @@ class JsonShimView extends JsonView {
 		}
 
 		$version = Configure::version();
-		if (!version_compare($version, '2.6.5', '>=')) {
+		// For now we shim it for all
+		if (true || !version_compare($version, '2.6.5', '>=')) {
 			return $this->_serializeShimmed($serialize);
 		}
 
