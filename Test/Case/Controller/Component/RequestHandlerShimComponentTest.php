@@ -26,7 +26,7 @@ class RequestHandlerShimComponentTest extends CakeTestCase {
 
 		$_SERVER['HTTP_USER_AGENT'] = '';
 
-		//$this->skipIf(!class_exists('\Detection\MobileDetect'), 'Please install MobileDetect for these tests to run.');
+		//$this->skipIf(!class_exists('Detection\\MobileDetect'), 'Please install MobileDetect for these tests to run.');
 	}
 
 	/**
@@ -34,7 +34,7 @@ class RequestHandlerShimComponentTest extends CakeTestCase {
 	 */
 	public function testDetector() {
 		$result = $this->RequestHandlerComponent->detector();
-		$this->assertInstanceOf('\Detection\MobileDetect', $result);
+		$this->assertInstanceOf('Detection\\MobileDetect', $result);
 	}
 
 	/**
