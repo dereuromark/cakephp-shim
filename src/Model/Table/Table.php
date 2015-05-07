@@ -147,6 +147,10 @@ class Table extends CoreTable {
 						$rules[$key] = ['rule' => $rule];
 					}
 
+					if (!empty($rules[$key]['rule']) && ($rules[$key]['rule'] === 'notEmpty' || $rules[$key]['rule'] === ['notEmpty'])) {
+						$rules[$key]['rule'] =  'notBlank';
+					}
+
 					if (!empty($rules[$key]['rule']) && ($rules[$key]['rule'] === 'isUnique' || $rules[$key]['rule'] === ['isUnique'])) {
 						$rules[$key]['rule'] =  'validateUnique';
 						$rules[$key]['provider'] = 'table';

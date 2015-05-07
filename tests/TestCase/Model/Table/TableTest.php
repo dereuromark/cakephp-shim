@@ -5,6 +5,7 @@ use Shim\TestSuite\TestCase;
 use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
 use Shim\Model\Table\Table;
+use Cake\Database\ValueBinder;
 
 class TableTest extends TestCase {
 
@@ -12,10 +13,12 @@ class TableTest extends TestCase {
 
 	public $Users;
 
-	public $fixtures = ['core.users', 'core.posts', 'core.authors'];
+	public $fixtures = ['core.users', 'core.posts', 'core.authors', 'plugin.Shim.Wheels', 'plugin.Shim.Cars'];
 
 	public function setUp() {
 		parent::setUp();
+
+		Configure::write('App.namespace', 'TestApp');
 
 		$this->Posts = TableRegistry::get('Shim.Posts', ['className' => '\Shim\Model\Table\Table']);
 		$this->Posts->belongsTo('Authors');
@@ -28,6 +31,11 @@ class TableTest extends TestCase {
 		Configure::delete('Shim');
 
 		parent::tearDown();
+	}
+
+	public function testInstance() {
+		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Posts);
+		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Users);
 	}
 
 	/**
@@ -155,6 +163,68 @@ class TableTest extends TestCase {
 		$res = $this->Posts->saveArray($array);
 		$this->assertTrue((bool)$res);
 		$this->assertNotEmpty($res->id);
+	}
+
+	/**
+	 * Shim support for 2.x relation arrays
+	 *
+	 * @return void
+	 */
+	public function testRelationShims() {
+		$this->Wheels = TableRegistry::get('Wheels');
+		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Wheels);
+
+		$car = $this->Wheels->Cars->find()->first();
+		$this->assertInstanceOf('\Cake\ORM\Entity', $car);
+
+		$this->Cars = TableRegistry::get('Cars');
+		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Cars);
+
+		$wheels = $this->Cars->Wheels->find()->where(['car_id' => $car['id']]);
+		$wheels->execute();
+
+		$order = $wheels->clause('order');
+		$sql = $order->sql(new ValueBinder());
+		$this->assertContains('ORDER BY "Wheels"."position" ASC', $sql);
+
+		$this->assertSame(2, count($wheels->toArray()));
+
+		$displayField = $this->Wheels->displayField();
+		$this->assertSame('position', $displayField);
+
+		$car = $this->Wheels->BogusCars->find()->first();
+		$this->assertInstanceOf('\Cake\ORM\Entity', $car);
+
+		$car = $this->Wheels->HABTMCars->find()->first();
+		$this->assertInstanceOf('\Cake\ORM\Entity', $car);
+	}
+
+	/**
+	 * Shim support for 2.x validation arrays
+	 *
+	 * @return void
+	 */
+	public function testBehaviorShims() {
+		$this->Wheels = TableRegistry::get('Wheels');
+		$behaviors = $this->Wheels->behaviors()->loaded();
+		$expected = ['Useless'];
+		$this->assertSame($expected, $behaviors);
+	}
+
+	/**
+	 * Shim support for 2.x validation arrays
+	 *
+	 * @return void
+	 */
+	public function testValidationShims() {
+		$this->Wheels = TableRegistry::get('Wheels');
+		$wheel = $this->Wheels->newEntity(['position' => '']);
+		$result = $this->Wheels->save($wheel);
+		$this->assertFalse($result);
+
+		$wheel = $this->Wheels->newEntity(['position' => 'rear left']);
+		$result = $this->Wheels->save($wheel);
+		$this->assertTrue((bool)$result);
 	}
 
 }
