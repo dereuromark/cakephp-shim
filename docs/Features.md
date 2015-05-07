@@ -1,10 +1,15 @@
 ## Features
 
 ### Better up-to-date mobile/tablet detection
-With the 3rd party depenency MobileDetect - which is included in CakePHP 3.x by default - mobile detection is always up to date.
+With the 3rd party dependency MobileDetect - which is included in CakePHP 3.x by default - mobile detection is always up to date.
 Use this in your 2.x project now right away, as well.
 
-Just put this in your AppController:
+Include the vendor library, e.g. via composer:
+```
+require "mobiledetect/mobiledetectlib":"2.*"
+```
+
+Then just put this in your AppController:
 ```php
 public $components = ['RequestHandler' => ['className' => 'Shim.RequestHandlerShim'];
 ```
