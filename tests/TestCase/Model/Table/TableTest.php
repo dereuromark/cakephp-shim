@@ -185,7 +185,7 @@ class TableTest extends TestCase {
 
 		$order = $wheels->clause('order');
 		$sql = $order->sql(new ValueBinder());
-		$this->assertContains('ORDER BY "Wheels"."position" ASC', $sql);
+		$this->assertRegExp('/["`]Wheels["`]\.["`]position["`] ASC/i', $sql);
 
 		$this->assertSame(2, count($wheels->toArray()));
 
