@@ -2,7 +2,7 @@
 namespace Shim\Database\Type;
 
 use Cake\Database\Driver;
-use Cake\Database\Type\BinaryType as CakeBinaryType;
+use Cake\Database\Type\BinaryType as CoreBinaryType;
 use Cake\Utility\Text;
 
 /**
@@ -10,7 +10,7 @@ use Cake\Utility\Text;
  *
  * Use to convert binary values including UUIDs between PHP and the database types.
  */
-class BinaryType extends CakeBinaryType {
+class BinaryType extends CoreBinaryType {
 
 	/**
 	 * Convert binary into resource handles

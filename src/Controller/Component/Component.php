@@ -1,14 +1,14 @@
 <?php
 namespace Shim\Controller\Component;
 
-use Cake\Controller\Component as CakeComponent;
+use Cake\Controller\Component as CoreComponent;
 use Cake\Event\Event;
 
 /**
  * Convenience class that automatically provides the controller 
  * instance via `$this->Controller`.
  */
-class Component extends CakeComponent {
+class Component extends CoreComponent {
 
 	/**
 	 * @var \Cake\Controller\Controller

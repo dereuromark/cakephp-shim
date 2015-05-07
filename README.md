@@ -9,7 +9,7 @@ Shim plugin to "shim" functionality up and down for CakePHP major versions.
 It also provides some small fixes.
 
 ## This branch is for shimming 2.x in 3.x
-It provides compatability wrapper access to 2.x functionality in 3.x.
+It provides compatibility wrapper access to 2.x functionality in 3.x.
 
 This is mainly useful when upgrading large applications to the next major framework version.
 Tons of code needs to be adjusted, using this Shim plugin a few lines less need to be touched.

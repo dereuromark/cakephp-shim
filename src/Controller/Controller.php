@@ -1,7 +1,7 @@
 <?php
 namespace Shim\Controller;
 
-use Cake\Controller\Controller as CakeController;
+use Cake\Controller\Controller as CoreController;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\ORM\Entity;
@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
 /**
  * DRY Controller stuff
  */
-class Controller extends CakeController {
+class Controller extends CoreController {
 
 	/**
 	 * Add headers for IE8 etc to fix caching issues in those stupid browsers
