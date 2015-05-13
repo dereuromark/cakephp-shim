@@ -45,7 +45,7 @@ class ShimModel extends Model {
 	}
 
 	/**
-	 * Detect missing contain in querys to help getting rid of recursive > -1 globally
+	 * Detect missing contain in queries to help getting rid of recursive > -1 globally
 	 *
 	 * @param string $type
 	 * @param array $query
@@ -62,7 +62,95 @@ class ShimModel extends Model {
 				trigger_error($message, E_USER_WARNING);
 			}
 		}
+
+		if ($this->hasBehavior('Tree')) {
+			if ($type === 'treeList') {
+				return $this->_findTreeList('before', $query);
+			}
+			if ($type === 'children') {
+				return $this->_findChildren('before', $query);
+			}
+			if ($type === 'path') {
+				return $this->_findPath('before', $query);
+			}
+		}
+
 		return parent::find($type, $query);
+	}
+
+	/**
+	 * Wrapper for generateTreeList() of the TreeBehavior
+	 * Requires Tree behavior to be loaded!
+	 *
+	 * generateTreeList($conditions = null, $keyPath = null, $valuePath = null, $spacer = '_', $recursive = null)
+	 *
+	 * @param $state
+	 * @param $query
+	 * @param array $results
+	 * @return array
+	 */
+	protected function _findTreeList($state, $query, $results = array()) {
+		if ($state === 'before') {
+			$conditions = [];
+			$keyPath = null;
+			$valuePath = null;
+			$spacer = '_';
+			$recursive = null;
+			extract($query);
+
+			return $this->generateTreeList($conditions, $keyPath, $valuePath, $spacer, $recursive);
+		}
+		return $results;
+	}
+
+	/**
+	 * Wrapper for children() of the TreeBehavior
+	 * Requires Tree behavior to be loaded!
+	 *
+	 * children($id = null, $direct = false, $fields = null, $order = null, $limit = null, $page = 1, $recursive = null)
+	 *
+	 * @param $state
+	 * @param $query
+	 * @param array $results
+	 * @return array
+	 */
+	protected function _findChildren($state, $query, $results = array()) {
+		if ($state === 'before') {
+			$id = null;
+			$direct = false;
+			$fields = null;
+			$order = null;
+			$limit = null;
+			$page = 1;
+			$recursive = null;
+			extract($query);
+
+			return $this->children($id, $direct, $fields, $order, $limit, $page, $recursive);
+		}
+		return $results;
+	}
+
+	/**
+	 * Wrapper for getPath() of the TreeBehavior
+	 * Requires Tree behavior to be loaded!
+	 *
+	 * getPath($id = null, $fields = null, $recursive = null)
+	 *
+	 * @param $state
+	 * @param $query
+	 * @param array $results
+	 * @return array
+	 */
+	protected function _findPath($state, $query, $results = array()) {
+		if ($state === 'before') {
+			$id = null;
+			$fields = null;
+			$recursive = null;
+			extract($query);
+
+			return $this->getPath($id, $fields, $recursive);
+		}
+		return $results;
 	}
 
 	/**

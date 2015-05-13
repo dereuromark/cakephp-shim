@@ -116,3 +116,20 @@ $this->ModelName->hasBehavior('Tree');
 // Removing
 $this->ModelName->removeBehavior('Tree');
 ```
+
+### TreeBehavior
+`generateTreeList()` will be gone in 3.x. Use the custom `treeList` finder already instead:
+```php
+$treeList = $this->Category->find('treeList', ['spacer' => '-']);
+```
+
+Same for `children()` and `getPath()`, which will also be changed to custom finders in 3.x:
+```php
+$path = $this->Category->find('path', ['id' => $id]);
+$children = $this->Category->find('children', ['id' => $id]);
+```
+
+All other 3.x options (fields, conditions, order, ...) are now supported using the 2nd `$options` array.
+
+Note that fo all these new custom finders you have to load the TreeBehavior on this model, first, though (just as you would with the
+former methods).

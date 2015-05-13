@@ -10,7 +10,7 @@ class ShimModelTest extends ShimTestCase {
 
 	public $modelName = 'User';
 
-	public $fixtures = ['core.user', 'core.post', 'core.author', 'core.tag'];
+	public $fixtures = ['core.user', 'core.post', 'core.author', 'core.tag', 'core.number_tree'];
 
 	public function setUp() {
 		parent::setUp();
@@ -61,6 +61,103 @@ class ShimModelTest extends ShimTestCase {
 		$record = $this->Post->get(2, ['fields' => ['id', 'title', 'body'], 'contain' => ['Author']]);
 		$this->assertEquals(3, count($record['Post']));
 		$this->assertEquals(3, $record['Author']['id']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFindTreeList() {
+		$this->NumberTree = ClassRegistry::init('NumberTree');
+		$this->NumberTree->Behaviors->load('Tree');
+		$records = [
+			[
+				'name' => 'Fooo'
+			],
+			[
+				'name' => 'Bar'
+			],
+			[
+				'name' => 'Bar Child',
+				'parent_id' => 2
+			]
+		];
+		foreach ($records as $record) {
+			$this->NumberTree->create();
+			$this->NumberTree->save($record);
+		}
+
+		$result = $this->NumberTree->find('treeList');
+		$expected = [
+			1 => 'Fooo',
+			2 => 'Bar',
+			3 => '_Bar Child'
+		];
+		$this->assertEquals($expected, $result);
+
+		$result = $this->NumberTree->find('treeList', ['spacer' => '-']);
+		$expected = [
+			1 => 'Fooo',
+			2 => 'Bar',
+			3 => '-Bar Child'
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFindPath() {
+		$this->NumberTree = ClassRegistry::init('NumberTree');
+		$this->NumberTree->Behaviors->load('Tree');
+		$records = [
+			[
+				'name' => 'Fooo'
+			],
+			[
+				'name' => 'Bar'
+			],
+			[
+				'name' => 'Bar Child',
+				'parent_id' => 2
+			]
+		];
+		foreach ($records as $record) {
+			$this->NumberTree->create();
+			$this->NumberTree->save($record);
+		}
+
+		$result = $this->NumberTree->find('path', ['id' => 3]);
+		$names = Hash::extract($result, '{n}.NumberTree.name');
+		$expected = ['Bar', 'Bar Child'];
+		$this->assertEquals($expected, $names);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFindChildren() {
+		$this->NumberTree = ClassRegistry::init('NumberTree');
+		$this->NumberTree->Behaviors->load('Tree');
+		$records = [
+			[
+				'name' => 'Fooo'
+			],
+			[
+				'name' => 'Bar'
+			],
+			[
+				'name' => 'Bar Child',
+				'parent_id' => 2
+			]
+		];
+		foreach ($records as $record) {
+			$this->NumberTree->create();
+			$this->NumberTree->save($record);
+		}
+
+		$result = $this->NumberTree->find('children', ['id' => 2, 'fields' => ['name']]);
+		$expected = [['NumberTree' => ['name' => 'Bar Child']]];
+		$this->assertEquals($expected, $result);
 	}
 
 	/**
