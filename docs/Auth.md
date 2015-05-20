@@ -14,13 +14,13 @@ Load your hashers the easy way:
 ```php
 App::uses('PasswordHasherFactory', 'Shim.Controller/Component/Auth');
 
-$hasher = [
+$config = [
 	'className' => 'Shim.Fallback',
 	'hashers' => [
 		'Shim.Modern', 'Simple'
 	]
 ];
-PasswordHasherFactory::build($hasher);
+$hasher = PasswordHasherFactory::build($config);
 ```
 
 ### ModernPasswordHasher
