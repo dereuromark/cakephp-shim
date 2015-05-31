@@ -19,7 +19,14 @@ class WheelsTable extends Table {
 				'message' => 'Please insert sth',
 				'allowEmpty' => false,
 				'required' => false,
-			]
+				'last' => true,
+			],
+			'maxLength' => [
+				'rule' => ['maxLength', 20],
+				'message' => ['valErrMaxCharacters {0} {1}', 'xyz', 20], // testing i18n
+				'allowEmpty' => false,
+				'last' => true,
+			],
 		]
 	];
 

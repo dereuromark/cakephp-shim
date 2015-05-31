@@ -17,6 +17,8 @@ class Table extends CoreTable {
 
 	public $modifiedField = 'modified';
 
+	public $validationDomain = 'default';
+
 	/**
 	 * initialize()
 	 *
@@ -140,7 +142,15 @@ class Table extends CoreTable {
 						unset($rules[$key]['allowEmpty']);
 					}
 					if (isset($rule['message'])) {
-						$rules[$key]['message'] = __($rule['message']);
+						if (is_array($rule['message'])) {
+							$name = array_shift($rule['message']);
+							//$args = array_slice($rule['message'], 1);
+							$args = $this->_translateArgs($rule['message']);
+							$message = __d($this->validationDomain, $name, $args);
+						} else {
+							$message = __d($this->validationDomain, $rule['message']);
+						}
+						$rules[$key]['message'] = $message;
 					}
 
 					if (is_string($rule)) {
@@ -162,6 +172,21 @@ class Table extends CoreTable {
 		}
 
 		return $validator;
+	}
+
+	/**
+	 * Applies translations to validator arguments.
+	 *
+	 * @param array $args The args to translate
+	 * @return array Translated args.
+	 */
+	protected function _translateArgs($args) {
+		foreach ((array)$args as $k => $arg) {
+			if (is_string($arg)) {
+				$args[$k] = __d($this->validationDomain, $arg);
+			}
+		}
+		return $args;
 	}
 
 	/**

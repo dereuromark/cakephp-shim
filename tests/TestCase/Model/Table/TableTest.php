@@ -218,7 +218,21 @@ class TableTest extends TestCase {
 	 */
 	public function testValidationShims() {
 		$this->Wheels = TableRegistry::get('Wheels');
+
 		$wheel = $this->Wheels->newEntity(['position' => '']);
+		$this->assertNotSame([], $wheel->errors());
+		$result = $this->Wheels->save($wheel);
+		$this->assertFalse($result);
+
+		// i18n array validation setup
+		//$this->Wheels = TableRegistry::get('Wheels');
+		$wheel = $this->Wheels->newEntity(['position' => '12345678901234567890abc']);
+		$expected = [
+			'position' => [
+				'maxLength' => 'valErrMaxCharacters xyz 20'
+			]
+		];
+		$this->assertSame($expected, $wheel->errors());
 		$result = $this->Wheels->save($wheel);
 		$this->assertFalse($result);
 
