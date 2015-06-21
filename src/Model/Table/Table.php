@@ -131,6 +131,9 @@ class Table extends CoreTable {
 					$field = $rules;
 					$rules = [];
 				}
+				if (!$rules) {
+					continue;
+				}
 
 				foreach ((array)$rules as $key => $rule) {
 					if (isset($rule['required'])) {
