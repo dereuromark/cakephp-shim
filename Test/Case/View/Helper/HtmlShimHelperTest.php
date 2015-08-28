@@ -34,7 +34,7 @@ class HtmlShimHelperTest extends ShimTestCase {
 	 */
 	public function testCss() {
 		$result = $this->Html->css('foo/bar.css', ['rel' => 'baz']);
-		$expected = '<link rel="baz" type="text/css" href="/css/foo/bar.css" />';
+		$expected = '<link rel="baz" type="text/css" href="/css/foo/bar.css"/>';
 		$this->assertSame($expected, $result);
 	}
 
@@ -52,7 +52,7 @@ class HtmlShimHelperTest extends ShimTestCase {
 	public function testCssInvalidConfirmBC() {
 	   $this->Html = new HtmlShimTestHelper(new View(null));
 		$result = $this->Html->css('foo/bar.css', 'baz');
-		$expected = '<link rel="baz" type="text/css" href="/css/foo/bar.css" />';
+		$expected = '<link rel="baz" type="text/css" href="/css/foo/bar.css"/>';
 		$this->assertSame($expected, $result);
 	}
 
