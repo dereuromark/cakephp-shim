@@ -217,14 +217,14 @@ class Table extends CoreTable {
 	 *
 	 * @param mixed $id
 	 * @param array $options Options for get().
-	 * @return array
+	 * @return mixed The first result from the ResultSet or null if not existent.
 	 */
 	public function record($id, array $options = []) {
 		try {
 			return $this->get($id, $options);
 		} catch (RecordNotFoundException $e) {
 		}
-		return array();
+		return null;
 	}
 
 	/**
@@ -232,7 +232,7 @@ class Table extends CoreTable {
 	 * Do NOT use with 2.x field()s. Make sure those have been replaced to fieldByConditions() instead.
 	 *
 	 * @param string $name
-	 * @param array $conditions
+	 * @param array $options
 	 * @return mixed Field value or null if not available
 	 */
 	public function field($name, array $options = []) {
