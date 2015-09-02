@@ -102,7 +102,7 @@ class TableTest extends TestCase {
 	 */
 	public function testRecordFail() {
 		$res = $this->Posts->record(2222);
-		$this->assertSame([], $res);
+		$this->assertNull($res);
 	}
 
 	/**
