@@ -156,10 +156,10 @@ class TableTest extends TestCase {
 	 * @return void
 	 */
 	public function testSaveArray() {
-		$array = array(
+		$array = [
 			'title' => 'Foo',
 			'author_id' => 1,
-		);
+		];
 		$res = $this->Posts->saveArray($array);
 		$this->assertTrue((bool)$res);
 		$this->assertNotEmpty($res->id);
