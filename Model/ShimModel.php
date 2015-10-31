@@ -161,7 +161,7 @@ class ShimModel extends Model {
 	 * @param mixed $name
 	 * @param mixed $conditions
 	 * @param mixed $order
-	 * @return void
+	 * @return mixed Field value or false if not found.
 	 */
 	public function field($name, $conditions = null, $order = null) {
 		if ($conditions === null && $this->id !== false) {

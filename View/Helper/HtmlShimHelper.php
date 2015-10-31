@@ -6,7 +6,7 @@ App::uses('HtmlHelper', 'View/Helper');
  *
  * Some fixes:
  * - Reports if $confirmMessage argument is still used (CakePHP2.6+).
- * - Notifies if 
+ * - Notifies if css() is used outdated.
  *
  * @author Mark Scherer
  * @license MIT
