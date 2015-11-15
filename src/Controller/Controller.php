@@ -8,6 +8,8 @@ use Cake\ORM\Entity;
 
 /**
  * DRY Controller stuff
+ *
+ * @property \Shim\Controller\Component\SessionComponent $Session
  */
 class Controller extends CoreController {
 
@@ -43,12 +45,13 @@ class Controller extends CoreController {
 	 * or output is being sent prior to the response class, which should be the only one doing this.
 	 *
 	 * @param Event $event An Event instance
+	 * @throws \Exception
 	 * @return void
 	 */
 	public function afterFilter(Event $event) {
-		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && php_sapi_name() !== 'cli') {
-			if (headers_sent($filename, $linenum)) {
-				$message = sprintf('Headers already sent in %s on line %s', $filename, $linenum);
+		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && PHP_SAPI !== 'cli') {
+			if (headers_sent($filename, $lineNumber)) {
+				$message = sprintf('Headers already sent in %s on line %s', $filename, $lineNumber);
 				if (Configure::read('debug')) {
 					throw new \Exception($message);
 				}
