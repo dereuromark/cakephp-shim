@@ -19,3 +19,4 @@ Configure::write('Search', [
 //Configure::write('Shim.deprecateHasAny', true);
 //Configure::write('Shim.deprecateField', true);
 //Configure::write('Shim.deprecateSaveField', true);
+//Configure::write('Shim.warnAboutOldRouting', true);
