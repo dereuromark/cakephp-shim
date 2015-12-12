@@ -236,6 +236,26 @@ class ShimModel extends Model {
 	}
 
 	/**
+	 * Updates the counter cache of belongsTo associations after a save or delete operation
+	 *
+	 * @param array $keys Optional foreign key data, defaults to the information $this->data
+	 * @param bool $created True if a new record was created, otherwise only associations with
+	 *   'counterScope' defined get updated
+	 * @return void
+	 */
+	public function updateCounterCache($keys = array(), $created = false) {
+		$tmpDisabled = false;
+		if (Configure::read('Shim.deprecateField')) {
+			Configure::write('Shim.deprecateField', false);
+			$tmpDisabled = true;
+		}
+		parent::updateCounterCache($keys, $created);
+		if ($tmpDisabled) {
+			Configure::write('Shim.deprecateField', true);
+		}
+	}
+
+	/**
 	 * Deprecate hasAny()
 	 *
 	 * @param mixed $conditions
