@@ -230,9 +230,30 @@ class ShimModel extends Model {
 	 */
 	public function saveField($name, $value, $validate = false) {
 		if (Configure::read('Shim.deprecateSaveField')) {
-			trigger_error('Deprecated in the shim context. Please use save() or updateAll() directly.', E_USER_DEPRECATED);
+			trigger_error('Deprecated in the shim context. Please use save() or updateAll() directly. saveFieldById() is available as quick fallback.', E_USER_DEPRECATED);
 		}
 		return parent::saveField($name, $value, $validate);
+	}
+
+	/**
+	 * Saves the value of a single field to the database, based on the current
+	 * model ID.
+	 *
+	 * @param int $id Id
+	 * @param string $field Name of the table field
+	 * @param mixed $value Value of the field
+	 * @param bool|array $validate Either a boolean, or an array.
+	 *   If a boolean, indicates whether or not to validate before saving.
+	 *   If an array, allows control of 'validate', 'callbacks' and 'counterCache' options.
+	 *   See Model::save() for details of each options.
+	 * @return bool|array See Model::save() False on failure or an array of model data on success.
+	 */
+	public function saveFieldById($id, $field, $value, $validate = false) {
+		$data = [
+			'id' => $id,
+			$field => $value
+		];
+		return $this->save($data, ['validate' => $validate]);
 	}
 
 	/**

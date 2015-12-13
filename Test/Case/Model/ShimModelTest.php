@@ -445,6 +445,23 @@ class ShimModelTest extends ShimTestCase {
 	/**
 	 * @return void
 	 */
+	public function testSaveFieldById() {
+		$data = [
+			'user' => 'Fooo'
+		];
+		$result = $this->User->save($data);
+		$this->assertTrue((bool)$result);
+
+		$this->User->saveFieldById($result['User']['id'], 'user', 'Baar');
+		$this->assertTrue((bool)$result);
+
+		$result = $this->User->get($result['User']['id']);
+		$this->assertSame('Baar', $result['User']['user']);
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testBehaviors() {
 		$res = $this->User->behaviors();
 		$this->assertInstanceOf('BehaviorCollection', $res);
