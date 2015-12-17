@@ -23,7 +23,9 @@ of that.
 Please see [SETUP.md](docs/SETUP.md)
 
 ## Usage
-Please see [Docs](docs)
+Please see [Docs](docs).
+
+A full overview of all shimming between 2.x and 3.x can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 
 ## Main shims
 - Table::find('first') support.
