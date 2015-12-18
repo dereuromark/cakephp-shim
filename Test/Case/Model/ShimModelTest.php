@@ -359,6 +359,15 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testExistsDeprecatedWay() {
+		$this->User->id = 2;
+		$result = $this->User->exists();
+		$this->assertTrue($result);
+	}
+
+	/**
 	 * @expectedException PHPUnit_Framework_Error_Deprecated
 	 * @return void
 	 */
@@ -366,8 +375,19 @@ class ShimModelTest extends ShimTestCase {
 		Configure::write('Shim.modelExists', 'exception');
 
 		$this->User->id = 2;
-		$result = $this->User->exists();
-		$this->assertFalse($result);
+		$this->User->exists();
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testDelete() {
+		Configure::write('Shim.modelDelete', 'exception');
+
+		$this->User->save(['user' => 'first name']);
+
+		$result = $this->User->delete($this->User->id);
+		$this->assertTrue($result);
 	}
 
 	/**
@@ -381,6 +401,25 @@ class ShimModelTest extends ShimTestCase {
 
 		$result = $this->User->delete();
 		debug($result);
+	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @return void
+	 */
+	public function testHasAnyInvalid() {
+		Configure::write('Shim.deprecateHasAny', 'exception');
+
+		$this->User->hasAny(['id' => 2]);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testUpdateCounterCache() {
+		Configure::write('Shim.deprecateField', 'exception');
+
+		$this->User->updateCounterCache([]);
 	}
 
 	/**
