@@ -339,6 +339,51 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testExistsAsArray() {
+		Configure::write('Shim.modelExists', 'exception');
+
+		$result = $this->User->exists(['User.user' => 'x']);
+		$this->assertFalse($result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testExistsById() {
+		Configure::write('Shim.modelExists', 'exception');
+
+		$result = $this->User->existsById(1);
+		$this->assertTrue($result);
+	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @return void
+	 */
+	public function testExistsInvalid() {
+		Configure::write('Shim.modelExists', 'exception');
+
+		$this->User->id = 2;
+		$result = $this->User->exists();
+		$this->assertFalse($result);
+	}
+
+	/**
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @return void
+	 */
+	public function testDeleteInvalid() {
+		Configure::write('Shim.modelDelete', 'exception');
+
+		$this->User->save(['user' => 'first name']);
+
+		$result = $this->User->delete();
+		debug($result);
+	}
+
+	/**
 	 * ShimModelTest::testDeconstruct()
 	 *
 	 * @return void

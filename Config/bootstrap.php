@@ -20,3 +20,5 @@ Configure::write('Search', [
 //Configure::write('Shim.deprecateField', true);
 //Configure::write('Shim.deprecateSaveField', true);
 //Configure::write('Shim.warnAboutOldRouting', true);
+//Configure::write('Shim.modelExists', true);
+//Configure::write('Shim.modelDelete', true);

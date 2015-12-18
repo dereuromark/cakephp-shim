@@ -277,14 +277,14 @@ class ShimModel extends Model {
 	}
 
 	/**
-	 * Deprecate hasAny()
+	 * Deprecate hasAny().
 	 *
 	 * @param mixed $conditions
 	 * @return bool
 	 */
 	public function hasAny($conditions = null) {
 		if (Configure::read('Shim.deprecateHasAny')) {
-			trigger_error('Deprecated in the shim context. Please use find() directly.', E_USER_DEPRECATED);
+			trigger_error('Deprecated in the shim context. Please use exists() or find() directly.', E_USER_DEPRECATED);
 		}
 		return parent::hasAny($conditions);
 	}
@@ -425,6 +425,72 @@ class ShimModel extends Model {
 	}
 
 	/**
+	 * 2.x shim to make delete(null) deprecated.
+	 *
+	 * @inheritdoc
+	 */
+	public function delete($id = null, $cascade = true) {
+		if ($id === null) {
+			if (Configure::read('Shim.modelDelete')) {
+				trigger_error('Always pass an ID for delete()', E_USER_DEPRECATED);
+			}
+		}
+
+		$shimModelExists = Configure::read('Shim.modelExists');
+		if ($shimModelExists) {
+			Configure::write('Shim.modelExists', false);
+		}
+
+		$result = parent::delete($id, $cascade);
+
+		if ($shimModelExists) {
+			Configure::write('Shim.modelExists', $shimModelExists);
+		}
+
+		return $result;
+	}
+
+	/**
+	 * 2.x shim to allow 3.x array access already.
+	 *
+	 * @param array|\ArrayAccess|int|null $conditions
+	 * @return bool
+	 */
+	public function exists($conditions = null) {
+		if (is_array($conditions)) {
+			return $this->existsByConditions($conditions);
+		}
+
+		return $this->existsById($conditions);
+	}
+
+	/**
+	 * 2.x shim to separate deprecated scalar usage from new array argument.
+	 * This way is deprecated and should only be used if existsByConditions() doesn't work out.
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
+	public function existsById($id) {
+		if ($id === null) {
+			if (Configure::read('Shim.modelExists')) {
+				trigger_error('Always pass an ID for exists() / existsById().', E_USER_DEPRECATED);
+			}
+		}
+		return parent::exists($id);
+	}
+
+	/*
+	 * 2.x shim for 3.x exists().
+	 *
+	 * @param array|\ArrayAccess $conditions
+	 * @return bool
+	 */
+	public function existsByConditions($conditions) {
+		return parent::hasAny($conditions);
+	}
+
+	/**
 	 * Override default updateAll to workaround forced joins.
 	 *
 	 * This is a shim method to more easily migrate to 3.x as there
@@ -434,6 +500,7 @@ class ShimModel extends Model {
 	 *   Fields are treated as SQL snippets, to insert literal values manually escape your data.
 	 * @param mixed $conditions Conditions to match, true for all records
 	 * @return bool True on success, false on failure
+	 * @throws \Exception
 	 */
 	public function updateAllJoinless($fields, $conditions = true) {
 		$name = $this->name;
