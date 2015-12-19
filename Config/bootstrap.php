@@ -11,14 +11,16 @@ Configure::write('Search', [
 ]);
 
 // Shims - add them in your own bootstrap/config
-//Configure::write('Shim.checkPaths', true);
-//Configure::write('Shim.warnAboutNamedParams', true);
-//Configure::write('Shim.handleNamedParams', true);
-//Configure::write('Shim.warnAboutMissingContain', true);
-//Configure::write('Shim.monitorHeaders', true);
-//Configure::write('Shim.deprecateHasAny', true);
-//Configure::write('Shim.deprecateField', true);
-//Configure::write('Shim.deprecateSaveField', true);
-//Configure::write('Shim.warnAboutOldRouting', true);
-//Configure::write('Shim.modelExists', true);
-//Configure::write('Shim.modelDelete', true);
+/*
+Configure::write('Shim.checkPaths', true);
+Configure::write('Shim.warnAboutNamedParams', true);
+Configure::write('Shim.handleNamedParams', true);
+Configure::write('Shim.warnAboutMissingContain', true);
+Configure::write('Shim.monitorHeaders', true);
+Configure::write('Shim.deprecateHasAny', true);
+Configure::write('Shim.deprecateField', true);
+Configure::write('Shim.deprecateSaveField', true);
+Configure::write('Shim.warnAboutOldRouting', true);
+Configure::write('Shim.modelExists', true);
+Configure::write('Shim.modelDelete', true);
+*/
