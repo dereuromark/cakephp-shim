@@ -8,7 +8,7 @@ transform it into `IS`/`IS NOT`. The reason 3.x does not to this hidden magic an
 that it can happen by accident, e.g. when passing NULL(s). Forcing `=` unless specially requested to use
 the `IN` operator is the reasonable thing here. So shimming that would not be useful.
 
-## hasMany()
+## hasAny()
 This method most probably didn't even know about.
 It is basically a boolean wrapper around find(first) or find(count).
 In 3.x you can also just use `exists()` as you already could in 2.x.
