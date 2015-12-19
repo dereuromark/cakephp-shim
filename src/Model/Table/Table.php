@@ -261,6 +261,19 @@ class Table extends CoreTable {
 	}
 
 	/**
+	 * 2.x shim for exists() and primary key.
+	 *
+	 * @param int $id
+	 * @return bool
+	 */
+	public function existsById($id) {
+		$conditions = [
+			$this->primaryKey() => $id
+		];
+		return parent::exists($conditions);
+	}
+
+	/**
 	 * Sets the default ordering as 2.x shim.
 	 *
 	 * If you don't want that, don't call parent when overwriting it in extending classes.

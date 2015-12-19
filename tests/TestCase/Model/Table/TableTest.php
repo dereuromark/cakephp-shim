@@ -166,6 +166,16 @@ class TableTest extends TestCase {
 	}
 
 	/**
+	 * Shim support for exists and primary key directly.
+	 *
+	 * @return void
+	 */
+	public function testExistsById() {
+		$result = $this->Posts->existsById(1);
+		$this->assertTrue($result);
+	}
+
+	/**
 	 * Shim support for 2.x relation arrays
 	 *
 	 * @return void
