@@ -1,4 +1,4 @@
-# Preconditions
+# Pre-conditions
 
 This plugin expects the following conditions to be met:
 
