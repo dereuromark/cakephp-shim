@@ -14,6 +14,39 @@ App::uses('FormHelper', 'View/Helper');
 class FormShimHelper extends FormHelper {
 
 	/**
+	 * Returns an HTML FORM element.
+	 *
+	 * ### Options:
+	 *
+	 * - `type` Form method defaults to POST
+	 * - `action`  The controller action the form submits to, (optional).
+	 * - `url`  The URL the form submits to. Can be a string or a URL array. If you use 'url'
+	 *    you should leave 'action' undefined.
+	 * - `default`  Allows for the creation of Ajax forms. Set this to false to prevent the default event handler.
+	 *   Will create an onsubmit attribute if it doesn't not exist. If it does, default action suppression
+	 *   will be appended.
+	 * - `onsubmit` Used in conjunction with 'default' to create ajax forms.
+	 * - `inputDefaults` set the default $options for FormHelper::input(). Any options that would
+	 *   be set when using FormHelper::input() can be set here. Options set with `inputDefaults`
+	 *   can be overridden when calling input()
+	 * - `encoding` Set the accept-charset encoding for the form. Defaults to `Configure::read('App.encoding')`
+	 *
+	 * @param mixed $model The model name for which the form is being defined. Should
+	 *   include the plugin name for plugin models. e.g. `ContactManager.Contact`.
+	 *   If an array is passed and $options argument is empty, the array will be used as options.
+	 *   If `false` no model is used.
+	 * @param array $options An array of html attributes and options.
+	 * @return string A formatted opening FORM tag.
+	 */
+	public function create($model = null, $options = array()) {
+		if (isset($options['action'])) {
+			trigger_error('Using key `action` is deprecated, use `url` directly instead.', E_USER_DEPRECATED);
+		}
+
+		return parent::create($model, $options);
+	}
+
+	/**
 	 * Creates an HTML link, but access the URL using the method you specify (defaults to POST).
 	 * Requires javascript to be enabled in browser.
 	 *
