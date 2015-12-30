@@ -27,7 +27,7 @@ class Controller extends CoreController {
 
 	/**
 	 * @param Event $event
-	 * @return void
+	 * @return \Cake\Network\Response|null|void
 	 */
 	public function beforeRender(Event $event) {
 		parent::beforeRender($event);
@@ -46,7 +46,7 @@ class Controller extends CoreController {
 	 *
 	 * @param Event $event An Event instance
 	 * @throws \Exception
-	 * @return void
+	 * @return \Cake\Network\Response|null|void
 	 */
 	public function afterFilter(Event $event) {
 		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && PHP_SAPI !== 'cli') {
