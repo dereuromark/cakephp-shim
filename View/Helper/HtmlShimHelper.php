@@ -108,4 +108,33 @@ class HtmlShimHelper extends HtmlHelper {
 		return parent::css($path, $options);
 	}
 
+	/**
+	 * Returns one or many `<script>` tags depending on the number of scripts given.
+	 *
+	 * If the filename is prefixed with "/", the path will be relative to the base path of your
+	 * application. Otherwise, the path will be relative to your JavaScript path, usually webroot/js.
+	 *
+	 * ### Options
+	 *
+	 * - `inline` Whether script should be output inline or into `$scripts_for_layout`. When set to false,
+	 *   the script tag will be appended to the 'script' view block as well as `$scripts_for_layout`.
+	 * - `block` The name of the block you want the script appended to. Leave undefined to output inline.
+	 *   Using this option will override the inline option.
+	 * - `once` Whether or not the script should be checked for uniqueness. If true scripts will only be
+	 *   included once, use false to allow the same script to be included more than once per request.
+	 * - `plugin` False value will prevent parsing path as a plugin
+	 * - `fullBase` If true the url will get a full address for the script file.
+	 *
+	 * @param string|array $url String or array of javascript files to include
+	 * @param array|bool $options Array of options, and html attributes see above. If boolean sets $options['inline'] = value
+	 * @return mixed String of `<script />` tags or null if $inline is false or if $once is true and the file has been
+	 *   included before.
+	 */
+	public function script($url, $options = []) {
+		if (!is_array($options)) {
+			trigger_error('The second argument needs to be an array. Use `inline` key in $options instead.', E_USER_DEPRECATED);
+		}
+		return parent::script($url, $options);
+	}
+
 }
