@@ -37,4 +37,4 @@ manually adjust all those.
 - Auto-adds Timestamp behavior if `created` or `modified` field exists in table.
 
 ## Helpful links
-When planning to upgrade, you should look into the [upgrade plugin for 2.x](https://github.com/dereuromark/cakephp-upgrade) and [upgrade app for 3.x]. They both extend the core ones and contain tons of more ideas on how to get code aligned with the current direction of the framework to reduce friction in the long run.
+When planning to upgrade, you should look into the [upgrade plugin for 2.x](https://github.com/dereuromark/cakephp-upgrade) and [upgrade app for 3.x](https://github.com/dereuromark/upgrade). They both extend the core ones and contain tons of more ideas on how to get code aligned with the current direction of the framework to reduce friction in the long run.
