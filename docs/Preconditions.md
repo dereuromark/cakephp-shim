@@ -30,5 +30,5 @@ modification later on.
 - You can rename the ~Joinless() variants to the actual ones again once you cleaned up all join-occurrences.
 
 ## IF creating a new 3.x app
-- You prevent using the 2.x shims and only use the 3.x convenience wrappers and functionality. They are marked as such.
+- Avoid using the 2.x shims and only use the 3.x convenience wrappers and functionality. They are marked as such.
 Using BC shims on purpose is usually a bad idea and should be avoided from here on.
