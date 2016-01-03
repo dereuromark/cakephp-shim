@@ -93,3 +93,8 @@ Type::map('binary', 'Shim\Database\Type\BinaryType');
 
 Note: BINARY(16) would even be more performant, but then you would need to manually hex() and unhex() directly in the database.
 So at this point this cannot be supported yet.
+
+## Utility
+
+Set class has been removed in favor of Hash. `pushDiff()` method has been dropped completely, though.
+The Shim Set class provides this for easier migration.
