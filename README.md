@@ -1,9 +1,9 @@
 # Shim plugin for CakePHP
 [![Build Status](https://api.travis-ci.org/dereuromark/cakephp-shim.svg)](https://travis-ci.org/dereuromark/cakephp-shim)
-[![Coverage Status](https://coveralls.io/repos/dereuromark/cakephp-shim/badge.png)](https://coveralls.io/r/dereuromark/cakephp-shim)
+[![Coverage Status](https://coveralls.io/repos/dereuromark/cakephp-shim/badge.svg)](https://coveralls.io/r/dereuromark/cakephp-shim)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-shim/license.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
-[![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-shim/d/total.png)](https://packagist.org/packages/dereuromark/cakephp-shim)
+[![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-shim/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
