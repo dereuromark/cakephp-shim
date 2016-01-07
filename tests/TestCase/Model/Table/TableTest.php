@@ -165,6 +165,91 @@ class TableTest extends TestCase {
 		$this->assertNotEmpty($res->id);
 	}
 
+	/*
+	 * @return void
+	 */
+	public function testArrayCondition() {
+		$result = $this->Posts->find()->all();
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		$query = $this->Posts->find();
+		$result = $this->Posts->arrayCondition($query, 'id', [1, 2])->all();
+		// ID 1, 2
+		$this->assertSame(2, count($result));
+
+		$query = $this->Posts->find();
+		$result = $this->Posts->arrayCondition($query, 'id NOT', [1, 2])->all();
+		// ID 3
+		$this->assertSame(1, count($result));
+
+		$query = $this->Posts->find();
+		$result = $this->Posts->arrayCondition($query, 'id', [])->all();
+		// nothing
+		$this->assertSame(0, count($result));
+
+		$query = $this->Posts->find();
+		$result = $this->Posts->arrayCondition($query, 'id NOT', [])->all();
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+	}
+
+	/*
+	 * @return void
+	 */
+	public function testArrayConditionArray() {
+		$result = $this->Posts->find()->all();
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id', [1, 2, 3]))->all();
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id', [1, 3]))->all();
+		// ID 1, 3
+		$this->assertSame(2, count($result));
+
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id', [1]))->all();
+		// ID 1
+		$this->assertSame(1, count($result));
+
+		// BUGFIX: The core would treat IN + [] as exception :(
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id', []))->all();
+		// nothing
+		$this->assertSame(0, count($result));
+
+		// Logically, IN + [] should be equal to always false condition
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testArrayConditionArrayNot() {
+		$result = $this->Posts->find()->all();
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id NOT', [1, 2, 3]))->all();
+		// nothing
+		$this->assertSame(0, count($result));
+
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id NOT', [1, 3]))->all();
+		// ID 2
+		$this->assertSame(1, count($result));
+
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id NOT', [1]))->all();
+		// ID 2, 3
+		$this->assertSame(2, count($result));
+
+		// BUGFIX: The core would treat NOT IN + [] as exception :(
+		$result = $this->Posts->find()->where($this->Posts->arrayConditionArray('id NOT', []))->all();
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		// Logically, NOT IN + [] should be equal to no condition
+	}
+
 	/**
 	 * Shim support for exists and primary key directly.
 	 *

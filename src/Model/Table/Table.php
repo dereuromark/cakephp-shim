@@ -51,9 +51,9 @@ class Table extends CoreTable {
 		}
 
 		if (
-            $this->createdField && $this->hasField($this->createdField)
-            || $this->modifiedField && $this->hasField($this->modifiedField)
-        ) {
+			$this->createdField && $this->hasField($this->createdField)
+			|| $this->modifiedField && $this->hasField($this->modifiedField)
+		) {
 			$this->addBehavior('Timestamp');
 		}
 	}
@@ -318,6 +318,57 @@ class Table extends CoreTable {
 			$field => $value
 		];
 		return $this->saveArray($entity);
+	}
+
+	/**
+	 * 2.x shim to allow conditions with arrays without explicit IN operator.
+	 *
+	 * More importantly it fixes a core issue around empty arrays and exceptions
+	 * being thrown.
+	 *
+	 * @param string $field
+	 * @param array $valueArray
+	 * @return array
+	 */
+	public function arrayConditionArray($field, array $valueArray) {
+		$negated = preg_match('/\s+(?:NOT|\!=)$/', $field);
+
+		if (count($valueArray) === 0) {
+			$condition = '1!=1';
+			if ($negated) {
+				$condition = '1=1';
+			}
+			return $condition;
+		}
+
+		return [$field . ' IN' => $valueArray];
+	}
+
+	/**
+	 * 2.x shim to allow conditions with arrays without explicit IN operator.
+	 *
+	 * More importantly it fixes a core issue around empty arrays and exceptions
+	 * being thrown.
+	 *
+	 * @param \Cake\ORM\Query $query
+	 * @param string $field
+	 * @param array $valueArray
+	 * @return \Cake\ORM\Query
+	 */
+	public function arrayCondition(Query $query, $field, array $valueArray) {
+		if (count($valueArray) === 0) {
+			$negated = preg_match('/\s+(?:NOT|\!=)$/', $field);
+			if ($negated) {
+				return $query;
+			}
+			$query->where('1!=1');
+
+			return $query;
+		}
+
+		$query->where([$field . ' IN' => $valueArray]);
+
+		return $query;
 	}
 
 	/**
