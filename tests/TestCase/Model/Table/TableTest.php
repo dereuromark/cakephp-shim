@@ -247,7 +247,7 @@ class TableTest extends TestCase {
 		// ID 1, 2, 3
 		$this->assertSame(3, count($result));
 
-		// Logically, NOT IN + [] should be equal to no condition
+		// Logically, NOT IN + [] should be equal to no condition (or always true condition)
 	}
 
 	/**
