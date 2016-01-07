@@ -331,7 +331,7 @@ class Table extends CoreTable {
 	 * @return array
 	 */
 	public function arrayConditionArray($field, array $valueArray) {
-		$negated = preg_match('/\s+(?:NOT|\!=)$/', $field);
+		$negated = preg_match('/\s+(?:NOT)$/', $field);
 
 		if (count($valueArray) === 0) {
 			$condition = '1!=1';
@@ -357,7 +357,7 @@ class Table extends CoreTable {
 	 */
 	public function arrayCondition(Query $query, $field, array $valueArray) {
 		if (count($valueArray) === 0) {
-			$negated = preg_match('/\s+(?:NOT|\!=)$/', $field);
+			$negated = preg_match('/\s+(?:NOT)$/', $field);
 			if ($negated) {
 				return $query;
 			}
