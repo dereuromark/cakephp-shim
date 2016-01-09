@@ -1,5 +1,5 @@
 <?php
-namespace Tools\Utility;
+namespace Shim\Utility;
 
 /**
  * BC wrapper for 2.x methods until they can be rewritten.
