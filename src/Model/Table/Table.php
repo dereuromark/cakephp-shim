@@ -326,6 +326,10 @@ class Table extends CoreTable {
 	 * More importantly it fixes a core issue around empty arrays and exceptions
 	 * being thrown.
 	 *
+	 * Please be careful with updating/deleting records and using IN operator.
+	 * Especially with NOT involved accidental or injected selection of too many records can easily happen.
+	 * Always check the input and maybe add a !empty() protection clause.
+	 *
 	 * @param string $field
 	 * @param array $valueArray
 	 * @return array
@@ -338,7 +342,7 @@ class Table extends CoreTable {
 			if ($negated) {
 				$condition = '1=1';
 			}
-			return $condition;
+			return [$condition];
 		}
 
 		return [$field . ' IN' => $valueArray];
@@ -349,6 +353,10 @@ class Table extends CoreTable {
 	 *
 	 * More importantly it fixes a core issue around empty arrays and exceptions
 	 * being thrown.
+	 *
+	 * Please be careful with updating/deleting records and using IN operator.
+	 * Especially with NOT involved accidental or injected selection of too many records can easily happen.
+	 * Always check the input and maybe add a !empty() protection clause.
 	 *
 	 * @param \Cake\ORM\Query $query
 	 * @param string $field
