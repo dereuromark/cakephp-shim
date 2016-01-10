@@ -99,8 +99,36 @@ There is also `deleteAllRaw()` in case you need an atomic wrapper for this, just
 ### Relation Setup wrappers
 In 3.x you would set up the relations this way:
 ```php
+public function initialize(array $config) {
+	$this->hasOne('Addresses', [
+		'dependent' => true
+	]);
+	...
+}
+```
+You can now do that in 2.x already, as well.
 
+### IN / NOT IN
+First of all, auto-IN is not supported anymore in 3.x.
+You would need to manually say `'field IN' => $array`. In In general this is a good thing. Being more explicit
+if you want a string or array to be checked is a big plus. The downside is the time-bomb issue when the array becomes
+empty for some reason and an exception is suddenly thrown.
+While this aims to increase security this can also contain hidden bugs in your app.
 
+The 2nd issue is that the current behavior in 2.x is `IS NULL`/`IS NOT NULL` for empty arrays.
+This is not ideal and works as long as you are not working with optional foreign keys or nullable fields.
+Then you might get false positives.
+
+Thus, to ease migration into 3.x and already use the more correct `1!=1`/`1=1` for empty arrays, you can leverage
+```php
+// in Model
+$array = [1, 3];
+'conditions' => $this->arrayConditionArray('field', $array)
+// Becomes: WHERE field IN (1, 2)
+
+$array = [];
+'conditions' => $this->arrayConditionArray('field', $array)
+// Becomes: WHERE 1!=1
 ```
 
 ### Behavior wrappers

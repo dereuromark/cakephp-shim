@@ -276,6 +276,42 @@ class ShimModel extends Model {
 		}
 	}
 
+
+	/**
+	 * 3.x shim to allow conditions with arrays without explicit IN operator in 3.x when upgrading.
+	 * It also makes the 0 cases more correct
+	 *
+	 * Before:
+	 * field IS NULL / field IS NOT NULL
+	 *
+	 * After:
+	 * 1!=1 / 1=1
+	 *
+	 * Please be careful with updating/deleting records and using IN operator.
+	 * Especially with NOT involved accidental or injected selection of too many records can easily happen.
+	 * Always check the input and maybe add a !empty() protection clause.
+	 *
+	 * @param string $field
+	 * @param array $valueArray
+	 * @return array
+	 */
+	public function arrayConditionArray($field, array $valueArray) {
+		$negated = preg_match('/\s+(?:NOT)$/', $field);
+
+		if (count($valueArray) === 0) {
+			$condition = '1!=1';
+			if ($negated) {
+				$condition = '1=1';
+			}
+			return [$condition];
+		}
+
+		return [$field => $valueArray];
+
+		// 2.x CORE BUG, cannot use yet
+		return [$field . ' IN' => $valueArray];
+	}
+
 	/**
 	 * Deprecate hasAny().
 	 *

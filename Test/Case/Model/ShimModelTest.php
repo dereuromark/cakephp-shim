@@ -810,6 +810,62 @@ class ShimModelTest extends ShimTestCase {
 		$this->assertTrue(!empty($res) && $res['fieldy'][0] === 'a 1 b 2 c 3 4 5 6 7 h 8');
 	}
 
+	/*
+	 * @return void
+	 */
+	public function testArrayConditionArray() {
+		$result = $this->Post->find('all');
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id', [1, 2, 3])]);
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id', [1, 3])]);
+		// ID 1, 3
+		$this->assertSame(2, count($result));
+
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id', [1])]);
+		// ID 1
+		$this->assertSame(1, count($result));
+
+		// BUGFIX: The core would treat IN + [] as exception :(
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id', [])]);
+		// nothing
+		$this->assertSame(0, count($result));
+
+		// Logically, IN + [] should be equal to always false condition
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testArrayConditionArrayNot() {
+		$result = $this->Post->find('all');
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id NOT', [1, 2, 3])]);
+		// nothing
+		$this->assertSame(0, count($result));
+
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id NOT', [1, 3])]);
+		// ID 2
+		$this->assertSame(1, count($result));
+
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id NOT', [1])]);
+		// ID 2, 3
+		$this->assertSame(2, count($result));
+
+		// BUGFIX: The core would treat NOT IN + [] as exception :(
+		$result = $this->Post->find('all', ['conditions' => $this->Post->arrayConditionArray('id NOT', [])]);
+		// ID 1, 2, 3
+		$this->assertSame(3, count($result));
+
+		// Logically, NOT IN + [] should be equal to no condition (or always true condition)
+	}
+
 }
 
 class ShimAppModelPost extends ShimModel {
