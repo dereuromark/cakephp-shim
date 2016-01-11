@@ -30,6 +30,9 @@ class Table extends CoreTable {
 	 */
 	public function initialize(array $config) {
 		// Shims
+		if (isset($this->useTable)) {
+			$this->table($this->useTable);
+		}
 		if (isset($this->primaryKey)) {
 			$this->primaryKey($this->primaryKey);
 		}
@@ -109,11 +112,23 @@ class Table extends CoreTable {
 	/**
 	 * @param array $array
 	 * @return array
+	 * @throws \Exception
 	 */
 	protected function _parseRelation($array) {
+		if (isset($array['unique'])) {
+			if ($array['unique'] === 'keepExisting') {
+				throw new \Exception('A HABTM relation "unique" config must be transformed into a valid "saveStrategy" one.');
+			}
+			$array['saveStrategy'] = $array['unique'] ? 'replace' : 'append';
+		}
+
 		if (!empty($array['className'])) {
 			$array['className'] = Inflector::pluralize($array['className']);
 		}
+		if (!empty($array['associationForeignKey'])) {
+			$array['targetForeignKey'] = $array['associationForeignKey'];
+		}
+
 		if (!empty($array['conditions']) && is_array($array['conditions'])) {
 			$conditions = [];
 			foreach ($array['conditions'] as $k => $v) {
