@@ -70,10 +70,7 @@ class Table extends CoreTable {
 					$k = $v;
 					$v = [];
 				}
-				if (!empty($v['className'])) {
-					$v['className'] = Inflector::pluralize($v['className']);
-				}
-				$v = array_filter($v);
+				$v = $this->_parseRelation($v);
 				$this->belongsTo(Inflector::pluralize($k), $v);
 			}
 		}
@@ -83,10 +80,7 @@ class Table extends CoreTable {
 					$k = $v;
 					$v = [];
 				}
-				if (!empty($v['className'])) {
-					$v['className'] = Inflector::pluralize($v['className']);
-				}
-				$v = array_filter($v);
+				$v = $this->_parseRelation($v);
 				$this->hasOne(Inflector::pluralize($k), $v);
 			}
 		}
@@ -96,10 +90,7 @@ class Table extends CoreTable {
 					$k = $v;
 					$v = [];
 				}
-				if (!empty($v['className'])) {
-					$v['className'] = Inflector::pluralize($v['className']);
-				}
-				$v = array_filter($v);
+				$v = $this->_parseRelation($v);
 				$this->hasMany(Inflector::pluralize($k), $v);
 			}
 		}
@@ -109,13 +100,42 @@ class Table extends CoreTable {
 					$k = $v;
 					$v = [];
 				}
-				if (!empty($v['className'])) {
-					$v['className'] = Inflector::pluralize($v['className']);
-				}
-				$v = array_filter($v);
+				$v = $this->_parseRelation($v);
 				$this->belongsToMany(Inflector::pluralize($k), $v);
 			}
 		}
+	}
+
+	/**
+	 * @param array $array
+	 * @return array
+	 */
+	protected function _parseRelation($array) {
+		if (!empty($array['className'])) {
+			$array['className'] = Inflector::pluralize($array['className']);
+		}
+		if (!empty($array['conditions']) && is_array($array['conditions'])) {
+			$conditions = [];
+			foreach ($array['conditions'] as $k => $v) {
+				$conditions[$this->_pluralizeModelName($k)] = $v;
+			}
+			$array['conditions'] = $conditions;
+		}
+
+		$array = array_filter($array);
+		return $array;
+	}
+
+	/*
+	 * @param string $key
+	 * @return string
+	 */
+	protected function _pluralizeModelName($key) {
+		$pos = strpos($key, '.');
+		if ($pos !== false) {
+			$key = Inflector::pluralize(substr($key, 0, $pos)) . '.' . substr($key, $pos + 1);
+		}
+		return $key;
 	}
 
 	/**
