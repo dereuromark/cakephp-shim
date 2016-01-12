@@ -25,7 +25,7 @@ class Table extends CoreTable {
 	 * All models will automatically get Timestamp behavior attached
 	 * if created or modified exists.
 	 *
-	 * @param mixed $config
+	 * @param array $config
 	 * @return void
 	 */
 	public function initialize(array $config) {
@@ -232,7 +232,7 @@ class Table extends CoreTable {
 	 *
 	 * @param string $type
 	 * @param array $options
-	 * @return Query
+	 * @return \Cake\ORM\Query
 	 */
 	public function find($type = 'all', $options = []) {
 		if ($type === 'first') {
@@ -333,7 +333,7 @@ class Table extends CoreTable {
 	 *
 	 * @param array $entity Data
 	 * @param array $options Options
-	 * @return mixed
+	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
 	public function saveArray(array $entity, array $options = []) {
 		$entity = $this->newEntity($entity);
@@ -343,9 +343,10 @@ class Table extends CoreTable {
 	/**
 	 * Convenience wrapper when upgrading saveField() from 2.x.
 	 *
-	 * @param $id
-	 * @param $field
-	 * @param $value
+	 * @param int $id
+	 * @param string $field
+	 * @param mixed $value
+	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
 	public function saveField($id, $field, $value) {
 		$entity = [
