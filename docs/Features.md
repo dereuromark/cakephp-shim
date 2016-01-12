@@ -10,6 +10,7 @@ set via Response class and not for some reason sent prior to that.
 Using `Configure::read('Shim.assertActionNames')` you can assert that all controller actions
 have been properly migrated to the new camelBacked naming scheme. They must not be underscored anymore for DashedRoute setup.
 
+
 ## Component
 
 Convenience class that automatically provides the component's methods with
@@ -31,6 +32,7 @@ public $components = array('Shim.Session');
 ```
 and you don't have to change your code.
 
+
 ## Helper
 
 ### Session helper shim
@@ -41,6 +43,7 @@ public $helpers = array('Shim.Session');
 ```
 and you don't have to change your code.
 Note that this Session helper also provides an additional `consume()` method on top.
+
 
 ## Model
 By using the Shim plugin Table class you can instantly re-use some 2.x behaviors.
@@ -130,7 +133,18 @@ Type::map('binary', 'Shim\Database\Type\BinaryType');
 Note: BINARY(16) would even be more performant, but then you would need to manually hex() and unhex() directly in the database.
 So at this point this cannot be supported yet.
 
+
 ## Utility
 
+### Set
 Set class has been removed in favor of Hash. `pushDiff()` method has been dropped completely, though.
 The Shim Set class provides this for easier migration.
+
+### Session
+The CakeSession in 2.x was static, and often times abused in the model layer to make them stateful.
+While it is recommended to get the 2.x app model layer stateless prior to upgrading, sometimes this is not easily doable.
+If during an upgrade it is necessary to shim this a little while longer, you can use the Session class, which allows
+static access from the model layer.
+This must be a temporary workaround only, though. Also note that you must invoke the session via regular non-static access prior to using
+the static access, so be sure to have at least one `$this->request->session()->read(...)` call in your beforeFilter() to enable
+session  in your application before any model tries to use the static shim wrapper.
