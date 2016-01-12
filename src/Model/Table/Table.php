@@ -360,10 +360,10 @@ class Table extends CoreTable {
 	 *
 	 * Wrap it to be transaction safe for all save calls:
 	 *
-	 *   // In a controller.
-	+    $articles->connection()->transactional(function () use ($articles, $entities) {
-	 *       $articles->saveAll($entities, ['atomic' => false]);
-	 *   }
+	 *  // In a controller.
+	 *  $articles->connection()->transactional(function () use ($articles, $entities) {
+	 *      $articles->saveAll($entities, ['atomic' => false]);
+	 *  }
 	 *
 	 * @param array $entities
 	 * @param array $options
