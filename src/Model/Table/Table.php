@@ -337,7 +337,7 @@ class Table extends CoreTable {
 	 */
 	public function saveArray(array $entity, array $options = []) {
 		$entity = $this->newEntity($entity);
-		return parent::save($entity, $options);
+		return $this->save($entity, $options);
 	}
 
 	/**
