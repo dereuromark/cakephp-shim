@@ -165,6 +165,39 @@ class TableTest extends TestCase {
 		$this->assertNotEmpty($res->id);
 	}
 
+	/**
+	 * Shim support for saving arrays directly.
+	 *
+	 * @return void
+	 */
+	public function testSaveAll() {
+		$array = [
+			[
+				'title' => 'Foo',
+				'author_id' => 1,
+			],
+			[
+				'title' => 'Bar',
+				'author_id' => 2,
+			],
+		];
+		$entities = $this->Posts->newEntities($array);
+		$this->assertSame(2, count($entities));
+
+		$this->assertTrue($this->Posts->saveAll($entities));
+
+		$array[] = [
+			'title' => 'Gez',
+			'author_id' => null,
+		];
+		$entities = $this->Posts->newEntities($array);
+		$entities[2]->errors('title', 'Some fake error reason');
+
+		$this->assertSame(3, count($entities));
+
+		$this->assertFalse($this->Posts->saveAll($entities));
+	}
+
 	/*
 	 * @return void
 	 */

@@ -356,6 +356,29 @@ class Table extends CoreTable {
 	}
 
 	/**
+	 * A 2.x shim of saveAll() wrapping save() calls for multiple entities.
+	 *
+	 * Wrap it to be transaction safe for all save calls:
+	 *
+	 *   // In a controller.
+	+    $articles->connection()->transactional(function () use ($articles, $entities) {
+	 *       $this->articles->saveAll($entities, ['atomic' => false]);
+	 *   }
+	 *
+	 * @param array $entities
+	 * @param array $options
+	 * @return bool True if all save calls where successful
+	 */
+	public function saveAll(array $entities, array $options = []) {
+		$success = true;
+		foreach ($entities as $entity) {
+			$success = $success & (bool)$this->save($entity, $options);
+		}
+
+		return (bool)$success;
+	}
+
+	/**
 	 * 2.x shim to allow conditions with arrays without explicit IN operator.
 	 *
 	 * More importantly it fixes a core issue around empty arrays and exceptions
