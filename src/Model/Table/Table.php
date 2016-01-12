@@ -362,7 +362,7 @@ class Table extends CoreTable {
 	 *
 	 *   // In a controller.
 	+    $articles->connection()->transactional(function () use ($articles, $entities) {
-	 *       $this->articles->saveAll($entities, ['atomic' => false]);
+	 *       $articles->saveAll($entities, ['atomic' => false]);
 	 *   }
 	 *
 	 * @param array $entities
