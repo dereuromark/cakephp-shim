@@ -18,7 +18,9 @@ class ShimComponent extends Component {
 	 * have the old URL.
 	 * Also allows auto-301-redirecting to the new ressource after upgrading the code.
 	 *
-	 * @return void
+	 * @param \Controller $Controller
+	 * @return \Cake\Network\Response|null
+	 * @throws \Exception
 	 */
 	public function startup(Controller $Controller = null) {
 		$this->Controller = $Controller;
@@ -26,20 +28,20 @@ class ShimComponent extends Component {
 		$this->_checkPaths();
 
 		if ($Controller->name === 'CakeError' || empty($Controller->request->params['named'])) {
-			return;
+			return null;
 		}
 
 		// Deprecation notices, but only for internally triggered ones
 		if (Configure::read('Shim.warnAboutNamedParams') && ($referer = $Controller->request->referer(true)) && $referer !== '/') {
 			$message = 'Named params ' . json_encode($Controller->request->params['named']) . ' - from ' . $referer;
-			if (Configure::read('debug')) {
+			if (Configure::read('debug') && Configure::read('Shim.warnAboutNamedParams') === 'exception') {
 				throw new ShimException($message);
 			}
 			trigger_error($message, E_USER_DEPRECATED);
 		}
 
-		if ($handle = Configure::read('Shim.handleNamedParams')) {
-			if ($handle === 'exception') {
+		if (Configure::read('Shim.handleNamedParams')) {
+			if (Configure::read('Shim.handleNamedParams') === 'exception') {
 				throw new NotFoundException();
 			}
 			// By default true to 301 redirect to the correct URL
@@ -55,6 +57,7 @@ class ShimComponent extends Component {
 	 * - DS as constant, not hardcoded /
 	 *
 	 * @return void
+	 * @throws ShimException
 	 */
 	protected function _checkPaths() {
 		if (!Configure::read('debug')) {
@@ -77,14 +80,14 @@ class ShimComponent extends Component {
 				}
 
 				if (str_replace(array('/', '\\'), DS, $path) !== $path) {
-					throw new Exception('All paths need to have a DS as separator, not a hardcoded / or \ slash.');
+					throw new ShimException('All paths need to have a DS as separator, not a hardcoded / or \ slash.');
 				}
 			}
 		}
 	}
 
 	/**
-	 * @return void
+	 * @return \Cake\Network\Response
 	 */
 	protected function _redirectNamedParams() {
 		$url = $this->_buildUrl();

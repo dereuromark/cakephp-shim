@@ -64,7 +64,7 @@ class ShimController extends Controller {
 		$this->response->header([
 			'Pragma' => 'no-cache',
 		]);
-		return parent::disableCache();
+		parent::disableCache();
 	}
 
 	/**
@@ -100,10 +100,10 @@ class ShimController extends Controller {
 		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'CakeError') {
 			if (headers_sent($filename, $linenum)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $linenum);
-				if (Configure::read('debug')) {
+				if (Configure::read('debug') && Configure::read('Shim.monitorHeaders') === 'exception') {
 					throw new ShimException($message);
 				}
-				trigger_error($message);
+				trigger_error($message, E_USER_NOTICE);
 			}
 		}
 	}
