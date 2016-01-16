@@ -20,6 +20,7 @@ Configure::write('Shim.monitorHeaders', true);
 Configure::write('Shim.deprecateHasAny', true);
 Configure::write('Shim.deprecateField', true);
 Configure::write('Shim.deprecateSaveField', true);
+Configure::write('Shim.deprecateSaveParams', true);
 Configure::write('Shim.warnAboutOldRouting', true);
 Configure::write('Shim.modelExists', true);
 Configure::write('Shim.modelDelete', true);

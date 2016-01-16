@@ -217,6 +217,35 @@ class ShimModel extends Model {
 	}
 
 	/**
+	 * Saves the data
+	 *
+	 * Options:
+	 *
+	 *  - atomic: If true (default), will attempt to save the record in a single transaction.
+	 *   - validate: Set to true/false to enable or disable validation.
+	 *   - fieldList: An array of fields you want to allow for saving.
+	 *   - callbacks: Set to false to disable callbacks. Using 'before' or 'after'
+	 *     will enable only those callbacks.
+	 *   - `counterCache`: Boolean to control updating of counter caches (if any)
+	 *
+	 * @param array|null $data Data
+	 * @param array $options Options array
+	 * @param array $fieldList Deprecated
+	 * @return mixed
+	 * @throws \Exception
+	 */
+	public function save($data = null, $options = [], $fieldList = []) {
+		if (Configure::read('Shim.deprecateSaveParams')) {
+			if (!is_array($options)) {
+				trigger_error('save() without an array as 2nd arg is deprecated.', E_USER_DEPRECATED);
+			} elseif (!empty($fieldList)) {
+				trigger_error('save() with $fieldList as 3rd arg is deprecated. Use 2nd arg options and fieldList key instead.', E_USER_DEPRECATED);
+			}
+		}
+		return parent::save($data, $options, $fieldList);
+	}
+
+	/**
 	 * Saves the value of a single field to the database, based on the current
 	 * model ID.
 	 *
