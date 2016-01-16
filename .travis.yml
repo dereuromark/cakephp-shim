@@ -29,7 +29,6 @@ before_script:
   - echo "<?php App::uses('ShimModel', 'Shim.Model'); class AppModel extends ShimModel {}" > Model/AppModel.php
   - echo "Configure::write('Security.salt', 'AycG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');" >> Config/bootstrap.php
   - echo "Configure::write('Security.cipherSeed', '16659201697453542496749683615');" >> Config/bootstrap.php
-  - echo "include './vendor/autoload.php';" >> Config/bootstrap.php
   - cat Config/bootstrap.php
   - cd ..
 
