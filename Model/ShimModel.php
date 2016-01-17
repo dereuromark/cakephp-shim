@@ -364,7 +364,7 @@ class ShimModel extends Model {
 	 * @return bool
 	 */
 	public function hasAny($conditions = null) {
-		if (Configure::read('Shim.deprecateHasAny')) {throw new InternalErrorException('EE');
+		if (Configure::read('Shim.deprecateHasAny')) {
 			trigger_error('Deprecated in the shim context. Please use exists() or find() directly.', E_USER_DEPRECATED);
 		}
 		return parent::hasAny($conditions);
