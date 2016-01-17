@@ -242,7 +242,23 @@ class ShimModel extends Model {
 				trigger_error('save() with $fieldList as 3rd arg is deprecated. Use 2nd arg options and fieldList key instead.', E_USER_DEPRECATED);
 			}
 		}
-		return parent::save($data, $options, $fieldList);
+
+		$tmpDisabled = false;
+		if (Configure::read('Shim.deprecateSaveParams')) {
+			$backtrace = debug_backtrace();
+			if (isset($backtrace[1]['function']) && $backtrace[1]['function'] === 'write' && isset($backtrace[1]['function']) && $backtrace[1]['class'] === 'DatabaseSession') {
+				Configure::write('Shim.deprecateSaveParams', false);
+				$tmpDisabled = true;
+			}
+		}
+
+		$result = parent::save($data, $options, $fieldList);
+
+		if ($tmpDisabled) {
+			Configure::write('Shim.deprecateSaveParams', true);
+		}
+
+		return $result;
 	}
 
 	/**
@@ -348,7 +364,7 @@ class ShimModel extends Model {
 	 * @return bool
 	 */
 	public function hasAny($conditions = null) {
-		if (Configure::read('Shim.deprecateHasAny')) {
+		if (Configure::read('Shim.deprecateHasAny')) {throw new InternalErrorException('EE');
 			trigger_error('Deprecated in the shim context. Please use exists() or find() directly.', E_USER_DEPRECATED);
 		}
 		return parent::hasAny($conditions);
