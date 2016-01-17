@@ -92,7 +92,7 @@ class ShimComponentTest extends ShimTestCase {
 	/**
 	 * testUrlQueryStrings()
 	 *
-	 * @expectedException CakeException
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
 	 * @return void
 	 */
 	public function testUrlNamedParams() {
