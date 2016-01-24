@@ -198,6 +198,32 @@ class TableTest extends TestCase {
 		$this->assertFalse($this->Posts->saveAll($entities));
 	}
 
+	/**
+	 * Test that find('list') also works as it used to in 2.x.
+	 *
+	 * @return void
+	 */
+	public function testFindListAutoSelectedFields() {
+		$this->Users->displayField('nick');
+
+		$query = $this->Users->find('list', ['fields' => ['id', 'created']]);
+		$expected = ['id', 'created'];
+		$this->assertSame($expected, $query->clause('select'));
+		$results = $query->toArray();
+		$this->assertInstanceOf('Cake\I18n\Time', array_shift($results));
+
+		$query = $this->Users->find('list', ['fields' => ['id']]);
+		$expected = ['id'];
+		$this->assertSame($expected, $query->clause('select'));
+		$expected = [
+			1 => 1,
+			2 => 2,
+			3 => 3,
+			4 => 4
+		];
+		$this->assertSame($expected, $query->toArray());
+	}
+
 	/*
 	 * @return void
 	 */
