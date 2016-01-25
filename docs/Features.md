@@ -136,7 +136,7 @@ So at this point this cannot be supported yet.
 ## Route
 InflectedRoute as proper replacement when upgrading from 2.x.
 The core one still expects method names for actions as `foo_bar()` underscored, which does not make sense (not only because of PSR).
-This Shim.Inflected route will work with the same method naming scheme as all other routes in 3.x: `fooBar()` camelBacked actions as method names.
+This `Shim.InflectedRoute` class will work with the same method naming scheme as all other routes in 3.x: `fooBar()` camelBacked actions as method names.
 
 So in your routes.php class:
 ```php
