@@ -135,8 +135,8 @@ So at this point this cannot be supported yet.
 
 ## Route
 InflectedRoute as proper replacement when upgrading from 2.x.
-The core one still expects method names as `foo_bar` underscored, which does not make sense (not only because of PSR).
-This Shim.Inflected route will work with the same method naming scheme as all other routes in 3.x: `fooBar` camelBacked actions as method names.
+The core one still expects method names for actions as `foo_bar()` underscored, which does not make sense (not only because of PSR).
+This Shim.Inflected route will work with the same method naming scheme as all other routes in 3.x: `fooBar()` camelBacked actions as method names.
 
 So in your routes.php class:
 ```php
@@ -147,7 +147,7 @@ Router::defaultRouteClass('Shim.InflectedRoute');
 ..., ['routeClass' => 'Shim.InflectedRoute']
 ```
 
-`/plugin-name/controller-name/action-name` now maps to PluginName plugin and `ControllerName::actionName()`.
+`/plugin_name/controller_name/action_name` now maps to PluginName plugin and `ControllerName::actionName()`.
 The array to form such a URL is like with Dashed routing: `['plugin' => 'PluginName', 'controller' => 'ControllerName', 'action' => 'actionName']`
 
 ## Utility
