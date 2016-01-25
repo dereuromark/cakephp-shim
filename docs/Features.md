@@ -147,6 +147,9 @@ Router::defaultRouteClass('Shim.InflectedRoute');
 ..., ['routeClass' => 'Shim.InflectedRoute']
 ```
 
+`/plugin-name/controller-name/action-name` now maps to PluginName plugin and `ControllerName::actionName()`.
+The array to form such a URL is like with Dashed routing: `['plugin' => 'PluginName', 'controller' => 'ControllerName', 'action' => 'actionName']`
+
 ## Utility
 
 ### Set
