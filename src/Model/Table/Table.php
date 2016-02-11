@@ -156,8 +156,8 @@ class Table extends CoreTable {
 	/**
 	 * Shim the 2.x way of validate class properties.
 	 *
-	 * @param Validator $validator
-	 * @return Validator
+	 * @param \Cake\Validation\Validator $validator
+	 * @return \Cake\Validation\Validator
 	 */
 	public function validationDefault(Validator $validator) {
 		if (!empty($this->validate)) {
@@ -196,11 +196,11 @@ class Table extends CoreTable {
 					}
 
 					if (!empty($rules[$key]['rule']) && ($rules[$key]['rule'] === 'notEmpty' || $rules[$key]['rule'] === ['notEmpty'])) {
-						$rules[$key]['rule'] =  'notBlank';
+						$rules[$key]['rule'] = 'notBlank';
 					}
 
 					if (!empty($rules[$key]['rule']) && ($rules[$key]['rule'] === 'isUnique' || $rules[$key]['rule'] === ['isUnique'])) {
-						$rules[$key]['rule'] =  'validateUnique';
+						$rules[$key]['rule'] = 'validateUnique';
 						$rules[$key]['provider'] = 'table';
 					}
 				}
@@ -333,11 +333,11 @@ class Table extends CoreTable {
 	 *
 	 * If you don't want that, don't call parent when overwriting it in extending classes.
 	 *
-	 * @param Event $event
-	 * @param Query $query
+	 * @param \Cake\Event\Event $event
+	 * @param \Cake\ORM\Query $query
 	 * @param array $options
 	 * @param boolean $primary
-	 * @return Query
+	 * @return \Cake\ORM\Query
 	 */
 	public function beforeFind(Event $event, Query $query, $options, $primary) {
 		$order = $query->clause('order');

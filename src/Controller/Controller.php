@@ -26,7 +26,7 @@ class Controller extends CoreController {
 	}
 
 	/**
-	 * @param Event $event
+	 * @param \Cake\Event\Event $event
 	 * @return \Cake\Network\Response|null|void
 	 */
 	public function beforeRender(Event $event) {
@@ -44,7 +44,7 @@ class Controller extends CoreController {
 	 * This, if desired, adds a check if your controller actions are cleanly built and no headers
 	 * or output is being sent prior to the response class, which should be the only one doing this.
 	 *
-	 * @param Event $event An Event instance
+	 * @param \Cake\Event\Event $event An Event instance
 	 * @throws \Exception
 	 * @return \Cake\Network\Response|null|void
 	 */

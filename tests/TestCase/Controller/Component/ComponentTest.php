@@ -7,6 +7,7 @@ use Shim\Controller\Component\Component;
 use Cake\Network\Request;
 use Shim\TestSuite\TestCase;
 use Cake\Event\Event;
+
 /**
  * SessionComponentTest class
  *
