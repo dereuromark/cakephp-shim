@@ -35,22 +35,18 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 
 	/**
 	 * A basic GET.
-	 * FIXME
 	 *
 	 * @return void
 	 */
-	public function _testBasic() {
-		//$this->get('/items/index');
+	public function testBasic() {
 		$this->get(['controller' => 'Items', 'action' => 'index']);
 
-		debug($this->_response->body());
-		file_put_contents(TMP . 'x.html', $this->_response->body());
-		die();
 		$this->assertResponseCode(200);
 		$this->assertResponseOk();
 		$this->assertResponseSuccess();
 		$this->assertNoRedirect();
 		$this->assertResponseNotEmpty();
+		$this->assertResponseContains('<body>');
 		$this->assertResponseContains('My Index Test ctp');
 	}
 

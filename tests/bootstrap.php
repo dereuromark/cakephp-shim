@@ -29,7 +29,10 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 require CORE_PATH . 'config/bootstrap.php';
 
 Cake\Core\Configure::write('App', [
-	'namespace' => 'App'
+	'namespace' => 'App',
+	'paths' => [
+		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'TestApp' . DS . 'Template' . DS],
+	]
 ]);
 
 Cake\Core\Configure::write('debug', true);
