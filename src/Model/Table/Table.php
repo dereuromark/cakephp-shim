@@ -256,8 +256,16 @@ class Table extends CoreTable {
 		if (!isset($options['keyField']) && !isset($options['valueField'])) {
 			$select = $query->clause('select');
 			if ($select && count($select) <= 2) {
-				$options['keyField'] = array_shift($select);
-				$options['valueField'] = array_shift($select) ?: $options['keyField'];
+				$keyField = array_shift($select);
+				$valueField = array_shift($select) ?: $keyField;
+				list($model, $keyField) = pluginSplit($keyField);
+				if (!$model || $model === $this->alias()) {
+					$options['keyField'] = $keyField;
+				}
+				list($model, $valueField) = pluginSplit($valueField);
+				if (!$model || $model === $this->alias()) {
+					$options['valueField'] = $valueField;
+				}
 			}
 		}
 
