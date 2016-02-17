@@ -42,4 +42,5 @@ class Component extends CoreComponent {
 			}
 		}
 	}
+
 }

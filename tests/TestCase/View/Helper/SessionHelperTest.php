@@ -12,7 +12,6 @@ use Cake\View\View;
 
 /**
  * SessionHelperTest class
- *
  */
 class SessionHelperTest extends TestCase {
 

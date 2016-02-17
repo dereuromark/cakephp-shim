@@ -10,7 +10,6 @@ use Cake\Event\Event;
 
 /**
  * SessionComponentTest class
- *
  */
 class ComponentTest extends TestCase {
 

@@ -54,4 +54,5 @@ class SessionHelper extends Helper {
 	public function implementedEvents() {
 		return [];
 	}
+
 }

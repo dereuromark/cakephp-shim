@@ -220,7 +220,7 @@ class Session {
 			Configure::read('Session.checkAgent') === false ||
 			isset($config['userAgent']) && static::$_userAgent === $config['userAgent']
 		);
-		return ($validAgent && static::$time <= $config['time']);
+		return $validAgent && static::$time <= $config['time'];
 	}
 
 	/**

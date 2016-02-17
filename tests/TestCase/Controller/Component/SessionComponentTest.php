@@ -12,7 +12,6 @@ use Shim\TestSuite\TestCase;
 
 /**
  * SessionComponentTest class
- *
  */
 class SessionComponentTest extends TestCase {
 

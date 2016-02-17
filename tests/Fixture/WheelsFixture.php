@@ -5,7 +5,6 @@ use Cake\TestSuite\Fixture\TestFixture;
 
 /**
  * RoleFixture
- *
  */
 class WheelsFixture extends TestFixture {
 

@@ -336,7 +336,7 @@ class Table extends CoreTable {
 	 * @param \Cake\Event\Event $event
 	 * @param \Cake\ORM\Query $query
 	 * @param array $options
-	 * @param boolean $primary
+	 * @param bool $primary
 	 * @return \Cake\ORM\Query
 	 */
 	public function beforeFind(Event $event, Query $query, $options, $primary) {

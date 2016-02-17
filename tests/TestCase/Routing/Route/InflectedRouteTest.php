@@ -29,8 +29,7 @@ class InflectedRouteTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testMatchBasic()
-	{
+	public function testMatchBasic() {
 		$route = new InflectedRoute('/:controller/:action/:id', ['plugin' => null]);
 		$result = $route->match(['controller' => 'Posts', 'action' => 'myView', 'plugin' => null]);
 		$this->assertFalse($result);
@@ -141,8 +140,7 @@ class InflectedRouteTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testParse()
-	{
+	public function testParse() {
 		$route = new InflectedRoute('/:controller/:action/:id', [], ['id' => Router::ID]);
 		$route->compile();
 		$result = $route->parse('/my_posts/my_view/1');
@@ -195,8 +193,7 @@ class InflectedRouteTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testMatchThenParse()
-	{
+	public function testMatchThenParse() {
 		$route = new InflectedRoute('/plugin/:controller/:action', [
 			'plugin' => 'Vendor/PluginName'
 		]);

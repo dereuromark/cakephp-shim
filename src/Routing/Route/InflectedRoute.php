@@ -43,8 +43,7 @@ class InflectedRoute extends Route {
 	 * @param string $plugin Plugin name
 	 * @return string
 	 */
-	protected function _camelizePlugin($plugin)
-	{
+	protected function _camelizePlugin($plugin) {
 		if (strpos($plugin, '/') === false) {
 			return Inflector::camelize($plugin);
 		}
@@ -60,8 +59,7 @@ class InflectedRoute extends Route {
 	 * @param string $url The URL to parse
 	 * @return array|false An array of request parameters, or false on failure.
 	 */
-	public function parse($url)
-	{
+	public function parse($url) {
 		$params = parent::parse($url);
 		if (!$params) {
 			return false;
@@ -92,8 +90,7 @@ class InflectedRoute extends Route {
 	 *   directory.
 	 * @return bool|string Either false or a string URL.
 	 */
-	public function match(array $url, array $context = [])
-	{
+	public function match(array $url, array $context = []) {
 		$url = $this->_underscore($url);
 		if (!$this->_inflectedDefaults) {
 			$this->_inflectedDefaults = true;
@@ -108,8 +105,7 @@ class InflectedRoute extends Route {
 	 * @param array $url An array of URL keys.
 	 * @return array
 	 */
-	protected function _underscore($url)
-	{
+	protected function _underscore($url) {
 		foreach (['controller', 'plugin', 'action'] as $element) {
 			if (!empty($url[$element])) {
 				$url[$element] = Inflector::underscore($url[$element]);
@@ -117,4 +113,5 @@ class InflectedRoute extends Route {
 		}
 		return $url;
 	}
+
 }
