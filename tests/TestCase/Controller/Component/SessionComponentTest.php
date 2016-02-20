@@ -2,12 +2,12 @@
 namespace Shim\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
-use Shim\Controller\Component\SessionComponent;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\Routing\DispatcherFactory;
+use Shim\Controller\Component\SessionComponent;
 use Shim\TestSuite\TestCase;
 
 /**
@@ -17,37 +17,37 @@ class SessionComponentTest extends TestCase {
 
 	protected static $_sessionBackup;
 
-/**
- * fixtures
- *
- * @var string
- */
+	/**
+	 * fixtures
+	 *
+	 * @var string
+	 */
 	public $fixtures = ['core.sessions'];
 
-/**
- * test case startup
- *
- * @return void
- */
+	/**
+	 * test case startup
+	 *
+	 * @return void
+	 */
 	public static function setupBeforeClass() {
 		DispatcherFactory::add('Routing');
 		DispatcherFactory::add('ControllerFactory');
 	}
 
-/**
- * cleanup after test case.
- *
- * @return void
- */
+	/**
+	 * cleanup after test case.
+	 *
+	 * @return void
+	 */
 	public static function teardownAfterClass() {
 		DispatcherFactory::clear();
 	}
 
-/**
- * setUp method
- *
- * @return void
- */
+	/**
+	 * setUp method
+	 *
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 		$_SESSION = [];
@@ -56,20 +56,20 @@ class SessionComponentTest extends TestCase {
 		$this->ComponentRegistry = new ComponentRegistry($controller);
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
+	/**
+	 * tearDown method
+	 *
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 	}
 
-/**
- * testSessionReadWrite method
- *
- * @return void
- */
+	/**
+	 * testSessionReadWrite method
+	 *
+	 * @return void
+	 */
 	public function testSessionReadWrite() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -97,11 +97,11 @@ class SessionComponentTest extends TestCase {
 		$Session->delete('Test');
 	}
 
-/**
- * Test consuming session data.
- *
- * @return void
- */
+	/**
+	 * Test consuming session data.
+	 *
+	 * @return void
+	 */
 	public function testConsume() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -125,11 +125,11 @@ class SessionComponentTest extends TestCase {
 		$this->assertFalse($Session->check('Some.array'));
 	}
 
-/**
- * testSessionDelete method
- *
- * @return void
- */
+	/**
+	 * testSessionDelete method
+	 *
+	 * @return void
+	 */
 	public function testSessionDelete() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -138,11 +138,11 @@ class SessionComponentTest extends TestCase {
 		$this->assertNull($Session->read('Test'));
 	}
 
-/**
- * testSessionCheck method
- *
- * @return void
- */
+	/**
+	 * testSessionCheck method
+	 *
+	 * @return void
+	 */
 	public function testSessionCheck() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 
@@ -153,21 +153,21 @@ class SessionComponentTest extends TestCase {
 		$Session->delete('Test');
 	}
 
-/**
- * testSessionId method
- *
- * @return void
- */
+	/**
+	 * testSessionId method
+	 *
+	 * @return void
+	 */
 	public function testSessionId() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 		$this->assertEquals(session_id(), $Session->id());
 	}
 
-/**
- * testSessionDestroy method
- *
- * @return void
- */
+	/**
+	 * testSessionDestroy method
+	 *
+	 * @return void
+	 */
 	public function testSessionDestroy() {
 		$Session = new SessionComponent($this->ComponentRegistry);
 

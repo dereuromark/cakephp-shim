@@ -1,10 +1,10 @@
 <?php
 namespace Shim\Test\TestCase\TestSuite;
 
-use Shim\TestSuite\IntegrationTestCase;
 use Cake\Core\Configure;
-use Cake\Routing\Router;
 use Cake\Routing\DispatcherFactory;
+use Cake\Routing\Router;
+use Shim\TestSuite\IntegrationTestCase;
 
 class IntegrationTestCaseTest extends IntegrationTestCase {
 

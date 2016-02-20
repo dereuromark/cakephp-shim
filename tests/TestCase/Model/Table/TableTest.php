@@ -1,11 +1,11 @@
 <?php
 namespace Shim\Test\TestCase\Model\Table;
 
-use Shim\TestSuite\TestCase;
-use Cake\ORM\TableRegistry;
 use Cake\Core\Configure;
-use Shim\Model\Table\Table;
 use Cake\Database\ValueBinder;
+use Cake\ORM\TableRegistry;
+use Shim\Model\Table\Table;
+use Shim\TestSuite\TestCase;
 
 class TableTest extends TestCase {
 

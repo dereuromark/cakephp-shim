@@ -58,7 +58,6 @@ trait TestTrait {
 	 * Force flushing the output
 	 *
 	 * @param mixed $data
-	 * @param bool $force Should the output be flushed (forced)
 	 * @return void
 	 */
 	protected static function debug($data) {

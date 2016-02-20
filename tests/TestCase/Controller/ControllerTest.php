@@ -4,12 +4,12 @@ namespace Shim\Test\TestCase\Controller;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Component\CommonComponent;
 use Cake\Core\Configure;
+use Cake\Event\Event;
 use Cake\Network\Request;
 use Cake\Network\Session;
+use Cake\ORM\Entity;
 use Cake\TestSuite\TestCase;
 use Shim\Controller\Controller;
-use Cake\Event\Event;
-use Cake\ORM\Entity;
 
 /**
  */

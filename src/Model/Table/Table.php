@@ -2,12 +2,12 @@
 
 namespace Shim\Model\Table;
 
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Event\Event;
+use Cake\ORM\Query;
 use Cake\ORM\Table as CoreTable;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
-use Cake\ORM\Query;
-use Cake\Event\Event;
-use Cake\Datasource\Exception\RecordNotFoundException;
 
 class Table extends CoreTable {
 

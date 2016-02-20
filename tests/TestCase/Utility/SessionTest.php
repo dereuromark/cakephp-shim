@@ -2,8 +2,8 @@
 
 namespace Shim\Test\TestCase\Utility;
 
-use Shim\Utility\Session;
 use Shim\TestSuite\TestCase;
+use Shim\Utility\Session;
 
 class SessionTest extends TestCase {
 

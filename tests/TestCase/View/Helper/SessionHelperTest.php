@@ -7,8 +7,8 @@ use Cake\Core\Plugin;
 use Cake\Network\Request;
 use Cake\Network\Session;
 use Cake\TestSuite\TestCase;
-use Shim\View\Helper\SessionHelper;
 use Cake\View\View;
+use Shim\View\Helper\SessionHelper;
 
 /**
  * SessionHelperTest class

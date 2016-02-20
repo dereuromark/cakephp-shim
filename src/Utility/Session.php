@@ -119,7 +119,6 @@ class Session {
 	 * This feature is only used when config value `Session.autoRegenerate` is set to true.
 	 *
 	 * @var int
-	 * @see CakeSession::_checkValid()
 	 */
 	public static $requestCountdown = 10;
 
