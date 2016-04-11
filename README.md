@@ -27,9 +27,9 @@ Please see [Docs](docs).
 A full overview of all shimming between 2.x and 3.x can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 
 ## Main shims
-- Table::find('first') support.
-- Table::find('count') support.
-- Table::field() support and fieldByConditions() alias to migrate to.
+- Primary level `Table::find('first')` support.
+- Primary level `Table::find('count')` support.
+- `Table::field()` support and `fieldByConditions()` alias to migrate to.
 - Still supports model properties `$primaryKey`, `$displayField`, `$order`, `$validate`, `$actsAs` and all
 relations (`$belongsTo`, `$hasMany`, ...) as it would be very time-consuming to
 manually adjust all those.
