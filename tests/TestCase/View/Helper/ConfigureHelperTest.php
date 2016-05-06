@@ -1,0 +1,98 @@
+<?php
+namespace Shim\Test\TestCase\View\Helper;
+
+use Cake\Controller\Controller;
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\TestSuite\TestCase;
+use Cake\View\View;
+use Shim\View\Helper\ConfigureHelper;
+
+/**
+ * ConfigureHelperTest class
+ */
+class ConfigureHelperTest extends TestCase {
+
+	/**
+	 * @var \Shim\View\Helper\ConfigureHelper
+	 */
+	protected $_Configure;
+
+	/**
+	 * @return void
+	 */
+	public function setUp() {
+		parent::setUp();
+		$this->_View = new View();
+		$this->_Configure = new ConfigureHelper($this->_View);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function tearDown() {
+		unset($this->_View, $this->_Configure);
+		Plugin::unload();
+		parent::tearDown();
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRead() {
+		Configure::write('Deeply.nested.key', 'value');
+		Configure::write('test', 'info');
+
+		$result = $this->_Configure->read('Deeply.nested.key');
+		$this->assertEquals('value', $result);
+
+		$result = $this->_Configure->read('test');
+		$this->assertEquals('info', $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testCheck() {
+		Configure::write('test', 'value');
+		Configure::write('Flash.flash', 'value');
+
+		$this->assertTrue($this->_Configure->check('test'));
+		$this->assertTrue($this->_Configure->check('Flash.flash'));
+		$this->assertFalse($this->_Configure->check('Does.not.exist'));
+		$this->assertFalse($this->_Configure->check('Nope'));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testConsume() {
+		Configure::write('Deeply.nested.key', 'value');
+
+		$result = $this->_Configure->consume('Deeply.nested.key');
+		$this->assertEquals('value', $result);
+
+		$result = $this->_Configure->consume('Deeply.nested.key');
+		$this->assertNull($result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testReadOrFail() {
+		Configure::write('Deeply.nested.key', 'value');
+
+		$result = $this->_Configure->readOrFail('Deeply.nested.key');
+		$this->assertEquals('value', $result);
+	}
+
+	/**
+	 * @expectedException \RuntimeException
+	 * @return void
+	 */
+	public function testReadOrFailFail() {
+		$this->_Configure->readOrFail('Deeply.nested.key');
+	}
+
+}
