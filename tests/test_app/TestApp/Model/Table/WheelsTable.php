@@ -6,12 +6,24 @@ use Shim\Model\Table\Table;
 
 class WheelsTable extends Table {
 
+	/**
+	 * @var string
+	 */
 	public $displayField = 'position';
 
+	/**
+	 * @var array
+	 */
 	public $order = ['position' => 'ASC'];
 
+	/**
+	 * @var array
+	 */
 	public $actsAs = ['Useless'];
 
+	/**
+	 * @var array
+	 */
 	public $validate = [
 		'position' => [
 			'notBlank' => [
@@ -30,20 +42,31 @@ class WheelsTable extends Table {
 		]
 	];
 
+	/**
+	 * @var array
+	 */
 	public $belongsTo = [
 		'Car' => [
 			'className' => 'Car'
 		]
 	];
 
-	// Bogus - for testing only
+	/**
+	 * Bogus - for testing only
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = [
 		'HABTMCar' => [
 			'className' => 'Car'
 		]
 	];
 
-	// Bogus - for testing only
+	/**
+	 * Bogus - for testing only
+	 *
+	 * @var array
+	 */
 	public $hasOne = [
 		'BogusCar' => [
 			'className' => 'Car'

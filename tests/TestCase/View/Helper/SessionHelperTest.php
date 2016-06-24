@@ -1,8 +1,6 @@
 <?php
 namespace Shim\Test\TestCase\View\Helper;
 
-use Cake\Controller\Controller;
-use Cake\Core\App;
 use Cake\Core\Plugin;
 use Cake\Network\Request;
 use Cake\Network\Session;

@@ -5,6 +5,7 @@ use Cake\Controller\Controller as CoreController;
 use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\ORM\Entity;
+use Exception;
 
 /**
  * DRY Controller stuff
@@ -53,7 +54,7 @@ class Controller extends CoreController {
 			if (headers_sent($filename, $lineNumber)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $lineNumber);
 				if (Configure::read('debug')) {
-					throw new \Exception($message);
+					throw new Exception($message);
 				}
 				trigger_error($message);
 			}

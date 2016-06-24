@@ -4,17 +4,28 @@ namespace Shim\Test\TestCase\Model\Table;
 use Cake\Core\Configure;
 use Cake\Database\ValueBinder;
 use Cake\ORM\TableRegistry;
-use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 
 class TableTest extends TestCase {
 
+	/**
+	 * @var \Shim\Model\Table\Table
+	 */
 	public $Posts;
 
+	/**
+	 * @var \Shim\Model\Table\Table
+	 */
 	public $Users;
 
+	/**
+	 * @var array
+	 */
 	public $fixtures = ['core.users', 'core.posts', 'core.authors', 'plugin.Shim.Wheels', 'plugin.Shim.Cars'];
 
+	/**
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -27,12 +38,18 @@ class TableTest extends TestCase {
 		Configure::delete('Shim');
 	}
 
+	/**
+	 * @return void
+	 */
 	public function tearDown() {
 		Configure::delete('Shim');
 
 		parent::tearDown();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function testInstance() {
 		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Posts);
 		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Users);

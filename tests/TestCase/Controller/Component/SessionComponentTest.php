@@ -15,12 +15,8 @@ use Shim\TestSuite\TestCase;
  */
 class SessionComponentTest extends TestCase {
 
-	protected static $_sessionBackup;
-
 	/**
-	 * fixtures
-	 *
-	 * @var string
+	 * @var array
 	 */
 	public $fixtures = ['core.sessions'];
 

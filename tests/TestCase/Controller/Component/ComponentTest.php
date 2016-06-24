@@ -3,7 +3,6 @@ namespace Shim\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
-use Cake\Event\Event;
 use Cake\Network\Request;
 use Shim\Controller\Component\Component;
 use Shim\TestSuite\TestCase;

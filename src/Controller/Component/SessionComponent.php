@@ -36,7 +36,7 @@ class SessionComponent extends Component {
 	 *
 	 * @param string $name The name of the key your are setting in the session.
 	 *    This should be in a Controller.key format for better organizing
-	 * @param string $value The value you want to store in a session.
+	 * @param string|null $value The value you want to store in a session.
 	 * @return void
 	 */
 	public function write($name, $value = null) {
@@ -49,7 +49,7 @@ class SessionComponent extends Component {
 	 * In your controller: $this->Session->read('Controller.sessKey');
 	 * Calling the method without a param will return all session vars
 	 *
-	 * @param string $name the name of the session key you want to read
+	 * @param string|null $name the name of the session key you want to read
 	 * @return mixed value from the session vars
 	 */
 	public function read($name = null) {
@@ -121,7 +121,7 @@ class SessionComponent extends Component {
 	 * if it has not already been started. When setting the session id,
 	 * the session will not be started.
 	 *
-	 * @param string $id Id to use (optional)
+	 * @param string|null $id Id to use (optional)
 	 * @return string The current session id.
 	 */
 	public function id($id = null) {

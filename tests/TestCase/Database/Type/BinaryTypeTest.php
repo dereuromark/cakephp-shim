@@ -3,8 +3,6 @@ namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
 use Cake\TestSuite\TestCase;
-use PDO;
-use Shim\Database\Type\BinaryType;
 
 /**
  * Test for the Uuid type.

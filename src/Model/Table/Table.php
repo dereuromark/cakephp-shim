@@ -8,15 +8,28 @@ use Cake\ORM\Query;
 use Cake\ORM\Table as CoreTable;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
+use Exception;
 
 class Table extends CoreTable {
 
+	/**
+	 * @var array|null
+	 */
 	public $order = null;
 
+	/**
+	 * @var string
+	 */
 	public $createdField = 'created';
 
+	/**
+	 * @var string
+	 */
 	public $modifiedField = 'modified';
 
+	/**
+	 * @var string
+	 */
 	public $validationDomain = 'default';
 
 	/**
@@ -117,7 +130,7 @@ class Table extends CoreTable {
 	protected function _parseRelation($array) {
 		if (isset($array['unique'])) {
 			if ($array['unique'] === 'keepExisting') {
-				throw new \Exception('A HABTM relation "unique" config must be transformed into a valid "saveStrategy" one.');
+				throw new Exception('A HABTM relation "unique" config must be transformed into a valid "saveStrategy" one.');
 			}
 			$array['saveStrategy'] = $array['unique'] ? 'replace' : 'append';
 		}
@@ -307,6 +320,7 @@ class Table extends CoreTable {
 	 *
 	 * @param string $name
 	 * @param array $conditions
+	 * @param array $customOptions
 	 * @return mixed Field value or null if not available
 	 */
 	public function fieldByConditions($name, array $conditions = [], array $customOptions = []) {
@@ -496,7 +510,7 @@ class Table extends CoreTable {
 	/**
 	 * Checks if a string of a field name contains a dot if not it will add it and add the alias prefix.
 	 *
-	 * @param string
+	 * @param string $string
 	 * @return string
 	 */
 	protected function _prefixAlias($string) {

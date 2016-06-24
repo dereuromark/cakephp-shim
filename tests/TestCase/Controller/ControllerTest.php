@@ -1,12 +1,8 @@
 <?php
 namespace Shim\Test\TestCase\Controller;
 
-use Cake\Controller\ComponentRegistry;
-use Cake\Controller\Component\CommonComponent;
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Cake\Network\Request;
-use Cake\Network\Session;
 use Cake\ORM\Entity;
 use Cake\TestSuite\TestCase;
 use Shim\Controller\Controller;
@@ -15,8 +11,14 @@ use Shim\Controller\Controller;
  */
 class ControllerTest extends TestCase {
 
+	/**
+	 * @var \Shim\Controller\Controller
+	 */
 	public $Controller;
 
+	/**
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -26,6 +28,9 @@ class ControllerTest extends TestCase {
 		$this->Controller->startupProcess();
 	}
 
+	/**
+	 * @return void
+	 */
 	public function tearDown() {
 		parent::tearDown();
 
@@ -33,8 +38,6 @@ class ControllerTest extends TestCase {
 	}
 
 	/**
-	 * CommonComponentTest::testLoadComponent()
-	 *
 	 * @return void
 	 */
 	public function testDisableCache() {

@@ -3,7 +3,6 @@ namespace Shim\Controller\Component;
 
 use Cake\Controller\Component as CoreComponent;
 use Cake\Core\Configure;
-use Cake\Event\Event;
 
 /**
  * Convenience class that automatically provides the controller
@@ -37,7 +36,7 @@ class Component extends CoreComponent {
 		$classMethods = array_diff($subClassMethods, $parentClassMethods);
 
 		foreach ($classMethods as $classMethod) {
-			if (substr($classMethod, 0, 1) !== '_' && strpos($classMethod, '_' !== false)) {
+			if (substr($classMethod, 0, 1) !== '_' && strpos($classMethod, '_') !== false) {
 				trigger_error('Invalid controller action name ' . $classMethod . ', no underscore expected, should be camelBacked.', E_USER_DEPRECATED);
 			}
 		}

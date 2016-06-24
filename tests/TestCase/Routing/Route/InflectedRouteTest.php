@@ -14,7 +14,6 @@
  */
 namespace Shim\Test\TestCase\Routing\Route;
 
-use Cake\Core\App;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Shim\Routing\Route\InflectedRoute;

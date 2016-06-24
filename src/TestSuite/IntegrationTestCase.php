@@ -1,7 +1,6 @@
 <?php
 namespace Shim\TestSuite;
 
-use Cake\Routing\Router;
 use Cake\TestSuite\IntegrationTestCase as CoreIntegrationTestCase;
 
 /**
