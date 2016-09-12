@@ -26,7 +26,7 @@ class Set {
 					$array[$key] = $value;
 				} else {
 					if (is_array($value)) {
-						$array[$key] = self::pushDiff($array[$key], $array2[$key]);
+						$array[$key] = static::pushDiff($array[$key], $array2[$key]);
 					}
 				}
 			}

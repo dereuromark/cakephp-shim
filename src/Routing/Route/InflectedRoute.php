@@ -57,10 +57,11 @@ class InflectedRoute extends Route {
 	 * camelBacked form.
 	 *
 	 * @param string $url The URL to parse
+	 * @param string $method
 	 * @return array|false An array of request parameters, or false on failure.
 	 */
-	public function parse($url) {
-		$params = parent::parse($url);
+	public function parse($url, $method = '') {
+		$params = parent::parse($url, $method);
 		if (!$params) {
 			return false;
 		}
