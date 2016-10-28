@@ -2,8 +2,8 @@
 
 namespace Tools\Test\TestCase\View\Helper;
 
-use Cake\View\View;
 use Cake\TestSuite\TestCase;
+use Cake\View\View;
 use Shim\View\Helper\JsHelper;
 
 class JsHelperTest extends TestCase {
