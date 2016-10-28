@@ -136,7 +136,6 @@ class Session {
 	 */
 	protected static $_cookieName = null;
 
-
 	/**
 	 * Returns true if given variable is set in session.
 	 *
