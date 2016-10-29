@@ -12,6 +12,11 @@ use Shim\TestSuite\TestCase;
  */
 class ComponentTest extends TestCase {
 
+	/*
+	 * @var \Cake\Controller\Controller
+	 */
+	public $Controller;
+
 	/**
 	 * setUp method
 	 *
@@ -30,7 +35,7 @@ class ComponentTest extends TestCase {
 	public function testBeforeFilter() {
 		$Component = new Component($this->ComponentRegistry);
 
-		$this->assertInstanceOf('Cake\Controller\Controller', $Component->Controller);
+		$this->assertInstanceOf(Controller::class, $Component->Controller);
 	}
 
 }

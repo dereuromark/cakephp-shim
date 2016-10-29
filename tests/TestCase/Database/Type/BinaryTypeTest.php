@@ -1,8 +1,10 @@
 <?php
 namespace Shim\Test\TestCase\Database\Type;
 
+use Cake\Database\Driver;
 use Cake\Database\Type;
 use Cake\TestSuite\TestCase;
+use Shim\Database\Type\BinaryType;
 
 /**
  * Test for the Uuid type.
@@ -17,10 +19,10 @@ class BinaryTypeTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		Type::map('binary', 'Shim\Database\Type\BinaryType');
+		Type::map('binary', BinaryType::class);
 
 		$this->type = Type::build('binary');
-		$this->driver = $this->getMock('Cake\Database\Driver');
+		$this->driver = $this->getMockBuilder(Driver::class)->getMock();
 	}
 
 	/**

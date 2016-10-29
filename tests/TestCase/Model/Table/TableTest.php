@@ -3,7 +3,10 @@ namespace Shim\Test\TestCase\Model\Table;
 
 use Cake\Core\Configure;
 use Cake\Database\ValueBinder;
+use Cake\I18n\Time;
+use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
+use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 
 class TableTest extends TestCase {
@@ -51,8 +54,8 @@ class TableTest extends TestCase {
 	 * @return void
 	 */
 	public function testInstance() {
-		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Posts);
-		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Users);
+		$this->assertInstanceOf(Table::class, $this->Posts);
+		$this->assertInstanceOf(Table::class, $this->Users);
 	}
 
 	/**
@@ -158,7 +161,7 @@ class TableTest extends TestCase {
 	 */
 	public function testSaveField() {
 		$post = $this->Posts->find('first');
-		$this->assertInstanceOf('\Cake\ORM\Entity', $post);
+		$this->assertInstanceOf(Entity::class, $post);
 
 		$res = $this->Posts->saveField($post['id'], 'title', 'FooBar');
 		$this->assertTrue((bool)$res);
@@ -227,7 +230,7 @@ class TableTest extends TestCase {
 		$expected = ['id', 'created'];
 		$this->assertSame($expected, $query->clause('select'));
 		$results = $query->toArray();
-		$this->assertInstanceOf('Cake\I18n\Time', array_shift($results));
+		$this->assertInstanceOf(Time::class, array_shift($results));
 
 		$query = $this->Users->find('list', ['fields' => ['id']]);
 		$expected = ['id'];
@@ -343,13 +346,13 @@ class TableTest extends TestCase {
 	 */
 	public function testRelationShims() {
 		$this->Wheels = TableRegistry::get('Wheels');
-		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Wheels);
+		$this->assertInstanceOf(Table::class, $this->Wheels);
 
 		$car = $this->Wheels->Cars->find()->first();
-		$this->assertInstanceOf('\Cake\ORM\Entity', $car);
+		$this->assertInstanceOf(Entity::class, $car);
 
 		$this->Cars = TableRegistry::get('Cars');
-		$this->assertInstanceOf('\Shim\Model\Table\Table', $this->Cars);
+		$this->assertInstanceOf(Table::class, $this->Cars);
 
 		$wheels = $this->Cars->Wheels->find()->where(['car_id' => $car['id']]);
 		$wheels->execute();
@@ -364,10 +367,10 @@ class TableTest extends TestCase {
 		$this->assertSame('position', $displayField);
 
 		$car = $this->Wheels->BogusCars->find()->first();
-		$this->assertInstanceOf('\Cake\ORM\Entity', $car);
+		$this->assertInstanceOf(Entity::class, $car);
 
 		$car = $this->Wheels->HABTMCars->find()->first();
-		$this->assertInstanceOf('\Cake\ORM\Entity', $car);
+		$this->assertInstanceOf(Entity::class, $car);
 	}
 
 	/**
