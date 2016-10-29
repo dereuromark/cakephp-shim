@@ -415,4 +415,16 @@ class TableTest extends TestCase {
 		$this->assertTrue((bool)$result);
 	}
 
+	/**
+	 * @expectedException \InvalidArgumentException
+	 * @return void
+	 */
+	public function testSaveStrict() {
+		$this->Wheels = TableRegistry::get('Wheels');
+
+		$wheel = $this->Wheels->newEntity(['position' => '']);
+		$this->assertNotSame([], $wheel->errors());
+		$this->Wheels->save($wheel, ['strict' => true]);
+	}
+
 }

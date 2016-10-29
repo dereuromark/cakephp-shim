@@ -2,13 +2,16 @@
 
 namespace Shim\Model\Table;
 
+use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
 use Cake\ORM\Query;
+use Cake\ORM\SaveOptionsBuilder;
 use Cake\ORM\Table as CoreTable;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use Exception;
+use InvalidArgumentException;
 
 class Table extends CoreTable {
 
@@ -419,6 +422,27 @@ class Table extends CoreTable {
 		}
 
 		return (bool)$success;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * Additional options
+	 * - 'strict': Throw exception instead of returning false. Defaults to false.
+	 */
+	public function save(EntityInterface $entity, $options = []) {
+		if ($options instanceof SaveOptionsBuilder) {
+			$options = $options->toArray();
+		}
+
+		$options += ['strict' => false];
+
+		$result = parent::save($entity, $options);
+		if ($result === false && $options['strict'] === true) {
+			throw new InvalidArgumentException('Could not save: ' . print_r($entity->errors(), true));
+		}
+
+		return $result;
 	}
 
 	/**
