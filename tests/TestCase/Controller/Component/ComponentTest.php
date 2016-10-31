@@ -12,7 +12,7 @@ use Shim\TestSuite\TestCase;
  */
 class ComponentTest extends TestCase {
 
-	/*
+	/**
 	 * @var \Cake\Controller\Controller
 	 */
 	public $Controller;

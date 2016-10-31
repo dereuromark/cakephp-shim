@@ -13,9 +13,9 @@ class YearTypesTable extends Table {
 	public $order = ['name' => 'ASC'];
 
 	/**
-	 * @param Schema $schema
+	 * @param \Cake\Database\Schema\Table $schema
 	 *
-	 * @return Schema
+	 * @return \Cake\Database\Schema\Table
 	 */
 	protected function _initializeSchema(Schema $schema) {
 		$schema->columnType('year_of_birth', 'year');

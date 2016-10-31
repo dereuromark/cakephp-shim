@@ -2,7 +2,6 @@
 
 namespace Shim\Test\TestCase\Database\Type;
 
-use Cake\Core\Configure;
 use Cake\Database\Type;
 use Cake\ORM\TableRegistry;
 use Cake\View\Helper\FormHelper;
@@ -81,7 +80,7 @@ class YearTypeTest extends TestCase {
 
 	/**
 	 * @return void
-     */
+	 */
 	public function testFormInput() {
 		$Form = new FormHelper(new View());
 
