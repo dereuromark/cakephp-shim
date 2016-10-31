@@ -16,7 +16,7 @@ define('TMP', ROOT . DS . 'tmp' . DS);
 if (!is_dir(TMP)) {
 	mkdir(TMP, 0770, true);
 }
-define('CONFIG', ROOT . DS . 'config' . DS);
+define('CONFIG', ROOT . DS . 'tests' . DS . 'config' . DS);
 
 define('LOGS', TMP . 'logs' . DS);
 define('CACHE', TMP . 'cache' . DS);
