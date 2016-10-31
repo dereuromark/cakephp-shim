@@ -32,7 +32,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSave() {
+	public function testPatch() {
 		$data = [
 			'optional_id' => '',
 			'required_id' => '',

@@ -41,6 +41,15 @@ class MyTable extends Table {
 }
 ```
 
+### Nullable Behavior
+You should attach the following behavior for better data consistency:
+```php
+// In your Table
+$this->addBehavior('Shim.Nullable');
+```
+This will make sure empty strings posted will respect the nullable type of the table schema.
+
+
 ## Controller
 ### Component
 You can extend the Shim plugin Component class to have the controller available inside by default:

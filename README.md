@@ -28,6 +28,7 @@ Please see [Docs](docs).
 A full overview of all shimming between 2.x and 3.x can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 
 ## Main shims
+- Nullable behavior for better data consistency.
 - Primary level `Table::find('first')` support.
 - Primary level `Table::find('count')` support.
 - `Table::field()` support and `fieldByConditions()` alias to migrate to.
