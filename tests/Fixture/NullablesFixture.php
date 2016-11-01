@@ -18,6 +18,7 @@ class NullablesFixture extends TestFixture {
 		'comment' => 'text',
 		'string_optional' => ['type' => 'text', 'null' => true],
 		'string_required' => ['type' => 'text', 'null' => false],
+		'string_optional_notnull' => ['type' => 'text', 'null' => true, 'default' => ''],
 		'active_optional' => ['type' => 'boolean', 'null' => true],
 		'active_required' => ['type' => 'boolean', 'null' => false],
 		'datetime_optional' => ['type' => 'datetime', 'null' => true],
