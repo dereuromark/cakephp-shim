@@ -49,7 +49,8 @@ class NullableBehavior extends Behavior {
 				continue;
 			}
 
-			$data[$key] = null;
+			$default = Hash::get((array)$table->schema()->column($key), 'default');
+			$data[$key] = $default;
 		}
 
 		return $data;

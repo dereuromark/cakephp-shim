@@ -2,6 +2,7 @@
 
 namespace Tools\Test\TestCase\Model\Behavior;
 
+use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Shim\TestSuite\TestCase;
 
@@ -54,6 +55,25 @@ class NullableBehaviorTest extends TestCase {
 			'active_required' => false,
 			'datetime_optional' => null,
 			'datetime_required' => null,
+		];
+		$this->assertSame($expected, $entity->toArray());
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testPatchOptionalNotNull() {
+		$this->skipIf(version_compare(Configure::version(), '3.3.7') <= 0);
+
+		$data = [
+			'string_optional_notnull' => '',
+			'active_optional_notnull' => '',
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$expected = [
+			'string_optional_notnull' => '',
+			'active_optional_notnull' => false,
 		];
 		$this->assertSame($expected, $entity->toArray());
 	}
