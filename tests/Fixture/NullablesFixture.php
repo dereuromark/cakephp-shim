@@ -20,6 +20,7 @@ class NullablesFixture extends TestFixture {
 		'string_optional_notnull' => ['type' => 'string', 'null' => true, 'default' => ''],
 		'active_optional' => ['type' => 'boolean', 'null' => true],
 		'active_required' => ['type' => 'boolean', 'null' => false],
+		'active_optional_notnull' => ['type' => 'boolean', 'null' => true, 'default' => 0],
 		'datetime_optional' => ['type' => 'datetime', 'null' => true],
 		'datetime_required' => ['type' => 'datetime', 'null' => false],
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
