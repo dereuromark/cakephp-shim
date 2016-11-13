@@ -446,6 +446,24 @@ class Table extends CoreTable {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
+	 * Additional options
+	 * - 'strict': Throw exception instead of returning false. Defaults to false.
+	 */
+	public function delete(EntityInterface $entity, $options = [])
+	{
+		$options += ['strict' => false];
+
+		$result = parent::delete($entity, $options);
+		if ($result === false && $options['strict'] === true) {
+			throw new InvalidArgumentException('Could not delete ' . $entity->source() . ': ' . print_r($entity->id, true));
+		}
+
+		return $result;
+	}
+
+	/**
 	 * 2.x shim to allow conditions with arrays without explicit IN operator.
 	 *
 	 * More importantly it fixes a core issue around empty arrays and exceptions
