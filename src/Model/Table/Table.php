@@ -451,8 +451,7 @@ class Table extends CoreTable {
 	 * Additional options
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
 	 */
-	public function delete(EntityInterface $entity, $options = [])
-	{
+	public function delete(EntityInterface $entity, $options = []) {
 		$options += ['strict' => false];
 
 		$result = parent::delete($entity, $options);
