@@ -35,7 +35,8 @@
 			"TestApp\\": "tests/test_app/TestApp"
 		}
 	},
-	"config": {
-		"process-timeout": 600
+	"scripts": {
+		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/vendor/,/tmp/,/logs/ --extensions=php ./",
+		"cs-fix": "phpcbf -f --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/vendor/,/tmp/,/logs/ --extensions=php ./"
 	}
 }
