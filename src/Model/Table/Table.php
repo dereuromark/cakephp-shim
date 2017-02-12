@@ -381,7 +381,7 @@ class Table extends CoreTable {
 	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
 	public function saveArray(array $entity, array $options = []) {
-		$entity = $this->newEntity($entity);
+		$entity = $this->newEntity($entity, $options);
 		return $this->save($entity, $options);
 	}
 
@@ -398,7 +398,7 @@ class Table extends CoreTable {
 			'id' => $id,
 			$field => $value
 		];
-		return $this->saveArray($entity);
+		return $this->saveArray($entity, ['accessibleFields' => ['id' => true]]);
 	}
 
 	/**
