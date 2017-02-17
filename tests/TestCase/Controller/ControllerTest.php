@@ -44,7 +44,7 @@ class ControllerTest extends TestCase {
 		$this->Controller->disableCache();
 
 		$result = $this->Controller->response->header();
-		$expected = ['Pragma', 'Expires', 'Last-Modified', 'Cache-Control'];
+		$expected = ['Content-Type', 'Pragma', 'Expires', 'Last-Modified', 'Cache-Control'];
 		$this->assertSame($expected, array_keys($result));
 	}
 
