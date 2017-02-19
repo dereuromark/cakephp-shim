@@ -379,9 +379,21 @@ class TableTest extends TestCase {
 	 * @return void
 	 */
 	public function testBehaviorShims() {
-		$this->Wheels = TableRegistry::get('Wheels');
+		$this->Wheels = TableRegistry::get('Cars');
 		$behaviors = $this->Wheels->behaviors()->loaded();
 		$expected = ['Useless', 'Timestamp'];
+		$this->assertSame($expected, $behaviors);
+	}
+
+	/**
+	 * Shim support for 2.x validation arrays
+	 *
+	 * @return void
+	 */
+	public function testBehaviorShimDisableTimestamp() {
+		$this->Wheels = TableRegistry::get('Wheels');
+		$behaviors = $this->Wheels->behaviors()->loaded();
+		$expected = [];
 		$this->assertSame($expected, $behaviors);
 	}
 

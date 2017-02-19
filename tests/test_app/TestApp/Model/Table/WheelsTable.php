@@ -17,9 +17,14 @@ class WheelsTable extends Table {
 	public $order = ['position' => 'ASC'];
 
 	/**
-	 * @var array
+	 * @var bool
 	 */
-	public $actsAs = ['Useless'];
+	public $createdField = false;
+
+	/**
+	 * @var bool
+	 */
+	public $modifiedField = false;
 
 	/**
 	 * @var array
