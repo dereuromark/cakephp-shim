@@ -69,10 +69,7 @@ class Table extends CoreTable {
 			}
 		}
 
-		if (
-			$this->createdField && $this->hasField($this->createdField)
-			|| $this->modifiedField && $this->hasField($this->modifiedField)
-		) {
+		if ($this->createdField || $this->modifiedField && !$this->hasBehavior('Timestamp')) {
 			$this->addBehavior('Timestamp');
 		}
 	}

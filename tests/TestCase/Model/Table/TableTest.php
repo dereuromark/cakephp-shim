@@ -381,7 +381,7 @@ class TableTest extends TestCase {
 	public function testBehaviorShims() {
 		$this->Wheels = TableRegistry::get('Wheels');
 		$behaviors = $this->Wheels->behaviors()->loaded();
-		$expected = ['Useless'];
+		$expected = ['Useless', 'Timestamp'];
 		$this->assertSame($expected, $behaviors);
 	}
 
