@@ -460,6 +460,27 @@ class Table extends CoreTable {
 	}
 
 	/**
+	 * 2.x shim to allow conditions without explicit IS operator for NULL values.
+	 *
+	 * This does not add "IS NOT", only "IS". It also currently only works on the primary level.
+	 *
+	 * @param array $conditions
+	 * @return array
+	 */
+	public function autoNullConditionsArray(array $conditions) {
+		foreach ($conditions as $k => $v) {
+			if ($v !== null) {
+				continue;
+			}
+
+			$conditions[$k . ' IS'] = $v;
+			unset($conditions[$k]);
+		}
+
+		return $conditions;
+	}
+
+	/**
 	 * 2.x shim to allow conditions with arrays without explicit IN operator.
 	 *
 	 * More importantly it fixes a core issue around empty arrays and exceptions
