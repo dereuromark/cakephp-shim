@@ -143,7 +143,7 @@ class Session {
 	 * @return bool True if variable is there
 	 */
 	public static function check($name) {
-		if (empty($name) || !static::_hasSession() || !static::start()) {
+		if (empty($name)) {
 			return false;
 		}
 

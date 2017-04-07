@@ -3,7 +3,10 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-define('DS', DIRECTORY_SEPARATOR);
+if (!defined('DS')) {
+	define('DS', DIRECTORY_SEPARATOR);
+}
+
 define('ROOT', dirname(__DIR__));
 define('APP_DIR', 'src');
 
@@ -31,7 +34,7 @@ require CORE_PATH . 'config/bootstrap.php';
 Cake\Core\Configure::write('App', [
 	'namespace' => 'App',
 	'paths' => [
-		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'TestApp' . DS . 'Template' . DS],
+		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS],
 	]
 ]);
 

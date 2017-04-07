@@ -219,6 +219,23 @@ class TableTest extends TestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testAutoNullConditionsArray() {
+		$conditions = [
+			'foo' => 1,
+			'bar' => null,
+		];
+		$result = $this->Posts->autoNullConditionsArray($conditions);
+
+		$expected = [
+			'foo' => 1,
+			'bar IS' => null,
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
 	 * Test that find('list') also works as it used to in 2.x.
 	 *
 	 * @return void
