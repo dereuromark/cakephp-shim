@@ -47,7 +47,7 @@ class Session {
 	/**
 	 * Error messages for this session
 	 *
-	 * @var array
+	 * @var array|false
 	 */
 	public static $error = false;
 
@@ -75,7 +75,7 @@ class Session {
 	/**
 	 * Start time for this session.
 	 *
-	 * @var int
+	 * @var int|false
 	 */
 	public static $time = false;
 
@@ -89,7 +89,7 @@ class Session {
 	/**
 	 * Time when this session becomes invalid.
 	 *
-	 * @var int
+	 * @var int|false
 	 */
 	public static $sessionTime = false;
 
