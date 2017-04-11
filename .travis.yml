@@ -18,7 +18,7 @@ env:
 
 matrix:
   include:
-    - php: 5.4
+    - php: 5.5
       env:
         - DB=mysql CAKE_VERSION=2.x COVERALLS=1
 
