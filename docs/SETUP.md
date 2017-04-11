@@ -23,11 +23,11 @@ Details @ https://packagist.org/packages/dereuromark/cakephp-shim
 
 This will load the plugin (within your bootstrap file):
 ```php
-Plugin::load('Shim');
+CakePlugin::load('Shim');
 ```
 or
 ```php
-Plugin::loadAll(...);
+CakePlugin::loadAll(...);
 ```
 
 In case you want the Shim bootstrap file included (recommended), you can do that in your `ROOT/config/bootstrap.php` with
@@ -39,7 +39,7 @@ Plugin::load('Shim', ['bootstrap' => true]);
 or
 
 ```php
-Plugin::loadAll([
+CakePlugin::loadAll([
 		'Shim' => ['bootstrap' => true]
 ]);
 ```
