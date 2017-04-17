@@ -23,11 +23,11 @@ Details @ https://packagist.org/packages/dereuromark/cakephp-shim
 
 This will load the plugin (within your bootstrap file):
 ```php
-Plugin::load('Shim');
+CakePlugin::load('Shim');
 ```
 or
 ```php
-Plugin::loadAll(...);
+CakePlugin::loadAll(...);
 ```
 
 There is also a handy shell command that can enable a plugin:
