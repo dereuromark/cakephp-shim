@@ -8,17 +8,6 @@ Install using Packagist/Composer:
 composer require dereuromark/cakephp-shim
 ```
 
-or manually via
-
-```
-"require": {
-	"dereuromark/cakephp-shim": "dev-master"
-}
-```
-and
-
-	composer update
-
 Details @ https://packagist.org/packages/dereuromark/cakephp-shim
 
 This will load the plugin (within your bootstrap file):
