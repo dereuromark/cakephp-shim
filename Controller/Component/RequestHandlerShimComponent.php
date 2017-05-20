@@ -14,8 +14,33 @@ class RequestHandlerShimComponent extends RequestHandlerComponent {
 
 	protected $_detector;
 
-	public function startup(Controller $controller) {
-		parent::startup($controller);
+	/**
+	 * @param ComponentCollection $collection ComponentCollection object.
+	 * @param array $settings Array of settings.
+	 */
+	public function __construct(ComponentCollection $collection, $settings = []) {
+		$settings += [
+			'enableBeforeRedirect' => true,
+		];
+		parent::__construct($collection, $settings);
+	}
+
+	/**
+	 * Handles (fakes) redirects for Ajax requests using requestAction()
+	 * Modifies the $_POST and $_SERVER['REQUEST_METHOD'] to simulate a new GET request.
+	 *
+	 * @param Controller $controller A reference to the controller
+	 * @param string|array $url A string or array containing the redirect location
+	 * @param int|array $status HTTP Status for redirect
+	 * @param bool $exit Whether to exit script, defaults to `true`.
+	 * @return void
+	 */
+	public function beforeRedirect(Controller $controller, $url, $status = null, $exit = true) {
+		if (!$this->settings['enableBeforeRedirect']) {
+			return;
+		}
+
+		parent::beforeRedirect($controller, $url, $status, $exit);
 	}
 
 	/**

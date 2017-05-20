@@ -16,6 +16,14 @@ public $components = ['RequestHandler' => ['className' => 'Shim.RequestHandlerSh
 This will automatically replace the RequestHandler site-wide, and you can use the enhanced `isMobile()` (and `isTablet()` even) detection
 on it now.
 
+### Prevent the internal "redirect" on AJAX requests
+No more requestAction() calls when including the above request handler and setting 
+```
+'enableBeforeRedirect' => false
+```
+This is needed for [Ajax.Ajax component](https://github.com/dereuromark/cakephp-ajax) for example to properly work.
+
+
 ### Upgrade helpers
 Use `Configure::write('Shim.warnAboutNamedParams', true)` to warn about named param leftovers, that
 should have been migrated to query strings. This way you can detect and fix them.
