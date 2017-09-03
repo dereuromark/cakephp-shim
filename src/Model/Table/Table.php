@@ -426,6 +426,10 @@ class Table extends CoreTable {
 	 *
 	 * Additional options
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
+	 *
+	 * @param \Cake\Datasource\EntityInterface $entity the entity to be saved
+	 * @param array|\ArrayAccess $options The options to use when saving.
+	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
 	public function save(EntityInterface $entity, $options = []) {
 		if ($options instanceof SaveOptionsBuilder) {
@@ -447,12 +451,17 @@ class Table extends CoreTable {
 	 *
 	 * Additional options
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
+	 *
+	 * @param \Cake\Datasource\EntityInterface $entity The entity to remove.
+	 * @param array|\ArrayAccess $options The options for the delete.
+	 * @return bool success
 	 */
 	public function delete(EntityInterface $entity, $options = []) {
 		$options += ['strict' => false];
 
 		$result = parent::delete($entity, $options);
 		if ($result === false && $options['strict'] === true) {
+			/** @var \Cake\ORM\Entity $entity */
 			throw new InvalidArgumentException('Could not delete ' . $entity->source() . ': ' . print_r($entity->id, true));
 		}
 

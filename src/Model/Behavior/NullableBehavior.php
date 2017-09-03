@@ -31,7 +31,7 @@ class NullableBehavior extends Behavior {
 	 */
 	protected function _process($data, Table $table) {
 		$associations = [];
-		/* @var \Cake\ORM\Association $association */
+		/** @var \Cake\ORM\Association $association */
 		foreach ($table->associations() as $association) {
 			$associations[$association->property()] = $association->name();
 		}
