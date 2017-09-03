@@ -16,7 +16,7 @@ use InvalidArgumentException;
 class Table extends CoreTable {
 
 	/**
-	 * @var array|null
+	 * @var array|string|null
 	 */
 	public $order = null;
 
@@ -245,7 +245,7 @@ class Table extends CoreTable {
 	 *
 	 * @param string $type
 	 * @param array $options
-	 * @return \Cake\ORM\Query
+	 * @return \Cake\ORM\Query|int
 	 */
 	public function find($type = 'all', $options = []) {
 		if ($type === 'first') {
