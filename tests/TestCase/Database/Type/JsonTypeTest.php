@@ -79,6 +79,7 @@ class JsonTypeTest extends TestCase {
 	public function testSaveNull() {
 		$data = [
 			'name' => 'Foo',
+			'data' => null,
 			'data_required' => ['some' => 'thing']
 		];
 		$entity = $this->Table->newEntity($data);
@@ -91,7 +92,7 @@ class JsonTypeTest extends TestCase {
 	}
 
 	/**
-	 * data_required as not null field should throw "doesn't have a default value" exception
+	 * data_required as not null field should throw "Column 'data_required' cannot be null" exception
 	 *
 	 * @expectedException \PDOException
 	 * @return void
@@ -99,6 +100,8 @@ class JsonTypeTest extends TestCase {
 	public function testSaveNullInvalid() {
 		$data = [
 			'name' => 'Foo',
+			'data' => null,
+			'data_required' => null,
 		];
 		$entity = $this->Table->newEntity($data);
 		$result = $this->Table->save($entity);
