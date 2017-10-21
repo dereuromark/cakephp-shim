@@ -8,6 +8,7 @@ use Cake\View\Helper\FormHelper;
 use Cake\View\View;
 use Shim\Database\Type\YearType;
 use Shim\TestSuite\TestCase;
+use TestApp\Model\Table\YearTypesTable;
 
 /**
  */
@@ -31,7 +32,7 @@ class YearTypeTest extends TestCase {
 
 		Type::map('year', YearType::class);
 
-		$this->Table = TableRegistry::get('Shim.YearTypes');
+		$this->Table = TableRegistry::get('YearTypes', ['className' => YearTypesTable::class]);
 	}
 
 	/**

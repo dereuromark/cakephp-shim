@@ -30,7 +30,7 @@ class YearType extends Type {
 	 *
 	 * @param string|resource $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
-	 * @return string|resource
+	 * @return int|null
 	 */
 	public function toDatabase($value, Driver $driver) {
 		if (is_array($value)) {
@@ -47,14 +47,14 @@ class YearType extends Type {
 	 *
 	 * @param null|string|resource $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
-	 * @return resource|null
+	 * @return int|null
 	 * @throws \Cake\Core\Exception\Exception
 	 */
 	public function toPHP($value, Driver $driver) {
 		if ($value === null || !(int)$value) {
 			return null;
 		}
-		return $value;
+		return (int)$value;
 	}
 
 	/**
