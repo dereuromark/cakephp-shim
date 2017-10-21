@@ -24,8 +24,16 @@ There is also a handy shell command that can enable a plugin:
 bin/cake plugin load Shim
 ```
 
-## Notes
-Please don't forget that your application's composer.json file needs to require [cakephp/plugin-installer](https://github.com/cakephp/plugin-installer):
+## Testing MySQL
+
+By default it will usually use SQLite DB (out of the box available).
+If you want to run all tests, including MySQL ones, you need to set
 ```
-composer require cakephp/plugin-installer:*
+export db_dsn="mysql://root:yourpwd@127.0.0.1/cake_test"
 ```
+before you actually run
+```
+php phpunit.phar
+```
+
+Make sure such a cake_test database exists.
