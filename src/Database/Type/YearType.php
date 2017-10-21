@@ -10,7 +10,7 @@ use PDO;
  * Experimental year type (MySQL)
  *
  * Needs:
- * - Type::map('year', 'Tools\Database\Type\YearType'); in bootstrap
+ * - Type::map('year', 'Shim\Database\Type\YearType'); in bootstrap
  * - Manual FormHelper $this->Form->input('published', ['type' => 'year']);
  */
 class YearType extends Type {
