@@ -90,4 +90,21 @@ class JsonTypeTest extends TestCase {
 		$this->assertSame($data['data_required'], $record->data_required);
 	}
 
+	/**
+	 * data_required as not null field should throw "doesn't have a default value" exception
+	 *
+	 * @expectedException \PDOException
+	 * @return void
+	 */
+	public function testSaveNullInvalid() {
+		$data = [
+			'name' => 'Foo',
+		];
+		$entity = $this->Table->newEntity($data);
+		$result = $this->Table->save($entity);
+		$this->assertTrue((bool)$result);
+
+		$this->Table->get($entity->id);
+	}
+
 }
