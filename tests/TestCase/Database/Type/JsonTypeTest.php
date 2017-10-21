@@ -5,10 +5,7 @@ namespace Shim\Test\TestCase\Database\Type;
 use Cake\Database\Driver\Mysql;
 use Cake\Database\Type;
 use Cake\ORM\TableRegistry;
-use Cake\View\Helper\FormHelper;
-use Cake\View\View;
 use Shim\Database\Type\JsonType;
-use Shim\Test\Fixture\JsonTypesFixture;
 use Shim\TestSuite\TestCase;
 use TestApp\Model\Table\JsonTypesTable;
 

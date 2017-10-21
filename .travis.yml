@@ -46,7 +46,7 @@ script:
   - if [[ $PHPSTAN == 1 ]]; then composer require --dev phpstan/phpstan && vendor/bin/phpstan analyse -c tests/phpstan.neon -l 3 src; fi
   - sh -c "if [ '$COVERALLS' = '1' ]; then vendor/bin/phpunit --coverage-clover build/logs/clover.xml; fi"
   - sh -c "if [ '$COVERALLS' = '1' ]; then php vendor/bin/coveralls -c .coveralls.yml -v; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then vendor/bin/phpcs -p --extensions=php --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=vendor --ignore=docs . ; fi"
+  - sh -c "if [ '$PHPCS' = '1' ]; then vendor/bin/phpcs -p --extensions=php --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=vendor/,/tmp/,logs/,docs/ . ; fi"
 
 notifications:
   email: false
