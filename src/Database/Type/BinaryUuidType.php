@@ -27,6 +27,7 @@ use PDO;
  * Use to convert binary uuid data between PHP and the database types.
  *
  * This is a port of 3.6 type class for 3.x usage until it lands stable.
+ * - Type::map('uuid', 'Shim\Database\Type\BinaryUuidType'); in bootstrap
  */
 class BinaryUuidType extends Type implements TypeInterface {
 

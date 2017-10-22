@@ -10,7 +10,7 @@ use Cake\Utility\Text;
  *
  * Used to convert binary values including UUIDs between PHP and the database types.
  *
- *  * Needs:
+ * Needs:
  * - Type::map('binary', 'Shim\Database\Type\BinaryType'); in bootstrap
  */
 class BinaryType extends CoreBinaryType {
