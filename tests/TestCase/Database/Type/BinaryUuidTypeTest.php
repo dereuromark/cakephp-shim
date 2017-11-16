@@ -75,7 +75,7 @@ class BinaryUuidTypeTest extends TestCase {
 	 * Test exceptions on invalid data.
 	 *
 	 * @expectedException \Cake\Core\Exception\Exception
-	 * @expectedExceptionMessage Unable to convert array into binary uuid.
+	 * @expectedExceptionMessage Unable to convert value of type array into binary UUID.
 	 * @return void
 	 */
 	public function testToPHPFailure() {
