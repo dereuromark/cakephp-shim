@@ -61,9 +61,9 @@ class BinaryUuidType extends Type implements TypeInterface {
 	/**
 	 * Convert binary UUID into resource handles
 	 *
-	 * @param string|null $value The value to convert.
+	 * @param resource|string|null $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
-	 * @return string|null
+	 * @return resource|string|null
 	 * @throws \Cake\Core\Exception\Exception
 	 */
 	public function toPHP($value, Driver $driver) {
@@ -72,6 +72,9 @@ class BinaryUuidType extends Type implements TypeInterface {
 		}
 		if (is_string($value)) {
 			return $this->convertBinaryUuidToString($value);
+		}
+		if (is_resource($value)) {
+			return $value;
 		}
 
 		throw new Exception(sprintf('Unable to convert value of type %s into binary UUID.', gettype($value)));
