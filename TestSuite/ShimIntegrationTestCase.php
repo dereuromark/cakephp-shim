@@ -74,11 +74,11 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	 * a property. You can use various assert methods to check the
 	 * response.
 	 *
-	 * @param string $url The url to request.
+	 * @param string|array $url The url to request.
 	 * @return void
 	 */
 	public function get($url) {
-		return $this->_sendRequest($url, 'GET');
+		$this->_sendRequest($url, 'GET');
 	}
 
 	/**
@@ -93,7 +93,7 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	 * @return void
 	 */
 	public function post($url, $data = []) {
-		return $this->_sendRequest($url, 'POST', $data);
+		$this->_sendRequest($url, 'POST', $data);
 	}
 
 	/**
@@ -103,12 +103,12 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	 * a property. You can use various assert methods to check the
 	 * response.
 	 *
-	 * @param string $url The url to request.
+	 * @param string|array $url The url to request.
 	 * @param array $data The data for the request.
 	 * @return void
 	 */
 	public function patch($url, $data = []) {
-		return $this->_sendRequest($url, 'PATCH', $data);
+		$this->_sendRequest($url, 'PATCH', $data);
 	}
 
 	/**
@@ -118,12 +118,12 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	 * a property. You can use various assert methods to check the
 	 * response.
 	 *
-	 * @param string $url The url to request.
+	 * @param string|array $url The url to request.
 	 * @param array $data The data for the request.
 	 * @return void
 	 */
 	public function put($url, $data = []) {
-		return $this->_sendRequest($url, 'PUT', $data);
+		$this->_sendRequest($url, 'PUT', $data);
 	}
 
 	/**
@@ -133,11 +133,11 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	 * a property. You can use various assert methods to check the
 	 * response.
 	 *
-	 * @param string $url The url to request.
+	 * @param string|array $url The url to request.
 	 * @return void
 	 */
 	public function delete($url) {
-		return $this->_sendRequest($url, 'DELETE');
+		$this->_sendRequest($url, 'DELETE');
 	}
 
 	/**
@@ -145,7 +145,7 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	 *
 	 * Receives and stores the response for future inspection.
 	 *
-	 * @param string $url The url
+	 * @param string|array $url The url
 	 * @param string $method The HTTP method
 	 * @param array|null $data The request data.
 	 * @return mixed

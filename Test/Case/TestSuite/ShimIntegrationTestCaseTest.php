@@ -64,6 +64,8 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	 * @return void
 	 */
 	public function testRedirecting() {
+		Configure::write('App.baseUrl', '/');
+
 		$this->get(['controller' => 'items', 'action' => 'redirecting']);
 		$this->assertResponseCode(302);
 		$this->assertRedirect('/foobar');
