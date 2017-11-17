@@ -774,7 +774,7 @@ class ShimModel extends Model {
 			$type => [
 				$name => $options
 			]
-		], true);
+		], false);
 	}
 
 	/**
