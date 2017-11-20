@@ -15,14 +15,14 @@ abstract class ShimTestCase extends CakeTestCase {
 	protected static function assertNotWithinMargin($result, $expected, $margin, $message = '') {
 		$upper = $result + $margin;
 		$lower = $result - $margin;
-		return static::assertFalse((($expected <= $upper) && ($expected >= $lower)), $message);
+		static::assertFalse((($expected <= $upper) && ($expected >= $lower)), $message);
 	}
 
 	/**
 	 * Compatibility function to test if a value is between an acceptable range.
 	 *
-	 * @param float $result
 	 * @param float $expected
+	 * @param float $result
 	 * @param float $margin
 	 * @param string $message
 	 * @return void
@@ -36,8 +36,8 @@ abstract class ShimTestCase extends CakeTestCase {
 	/**
 	 * Compatibility function to test if a value is not between an acceptable range.
 	 *
-	 * @param float $result
 	 * @param float $expected
+	 * @param float $result
 	 * @param float $margin
 	 * @param string $message
 	 * @return void
@@ -55,12 +55,12 @@ abstract class ShimTestCase extends CakeTestCase {
 	 *
 	 * @param mixed $data
 	 * @param bool $force Should the output be flushed (forced)
-	 * @param bool $showHtml
+	 * @param bool|null $showHtml
 	 * @return void
 	 */
 	protected static function debug($data, $force = false, $showHtml = null) {
 		if (!empty($_GET['debug']) || !empty($_SERVER['argv']) && (in_array('-v', $_SERVER['argv'], true) || in_array('-vv', $_SERVER['argv'], true))) {
-			if ($showHtml === null && php_sapi_name() === 'cli') {
+			if ($showHtml === null && PHP_SAPI === 'cli') {
 				$showHtml = true;
 			}
 			debug($data, $showHtml);
@@ -81,11 +81,12 @@ abstract class ShimTestCase extends CakeTestCase {
 	 * This method will not be part of 3.x! Please switch to debug().
 	 *
 	 * @param mixed $data
+	 * @param bool $plain
 	 * @param bool $force Should the output be flushed (forced)
 	 * @return void
 	 */
 	protected static function out($data, $plain = false, $force = false) {
-		if (php_sapi_name() === 'cli') {
+		if (PHP_SAPI === 'cli') {
 			return;
 		}
 		if (!$plain || is_array($data)) {

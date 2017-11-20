@@ -1,7 +1,6 @@
 <?php
 /**
  * ModernPasswordHasher file
- *
  */
 App::uses('ModernPasswordHasher', 'Shim.Controller/Component/Auth');
 App::uses('ShimTestCase', 'Shim.TestSuite');
@@ -18,7 +17,6 @@ if (!defined('PASSWORD_BCRYPT')) {
 
 /**
  * Test case for ModernPasswordHasher
- *
  */
 class ModernPasswordHasherTest extends ShimTestCase {
 

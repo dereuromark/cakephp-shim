@@ -323,10 +323,8 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	}
 
 	/**
-	 * Asserts that the Location header is correct.
+	 * Asserts that the Location header is not existent.
 	 *
-	 * @param string|array $url The url you expected the client to go to. This
-	 *   can either be a string URL or an array compatible with Router::url()
 	 * @param string $message The failure message that will be appended to the generated message.
 	 * @return void
 	 */

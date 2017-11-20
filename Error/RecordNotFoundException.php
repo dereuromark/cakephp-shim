@@ -2,7 +2,6 @@
 
 /**
  * Exception raised when a particular record was not found
- *
  */
 class RecordNotFoundException extends CakeException {
 
@@ -15,4 +14,5 @@ class RecordNotFoundException extends CakeException {
 	public function __construct($message, $code = 404) {
 		parent::__construct($message, $code);
 	}
+
 }

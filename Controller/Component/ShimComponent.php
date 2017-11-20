@@ -18,7 +18,7 @@ class ShimComponent extends Component {
 	 * have the old URL.
 	 * Also allows auto-301-redirecting to the new ressource after upgrading the code.
 	 *
-	 * @param \Controller $Controller
+	 * @param \Controller|null $Controller
 	 * @return \Cake\Network\Response|null
 	 * @throws \Exception
 	 */
@@ -79,7 +79,7 @@ class ShimComponent extends Component {
 					$path = str_replace('\vendors/cakephp/', DS . 'vendors' . DS . 'cakephp' . DS, $path);
 				}
 
-				if (str_replace(array('/', '\\'), DS, $path) !== $path) {
+				if (str_replace(['/', '\\'], DS, $path) !== $path) {
 					throw new ShimException('All paths need to have a DS as separator, not a hardcoded / or \ slash.');
 				}
 			}

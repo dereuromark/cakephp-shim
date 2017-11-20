@@ -1,7 +1,6 @@
 <?php
 /**
  * FallbackPasswordHasher file
- *
  */
 App::uses('FallbackPasswordHasher', 'Shim.Controller/Component/Auth');
 App::uses('ShimTestCase', 'Shim.TestSuite');
@@ -18,7 +17,6 @@ if (!defined('PASSWORD_BCRYPT')) {
 
 /**
  * Test case for FallbackPasswordHasher
- *
  */
 class FallbackPasswordHasherTest extends ShimTestCase {
 

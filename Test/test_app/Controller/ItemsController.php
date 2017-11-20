@@ -3,8 +3,14 @@ App::uses('Controller', 'Controller');
 
 class ItemsController extends Controller {
 
+	/**
+	 * @var array
+	 */
 	public $uses = [];
 
+	/**
+	 * @return void
+	 */
 	public function beforeFilter() {
 		parent::beforeFilter();
 	}

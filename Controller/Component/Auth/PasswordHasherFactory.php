@@ -37,4 +37,5 @@ class PasswordHasherFactory {
 		}
 		return new $className($config);
 	}
+
 }

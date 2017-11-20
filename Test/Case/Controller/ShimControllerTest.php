@@ -18,7 +18,6 @@ class ShimControllerTest extends ControllerTestCase {
 	}
 
 	public function tearDown() {
-
 		parent::tearDown();
 	}
 

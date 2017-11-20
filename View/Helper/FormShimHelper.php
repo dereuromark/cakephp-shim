@@ -38,7 +38,7 @@ class FormShimHelper extends FormHelper {
 	 * @param array $options An array of html attributes and options.
 	 * @return string A formatted opening FORM tag.
 	 */
-	public function create($model = null, $options = array()) {
+	public function create($model = null, $options = []) {
 		if (isset($options['action'])) {
 			trigger_error('Using key `action` is deprecated, use `url` directly instead.', E_USER_DEPRECATED);
 		}
@@ -67,7 +67,7 @@ class FormShimHelper extends FormHelper {
 	 * - The option `onclick` will be replaced.
 	 *
 	 * @param string $title The content to be wrapped by <a> tags.
-	 * @param string|array $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
+	 * @param string|array|null $url Cake-relative URL or array of URL parameters, or external URL (starts with http://)
 	 * @param array $options Array of HTML attributes.
 	 * @param bool|string $confirmMessage JavaScript confirmation message. This
 	 *   argument is deprecated as of 2.6. Use `confirm` key in $options instead.
@@ -89,7 +89,7 @@ class FormShimHelper extends FormHelper {
 	 * If $secureAttributes is set, these html attributes will be merged into the hidden input tags generated for the
 	 * Security Component. This is especially useful to set HTML5 attributes like 'form'
 	 *
-	 * @param string|array $options as a string will use $options as the value of button,
+	 * @param string|array|null $options as a string will use $options as the value of button,
 	 * @param array $secureAttributes will be passed as html attributes into the hidden input elements generated for the
 	 *   Security Component.
 	 * @return string a closing FORM tag optional submit button.

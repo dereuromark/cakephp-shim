@@ -6,7 +6,7 @@ App::uses('JsonView', 'View');
  *
  * This shims the 3.x JsonView class to be same for 2.x projects, expecting the following JSON options
  * to be on by default:
- * JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT
+ * JSON_HEX_TAG|JSON_HEX_APOS|JSON_HEX_AMP|JSON_HEX_QUOT
  *
  * You can also declare your options side-wide using Configure key 'Shim.jsonOptions'.
  *
@@ -14,6 +14,10 @@ App::uses('JsonView', 'View');
  */
 class JsonShimView extends JsonView {
 
+	/**
+	 * @param array $serialize
+	 * @return string
+	 */
 	protected function _serialize($serialize) {
 		if (!isset($this->viewVars['_jsonOptions']) && Configure::read('Shim.jsonOptions') !== null) {
 			$this->viewVars['_jsonOptions'] = Configure::read('Shim.jsonOptions');
@@ -72,9 +76,11 @@ class JsonShimView extends JsonView {
 
 		if (function_exists('json_last_error') && json_last_error() !== JSON_ERROR_NONE) {
 			throw new CakeException(json_last_error_msg());
-		} elseif ($json === false) {
+		}
+		if ($json === false) {
 			throw new CakeException('Failed to parse JSON');
 		}
+
 		return $json;
 	}
 

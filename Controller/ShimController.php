@@ -57,7 +57,7 @@ class ShimController extends Controller {
 	/**
 	 * Add headers for IE8 etc to fix caching issues in those stupid browsers
 	 *
-	 * @overwrite to fix IE cacheing issues
+	 * @override to fix IE cacheing issues
 	 * @return void
 	 */
 	public function disableCache() {
@@ -70,8 +70,8 @@ class ShimController extends Controller {
 	/**
 	 * Handles automatic pagination of model records.
 	 *
-	 * @overwrite to support defaults like limit, querystring settings
-	 * @param Model|string $object Model to paginate (e.g: model instance, or 'Model', or 'Model.InnerModel')
+	 * @override to support defaults like limit, querystring settings
+	 * @param Model|string|null $object Model to paginate (e.g: model instance, or 'Model', or 'Model.InnerModel')
 	 * @param string|array $scope Conditions to use while paginating
 	 * @param array $whitelist List of allowed options for paging
 	 * @return array Model query results
