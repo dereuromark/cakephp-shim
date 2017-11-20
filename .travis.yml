@@ -14,7 +14,6 @@ env:
 
   matrix:
     - DB=mysql CAKE_VERSION=2.x
-    - DB=mysql CAKE_VERSION=2.next
 
 matrix:
   include:
