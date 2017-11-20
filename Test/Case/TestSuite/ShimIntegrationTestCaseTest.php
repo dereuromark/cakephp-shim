@@ -4,6 +4,13 @@ App::uses('ShimTestCase', 'Shim.TestSuite');
 
 class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 
+	/**
+	 * @var array
+	 */
+	public $fixtures = [
+		'core.session',
+	];
+
 	public function setUp() {
 		parent::setUp();
 

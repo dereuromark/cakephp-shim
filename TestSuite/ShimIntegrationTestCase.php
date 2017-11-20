@@ -88,7 +88,7 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	 * a property. You can use various assert methods to check the
 	 * response.
 	 *
-	 * @param string $url The url to request.
+	 * @param string|array $url The url to request.
 	 * @param array $data The data for the request.
 	 * @return void
 	 */
