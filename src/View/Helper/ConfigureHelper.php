@@ -69,12 +69,10 @@ class ConfigureHelper extends Helper {
 	}
 
 	/**
-	 * Event listeners.
-	 *
-	 * @return array
+	 * @return string Current version of CakePHP
 	 */
-	public function implementedEvents() {
-		return [];
+	public function version() {
+		return Configure::version();
 	}
 
 }

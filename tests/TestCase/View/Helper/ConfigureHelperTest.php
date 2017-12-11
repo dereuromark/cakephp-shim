@@ -93,4 +93,12 @@ class ConfigureHelperTest extends TestCase {
 		$this->_Configure->readOrFail('Deeply.nested.key');
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testVersion() {
+		$result = $this->_Configure->version();
+		$this->assertNotEmpty($result);
+	}
+
 }
