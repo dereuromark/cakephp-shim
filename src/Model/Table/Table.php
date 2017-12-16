@@ -271,6 +271,9 @@ class Table extends CoreTable {
 			if ($select && count($select) <= 2) {
 				$keyField = array_shift($select);
 				$valueField = array_shift($select) ?: $keyField;
+				if (!is_string($keyField) || !is_string($valueField)) {
+					return parent::findList($query, $options);
+				}
 				list($model, $keyField) = pluginSplit($keyField);
 				if (!$model || $model === $this->alias()) {
 					$options['keyField'] = $keyField;

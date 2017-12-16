@@ -6,7 +6,7 @@ use Shim\Controller\Controller;
 class ItemsController extends Controller {
 
 	/**
-	 * @return void
+	 * @return \Cake\Http\Response|null
 	 */
 	public function index() {
 	}
