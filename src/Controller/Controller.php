@@ -28,8 +28,7 @@ class Controller extends CoreController {
 	 * @param \Cake\Event\EventManager|null $eventManager The event manager. Defaults to a new instance.
 	 * @param \Cake\Controller\ComponentRegistry|null $components The component registry. Defaults to a new instance.
 	 */
-	public function __construct(ServerRequest $request = null, Response $response = null, $name = null, $eventManager = null, $components = null)
-	{
+	public function __construct(ServerRequest $request = null, Response $response = null, $name = null, $eventManager = null, $components = null) {
 		if (!isset($this->modelClass) && !empty($this->uses)) {
 			$uses = (array)$this->uses;
 			$model = array_shift($uses);
