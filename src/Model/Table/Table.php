@@ -185,6 +185,14 @@ class Table extends CoreTable {
 				}
 
 				foreach ((array)$rules as $key => $rule) {
+					if (is_string($rule)) {
+						$ruleArray = ['rule' => $rule];
+						$rules[$rule] = $ruleArray;
+						unset($rules[$key]);
+						$key = $rule;
+						$rule = $ruleArray;
+					}
+
 					if (isset($rule['required'])) {
 						$validator->requirePresence($field, $rule['required']);
 						unset($rules[$key]['required']);
@@ -203,10 +211,6 @@ class Table extends CoreTable {
 							$message = __d($this->validationDomain, $rule['message']);
 						}
 						$rules[$key]['message'] = $message;
-					}
-
-					if (is_string($rule)) {
-						$rules[$key] = ['rule' => $rule];
 					}
 
 					if (!empty($rules[$key]['rule']) && ($rules[$key]['rule'] === 'notEmpty' || $rules[$key]['rule'] === ['notEmpty'])) {

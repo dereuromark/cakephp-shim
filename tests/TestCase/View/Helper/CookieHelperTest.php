@@ -21,7 +21,7 @@ class CookieHelperTest extends TestCase {
 		parent::setUp();
 
 		$this->Cookie = new CookieHelper(new View(null));
-		$this->Cookie->request = $this->getMockBuilder(Request::class)->setMethods(['cookie'])->getMock();
+		$this->Cookie->request = $this->getMockBuilder(Request::class)->setMethods(['getCookie', 'getCookieParams'])->getMock();
 	}
 
 	/**
@@ -34,12 +34,14 @@ class CookieHelperTest extends TestCase {
 	}
 
 	/**
-	 * CookieHelperTest::testObject()
-	 *
 	 * @return void
 	 */
-	public function testObject() {
-		$this->assertInstanceOf(CookieHelper::class, $this->Cookie);
+	public function testGetChookies() {
+		$this->Cookie->request->expects($this->at(0))
+			->method('getCookieParams')
+			->will($this->returnValue(['one' => 1, 'two' => 2]));
+
+		$this->assertSame(['one', 'two'], $this->Cookie->getCookies());
 	}
 
 	/**
@@ -49,10 +51,10 @@ class CookieHelperTest extends TestCase {
 	 */
 	public function testCheck() {
 		$this->Cookie->request->expects($this->at(0))
-			->method('cookie')
+			->method('getCookie')
 			->will($this->returnValue(null));
 		$this->Cookie->request->expects($this->at(1))
-			->method('cookie')
+			->method('getCookie')
 			->will($this->returnValue('val'));
 
 		$this->assertFalse($this->Cookie->check('Foo.key'));
@@ -66,7 +68,7 @@ class CookieHelperTest extends TestCase {
 	 */
 	public function testRead() {
 		$this->Cookie->request->expects($this->once())
-			->method('cookie')
+			->method('getCookie')
 			->will($this->returnValue('val'));
 
 		$output = $this->Cookie->read('Foo.key');

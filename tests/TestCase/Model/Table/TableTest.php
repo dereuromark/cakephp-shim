@@ -442,6 +442,18 @@ class TableTest extends TestCase {
 		$wheel = $this->Wheels->newEntity(['position' => 'rear left']);
 		$result = $this->Wheels->save($wheel);
 		$this->assertTrue((bool)$result);
+
+		$wheel = $this->Wheels->newEntity(['position' => 'rear left', 'car_id' => 'a']);
+		$expected = [
+			'car_id' => [
+				'numeric' => 'The provided value is invalid'
+			],
+		];
+		$this->assertSame($expected, $wheel->errors());
+
+		$wheel = $this->Wheels->newEntity(['position' => 'rear left', 'car_id' => '1']);
+		$result = $this->Wheels->save($wheel);
+		$this->assertTrue((bool)$result);
 	}
 
 	/**

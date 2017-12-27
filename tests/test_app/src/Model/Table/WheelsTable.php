@@ -30,6 +30,9 @@ class WheelsTable extends Table {
 	 * @var array
 	 */
 	public $validate = [
+		'car_id' => [
+			'numeric',
+		],
 		'position' => [
 			'notBlank' => [
 				'rule' => 'notEmpty', // old way of notBlank

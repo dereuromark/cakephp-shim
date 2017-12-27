@@ -10,15 +10,30 @@ use Cake\View\Helper;
 class CookieHelper extends Helper {
 
 	/**
+	 * Return all cookie names available.
+	 *
+	 * @return array
+	 */
+	public function getCookies() {
+		$cookies = $this->request->getCookieParams();
+		if (!$cookies) {
+			return [];
+		}
+
+		return array_keys($cookies);
+	}
+
+	/**
 	 * Reads a cookie value for a key or return values for all keys.
 	 *
 	 * In your view: `$this->Cookie->read('key');`
 	 *
-	 * @param string|null $name the name of the cookie key you want to read
-	 * @return mixed values from the cookie vars
+	 * @param string|null $key The name of the cookie key you want to read
+	 * @param string|null $default
+	 * @return mixed Values from the cookie vars
 	 */
-	public function read($name = null) {
-		return $this->request->cookie($name);
+	public function read($key = null, $default = null) {
+		return $this->request->getCookie($key, $default);
 	}
 
 	/**
@@ -26,11 +41,11 @@ class CookieHelper extends Helper {
 	 *
 	 * In your view: `$this->Cookie->check('key');`
 	 *
-	 * @param string $name Cookie name to check.
+	 * @param string $key Cookie name to check.
 	 * @return bool
 	 */
-	public function check($name) {
-		return $this->request->cookie($name) !== null;
+	public function check($key) {
+		return $this->request->getCookie($key) !== null;
 	}
 
 	/**
