@@ -65,7 +65,7 @@ class ShimComponentTest extends ShimTestCase {
 	public function testCheckPathsMissingTrailingDs() {
 		Configure::write('Shim.checkPaths', true);
 
-		App::build(['View' => CakePlugin::path('Shim') . 'View' . DS. 'Foo']);
+		App::build(['View' => CakePlugin::path('Shim') . 'View' . DS . 'Foo']);
 
 		$this->ShimController = new TestShimComponentController(new CakeRequest(), new CakeResponse());
 		$this->ShimController->constructClasses();
@@ -150,4 +150,5 @@ class TestShimComponentController extends ShimController {
 	 */
 	public function _stop($status = 0) {
 	}
+
 }

@@ -18,7 +18,8 @@
 		"composer/installers": "*"
 	},
 	"require-dev": {
-		"mobiledetect/mobiledetectlib": "2.*"
+		"mobiledetect/mobiledetectlib": "2.*",
+		"fig-r/psr2r-sniffer": "dev-master"
 	},
 	"suggest": {
 		"ircmaxell/password-compat": "PHP5.4 compatability for the PHP5.5 password hashing functionality.",
@@ -29,5 +30,9 @@
 	},
 	"extra": {
 		"installer-name": "Shim"
+	},
+	"scripts": {
+		"cs-check": "phpcs -v -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/vendor/,/tmp/,/docs/ --extensions=php ./",
+		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/vendor/,/tmp/,/docs/ --extensions=php ./"
 	}
 }

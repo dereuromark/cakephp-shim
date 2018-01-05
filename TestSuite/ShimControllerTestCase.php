@@ -4,7 +4,6 @@ App::uses('Router', 'Routing');
 
 /**
  * ShimControllerTestCase Test Case
- *
  */
 class ShimControllerTestCase extends ControllerTestCase {
 
@@ -13,10 +12,10 @@ class ShimControllerTestCase extends ControllerTestCase {
 	 *
 	 * Overwrite to default headers in case of non-cli (webtestrunner)
 	 *
-	 * @param string $base The base directory for the application. Writes `App.base` to Configure.
+	 * @param string|bool $base The base directory for the application. Writes `App.base` to Configure.
 	 */
 	public function __construct($base = false) {
-		if (php_sapi_name() !== 'cli' || !empty($_SERVER['HTTP_REFERER'])) {
+		if (PHP_SAPI !== 'cli' || !empty($_SERVER['HTTP_REFERER'])) {
 			$_SERVER['HTTP_REFERER'] = '';
 		}
 

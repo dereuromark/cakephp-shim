@@ -1,7 +1,6 @@
 <?php
 /**
  * PasswordHasherTest file
- *
  */
 App::uses('PasswordHasherFactory', 'Shim.Controller/Component/Auth');
 App::uses('ShimTestCase', 'Shim.TestSuite');
@@ -9,7 +8,6 @@ App::uses('AbstractPasswordHasher', 'Controller/Component/Auth');
 
 /**
  * Test case for DirectAuthentication
- *
  */
 class PasswordHasherFactoryTest extends ShimTestCase {
 

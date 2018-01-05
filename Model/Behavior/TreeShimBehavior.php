@@ -39,7 +39,7 @@ class TreeShimBehavior extends TreeBehavior {
 	 * @return bool true to continue, false to abort the save
 	 * @see Model::save()
 	 */
-	public function beforeSave(Model $Model, $options = array()) {
+	public function beforeSave(Model $Model, $options = []) {
 		$tmpDisabled = false;
 		if (Configure::read('Shim.deprecateField')) {
 			Configure::write('Shim.deprecateField', false);
@@ -59,7 +59,7 @@ class TreeShimBehavior extends TreeBehavior {
 	 * after the children are reparented.
 	 *
 	 * @param Model $Model Model using this behavior
-	 * @param int|string $id The ID of the record to remove
+	 * @param int|string|null $id The ID of the record to remove
 	 * @param bool $delete whether to delete the node after reparenting children (if any)
 	 * @return bool true on success, false on failure
 	 * @link http://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html#TreeBehavior::removeFromTree

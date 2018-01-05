@@ -18,9 +18,9 @@ class ShimModel extends Model {
 	/**
 	 * MyModel::__construct()
 	 *
-	 * @param int $id
-	 * @param string $table
-	 * @param string $ds
+	 * @param int|bool $id
+	 * @param string|null $table
+	 * @param string|null $ds
 	 */
 	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
@@ -39,9 +39,9 @@ class ShimModel extends Model {
 	 * @return array.
 	 */
 	public function implementedEvents() {
-		return (array_merge(parent::implementedEvents(), [
+		return array_merge(parent::implementedEvents(), [
 			'Model.initialize' => 'initialize',
-		]));
+		]);
 	}
 
 	/**
@@ -89,7 +89,7 @@ class ShimModel extends Model {
 	 * @param array $results
 	 * @return array
 	 */
-	protected function _findTreeList($state, $query, $results = array()) {
+	protected function _findTreeList($state, $query, $results = []) {
 		if ($state === 'before') {
 			$conditions = [];
 			$keyPath = null;
@@ -114,7 +114,7 @@ class ShimModel extends Model {
 	 * @param array $results
 	 * @return array
 	 */
-	protected function _findChildren($state, $query, $results = array()) {
+	protected function _findChildren($state, $query, $results = []) {
 		if ($state === 'before') {
 			$id = null;
 			$direct = false;
@@ -141,7 +141,7 @@ class ShimModel extends Model {
 	 * @param array $results
 	 * @return array
 	 */
-	protected function _findPath($state, $query, $results = array()) {
+	protected function _findPath($state, $query, $results = []) {
 		if ($state === 'before') {
 			$id = null;
 			$fields = null;
@@ -309,7 +309,7 @@ class ShimModel extends Model {
 	 *   'counterScope' defined get updated
 	 * @return void
 	 */
-	public function updateCounterCache($keys = array(), $created = false) {
+	public function updateCounterCache($keys = [], $created = false) {
 		$tmpDisabled = false;
 		if (Configure::read('Shim.deprecateField')) {
 			Configure::write('Shim.deprecateField', false);
@@ -320,7 +320,6 @@ class ShimModel extends Model {
 			Configure::write('Shim.deprecateField', true);
 		}
 	}
-
 
 	/**
 	 * 3.x shim to allow conditions with arrays without explicit IN operator in 3.x when upgrading.
@@ -452,11 +451,11 @@ class ShimModel extends Model {
 				isset($data['meridian']) &&
 				!empty($data['hour']) &&
 				$data['hour'] != 12 &&
-				'pm' == $data['meridian']
+				$data == 'pm'['meridian']
 			) {
 				$data['hour'] = $data['hour'] + 12;
 			}
-			if (isset($data['hour']) && isset($data['meridian']) && $data['hour'] == 12 && 'am' == $data['meridian']) {
+			if (isset($data['hour']) && isset($data['meridian']) && $data['hour'] == 12 && $data == 'am'['meridian']) {
 				$data['hour'] = '00';
 			}
 			if ($type === 'time') {
@@ -508,7 +507,7 @@ class ShimModel extends Model {
 	/**
 	 * 2.x shim to make delete(null) deprecated.
 	 *
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function delete($id = null, $cascade = true) {
 		if ($id === null) {

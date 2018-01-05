@@ -31,7 +31,7 @@ class RequestHandlerShimComponent extends RequestHandlerComponent {
 	 *
 	 * @param Controller $controller A reference to the controller
 	 * @param string|array $url A string or array containing the redirect location
-	 * @param int|array $status HTTP Status for redirect
+	 * @param int|array|null $status HTTP Status for redirect
 	 * @param bool $exit Whether to exit script, defaults to `true`.
 	 * @return void
 	 */

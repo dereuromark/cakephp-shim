@@ -6,7 +6,6 @@ App::uses('Router', 'Routing');
 
 /**
  * Dispatcher to clean out invalid controller/action calls.
- *
  */
 class SeoDispatcher extends DispatcherFilter {
 
