@@ -24,29 +24,31 @@ matrix:
       env: PHPSTAN=1 DEFAULT=0
 
     - php: 7.0
-      env: COVERALLS=1 DEFAULT=0 DB=mysql db_dsn='mysql://root@127.0.0.1/cakephp_test'
+      env: CODECOVERAGE=1 DEFAULT=0 DB=mysql db_dsn='mysql://root@127.0.0.1/cakephp_test'
 
 before_script:
-  - composer self-update
   - composer install --prefer-source --no-interaction
 
-  - if [[ $PHPCS != 1 ]]; then composer require phpunit/phpunit:"<6.0"; fi
+  - if [[ $PHPCS != 1 ]]; then composer require phpunit/phpunit:"<6.0" ; fi
 
-  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE cakephp_test;'; fi"
+  - if [[ $DB == 'mysql' ]]; then mysql -e 'CREATE DATABASE cakephp_test;' ; fi
 
-  - sh -c "if [ '$COVERALLS' = '1' ]; then composer require --dev satooshi/php-coveralls:dev-master; fi"
-  - sh -c "if [ '$COVERALLS' = '1' ]; then mkdir -p build/logs; fi"
+  - if [[ $COVERALLS == 1 ]]; then composer require --dev satooshi/php-coveralls:dev-master ; fi
+  - if [[ $COVERALLS == 1 ]]; then mkdir -p build/logs ; fi
 
   - phpenv rehash
   - set +H
   - cp phpunit.xml.dist phpunit.xml
 
 script:
-  - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit; fi
-  - if [[ $PHPSTAN == 1 ]]; then composer require --dev phpstan/phpstan && vendor/bin/phpstan analyse -c tests/phpstan.neon -l 3 src; fi
-  - sh -c "if [ '$COVERALLS' = '1' ]; then vendor/bin/phpunit --coverage-clover build/logs/clover.xml; fi"
-  - sh -c "if [ '$COVERALLS' = '1' ]; then php vendor/bin/coveralls -c .coveralls.yml -v; fi"
-  - sh -c "if [ '$PHPCS' = '1' ]; then vendor/bin/phpcs -p --extensions=php --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=vendor/,/tmp/,logs/,docs/ . ; fi"
+  - if [[ $DEFAULT == 1 ]]; then vendor/bin/phpunit ; fi
+  - if [[ $PHPSTAN == 1 ]]; then composer require --dev phpstan/phpstan && vendor/bin/phpstan analyse -c tests/phpstan.neon -l 3 src ; fi
+
+  - if [[ $PHPCS == 1 ]]; then vendor/bin/phpcs -p --extensions=php --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=vendor/,/tmp/,logs/,docs/ . ; fi
+
+  - if [[ $CODECOVERAGE == 1 ]]; then vendor/bin/phpunit --coverage-clover=clover.xml ; fi
+  - if [[ $CODECOVERAGE == 1 ]]; then wget -O codecov.sh https://codecov.io/bash ; fi
+  - if [[ $CODECOVERAGE == 1 ]]; then bash codecov.sh ; fi
 
 notifications:
   email: false
