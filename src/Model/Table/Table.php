@@ -182,9 +182,11 @@ class Table extends CoreTable {
 				}
 				if (!$rules) {
 					continue;
-				}
 
-				foreach ((array)$rules as $key => $rule) {
+				}
+				$rules = (array)$rules;
+
+				foreach ($rules as $key => $rule) {
 					if (is_string($rule)) {
 						$ruleArray = ['rule' => $rule];
 						$rules[$rule] = $ruleArray;
