@@ -34,6 +34,8 @@ use Cake\Utility\Hash;
  *
  * Note that you need to move away from this hack. It really is just for making upgrading easier
  * as you will sooner have a working app again. After that it must be removed.
+ *
+ * @deprecated Does not work with PHP7.2 anymore and will be removed.
  */
 class Session {
 

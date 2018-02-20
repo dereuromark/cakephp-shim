@@ -14,6 +14,8 @@ class SessionTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->skipIf(version_compare(PHP_VERSION, '7.2', '>='), 'Deprecated and does not work for PHP7.2+');
+
 		$_SESSION = [];
 	}
 
