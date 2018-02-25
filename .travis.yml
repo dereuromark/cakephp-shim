@@ -17,12 +17,6 @@ env:
   matrix:
     - DB=mysql CAKE_VERSION=2.x
 
-matrix:
-  include:
-    - php: 5.5
-      env:
-        - DB=mysql CAKE_VERSION=2.x COVERALLS=1
-
 before_script:
   - git clone -b master https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
