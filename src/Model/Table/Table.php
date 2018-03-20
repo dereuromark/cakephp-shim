@@ -423,7 +423,7 @@ class Table extends CoreTable {
 	 *      $articles->saveAll($entities, ['atomic' => false]);
 	 *  }
 	 *
-	 * @param array $entities
+	 * @param \Cake\Datasource\EntityInterface[] $entities
 	 * @param array $options
 	 * @return bool True if all save calls where successful
 	 */
