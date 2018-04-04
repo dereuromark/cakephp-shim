@@ -15,7 +15,7 @@ class CarsFixture extends TestFixture {
 	 */
 	public $fields = [
 		'id' => ['type' => 'integer'],
-		'model' => ['type' => 'string', 'null' => false, 'length' => 255, 'collate' => 'utf8_unicode_ci', 'comment' => '', 'charset' => 'utf8'],
+		'model' => ['type' => 'string', 'null' => false, 'length' => 255, 'comment' => '', 'charset' => 'utf8'],
 		'created' => 'datetime',
 		'updated' => 'datetime',
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
@@ -28,7 +28,6 @@ class CarsFixture extends TestFixture {
 	 */
 	public $records = [
 		[
-			'id' => '1',
 			'model' => 'Audi',
 			'created' => '2007-03-18 10:55:23',
 			'updated' => '2007-03-18 10:57:31'
