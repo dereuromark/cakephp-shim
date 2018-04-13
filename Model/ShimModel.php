@@ -29,7 +29,14 @@ class ShimModel extends Model {
 			$this->prefixOrderProperty();
 		}
 
-		$event = new CakeEvent('Model.initialize', $this, compact('id', 'table', 'ds'));
+		// $config does not contain all the keys here that it contains in Cake 3.x.
+		$config = [
+			'table' => $this->table,
+			'alias' => $this->alias,
+			'schema' => $this->schemaName,
+		];
+		$this->initialize($config);
+		$event = new CakeEvent('Model.initialize', $this);
 		$this->getEventManager()->dispatch($event);
 	}
 
@@ -712,14 +719,26 @@ class ShimModel extends Model {
 		return $this->get($id, $options);
 	}
 
+
 	/**
-	 * Model initialization callback. To avoid overwriting constructor
+	 * Initialize a table instance. Called after the constructor.
 	 *
-	 * Will have param `array $config` in 3.x.
+	 * You can use this method to define associations, attach behaviors
+	 * define validation and do any other initialization logic you need.
 	 *
+	 * ```
+	 *  public function initialize(array $config)
+	 *  {
+	 *      $this->belongsTo('Users');
+	 *      $this->belongsToMany('Tagging.Tags');
+	 *      $this->setPrimaryKey('something_else');
+	 *  }
+	 * ```
+	 *
+	 * @param array $config Configuration options passed from the constructor.
 	 * @return void
 	 */
-	public function initialize($id = false, $table = null, $ds = null) {
+	public function initialize(array $config) {
 	}
 
 	/**
