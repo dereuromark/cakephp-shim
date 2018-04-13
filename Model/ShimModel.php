@@ -821,7 +821,7 @@ class ShimModel extends Model {
 	 * ```
 	 * $this->Post->addAssociations([
 	 *   'belongsTo' => [
-	 *     'User' => ['className' => 'Users']
+	 *     'User' => ['className' => 'User']
 	 *   ],
 	 *   'hasMany' => ['Comment'],
 	 *   'belongsToMany' => ['Tag']
@@ -845,9 +845,9 @@ class ShimModel extends Model {
 			foreach ($tables as $associated => $options) {
 				if (is_numeric($associated)) {
 					$associated = $options;
-					$options = array();
+					$options = [];
 				}
-				$this->{$assocType}($associated, $options);
+				$this->{$assocType}($associated, (array)$options);
 			}
 		}
 		return $this;
