@@ -36,8 +36,6 @@ class ShimModel extends Model {
 			'schema' => $this->schemaName,
 		];
 		$this->initialize($config);
-		$event = new CakeEvent('Model.initialize', $this);
-		$this->getEventManager()->dispatch($event);
 	}
 
 	/**
