@@ -719,7 +719,7 @@ class ShimModel extends Model {
 
 
 	/**
-	 * Initialize a table instance. Called after the constructor.
+	 * Initialize a model instance. Called after the constructor.
 	 *
 	 * You can use this method to define associations, attach behaviors
 	 * define validation and do any other initialization logic you need.
@@ -727,9 +727,8 @@ class ShimModel extends Model {
 	 * ```
 	 *  public function initialize(array $config)
 	 *  {
-	 *      $this->belongsTo('Users');
-	 *      $this->belongsToMany('Tagging.Tags');
-	 *      $this->setPrimaryKey('something_else');
+	 *      $this->belongsTo('User');
+	 *      $this->belongsToMany('Tagging.Tag');
 	 *  }
 	 * ```
 	 *
