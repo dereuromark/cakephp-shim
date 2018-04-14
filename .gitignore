@@ -4,3 +4,6 @@
 /tmp/
 /composer.lock
 /.idea/
+/.settings/
+/.project
+/.buildpath
