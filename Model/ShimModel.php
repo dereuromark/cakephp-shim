@@ -830,6 +830,47 @@ class ShimModel extends Model {
 	}
 
 	/**
+	 * Setup multiple associations.
+	 *
+	 * It takes an array containing set of table names indexed by association type
+	 * as argument:
+	 *
+	 * ```
+	 * $this->Post->addAssociations([
+	 *   'belongsTo' => [
+	 *     'User' => ['className' => 'User']
+	 *   ],
+	 *   'hasMany' => ['Comment'],
+	 *   'belongsToMany' => ['Tag']
+	 * ]);
+	 * ```
+	 *
+	 * Each association type accepts multiple associations where the keys
+	 * are the aliases, and the values are association config data. If numeric
+	 * keys are used the values will be treated as association aliases.
+	 *
+	 * @param array $params Set of associations to bind (indexed by association type).
+	 * @return $this
+	 * @see ShimModel::belongsTo()
+	 * @see ShimModel::hasOne()
+	 * @see ShimModel::hasMany()
+	 * @see ShimModel::belongsToMany()
+	 * @link https://api.cakephp.org/3.5/class-Cake.ORM.Table.html#_addAssociations
+	 */
+	public function addAssociations(array $params) {
+		foreach ($params as $assocType => $tables) {
+			foreach ($tables as $associated => $options) {
+				if (is_numeric($associated)) {
+					$associated = $options;
+					$options = [];
+				}
+				$this->{$assocType}($associated, (array)$options);
+			}
+		}
+		return $this;
+	}
+
+	/**
 	 * Sets/Gets primary key
 	 *
 	 * @param string|null
