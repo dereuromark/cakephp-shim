@@ -23,6 +23,7 @@ class FormShimHelperTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage $confirmMessage argument is deprecated as of 2.6. Use `confirm` key in $options instead.
 	 * @return void
 	 */
 	public function testPostLinkInvalid() {
@@ -39,6 +40,7 @@ class FormShimHelperTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Please use submit() or alike to output buttons. end() is deprecated for this.
 	 * @return void
 	 */
 	public function testEndInvalid() {
