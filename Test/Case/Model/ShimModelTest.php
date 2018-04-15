@@ -1,4 +1,5 @@
 <?php
+Configure::write('debug', 2);
 App::uses('ShimModel', 'Shim.Model');
 App::uses('ShimTestCase', 'Shim.TestSuite');
 
@@ -164,6 +165,7 @@ class ShimModelTest extends ShimTestCase {
 	 * ShimModelTest::testGetFail()
 	 *
 	 * @expectedException RECORDNOTFOUNDEXCEPTION
+	 * @expectedExceptionMessage Record not found in model "Post"
 	 * @return void
 	 */
 	public function testGetFail() {
@@ -209,6 +211,7 @@ class ShimModelTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage field() is deprecated in the shim context. Use shimmed fieldByConditions() or find() instead.
 	 * @return void
 	 */
 	public function testFieldDeprecated() {
@@ -247,6 +250,7 @@ class ShimModelTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Using implicit Model->id is deprecated in shim context. Pass it as conditions part instead.
 	 * @return void
 	 */
 	public function testFieldImplicitIdWarning() {
@@ -258,6 +262,7 @@ class ShimModelTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PDOException
+	 * @expectedExceptionMessage SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Post.fooooo' in 'field list'
 	 * @return void
 	 */
 	public function testFieldInvalid() {
@@ -291,6 +296,9 @@ class ShimModelTest extends ShimTestCase {
 	 * Testing missing contain warnings
 	 *
 	 * @expectedException PHPUnit_Framework_Error_Warning
+	 * @expectedExceptionMessage No recursive -1 or contain used for the query in User: Array
+(
+)
 	 * @return void
 	 */
 	public function testFindWrongRecursive() {
@@ -304,6 +312,7 @@ class ShimModelTest extends ShimTestCase {
 	 * Testing missing contain warnings
 	 *
 	 * @expectedException CakeException
+	 * @expectedExceptionMessage No recursive -1 or contain used for the query in User
 	 * @return void
 	 */
 	public function testFindWrongRecursiveException() {
@@ -329,6 +338,7 @@ class ShimModelTest extends ShimTestCase {
 	 * Testing missing contain warnings
 	 *
 	 * @expectedException CakeException
+	 * @expectedExceptionMessage No recursive -1 or contain used for the query in User
 	 * @return void
 	 */
 	public function testFindRecursiveInQueryException() {
@@ -369,6 +379,7 @@ class ShimModelTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @expectedExceptionMessage Always pass an ID for exists() / existsById().
 	 * @return void
 	 */
 	public function testExistsInvalid() {
@@ -392,6 +403,7 @@ class ShimModelTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @expectedExceptionMessage Always pass an ID for delete()
 	 * @return void
 	 */
 	public function testDeleteInvalid() {
@@ -405,6 +417,7 @@ class ShimModelTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @expectedExceptionMessage Deprecated in the shim context. Please use exists() or find() directly.
 	 * @return void
 	 */
 	public function testHasAnyInvalid() {
@@ -479,8 +492,8 @@ class ShimModelTest extends ShimTestCase {
 		$this->assertTrue($result);
 
 		$queries = $db->getLog();
-		$expected = 'SELECT `Post`.`id` FROM ' . $postTable . ' AS `Post` LEFT JOIN ' . $authorTable . ' AS `Author` ON (`Post`.`author_id` = `Author`.`id`)  WHERE `title` != \'Foo\'  GROUP BY `Post`.`id`';
-		$this->assertSame($expected, $queries['log'][0]['query']);
+		$expected = 'SELECT `Post`.`id` FROM ' . $postTable . ' AS `Post` LEFT JOIN ' . $authorTable . ' AS `Author` ON (`Post`.`author_id` = `Author`.`id`) WHERE `title` != \'Foo\' GROUP BY `Post`.`id`';
+		$this->assertSame($expected, preg_replace('/\s+/', ' ', $queries['log'][0]['query']));
 
 		$expected = 'DELETE `Post` FROM ' . $postTable . ' AS `Post`   WHERE `Post`.`id` IN';
 		$this->assertContains($expected, $queries['log'][1]['query']);
@@ -502,8 +515,8 @@ class ShimModelTest extends ShimTestCase {
 		$this->assertTrue($result);
 
 		$queries = $db->getLog();
-		$expected = 'SELECT `Post`.`id` FROM ' . $postTable . ' AS `Post`   WHERE `title` != \'Foo\'  GROUP BY `Post`.`id`';
-		$this->assertSame($expected, $queries['log'][0]['query']);
+		$expected = 'SELECT `Post`.`id` FROM ' . $postTable . ' AS `Post` WHERE `title` != \'Foo\' GROUP BY `Post`.`id`';
+		$this->assertSame($expected, preg_replace('/\s+/', ' ', $queries['log'][0]['query']));
 
 		$expected = 'DELETE `Post` FROM ' . $postTable . ' AS `Post`   WHERE `Post`.`id` IN';
 		$this->assertContains($expected, $queries['log'][1]['query']);
