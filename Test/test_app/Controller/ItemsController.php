@@ -9,6 +9,11 @@ class ItemsController extends Controller {
 	public $uses = [];
 
 	/**
+	 * @var array
+	 */
+	public $components = ['Flash', 'Session'];
+
+	/**
 	 * @return void
 	 */
 	public function beforeFilter() {
@@ -58,7 +63,7 @@ class ItemsController extends Controller {
 	 * @return void
 	 */
 	public function redirecting() {
-		$this->Session->setFlash('yeah');
+		$this->Flash->set('yeah');
 		return $this->redirect('/foobar');
 	}
 
