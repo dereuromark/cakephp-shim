@@ -257,6 +257,30 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * Testing use of relations property
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 * @expectedExceptionMessage Relations must be defined using $this->initialized() in Post
+	 * @return void
+	 */
+	public function testConstructor() {
+		Configure::write('Shim.warnAboutRelationProperty', true);
+
+		$post = new ShimAppModelPost();
+	}
+
+	/**
+	 * Testing use of relations property
+	 *
+	 * @return void
+	 */
+	public function testConstructorNoRelation() {
+		Configure::write('Shim.warnAboutRelationProperty', true);
+
+		$user = new ShimAppModelUser();
+	}
+
+	/**
 	 * @expectedException PDOException
 	 * @return void
 	 */

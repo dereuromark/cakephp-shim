@@ -29,6 +29,16 @@ class ShimModel extends Model {
 			$this->prefixOrderProperty();
 		}
 
+		if ($warn = Configure::read('Shim.warnAboutRelationProperty')) {
+			if (!empty($this->getAssociated())) {
+				$message = 'Relations must be defined using $this->initialized() in ' . $this->alias;
+				if (Configure::read('debug') && $warn === 'exception') {
+					throw new ShimException($message, 500);
+				}
+				trigger_error($message, E_USER_WARNING);
+			}
+		}
+
 		// $config does not contain all the keys here that it contains in Cake 3.x.
 		$config = [
 			'table' => $this->table,
