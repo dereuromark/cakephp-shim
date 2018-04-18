@@ -108,6 +108,9 @@ public function initialize(array $config) {
 ```
 You can now do that in 2.x already, as well.
 
+You can use `Configure::write('Shim.warnAboutRelationProperty', true);` to warn you about relation properties being used.
+This doensn't warn you about behaviors using $Model->bindModel(bindModel was removed in [3.0](https://book.cakephp.org/3.0/en/appendices/orm-migration.html#recursive-and-containablebehavior-removed))
+
 ### IN / NOT IN
 First of all, auto-IN is not supported anymore in 3.x.
 You would need to manually say `'field IN' => $array`. In In general this is a good thing. Being more explicit
