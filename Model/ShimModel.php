@@ -23,6 +23,16 @@ class ShimModel extends Model {
 	 * @param string|null $ds
 	 */
 	public function __construct($id = false, $table = null, $ds = null) {
+		if ($warn = Configure::read('Shim.warnAboutRelationProperty')) {
+			if ($this->getAssociated()) {
+				$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
+				if (Configure::read('debug') && $warn === 'exception') {
+					throw new ShimException($message, 500);
+				}
+				trigger_error($message, E_USER_WARNING);
+			}
+		}
+
 		parent::__construct($id, $table, $ds);
 
 		if (!Configure::read('Model.disablePrefixing')) {
