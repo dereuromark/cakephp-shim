@@ -60,14 +60,14 @@ $cache = [
 	]
 ];
 
-Cake\Cache\Cache::config($cache);
+Cake\Cache\Cache::setConfig($cache);
 
 //needed?
 Cake\Core\Plugin::load('Shim', ['path' => ROOT . DS, 'autoload' => true]);
 
 // Ensure default test connection is defined
 if (getenv('db_dsn')) {
-	Cake\Datasource\ConnectionManager::config('test', [
+	Cake\Datasource\ConnectionManager::setConfig('test', [
 		'className' => 'Cake\Database\Connection',
 		'url' => getenv('db_dsn'),
 		'timezone' => 'UTC',
@@ -83,7 +83,7 @@ if (!getenv('db_class')) {
 	putenv('db_dsn=sqlite::memory:');
 }
 
-Cake\Datasource\ConnectionManager::config('test', [
+Cake\Datasource\ConnectionManager::setConfig('test', [
 	'className' => 'Cake\Database\Connection',
 	'driver' => getenv('db_class'),
 	'dsn' => getenv('db_dsn'),

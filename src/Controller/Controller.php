@@ -61,8 +61,9 @@ class Controller extends CoreController {
 		parent::beforeRender($event);
 
 		// Automatically shim $this->request->data = $this->Model->find() etc which used to be of type array
-		if (!empty($this->request->data) && $this->request->data instanceof Entity) {
-			$this->request->data = $this->request->data->toArray();
+		$data = $this->request->getData();
+		if ($data && $data instanceof Entity) {
+			$this->request = $this->request->withParsedBody($data->toArray());
 		}
 	}
 
