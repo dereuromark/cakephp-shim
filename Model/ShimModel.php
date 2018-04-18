@@ -23,20 +23,20 @@ class ShimModel extends Model {
 	 * @param string|null $ds
 	 */
 	public function __construct($id = false, $table = null, $ds = null) {
-		parent::__construct($id, $table, $ds);
-
-		if (!Configure::read('Model.disablePrefixing')) {
-			$this->prefixOrderProperty();
-		}
-
 		if ($warn = Configure::read('Shim.warnAboutRelationProperty')) {
-			if (!empty($this->getAssociated())) {
-				$message = 'Relations must be defined using $this->initialized() in ' . $this->alias;
+			if ($this->getAssociated()) {
+				$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
 				if (Configure::read('debug') && $warn === 'exception') {
 					throw new ShimException($message, 500);
 				}
 				trigger_error($message, E_USER_WARNING);
 			}
+		}
+
+		parent::__construct($id, $table, $ds);
+
+		if (!Configure::read('Model.disablePrefixing')) {
+			$this->prefixOrderProperty();
 		}
 
 		// $config does not contain all the keys here that it contains in Cake 3.x.
