@@ -77,7 +77,7 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 		$this->assertResponseCode(302);
 		$this->assertRedirect('/foobar');
 
-		$this->assertSession('yeah', 'Message.flash.message');
+		$this->assertSession('yeah', 'Message.flash.0.message');
 
 		// Make sure we dont have cross contamination from the previous test
 		$this->assertSession(null, 'Auth.User.id');
@@ -89,6 +89,7 @@ class ShimIntegrationTestCaseTest extends ShimIntegrationTestCase {
 	 * We still have to set assertion headers, though, for exceptions.
 	 *
 	 * @expectedException NotFoundException
+	 * @expectedExceptionMessage Not really found
 	 * @return void
 	 */
 	public function testExceptional() {

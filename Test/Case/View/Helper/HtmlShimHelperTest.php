@@ -23,6 +23,7 @@ class HtmlShimHelperTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage $confirmMessage argument is deprecated as of 2.6. Use `confirm` key in $options instead.
 	 * @return void
 	 */
 	public function testLinkInvalid() {
@@ -40,6 +41,7 @@ class HtmlShimHelperTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage The second argument needs to be an array. Use `rel` key in $options instead.
 	 * @return void
 	 */
 	public function testCssInvalid() {

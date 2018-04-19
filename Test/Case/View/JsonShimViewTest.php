@@ -347,7 +347,7 @@ class JsonShimViewTest extends CakeTestCase {
 		$Controller = new Controller($Request, $Response);
 
 		// non utf-8 stuff
-		$data = ['data' => ['foo' => 'bar' . chr('0x97')]];
+		$data = ['data' => ['foo' => 'bar' . chr(0x97)]];
 
 		$Controller->set($data);
 		$Controller->set('_serialize', 'data');

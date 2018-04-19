@@ -60,9 +60,11 @@ class ShimComponentTest extends ShimTestCase {
 
 	/**
 	 * @expectedException EXCEPTION
+	 * @expectedExceptionMessage All paths need to have a trailing DS.
 	 * @return void
 	 */
 	public function testCheckPathsMissingTrailingDs() {
+		Configure::write('debug', 1);
 		Configure::write('Shim.checkPaths', true);
 
 		App::build(['View' => CakePlugin::path('Shim') . 'View' . DS . 'Foo']);
@@ -74,9 +76,11 @@ class ShimComponentTest extends ShimTestCase {
 
 	/**
 	 * @expectedException EXCEPTION
+	 * @expectedExceptionMessage All paths need to have a DS as separator, not a hardcoded / or \ slash.
 	 * @return void
 	 */
 	public function testCheckPathsError() {
+		Configure::write('debug', 1);
 		Configure::write('Shim.checkPaths', true);
 
 		// Always use the "wrong" type of slash per OS
@@ -93,6 +97,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * testUrlQueryStrings()
 	 *
 	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @expectedExceptionMessage Named params {"x":"y"} - from /foobar
 	 * @return void
 	 */
 	public function testUrlNamedParams() {
@@ -115,6 +120,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testRedirect() {
+		Configure::write('debug', 1);
 		Configure::write('Shim.handleNamedParams', true);
 
 		$request = new CakeRequest();
