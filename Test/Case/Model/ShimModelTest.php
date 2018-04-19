@@ -909,7 +909,7 @@ class ShimAppModelPost extends ShimModel {
 
 	public $alias = 'Post';
 
-	public $belongsTo = 'Author';
+	public $belongsTo = ['Author'];
 
 }
 
