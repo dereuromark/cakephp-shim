@@ -296,9 +296,7 @@ class ShimModelTest extends ShimTestCase {
 	 * Testing missing contain warnings
 	 *
 	 * @expectedException PHPUnit_Framework_Error_Warning
-	 * @expectedExceptionMessage No recursive -1 or contain used for the query in User: Array
-(
-)
+	 * @expectedExceptionMessage No recursive -1 or contain used for the query in User
 	 * @return void
 	 */
 	public function testFindWrongRecursive() {
