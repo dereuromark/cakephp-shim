@@ -17,7 +17,7 @@ This is mainly useful when upgrading large applications to the next major framew
 Tons of code needs to be adjusted, using this Shim plugin quite a few lines less need to be touched.
 Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working againc.
 
-**This plugin requires CakePHP 3.5+**
+**This branch requires CakePHP 3.5+**
 
 ## Installation
 Please see [SETUP.md](docs/SETUP.md)
