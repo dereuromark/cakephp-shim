@@ -9,6 +9,8 @@
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
 It also provides some small fixes.
 
+NOTE: With 4.x development already being started, **this 2.x branch is now in maintenance mode**. No active development is done anymore on it, mainly only necessary bugfixes.
+
 ## This branch is for backporting 3.x to 2.x
 or to shim certain 3.x functionality/features in 2.x.
 
