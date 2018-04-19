@@ -15,7 +15,7 @@ env:
     - REQUIRE=""
 
   matrix:
-    - DB=mysql CAKE_VERSION=2.x CAKE_REF=refs/heads/2.x
+    - DB=mysql CAKE_VERSION=2.x CAKE_REF=2.x
 
 before_script:
   - git clone -b master https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
