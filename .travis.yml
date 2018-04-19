@@ -28,6 +28,7 @@ before_script:
   - cd ../cakephp/app
   - composer global remove phpunit/phpunit
   - composer require "phpunit/phpunit=$PHPUNIT"
+  - echo "require_once 'vendors/autoload.php';" >> app/Config/bootstrap.php
   - composer require --dev --no-interaction --prefer-source mobiledetect/mobiledetectlib:2.*
   - echo "<?php App::uses('ShimModel', 'Shim.Model'); class AppModel extends ShimModel {}" > Model/AppModel.php
   - echo "Configure::write('Security.salt', 'AycG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');" >> Config/bootstrap.php
