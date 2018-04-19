@@ -414,7 +414,7 @@ class ShimModelTest extends ShimTestCase {
 	/**
 	 * Tests validation rules added in `validationDefault()` method.
 	 *
-	 * @return
+	 * @return void
 	 */
 	public function testSaveValid() {
 		$actual = $this->User->save([
@@ -429,7 +429,7 @@ class ShimModelTest extends ShimTestCase {
 	/**
 	 * Tests validation rules added in `validationDefault()` method.
 	 *
-	 * @return
+	 * @return void
 	 */
 	public function testSaveInvalid() {
 		$actual = $this->User->save([
@@ -957,6 +957,7 @@ class ShimAppModelUser extends ShimModel {
 		$validator->add('password', 'required', array(
 			'rule' => 'notBlank',
 			'required' => 'create',
+			'message' => 'Please enter the password.',
 		));
 		return $validator;
 	}

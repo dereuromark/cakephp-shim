@@ -953,7 +953,6 @@ class ShimModel extends Model {
 	 * @link https://api.cakephp.org/3.5/class-Cake.Validation.ValidatorAwareTrait.html#_validationDefault
 	 */
 	public function validationDefault(Validator $validator) {
-		Debugger::log($validator);
 		return $validator;
 	}
 
