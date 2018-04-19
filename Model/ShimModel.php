@@ -32,14 +32,29 @@ class ShimModel extends Model {
 	 * @param string|null $ds
 	 */
 	public function __construct($id = false, $table = null, $ds = null) {
+		if ($warn = Configure::read('Shim.warnAboutRelationProperty')) {
+			if ($this->getAssociated()) {
+				$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
+				if (Configure::read('debug') && $warn === 'exception') {
+					throw new ShimException($message, 500);
+				}
+				trigger_error($message, E_USER_WARNING);
+			}
+		}
+
 		parent::__construct($id, $table, $ds);
 
 		if (!Configure::read('Model.disablePrefixing')) {
 			$this->prefixOrderProperty();
 		}
 
-		$event = new CakeEvent('Model.initialize', $this, compact('id', 'table', 'ds'));
-		$this->getEventManager()->dispatch($event);
+		// $config does not contain all the keys here that it contains in Cake 3.x.
+		$config = [
+			'table' => $this->table,
+			'alias' => $this->alias,
+			'schema' => $this->schemaName,
+		];
+		$this->initialize($config);
 	}
 
 	/**
@@ -721,14 +736,25 @@ class ShimModel extends Model {
 		return $this->get($id, $options);
 	}
 
+
 	/**
-	 * Model initialization callback. To avoid overwriting constructor
+	 * Initialize a model instance. Called after the constructor.
 	 *
-	 * Will have param `array $config` in 3.x.
+	 * You can use this method to define associations, attach behaviors
+	 * define validation and do any other initialization logic you need.
 	 *
+	 * ```
+	 *  public function initialize(array $config)
+	 *  {
+	 *      $this->belongsTo('User');
+	 *      $this->belongsToMany('Tagging.Tag');
+	 *  }
+	 * ```
+	 *
+	 * @param array $config Configuration options passed from the constructor.
 	 * @return void
 	 */
-	public function initialize($id = false, $table = null, $ds = null) {
+	public function initialize(array $config) {
 	}
 
 	/**

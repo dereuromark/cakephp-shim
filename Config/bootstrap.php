@@ -12,6 +12,7 @@ Configure::write('Search', [
 
 // Shims - add them in your own bootstrap/config
 /*
+Configure::write('Shim.warnAboutRelationProperty', true);
 Configure::write('Shim.checkPaths', true);
 Configure::write('Shim.warnAboutNamedParams', true);
 Configure::write('Shim.handleNamedParams', true);

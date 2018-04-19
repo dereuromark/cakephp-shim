@@ -261,6 +261,30 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * Testing use of relations property
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Warning
+	 * @expectedExceptionMessage Relations must be defined using $this->initialized() in ShimAppModelPost
+	 * @return void
+	 */
+	public function testConstructor() {
+		Configure::write('Shim.warnAboutRelationProperty', true);
+
+		new ShimAppModelPost();
+	}
+
+	/**
+	 * Testing use of relations property
+	 *
+	 * @return void
+	 */
+	public function testConstructorNoRelation() {
+		Configure::write('Shim.warnAboutRelationProperty', true);
+
+		new ShimAppModelUser();
+	}
+
+	/**
 	 * @expectedException PDOException
 	 * @expectedExceptionMessage SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Post.fooooo' in 'field list'
 	 * @return void
@@ -917,7 +941,7 @@ class ShimAppModelPost extends ShimModel {
 
 	public $alias = 'Post';
 
-	public $belongsTo = 'Author';
+	public $belongsTo = ['Author'];
 
 }
 
