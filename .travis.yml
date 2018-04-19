@@ -14,22 +14,19 @@ env:
     - PLUGIN_NAME=Shim
     - REQUIRE=""
 
-  matrix:
-    - DB=mysql CAKE_VERSION=2.x CAKE_REF=2.x
-
 matrix:
   include:
     - php: 5.6
-      env: PHPUNIT=3.7.38
+      env: DB=mysql CAKE_VERSION=2.x CAKE_REF=2.x PHPUNIT=3.7.38
 
     - php: 7.0
-      env: PHPUNIT=4.8.35
+      env: DB=mysql CAKE_VERSION=2.x CAKE_REF=2.x PHPUNIT=4.8.35
 
     - php: 7.1
-      env: PHPUNIT=5.7.19
+      env: DB=mysql CAKE_VERSION=2.x CAKE_REF=2.x PHPUNIT=5.7.19
 
     - php: 7.2
-      env: PHPUNIT=5.7.19
+      env: DB=mysql CAKE_VERSION=2.x CAKE_REF=2.x PHPUNIT=5.7.19
 
 before_script:
   - git clone -b master https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
