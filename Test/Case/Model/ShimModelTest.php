@@ -412,12 +412,43 @@ class ShimModelTest extends ShimTestCase {
 	}
 
 	/**
+	 * Tests validation rules added in `validationDefault()` method.
+	 *
+	 * @return void
+	 */
+	public function testSaveValid() {
+		$actual = $this->User->save([
+			'user' => 'John Blow',
+			'password' => '12345678',
+		]);
+		$this->assertEquals(5, $actual['User']['id']);
+		$this->assertEquals('John Blow', $actual['User']['user']);
+		$this->assertEquals('12345678', $actual['User']['password']);
+	}
+
+	/**
+	 * Tests validation rules added in `validationDefault()` method.
+	 *
+	 * @return void
+	 */
+	public function testSaveInvalid() {
+		$actual = $this->User->save([
+			'user' => 'John Blow',
+		]);
+		$this->assertFalse($actual);
+		$this->assertEquals('Please enter the password.', $this->User->validationErrors['password'][0]);
+	}
+
+	/**
 	 * @return void
 	 */
 	public function testDelete() {
 		Configure::write('Shim.modelDelete', 'exception');
 
-		$this->User->save(['user' => 'first name']);
+		$this->User->save([
+			'user' => 'first name',
+			'password' => '12345678',
+		]);
 
 		$result = $this->User->delete($this->User->id);
 		$this->assertTrue($result);
@@ -566,7 +597,8 @@ class ShimModelTest extends ShimTestCase {
 	 */
 	public function testSaveFieldById() {
 		$data = [
-			'user' => 'Fooo'
+			'user' => 'Fooo',
+			'password' => '12345678',
 		];
 		$result = $this->User->save($data);
 		$this->assertTrue((bool)$result);
@@ -921,6 +953,14 @@ class ShimAppModelUser extends ShimModel {
 
 	public $displayField = 'user';
 
+	public function validationDefault(Validator $validator) {
+		$validator->add('password', 'required', array(
+			'rule' => 'notBlank',
+			'required' => 'create',
+			'message' => 'Please enter the password.',
+		));
+		return $validator;
+	}
 }
 
 class AppTestModel extends ShimModel {

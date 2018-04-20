@@ -2,6 +2,7 @@
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
 App::uses('ShimException', 'Shim.Error');
+App::uses('Validator', 'Shim.Model');
 
 /**
  * Model enhancements for Cake2
@@ -10,6 +11,14 @@ App::uses('ShimException', 'Shim.Error');
  * @license http://opensource.org/licenses/mit-license.php MIT
  */
 class ShimModel extends Model {
+
+	/**
+	 * Name of default validation set.
+	 *
+	 * @var string
+	 * @link https://api.cakephp.org/3.5/source-class-Cake.Validation.ValidatorAwareInterface.html#23
+	 */
+	const DEFAULT_VALIDATOR = 'default';
 
 	public $recursive = -1;
 
@@ -929,6 +938,46 @@ class ShimModel extends Model {
 			$this->alias = $alias;
 		}
 		return $this->alias;
+	}
+
+	/**
+	 * Returns the default validator object. Subclasses can override this function
+	 * to add a default validation set to the validator object.
+	 * This method allows to use Cake 3 syntax for defining validation rules
+	 * in models.
+	 * {@see https://book.cakephp.org/3.0/en/appendices/orm-migration.html#validation-no-longer-defined-as-a-property}
+	 *
+	 * @param Validator $validator The validator that can be modified to
+	 * add some rules to it.
+	 * @return Validator
+	 * @link https://api.cakephp.org/3.5/class-Cake.Validation.ValidatorAwareTrait.html#_validationDefault
+	 */
+	public function validationDefault(Validator $validator) {
+		return $validator;
+	}
+
+	/**
+	 * Returns an instance of a model validator for this class.
+	 *
+	 * You can implement the method in `validationDefault` in your Model subclass
+	 * should you wish to have the default validation set.
+	 *
+	 * @param ModelValidator $instance Model validator instance.
+	 *  If null a new Validator instance will be made using current model object.
+	 * @return ModelValidator
+	 * @link https://api.cakephp.org/2.10/class-Model.html#_validator
+	 * @link https://api.cakephp.org/3.5/class-Cake.Validation.ValidatorAwareTrait.html#_createValidator
+	 */
+	public function validator(ModelValidator $instance = null) {
+		if ($instance) {
+			$this->_validator = $instance;
+		} elseif (!$this->_validator) {
+			$Validator = new Validator($this);
+			$name = self::DEFAULT_VALIDATOR;
+			$method = 'validation' . ucfirst($name);
+			$this->_validator = $this->$method($Validator);
+		}
+		return $this->_validator;
 	}
 
 }

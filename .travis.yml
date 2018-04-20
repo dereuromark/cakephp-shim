@@ -2,25 +2,35 @@ language: php
 
 sudo: false
 
-php:
-  - 5.6
-  - 7.0
-  - 7.1
-  - 7.2
-
 env:
   global:
     - REPO_NAME=cakephp-shim
     - PLUGIN_NAME=Shim
     - REQUIRE=""
+    - CAKE_VERSION=2.x
+    - CAKE_REF=2.x
 
-  matrix:
-    - DB=mysql CAKE_VERSION=2.x
+matrix:
+  include:
+    - php: 5.6
+      env: DB=mysql PHPUNIT=3.7.38
+
+    - php: 7.0
+      env: DB=mysql PHPUNIT=4.8.35
+
+    - php: 7.1
+      env: DB=mysql PHPUNIT=5.7.19
+
+    - php: 7.2
+      env: DB=mysql PHPUNIT=5.7.19
 
 before_script:
   - git clone -b master https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
   - cd ../cakephp/app
+  - composer global remove phpunit/phpunit
+  - composer require "phpunit/phpunit=$PHPUNIT"
+  - echo "require APP . 'vendor/autoload.php';" >> Config/bootstrap.php
   - composer require --dev --no-interaction --prefer-source mobiledetect/mobiledetectlib:2.*
   - echo "<?php App::uses('ShimModel', 'Shim.Model'); class AppModel extends ShimModel {}" > Model/AppModel.php
   - echo "Configure::write('Security.salt', 'AycG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');" >> Config/bootstrap.php
