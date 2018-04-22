@@ -12,7 +12,7 @@ class Shim {
 	 *
 	 * @var string
 	 */
-	const RELATIONSHIPS_PROPERTIES = 'Shim.warnAboutRelationProperty';
+	const RELATIONSHIP_PROPERTIES = 'Shim.warnAboutRelationProperty';
 
 	/**
 	 * The name of the shim that checks that model validation rules are defined
@@ -29,7 +29,7 @@ class Shim {
 	 * @param string $message Error/exception message.
 	 * @throws ShimException
 	 */
-	public static function check(string $name, string $message) {
+	public static function check($name, $message) {
 		if ($warn = Configure::read($name)) {
 			if (Configure::read('debug') && $warn === 'exception') {
 				throw new ShimException($message, 500);

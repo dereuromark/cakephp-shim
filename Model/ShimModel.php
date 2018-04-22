@@ -36,7 +36,7 @@ class ShimModel extends Model {
 	public function __construct($id = false, $table = null, $ds = null) {
 		if ($this->getAssociated()) {
 			$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
-			Shim::check(Shim::RELATIONSHIPS_PROPERTIES, $message);
+			Shim::check(Shim::RELATIONSHIP_PROPERTIES, $message);
 		}
 		if (!empty($this->validate)) {
 			$message = 'Default validation rules must be defined in Model::validationDefault().';

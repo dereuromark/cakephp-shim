@@ -269,7 +269,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testAssociationsInConstructor() {
-		Configure::write(Shim::RELATIONSHIPS_PROPERTIES, true);
+		Configure::write(Shim::RELATIONSHIP_PROPERTIES, true);
 		ClassRegistry::init('ShimAppModelPost');
 	}
 
@@ -279,7 +279,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testAssociationsInConstructorNone() {
-		Configure::write(Shim::RELATIONSHIPS_PROPERTIES, true);
+		Configure::write(Shim::RELATIONSHIP_PROPERTIES, true);
 		$User = ClassRegistry::init('ShimAppModelUser');
 		$expected = [
 			'Post' => [
