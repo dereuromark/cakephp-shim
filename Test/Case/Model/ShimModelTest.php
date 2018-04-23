@@ -1,5 +1,6 @@
 <?php
 Configure::write('debug', 2);
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimModel', 'Shim.Model');
 App::uses('ShimTestCase', 'Shim.TestSuite');
 
@@ -263,25 +264,62 @@ class ShimModelTest extends ShimTestCase {
 	/**
 	 * Testing use of relations property
 	 *
-	 * @expectedException PHPUnit_Framework_Error_Warning
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
 	 * @expectedExceptionMessage Relations must be defined using $this->initialized() in ShimAppModelPost
 	 * @return void
 	 */
-	public function testConstructor() {
-		Configure::write('Shim.warnAboutRelationProperty', true);
-
-		new ShimAppModelPost();
+	public function testAssociationsInConstructor() {
+		Configure::write(Shim::RELATIONSHIP_PROPERTIES, true);
+		ClassRegistry::init('ShimAppModelPost');
 	}
 
 	/**
-	 * Testing use of relations property
+	 * Testing use of relations property.
 	 *
 	 * @return void
 	 */
-	public function testConstructorNoRelation() {
-		Configure::write('Shim.warnAboutRelationProperty', true);
+	public function testAssociationsInConstructorNone() {
+		Configure::write(Shim::RELATIONSHIP_PROPERTIES, true);
+		$User = ClassRegistry::init('ShimAppModelUser');
+		$expected = [
+			'Post' => [
+				'className' => 'Post',
+				'foreignKey' => 'user_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => '',
+				'limit' => '',
+				'offset' => '',
+				'dependent' => '',
+				'exclusive' => '',
+				'finderQuery' => '',
+				'counterQuery' => '',
+			],
+		];
+		$this->assertEquals($expected, $User->hasMany);
+	}
 
-		new ShimAppModelUser();
+	/**
+	 * Testing the use of Model::$validate property.
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @expectedExceptionMessage Default validation rules must be defined in Model::validationDefault().
+	 * @return void
+	 */
+	public function testValidateInConstuctor() {
+		Configure::write(Shim::VALIDATE_PROPERTY, true);
+		ClassRegistry::init('ShimAppModelPost');
+	}
+
+	/**
+	 * Testing the use of Model::$validate property.
+	 *
+	 * @return void
+	 */
+	public function testValidateInConstructorNone() {
+		Configure::write(Shim::VALIDATE_PROPERTY, true);
+		$User = ClassRegistry::init('ShimAppModelUser');
+		$this->assertEmpty($User->validate);
 	}
 
 	/**
@@ -735,6 +773,9 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testRelationHasMany() {
+		$this->User->unbindModel([
+			'hasMany' => ['Post'],
+		]);
 		$is = $this->User->hasMany;
 		$this->assertEmpty($is);
 
@@ -943,6 +984,13 @@ class ShimAppModelPost extends ShimModel {
 
 	public $belongsTo = ['Author'];
 
+	public $validate = [
+		'title' => [
+			'rule' => ['maxLength', 150],
+			'message' => 'The title is too long.',
+		],
+	];
+
 }
 
 class ShimAppModelUser extends ShimModel {
@@ -952,6 +1000,10 @@ class ShimAppModelUser extends ShimModel {
 	public $alias = 'User';
 
 	public $displayField = 'user';
+
+	public function initialize(array $config) {
+		$this->hasMany('Post');
+	}
 
 	public function validationDefault(Validator $validator) {
 		$validator->add('password', 'required', array(

@@ -1,6 +1,7 @@
 <?php
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimException', 'Shim.Error');
 App::uses('Validator', 'Shim.Model');
 
@@ -32,14 +33,13 @@ class ShimModel extends Model {
 	 * @param string|null $ds
 	 */
 	public function __construct($id = false, $table = null, $ds = null) {
-		if ($warn = Configure::read('Shim.warnAboutRelationProperty')) {
-			if ($this->getAssociated()) {
-				$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
-				if (Configure::read('debug') && $warn === 'exception') {
-					throw new ShimException($message, 500);
-				}
-				trigger_error($message, E_USER_WARNING);
-			}
+		if ($this->getAssociated()) {
+			$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
+			Shim::check(Shim::RELATIONSHIP_PROPERTIES, $message);
+		}
+		if (!empty($this->validate)) {
+			$message = 'Default validation rules must be defined in Model::validationDefault().';
+			Shim::check(Shim::VALIDATE_PROPERTY, $message);
 		}
 
 		parent::__construct($id, $table, $ds);
