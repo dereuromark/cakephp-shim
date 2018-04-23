@@ -978,7 +978,7 @@ class ShimModelTest extends ShimTestCase {
 	 * Testing deprecated bindModel().
 	 *
 	 * @expectedException PHPUnit_Framework_Error_Deprecated
-	 * @expectedExceptionMessage Model::bindModel() has been deprecated in favor of 'contain' or association methods like Model::belongsTo().
+	 * @expectedExceptionMessage Model::bindModel() has been deprecated in favor of 'contain' key in queries.
 	 */
 	public function testBindModel() {
 		Configure::write(Shim::BIND_MODEL_METHOD, true);

@@ -9,23 +9,17 @@ class Shim {
 	 * The name of the shim that checks that model associations are defined in
 	 * Model::initialize() but not in association properties Model::$hasOne,
 	 * Model::$belongsTo etc.
-	 *
-	 * @var string
 	 */
 	const RELATIONSHIP_PROPERTIES = 'Shim.warnAboutRelationProperty';
 
 	/**
 	 * The name of the shim that checks that model validation rules are defined
 	 * in Model::validationDefault() but not in Model::$validate.
-	 *
-	 * @var string
 	 */
 	const VALIDATE_PROPERTY = 'Shim.warnAboutValidateProperty';
 
 	/**
 	 * The name of the shim that checks the usage of the deprecated Model::bindModel() method.
-	 *
-	 * @var string
 	 */
 	const BIND_MODEL_METHOD = 'Shim.warnAboutBindModelMethod';
 
