@@ -111,6 +111,12 @@ You can now do that in 2.x already, as well.
 You can use `Configure::write('Shim.warnAboutRelationProperty', true);` to warn you about relation properties being used.
 This doensn't warn you about behaviors using $Model->bindModel(bindModel was removed in [3.0](https://book.cakephp.org/3.0/en/appendices/orm-migration.html#recursive-and-containablebehavior-removed))
 
+### Model::bindModel()
+In 3.x `bindModel()` method has been removed.
+You can use `Configure::write('Shim.warnAboutBindModelMethod', true);` to warn you 
+about the usage of `bindModel()` method.
+(https://book.cakephp.org/3.0/en/appendices/orm-migration.html#recursive-and-containablebehavior-removed)
+
 ### Validation rules
 Model::$validate is removed in 3.x and the default validation rules should be 
 defined in validationDefault() method:
