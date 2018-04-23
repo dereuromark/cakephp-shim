@@ -319,7 +319,7 @@ class ShimModel extends Model {
 	 */
 	public function saveFieldById($id, $field, $value, $validate = false) {
 		$data = [
-			'id' => $id,
+			$this->primaryKey => $id,
 			$field => $value
 		];
 		return $this->save($data, ['validate' => $validate]);
