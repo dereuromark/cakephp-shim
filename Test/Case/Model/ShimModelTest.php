@@ -1,6 +1,6 @@
 <?php
 Configure::write('debug', 2);
-App::import('Shim.Lib', 'Shim');
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimModel', 'Shim.Model');
 App::uses('ShimTestCase', 'Shim.TestSuite');
 
