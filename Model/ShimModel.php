@@ -1,6 +1,7 @@
 <?php
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimException', 'Shim.Error');
 App::uses('Validator', 'Shim.Model');
 
@@ -804,11 +805,14 @@ class ShimModel extends Model {
 	}
 
 	protected function _setAssoc($type, $name, $options = []) {
+		$shim = Configure::read(Shim::BIND_MODEL_METHOD);
+		Configure::write(Shim::BIND_MODEL_METHOD, false);
 		$this->bindModel([
 			$type => [
 				$name => $options
 			]
 		], false);
+		Configure::write(Shim::BIND_MODEL_METHOD, $shim);
 	}
 
 	/**
@@ -980,4 +984,16 @@ class ShimModel extends Model {
 		return $this->_validator;
 	}
 
+	/**
+	 * Bind model associations on the fly.
+	 *
+	 * @param array $params Set of bindings (indexed by binding type)
+	 * @param bool $reset Set to false to make the binding permanent
+	 * @return bool Success
+	 */
+	public function bindModel($params, $reset = true) {
+		$message = "Model::bindModel() has been deprecated in favor of 'contain' key in queries.";
+		Shim::check(Shim::BIND_MODEL_METHOD, $message);
+		return parent::bindModel($params, $reset);
+	}
 }

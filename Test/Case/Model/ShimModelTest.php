@@ -933,6 +933,18 @@ class ShimModelTest extends ShimTestCase {
 		// Logically, NOT IN + [] should be equal to no condition (or always true condition)
 	}
 
+	/**
+	 * Testing deprecated bindModel().
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @expectedExceptionMessage Model::bindModel() has been deprecated in favor of 'contain' or association methods like Model::belongsTo().
+	 */
+	public function testBindModel() {
+		Configure::write(Shim::BIND_MODEL_METHOD, true);
+		$this->User->bindModel([
+			'hasMany' => ['Post'],
+		]);
+	}
 }
 
 class ShimAppModelPost extends ShimModel {
