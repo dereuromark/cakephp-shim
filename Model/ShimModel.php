@@ -1,6 +1,4 @@
 <?php
-//App::import('Shim.Lib', 'Shim');
-
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
 App::uses('Shim', 'Shim.Lib');
