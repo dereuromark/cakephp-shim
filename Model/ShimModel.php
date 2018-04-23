@@ -1,8 +1,9 @@
 <?php
-App::import('Shim.Lib', 'Shim');
+//App::import('Shim.Lib', 'Shim');
 
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimException', 'Shim.Error');
 App::uses('Validator', 'Shim.Model');
 
