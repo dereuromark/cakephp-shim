@@ -14,6 +14,7 @@ Configure::write('Search', [
 /*
 Configure::write('Shim.warnAboutRelationProperty', true);
 Configure::write('Shim.warnAboutBindModelMethod', true);
+Configure::write('Shim.warnAboutValidateProperty', true);
 Configure::write('Shim.checkPaths', true);
 Configure::write('Shim.warnAboutNamedParams', true);
 Configure::write('Shim.handleNamedParams', true);

@@ -117,6 +117,25 @@ You can use `Configure::write('Shim.warnAboutBindModelMethod', true);` to warn y
 about the usage of `bindModel()` method.
 (https://book.cakephp.org/3.0/en/appendices/orm-migration.html#recursive-and-containablebehavior-removed)
 
+### Validation rules
+Model::$validate is removed in 3.x and the default validation rules should be 
+defined in validationDefault() method:
+```php
+public function validationDefault(Validator $validator) {
+	$validator->add('password', 'required', array(
+		'rule' => 'notBlank',
+		'required' => 'create',
+		'message' => 'Please enter the password.',
+	));
+	return $validator;
+}
+```
+You can now do that in 2.x already, as well. 
+(https://book.cakephp.org/3.0/en/appendices/orm-migration.html#validation-no-longer-defined-as-a-property) 
+
+You can use `Configure::write('Shim.warnAboutValidateProperty', true);` to warn you if
+Model::$validate was set as a class property.
+
 ### IN / NOT IN
 First of all, auto-IN is not supported anymore in 3.x.
 You would need to manually say `'field IN' => $array`. In In general this is a good thing. Being more explicit
