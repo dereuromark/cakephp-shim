@@ -111,6 +111,31 @@ You can now do that in 2.x already, as well.
 You can use `Configure::write('Shim.warnAboutRelationProperty', true);` to warn you about relation properties being used.
 This doensn't warn you about behaviors using $Model->bindModel(bindModel was removed in [3.0](https://book.cakephp.org/3.0/en/appendices/orm-migration.html#recursive-and-containablebehavior-removed))
 
+### Model::bindModel()
+In 3.x `bindModel()` method has been removed.
+You can use `Configure::write('Shim.warnAboutBindModelMethod', true);` to warn you 
+about the usage of `bindModel()` method.
+(https://book.cakephp.org/3.0/en/appendices/orm-migration.html#recursive-and-containablebehavior-removed)
+
+### Validation rules
+Model::$validate is removed in 3.x and the default validation rules should be 
+defined in validationDefault() method:
+```php
+public function validationDefault(Validator $validator) {
+	$validator->add('password', 'required', array(
+		'rule' => 'notBlank',
+		'required' => 'create',
+		'message' => 'Please enter the password.',
+	));
+	return $validator;
+}
+```
+You can now do that in 2.x already, as well. 
+(https://book.cakephp.org/3.0/en/appendices/orm-migration.html#validation-no-longer-defined-as-a-property) 
+
+You can use `Configure::write('Shim.warnAboutValidateProperty', true);` to warn you if
+Model::$validate was set as a class property.
+
 ### IN / NOT IN
 First of all, auto-IN is not supported anymore in 3.x.
 You would need to manually say `'field IN' => $array`. In In general this is a good thing. Being more explicit
@@ -162,5 +187,7 @@ $children = $this->Category->find('children', ['id' => $id]);
 
 All other 3.x options (fields, conditions, order, ...) are now supported using the 2nd `$options` array.
 
-Note that fo all these new custom finders you have to load the TreeBehavior on this model, first, though (just as you would with the
+Note that for all these new custom finders you have to load the TreeBehavior on this model, first, though (just as you would with the
 former methods).
+
+Also that you should be using the `Shim.Tree` behavior if you want to use the deprecation info, as those silence the core usage of it.

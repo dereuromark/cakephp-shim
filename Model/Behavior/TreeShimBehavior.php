@@ -18,7 +18,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('TreeBehavior', 'Model');
+App::uses('TreeBehavior', 'Model/Behavior');
 
 /**
  * Tree Behavior.

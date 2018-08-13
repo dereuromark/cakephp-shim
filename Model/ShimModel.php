@@ -1,6 +1,7 @@
 <?php
 App::uses('Model', 'Model');
 App::uses('RecordNotFoundException', 'Shim.Error');
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimException', 'Shim.Error');
 App::uses('Validator', 'Shim.Model');
 
@@ -32,14 +33,13 @@ class ShimModel extends Model {
 	 * @param string|null $ds
 	 */
 	public function __construct($id = false, $table = null, $ds = null) {
-		if ($warn = Configure::read('Shim.warnAboutRelationProperty')) {
-			if ($this->getAssociated()) {
-				$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
-				if (Configure::read('debug') && $warn === 'exception') {
-					throw new ShimException($message, 500);
-				}
-				trigger_error($message, E_USER_WARNING);
-			}
+		if ($this->getAssociated()) {
+			$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
+			Shim::check(Shim::RELATIONSHIP_PROPERTIES, $message);
+		}
+		if (!empty($this->validate)) {
+			$message = 'Default validation rules must be defined in Model::validationDefault().';
+			Shim::check(Shim::VALIDATE_PROPERTY, $message);
 		}
 
 		parent::__construct($id, $table, $ds);
@@ -319,7 +319,7 @@ class ShimModel extends Model {
 	 */
 	public function saveFieldById($id, $field, $value, $validate = false) {
 		$data = [
-			'id' => $id,
+			$this->primaryKey => $id,
 			$field => $value
 		];
 		return $this->save($data, ['validate' => $validate]);
@@ -804,11 +804,14 @@ class ShimModel extends Model {
 	}
 
 	protected function _setAssoc($type, $name, $options = []) {
+		$shim = Configure::read(Shim::BIND_MODEL_METHOD);
+		Configure::write(Shim::BIND_MODEL_METHOD, false);
 		$this->bindModel([
 			$type => [
 				$name => $options
 			]
 		], false);
+		Configure::write(Shim::BIND_MODEL_METHOD, $shim);
 	}
 
 	/**
@@ -980,4 +983,16 @@ class ShimModel extends Model {
 		return $this->_validator;
 	}
 
+	/**
+	 * Bind model associations on the fly.
+	 *
+	 * @param array $params Set of bindings (indexed by binding type)
+	 * @param bool $reset Set to false to make the binding permanent
+	 * @return bool Success
+	 */
+	public function bindModel($params, $reset = true) {
+		$message = "Model::bindModel() has been deprecated in favor of 'contain' key in queries.";
+		Shim::check(Shim::BIND_MODEL_METHOD, $message);
+		return parent::bindModel($params, $reset);
+	}
 }
