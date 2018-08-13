@@ -215,6 +215,12 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 				}
 			}
 		}
+		// Free some memory
+		unset($this->_request);
+		unset($this->_requestData);
+		unset($this->_requestSession);
+		unset($this->_response);
+		unset($this->_sessionData);
 	}
 
 	/**
