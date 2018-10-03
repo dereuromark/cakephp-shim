@@ -2,7 +2,7 @@
 App::uses('ShimControllerTestCase', 'Shim.TestSuite');
 App::uses('Router', 'Routing');
 App::uses('Dispatcher', 'Routing');
-App::uses('EventManager', 'Event');
+App::uses('CakeEventManager', 'Event');
 App::uses('CakeSession', 'Model/Datasource');
 
 /**
