@@ -15,7 +15,7 @@ class SessionComponent extends Component {
 	/**
 	 * The Session object instance
 	 *
-	 * @var \Cake\Network\Session
+	 * @var \Cake\Http\Session
 	 */
 	protected $_session;
 
@@ -26,7 +26,7 @@ class SessionComponent extends Component {
 	 * @return void
 	 */
 	public function initialize(array $config) {
-		$this->_session = $this->_registry->getController()->request->session();
+		$this->_session = $this->_registry->getController()->request->getSession();
 	}
 
 	/**

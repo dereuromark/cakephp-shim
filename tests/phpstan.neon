@@ -5,4 +5,4 @@ parameters:
 	excludes_analyse:
 		- %rootDir%/../../../src/TestSuite/*
 	ignoreErrors:
-		- '#Call to an undefined method Cake\\Datasource\\EntityInterface\:\:source\(\)#'
+		- '#Variable \$_SESSION in isset\(\) always exists and is not nullable.#'

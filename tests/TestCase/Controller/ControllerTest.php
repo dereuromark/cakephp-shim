@@ -43,7 +43,7 @@ class ControllerTest extends TestCase {
 	public function testDisableCache() {
 		$this->Controller->disableCache();
 
-		$result = $this->Controller->response->header();
+		$result = $this->Controller->response->getHeaders();
 		$expected = ['Content-Type', 'Pragma', 'Expires', 'Last-Modified', 'Cache-Control'];
 		$this->assertSame($expected, array_keys($result));
 	}
@@ -58,7 +58,7 @@ class ControllerTest extends TestCase {
 
 		$this->Controller->beforeRender($event);
 
-		$this->assertSame([], $this->Controller->request->data);
+		$this->assertSame([], $this->Controller->request->getData());
 	}
 
 	/**

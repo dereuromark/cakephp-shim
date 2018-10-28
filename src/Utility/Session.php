@@ -24,7 +24,7 @@
 namespace Shim\Utility;
 
 use Cake\Core\Configure;
-use Cake\Network\Exception\InternalErrorException;
+use Cake\Http\Exception\InternalErrorException;
 use Cake\Utility\Hash;
 
 /**

@@ -33,15 +33,15 @@ class NullableBehavior extends Behavior {
 		$associations = [];
 		/** @var \Cake\ORM\Association $association */
 		foreach ($table->associations() as $association) {
-			$associations[$association->property()] = $association->name();
+			$associations[$association->getProperty()] = $association->getName();
 		}
 
 		foreach ($data as $key => $value) {
 			if (array_key_exists($key, $associations)) {
-				$data[$key] = $this->_process($data[$key], $table->association($associations[$key])->target());
+				$data[$key] = $this->_process($data[$key], $table->getAssociation($associations[$key])->getTarget());
 				continue;
 			}
-			$nullable = Hash::get((array)$table->schema()->column($key), 'null');
+			$nullable = Hash::get((array)$table->getSchema()->getColumn($key), 'null');
 			if ($nullable !== true) {
 				continue;
 			}
@@ -49,7 +49,7 @@ class NullableBehavior extends Behavior {
 				continue;
 			}
 
-			$default = Hash::get((array)$table->schema()->column($key), 'default');
+			$default = Hash::get((array)$table->getSchema()->getColumn($key), 'default');
 			$data[$key] = $default;
 		}
 

@@ -4,8 +4,8 @@ namespace Shim\Test\TestCase\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
-use Cake\Network\Request;
-use Cake\Network\Session;
+use Cake\Http\ServerRequest;
+use Cake\Http\Session;
 use Cake\Routing\DispatcherFactory;
 use Shim\Controller\Component\SessionComponent;
 use Shim\TestSuite\TestCase;
@@ -48,7 +48,7 @@ class SessionComponentTest extends TestCase {
 		parent::setUp();
 		$_SESSION = [];
 		Configure::write('App.namespace', 'TestApp');
-		$controller = new Controller(new Request(['session' => new Session()]));
+		$controller = new Controller(new ServerRequest(['session' => new Session()]));
 		$this->ComponentRegistry = new ComponentRegistry($controller);
 	}
 

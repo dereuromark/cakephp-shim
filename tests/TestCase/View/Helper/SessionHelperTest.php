@@ -2,8 +2,8 @@
 namespace Shim\Test\TestCase\View\Helper;
 
 use Cake\Core\Plugin;
-use Cake\Network\Request;
-use Cake\Network\Session;
+use Cake\Http\ServerRequest;
+use Cake\Http\Session;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use Shim\View\Helper\SessionHelper;
@@ -14,6 +14,16 @@ use Shim\View\Helper\SessionHelper;
 class SessionHelperTest extends TestCase {
 
 	/**
+	 * @var \Cake\View\View
+	 */
+	protected $View;
+
+	/**
+	 * @var \Shim\View\Helper\SessionHelper
+	 */
+	protected $Session;
+
+	/**
 	 * setUp method
 	 *
 	 * @return void
@@ -22,7 +32,7 @@ class SessionHelperTest extends TestCase {
 		parent::setUp();
 		$this->View = new View();
 		$session = new Session();
-		$this->View->request = new Request(['session' => $session]);
+		$this->View->request = new ServerRequest(['session' => $session]);
 		$this->Session = new SessionHelper($this->View);
 
 		$session->write([
