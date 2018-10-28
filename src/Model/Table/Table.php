@@ -48,13 +48,13 @@ class Table extends CoreTable {
 	public function initialize(array $config) {
 		// Shims
 		if (isset($this->useTable)) {
-			$this->table($this->useTable);
+			$this->setTable($this->useTable);
 		}
 		if (isset($this->primaryKey)) {
-			$this->primaryKey($this->primaryKey);
+			$this->setPrimaryKey($this->primaryKey);
 		}
 		if (isset($this->displayField)) {
-			$this->displayField($this->displayField);
+			$this->setDisplayField($this->displayField);
 		}
 		$this->_shimRelations();
 
@@ -252,7 +252,7 @@ class Table extends CoreTable {
 	 *
 	 * @param string $type
 	 * @param array $options
-	 * @return \Cake\ORM\Query|int
+	 * @return array|\Cake\Datasource\EntityInterface|\Cake\ORM\Query|int
 	 */
 	public function find($type = 'all', $options = []) {
 		if ($type === 'first') {
@@ -282,11 +282,11 @@ class Table extends CoreTable {
 					return parent::findList($query, $options);
 				}
 				list($model, $keyField) = pluginSplit($keyField);
-				if (!$model || $model === $this->alias()) {
+				if (!$model || $model === $this->getAlias()) {
 					$options['keyField'] = $keyField;
 				}
 				list($model, $valueField) = pluginSplit($valueField);
-				if (!$model || $model === $this->alias()) {
+				if (!$model || $model === $this->getAlias()) {
 					$options['valueField'] = $valueField;
 				}
 			}
@@ -303,7 +303,7 @@ class Table extends CoreTable {
 	 *
 	 * @param mixed $id
 	 * @param array $options Options for get().
-	 * @return mixed The first result from the ResultSet or null if not existent.
+	 * @return mixed|null The first result from the ResultSet or null if not existent.
 	 */
 	public function record($id, array $options = []) {
 		try {
@@ -355,7 +355,7 @@ class Table extends CoreTable {
 	 * @return bool
 	 */
 	public function existsById($id) {
-		$primaryKey = $this->primaryKey();
+		$primaryKey = $this->getPrimaryKey();
 		if (is_array($primaryKey)) {
 			throw new RuntimeException('Not supported with multiple primary keys');
 		}
@@ -445,17 +445,21 @@ class Table extends CoreTable {
 	 * @param \Cake\Datasource\EntityInterface $entity the entity to be saved
 	 * @param array|\ArrayAccess $options The options to use when saving.
 	 * @return \Cake\Datasource\EntityInterface|bool
+	 * @throws \InvalidArgumentException
 	 */
 	public function save(EntityInterface $entity, $options = []) {
 		if ($options instanceof SaveOptionsBuilder) {
 			$options = $options->toArray();
+		}
+		if (!is_array($options)) {
+			throw new InvalidArgumentException('Invalid options input.');
 		}
 
 		$options += ['strict' => false];
 
 		$result = parent::save($entity, $options);
 		if ($result === false && $options['strict'] === true) {
-			throw new InvalidArgumentException('Could not save: ' . print_r($entity->errors(), true));
+			throw new InvalidArgumentException('Could not save: ' . print_r($entity->getErrors(), true));
 		}
 
 		return $result;
@@ -470,14 +474,18 @@ class Table extends CoreTable {
 	 * @param \Cake\Datasource\EntityInterface $entity The entity to remove.
 	 * @param array|\ArrayAccess $options The options for the delete.
 	 * @return bool success
+	 * @throws \InvalidArgumentException
 	 */
 	public function delete(EntityInterface $entity, $options = []) {
+		if (!is_array($options)) {
+			throw new InvalidArgumentException('Invalid options input.');
+		}
 		$options += ['strict' => false];
 
 		$result = parent::delete($entity, $options);
 		if ($result === false && $options['strict'] === true) {
 			/** @var \Cake\ORM\Entity $entity */
-			throw new InvalidArgumentException('Could not delete ' . $entity->source() . ': ' . print_r($entity->id, true));
+			throw new InvalidArgumentException('Could not delete ' . $entity->getSource() . ': ' . print_r($entity->id, true));
 		}
 
 		return $result;
@@ -598,7 +606,7 @@ class Table extends CoreTable {
 	 */
 	protected function _prefixAlias($string) {
 		if (strpos($string, '.') === false) {
-			return $this->alias() . '.' . $string;
+			return $this->getAlias() . '.' . $string;
 		}
 		return $string;
 	}

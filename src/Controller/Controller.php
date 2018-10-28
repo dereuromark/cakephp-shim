@@ -44,13 +44,12 @@ class Controller extends CoreController {
 	/**
 	 * Add headers for IE8 etc to fix caching issues in those stupid browsers
 	 *
-	 * @return \Cake\Http\Response|null
+	 * @return void
 	 */
 	public function disableCache() {
-		$this->response->header([
-			'Pragma' => 'no-cache',
-		]);
-		$this->response->disableCache();
+		$this->response = $this->response
+			->withHeader('Pragma', 'no-cache')
+			->withDisabledCache();
 	}
 
 	/**

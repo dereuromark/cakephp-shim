@@ -3,7 +3,7 @@ namespace Shim\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;
 use Cake\Controller\Controller;
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
 use Shim\Controller\Component\Component;
 use Shim\TestSuite\TestCase;
 
@@ -23,7 +23,7 @@ class ComponentTest extends TestCase {
 	 * @return void
 	 */
 	public function setUp() {
-		$this->Controller = new Controller(new Request());
+		$this->Controller = new Controller(new ServerRequest());
 		$this->ComponentRegistry = new ComponentRegistry($this->Controller);
 	}
 

@@ -2,7 +2,7 @@
 
 namespace Shim\Test\TestCase\View\Helper;
 
-use Cake\Network\Request;
+use Cake\Http\ServerRequest;
 use Cake\View\View;
 use Shim\TestSuite\TestCase;
 use Shim\View\Helper\CookieHelper;
@@ -10,7 +10,7 @@ use Shim\View\Helper\CookieHelper;
 class CookieHelperTest extends TestCase {
 
 	/**
-	 * @var \Tools\View\Helper\CookieHelper
+	 * @var \Shim\View\Helper\CookieHelper
 	 */
 	public $Cookie;
 
@@ -21,7 +21,7 @@ class CookieHelperTest extends TestCase {
 		parent::setUp();
 
 		$this->Cookie = new CookieHelper(new View(null));
-		$this->Cookie->request = $this->getMockBuilder(Request::class)->setMethods(['getCookie', 'getCookieParams'])->getMock();
+		$this->Cookie->request = $this->getMockBuilder(ServerRequest::class)->setMethods(['getCookie', 'getCookieParams'])->getMock();
 	}
 
 	/**

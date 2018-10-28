@@ -210,8 +210,9 @@ class TableTest extends TestCase {
 			'title' => 'Gez',
 			'author_id' => null,
 		];
+		/** @var \Cake\ORM\Entity[] $entities */
 		$entities = $this->Posts->newEntities($array);
-		$entities[2]->errors('title', 'Some fake error reason');
+		$entities[2]->setError('title', 'Some fake error reason');
 
 		$this->assertSame(3, count($entities));
 
@@ -241,7 +242,7 @@ class TableTest extends TestCase {
 	 * @return void
 	 */
 	public function testFindListAutoSelectedFields() {
-		$this->Users->displayField('nick');
+		$this->Users->setDisplayField('nick');
 
 		$query = $this->Users->find('list', ['fields' => ['id', 'created']]);
 		$expected = ['id', 'created'];
@@ -380,7 +381,7 @@ class TableTest extends TestCase {
 
 		$this->assertSame(2, count($wheels->toArray()));
 
-		$displayField = $this->Wheels->displayField();
+		$displayField = $this->Wheels->getDisplayField();
 		$this->assertSame('position', $displayField);
 
 		$car = $this->Wheels->BogusCars->find()->first();
@@ -423,7 +424,7 @@ class TableTest extends TestCase {
 		$this->Wheels = TableRegistry::get('Wheels');
 
 		$wheel = $this->Wheels->newEntity(['position' => '']);
-		$this->assertNotSame([], $wheel->errors());
+		$this->assertNotSame([], $wheel->getErrors());
 		$result = $this->Wheels->save($wheel);
 		$this->assertFalse($result);
 
@@ -435,7 +436,7 @@ class TableTest extends TestCase {
 				'maxLength' => 'valErrMaxCharacters xyz 20'
 			]
 		];
-		$this->assertSame($expected, $wheel->errors());
+		$this->assertSame($expected, $wheel->getErrors());
 		$result = $this->Wheels->save($wheel);
 		$this->assertFalse($result);
 
@@ -449,7 +450,7 @@ class TableTest extends TestCase {
 				'numeric' => 'The provided value is invalid'
 			],
 		];
-		$this->assertSame($expected, $wheel->errors());
+		$this->assertSame($expected, $wheel->getErrors());
 
 		$wheel = $this->Wheels->newEntity(['position' => 'rear left', 'car_id' => '1']);
 		$result = $this->Wheels->save($wheel);
@@ -464,7 +465,7 @@ class TableTest extends TestCase {
 		$this->Wheels = TableRegistry::get('Wheels');
 
 		$wheel = $this->Wheels->newEntity(['position' => '']);
-		$this->assertNotSame([], $wheel->errors());
+		$this->assertNotSame([], $wheel->getErrors());
 		$this->Wheels->save($wheel, ['strict' => true]);
 	}
 

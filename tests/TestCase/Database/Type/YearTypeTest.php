@@ -82,12 +82,12 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testFormInput() {
+	public function testFormControl() {
 		$Form = new FormHelper(new View());
 
 		$entity = $this->Table->newEntity();
 		$Form->create($entity);
-		$x = $Form->input('year_of_birth', ['type' => 'year']);
+		$x = $Form->control('year_of_birth', ['type' => 'year']);
 		$this->assertContains('<select name="year_of_birth[year]" type="year"', $x);
 		// <div class="input number"><label for="year-of-birth">Year Of Birth</label><input type="number" name="year_of_birth" id="year-of-birth"/></div>
 	}
