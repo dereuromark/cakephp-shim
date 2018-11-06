@@ -3,6 +3,7 @@ App::uses('DispatcherFilter', 'Routing');
 App::uses('Inflector', 'Utility');
 App::uses('Configure', 'Core');
 App::uses('Router', 'Routing');
+App::uses('Shim', 'Shim.Lib');
 
 /**
  * Dispatcher to clean out invalid controller/action calls.
@@ -72,7 +73,7 @@ class SeoDispatcher extends DispatcherFilter {
 
 		$url = Router::url($urlPieces, true);
 
-		if (Configure::read('Shim.handleSeo') === 'exception') {
+		if (Configure::read(Shim::HANDLE_SEO) === 'exception') {
 			throw new NotFoundException('URL should be: ' . $url);
 		}
 		$response = $event->data['response'];

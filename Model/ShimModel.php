@@ -76,7 +76,7 @@ class ShimModel extends Model {
 	 * @return mixed
 	 */
 	public function find($type = 'first', $query = []) {
-		if ($warn = Configure::read('Shim.warnAboutMissingContain')) {
+		if ($warn = Configure::read(Shim::MISSING_CONTAIN)) {
 			if ($this->alias !== 'Session' && $this->recursive !== -1 && (!isset($query['recursive']) || (int)$query['recursive'] !== -1) && !isset($query['contain'])) {
 				$message = 'No recursive -1 or contain used for the query in ' . $this->alias;
 				if (Configure::read('debug') && $warn === 'exception') {
@@ -189,12 +189,12 @@ class ShimModel extends Model {
 	 */
 	public function field($name, $conditions = null, $order = null) {
 		if ($conditions === null && $this->id !== false) {
-			if (Configure::read('Shim.deprecateField')) {
+			if (Configure::read(Shim::DEPRECATE_FIELD)) {
 				trigger_error('Using implicit Model->id is deprecated in shim context. Pass it as conditions part instead.', E_USER_DEPRECATED);
 			}
 			$conditions = [$this->alias . '.' . $this->primaryKey => $this->id];
 		}
-		if (Configure::read('Shim.deprecateField')) {
+		if (Configure::read(Shim::DEPRECATE_FIELD)) {
 			trigger_error('field() is deprecated in the shim context. Use shimmed fieldByConditions() or find() instead.', E_USER_DEPRECATED);
 		}
 		$options = ['fields' => $name];
@@ -259,7 +259,7 @@ class ShimModel extends Model {
 	 * @throws \Exception
 	 */
 	public function save($data = null, $options = [], $fieldList = []) {
-		if (Configure::read('Shim.deprecateSaveParams')) {
+		if (Configure::read(Shim::DEPRECATE_SAVE_PARAMS)) {
 			if (!is_array($options)) {
 				trigger_error('save() without an array as 2nd arg is deprecated.', E_USER_DEPRECATED);
 			} elseif (!empty($fieldList)) {
@@ -268,10 +268,10 @@ class ShimModel extends Model {
 		}
 
 		$tmpDisabled = false;
-		if (Configure::read('Shim.deprecateSaveParams')) {
+		if (Configure::read(Shim::DEPRECATE_SAVE_PARAMS)) {
 			$backtrace = debug_backtrace();
 			if (isset($backtrace[1]['function']) && $backtrace[1]['function'] === 'write' && isset($backtrace[1]['function']) && $backtrace[1]['class'] === 'DatabaseSession') {
-				Configure::write('Shim.deprecateSaveParams', false);
+				Configure::write(Shim::DEPRECATE_SAVE_PARAMS, false);
 				$tmpDisabled = true;
 			}
 		}
@@ -279,7 +279,7 @@ class ShimModel extends Model {
 		$result = parent::save($data, $options, $fieldList);
 
 		if ($tmpDisabled) {
-			Configure::write('Shim.deprecateSaveParams', true);
+			Configure::write(Shim::DEPRECATE_SAVE_PARAMS, true);
 		}
 
 		return $result;
@@ -298,7 +298,7 @@ class ShimModel extends Model {
 	 * @return bool|array See Model::save() False on failure or an array of model data on success.
 	 */
 	public function saveField($name, $value, $validate = false) {
-		if (Configure::read('Shim.deprecateSaveField')) {
+		if (Configure::read(Shim::DEPRECATE_SAVE_FIELD)) {
 			trigger_error('Deprecated in the shim context. Please use save() or updateAll() directly. saveFieldById() is available as quick fallback.', E_USER_DEPRECATED);
 		}
 		return parent::saveField($name, $value, $validate);
@@ -335,13 +335,13 @@ class ShimModel extends Model {
 	 */
 	public function updateCounterCache($keys = [], $created = false) {
 		$tmpDisabled = false;
-		if (Configure::read('Shim.deprecateField')) {
-			Configure::write('Shim.deprecateField', false);
+		if (Configure::read(Shim::DEPRECATE_FIELD)) {
+			Configure::write(Shim::DEPRECATE_FIELD, false);
 			$tmpDisabled = true;
 		}
 		parent::updateCounterCache($keys, $created);
 		if ($tmpDisabled) {
-			Configure::write('Shim.deprecateField', true);
+			Configure::write(Shim::DEPRECATE_FIELD, true);
 		}
 	}
 
@@ -387,7 +387,7 @@ class ShimModel extends Model {
 	 * @return bool
 	 */
 	public function hasAny($conditions = null) {
-		if (Configure::read('Shim.deprecateHasAny')) {
+		if (Configure::read(Shim::DEPRECATE_HAS_ANY)) {
 			trigger_error('Deprecated in the shim context. Please use exists() or find() directly.', E_USER_DEPRECATED);
 		}
 		return parent::hasAny($conditions);
@@ -535,20 +535,20 @@ class ShimModel extends Model {
 	 */
 	public function delete($id = null, $cascade = true) {
 		if ($id === null) {
-			if (Configure::read('Shim.modelDelete')) {
+			if (Configure::read(Shim::MODEL_DELETE)) {
 				trigger_error('Always pass an ID for delete()', E_USER_DEPRECATED);
 			}
 		}
 
-		$shimModelExists = Configure::read('Shim.modelExists');
+		$shimModelExists = Configure::read(Shim::MODEL_EXISTS);
 		if ($shimModelExists) {
-			Configure::write('Shim.modelExists', false);
+			Configure::write(Shim::MODEL_EXISTS, false);
 		}
 
 		$result = parent::delete($id, $cascade);
 
 		if ($shimModelExists) {
-			Configure::write('Shim.modelExists', $shimModelExists);
+			Configure::write(Shim::MODEL_EXISTS, $shimModelExists);
 		}
 
 		return $result;
@@ -577,7 +577,7 @@ class ShimModel extends Model {
 	 */
 	public function existsById($id) {
 		if ($id === null) {
-			if (Configure::read('Shim.modelExists')) {
+			if (Configure::read(Shim::MODEL_EXISTS)) {
 				trigger_error('Always pass an ID for exists() / existsById().', E_USER_DEPRECATED);
 			}
 		}

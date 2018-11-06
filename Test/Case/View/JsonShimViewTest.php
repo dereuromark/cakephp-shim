@@ -1,9 +1,9 @@
 <?php
-
 App::uses('Controller', 'Controller');
 App::uses('CakeRequest', 'Network');
 App::uses('CakeResponse', 'Network');
 App::uses('JsonShimView', 'Shim.View');
+App::uses('Shim', 'Shim.Lib');
 
 /**
  * JsonShimViewTest
@@ -18,7 +18,7 @@ class JsonShimViewTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		Configure::delete('Shim.jsonOptions');
+		Configure::delete(Shim::JSON_OPTIONS);
 		Configure::write('debug', 0);
 	}
 
@@ -429,7 +429,7 @@ class JsonShimViewTest extends CakeTestCase {
 		// Test render with encode <, >, ', &, and " for RFC4627-compliant to be serialized.
 		$data = ['rfc4627_escape' => '<tag> \'quote\' "double-quote" &'];
 
-		Configure::write('Shim.jsonOptions', JSON_HEX_TAG | JSON_HEX_APOS);
+		Configure::write(Shim::JSON_OPTIONS, JSON_HEX_TAG | JSON_HEX_APOS);
 
 		$Controller->set($data);
 		$Controller->set('_serialize', 'rfc4627_escape');

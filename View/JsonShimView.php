@@ -1,5 +1,6 @@
 <?php
 App::uses('JsonView', 'View');
+App::uses('Shim', 'Shim.Lib');
 
 /**
  * Class JsonShimView
@@ -19,8 +20,8 @@ class JsonShimView extends JsonView {
 	 * @return string
 	 */
 	protected function _serialize($serialize) {
-		if (!isset($this->viewVars['_jsonOptions']) && Configure::read('Shim.jsonOptions') !== null) {
-			$this->viewVars['_jsonOptions'] = Configure::read('Shim.jsonOptions');
+		if (!isset($this->viewVars['_jsonOptions']) && Configure::read(Shim::JSON_OPTIONS) !== null) {
+			$this->viewVars['_jsonOptions'] = Configure::read(Shim::JSON_OPTIONS);
 		} elseif (!isset($this->viewVars['_jsonOptions'])) {
 			$this->viewVars['_jsonOptions'] = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT;
 		}

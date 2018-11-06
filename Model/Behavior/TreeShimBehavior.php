@@ -18,6 +18,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+App::uses('Shim', 'Shim.Lib');
 App::uses('TreeBehavior', 'Model/Behavior');
 
 /**
@@ -41,13 +42,13 @@ class TreeShimBehavior extends TreeBehavior {
 	 */
 	public function beforeSave(Model $Model, $options = []) {
 		$tmpDisabled = false;
-		if (Configure::read('Shim.deprecateField')) {
-			Configure::write('Shim.deprecateField', false);
+		if (Configure::read(Shim::DEPRECATE_FIELD)) {
+			Configure::write(Shim::DEPRECATE_FIELD, false);
 			$tmpDisabled = true;
 		}
 		$result = parent::beforeSave($Model, $options);
 		if ($tmpDisabled) {
-			Configure::write('Shim.deprecateField', true);
+			Configure::write(Shim::DEPRECATE_FIELD, true);
 		}
 		return $result;
 	}
@@ -66,13 +67,13 @@ class TreeShimBehavior extends TreeBehavior {
 	 */
 	public function removeFromTree(Model $Model, $id = null, $delete = false) {
 		$tmpDisabled = false;
-		if (Configure::read('Shim.deprecateSaveField')) {
-			Configure::write('Shim.deprecateSaveField', false);
+		if (Configure::read(Shim::DEPRECATE_SAVE_FIELD)) {
+			Configure::write(Shim::DEPRECATE_SAVE_FIELD, false);
 			$tmpDisabled = true;
 		}
 		$result = parent::removeFromTree($Model, $id, $delete);
 		if ($tmpDisabled) {
-			Configure::write('Shim.deprecateSaveField', true);
+			Configure::write(Shim::DEPRECATE_SAVE_FIELD, true);
 		}
 		return $result;
 	}
