@@ -1,6 +1,6 @@
 <?php
-
 App::uses('Component', 'Controller');
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimException', 'Shim.Error');
 
 /**
@@ -32,16 +32,16 @@ class ShimComponent extends Component {
 		}
 
 		// Deprecation notices, but only for internally triggered ones
-		if (Configure::read('Shim.warnAboutNamedParams') && ($referer = $Controller->request->referer(true)) && $referer !== '/') {
+		if (Configure::read(Shim::NAMED_PARAMS) && ($referer = $Controller->request->referer(true)) && $referer !== '/') {
 			$message = 'Named params ' . json_encode($Controller->request->params['named']) . ' - from ' . $referer;
-			if (Configure::read('debug') && Configure::read('Shim.warnAboutNamedParams') === 'exception') {
+			if (Configure::read('debug') && Configure::read(Shim::NAMED_PARAMS) === 'exception') {
 				throw new ShimException($message);
 			}
 			trigger_error($message, E_USER_DEPRECATED);
 		}
 
-		if (Configure::read('Shim.handleNamedParams')) {
-			if (Configure::read('Shim.handleNamedParams') === 'exception') {
+		if (Configure::read(Shim::HANDLE_NAMED_PARAMS)) {
+			if (Configure::read(Shim::HANDLE_NAMED_PARAMS) === 'exception') {
 				throw new NotFoundException();
 			}
 			// By default true to 301 redirect to the correct URL
@@ -63,7 +63,7 @@ class ShimComponent extends Component {
 		if (!Configure::read('debug')) {
 			return;
 		}
-		if (!Configure::read('Shim.checkPaths')) {
+		if (!Configure::read(Shim::CHECK_PATHS)) {
 			return;
 		}
 

@@ -1,5 +1,5 @@
 <?php
-
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimComponent', 'Shim.Controller/Component');
 App::uses('ShimController', 'Shim.Controller');
 App::uses('ShimTestCase', 'Shim.TestSuite');
@@ -22,16 +22,16 @@ class ShimComponentTest extends ShimTestCase {
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
 
-		Configure::write('Shim.warnAboutNamedParams', false);
-		Configure::write('Shim.handleNamedParams', false);
-		Configure::write('Shim.checkPaths', false);
+		Configure::write(Shim::NAMED_PARAMS, false);
+		Configure::write(Shim::HANDLE_NAMED_PARAMS, false);
+		Configure::write(Shim::CHECK_PATHS, false);
 	}
 
 	public function tearDown() {
 		parent::tearDown();
 
 		unset($this->ShimController);
-		Configure::delete('Shim.warnAboutNamedParams');
+		Configure::delete(Shim::NAMED_PARAMS);
 	}
 
 	/**
@@ -40,7 +40,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testUrlQueryStrings() {
-		Configure::write('Shim.warnAboutNamedParams', true);
+		Configure::write(Shim::NAMED_PARAMS, true);
 
 		$this->ShimController = new TestShimComponentController(new CakeRequest('/foo/bar?page=3'), new CakeResponse());
 		$this->ShimController->constructClasses();
@@ -51,7 +51,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testCheckPaths() {
-		Configure::write('Shim.checkPaths', true);
+		Configure::write(Shim::CHECK_PATHS, true);
 
 		$this->ShimController = new TestShimComponentController(new CakeRequest(), new CakeResponse());
 		$this->ShimController->constructClasses();
@@ -65,7 +65,7 @@ class ShimComponentTest extends ShimTestCase {
 	 */
 	public function testCheckPathsMissingTrailingDs() {
 		Configure::write('debug', 1);
-		Configure::write('Shim.checkPaths', true);
+		Configure::write(Shim::CHECK_PATHS, true);
 
 		App::build(['View' => CakePlugin::path('Shim') . 'View' . DS . 'Foo']);
 
@@ -81,7 +81,7 @@ class ShimComponentTest extends ShimTestCase {
 	 */
 	public function testCheckPathsError() {
 		Configure::write('debug', 1);
-		Configure::write('Shim.checkPaths', true);
+		Configure::write(Shim::CHECK_PATHS, true);
 
 		// Always use the "wrong" type of slash per OS
 		$ds = DS === '\\' ? '/' : '\\';
@@ -101,7 +101,7 @@ class ShimComponentTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testUrlNamedParams() {
-		Configure::write('Shim.warnAboutNamedParams', true);
+		Configure::write(Shim::NAMED_PARAMS, true);
 
 		$referer = '/foobar';
 		$this->request->expects($this->once())
@@ -121,7 +121,7 @@ class ShimComponentTest extends ShimTestCase {
 	 */
 	public function testRedirect() {
 		Configure::write('debug', 1);
-		Configure::write('Shim.handleNamedParams', true);
+		Configure::write(Shim::HANDLE_NAMED_PARAMS, true);
 
 		$request = new CakeRequest();
 		$request->params['controller'] = 'my_controller';

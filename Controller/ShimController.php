@@ -1,5 +1,6 @@
 <?php
 App::uses('Controller', 'Controller');
+App::uses('Shim', 'Shim.Lib');
 App::uses('ShimException', 'Shim.Error');
 
 /**
@@ -78,7 +79,7 @@ class ShimController extends Controller {
 	 */
 	public function paginate($object = null, $scope = [], $whitelist = []) {
 		$defaultSettings = (array)Configure::read('Paginator');
-		if (Configure::read('Shim.disableRecursive')) {
+		if (Configure::read(Shim::DISABLE_RECURSIVE)) {
 			$defaultSettings += ['contain' => []];
 		} else {
 			$defaultSettings += ['contain' => null];
@@ -97,10 +98,10 @@ class ShimController extends Controller {
 	public function afterFilter() {
 		parent::afterFilter();
 
-		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'CakeError') {
+		if (Configure::read(Shim::MONITOR_HEADERS) && $this->name !== 'CakeError') {
 			if (headers_sent($filename, $linenum)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $linenum);
-				if (Configure::read('debug') && Configure::read('Shim.monitorHeaders') === 'exception') {
+				if (Configure::read('debug') && Configure::read(Shim::MONITOR_HEADERS) === 'exception') {
 					throw new ShimException($message);
 				}
 				trigger_error($message, E_USER_NOTICE);

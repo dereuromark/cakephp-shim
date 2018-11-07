@@ -204,7 +204,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testField() {
-		Configure::write('Shim.warnAboutMissingContain', true);
+		Configure::write(Shim::MISSING_CONTAIN, true);
 
 		$is = $this->Post->field('title');
 		$this->assertSame('First Post', $is);
@@ -216,8 +216,8 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFieldDeprecated() {
-		Configure::write('Shim.warnAboutMissingContain', true);
-		Configure::write('Shim.deprecateField', true);
+		Configure::write(Shim::MISSING_CONTAIN, true);
+		Configure::write(Shim::DEPRECATE_FIELD, true);
 
 		$this->Post->field('title');
 	}
@@ -226,7 +226,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFieldByConditions() {
-		Configure::write('Shim.warnAboutMissingContain', true);
+		Configure::write(Shim::MISSING_CONTAIN, true);
 
 		$is = $this->Post->fieldByConditions('title', ['title LIKE' => 'S%']);
 		$this->assertSame('Second Post', $is);
@@ -239,7 +239,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFieldImplicitId() {
-		Configure::write('Shim.deprecateField', false);
+		Configure::write(Shim::DEPRECATE_FIELD, false);
 
 		$this->Post->id = 2;
 		$is = $this->Post->field('title');
@@ -255,7 +255,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFieldImplicitIdWarning() {
-		Configure::write('Shim.deprecateField', true);
+		Configure::write(Shim::DEPRECATE_FIELD, true);
 
 		$this->Post->id = 2;
 		$this->Post->field('title');
@@ -337,7 +337,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFind() {
-		Configure::write('Shim.warnAboutMissingContain', true);
+		Configure::write(Shim::MISSING_CONTAIN, true);
 
 		$this->User->find('first');
 	}
@@ -348,7 +348,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindRecursive() {
-		Configure::write('Shim.warnAboutMissingContain', true);
+		Configure::write(Shim::MISSING_CONTAIN, true);
 
 		$this->User->recursive = 0;
 		$this->User->find('first', ['contain' => []]);
@@ -362,7 +362,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindWrongRecursive() {
-		Configure::write('Shim.warnAboutMissingContain', true);
+		Configure::write(Shim::MISSING_CONTAIN, true);
 
 		$this->User->recursive = 0;
 		$this->User->find('first');
@@ -376,7 +376,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindWrongRecursiveException() {
-		Configure::write('Shim.warnAboutMissingContain', 'exception');
+		Configure::write(Shim::MISSING_CONTAIN, 'exception');
 
 		$this->User->recursive = 0;
 		$this->User->find('first');
@@ -388,7 +388,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindRecursiveInQuery() {
-		Configure::write('Shim.warnAboutMissingContain', 'exception');
+		Configure::write(Shim::MISSING_CONTAIN, 'exception');
 
 		$this->User->recursive = 0;
 		$this->User->find('first', ['recursive' => '-1']);
@@ -402,7 +402,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testFindRecursiveInQueryException() {
-		Configure::write('Shim.warnAboutMissingContain', 'exception');
+		Configure::write(Shim::MISSING_CONTAIN, 'exception');
 
 		$this->User->recursive = 0;
 		$this->User->find('first', ['recursive' => 0]);
@@ -412,7 +412,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testExistsAsArray() {
-		Configure::write('Shim.modelExists', 'exception');
+		Configure::write(Shim::MODEL_EXISTS, 'exception');
 
 		$result = $this->User->exists(['User.user' => 'x']);
 		$this->assertFalse($result);
@@ -422,7 +422,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testExistsById() {
-		Configure::write('Shim.modelExists', 'exception');
+		Configure::write(Shim::MODEL_EXISTS, 'exception');
 
 		$result = $this->User->existsById(1);
 		$this->assertTrue($result);
@@ -443,7 +443,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testExistsInvalid() {
-		Configure::write('Shim.modelExists', 'exception');
+		Configure::write(Shim::MODEL_EXISTS, 'exception');
 
 		$this->User->id = 2;
 		$this->User->exists();
@@ -481,7 +481,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testDelete() {
-		Configure::write('Shim.modelDelete', 'exception');
+		Configure::write(Shim::MODEL_DELETE, 'exception');
 
 		$this->User->save([
 			'user' => 'first name',
@@ -498,7 +498,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testDeleteInvalid() {
-		Configure::write('Shim.modelDelete', 'exception');
+		Configure::write(Shim::MODEL_DELETE, 'exception');
 
 		$this->User->save(['user' => 'first name']);
 
@@ -512,7 +512,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testHasAnyInvalid() {
-		Configure::write('Shim.deprecateHasAny', 'exception');
+		Configure::write(Shim::DEPRECATE_HAS_ANY, 'exception');
 
 		$this->User->hasAny(['id' => 2]);
 	}
@@ -521,7 +521,7 @@ class ShimModelTest extends ShimTestCase {
 	 * @return void
 	 */
 	public function testUpdateCounterCache() {
-		Configure::write('Shim.deprecateField', 'exception');
+		Configure::write(Shim::DEPRECATE_FIELD, 'exception');
 
 		$this->User->updateCounterCache([]);
 	}

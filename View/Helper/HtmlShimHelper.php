@@ -1,5 +1,6 @@
 <?php
 App::uses('HtmlHelper', 'View/Helper');
+App::uses('Shim', 'Shim.Lib');
 
 /**
  * Helps migrating to 3.x
@@ -47,7 +48,7 @@ class HtmlShimHelper extends HtmlHelper {
 	 */
 	public function url($url = null, $full = false) {
 		if (is_array($url)) {
-			if (Configure::read('Shim.warnAboutOldRouting')) {
+			if (Configure::read(Shim::OLD_ROUTING)) {
 				if (isset($url['ext'])) {
 					trigger_error('Param `ext` should be `_ext` in URL arrays.', E_USER_DEPRECATED);
 				}
