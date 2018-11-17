@@ -77,5 +77,13 @@ class NullableBehaviorTest extends TestCase {
 		];
 		$this->assertSame($expected, $entity->toArray());
 	}
+	
+	/**
+	* @return void
+	*/
+	public function testPatchNull() {
+		$entity = $this->Table->newEntity();
+		$this->assertNull($entity->toArray());
+	}
 
 }
