@@ -36,7 +36,7 @@ class NullableBehavior extends Behavior {
 			$associations[$association->getProperty()] = $association->getName();
 		}
 		
-		if (!is_array($data)) {
+		if (!is_array($data) || !$data instanceof ArrayObject) {
 			return $data;
 		}
 
