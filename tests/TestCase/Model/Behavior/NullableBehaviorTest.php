@@ -77,4 +77,5 @@ class NullableBehaviorTest extends TestCase {
 		];
 		$this->assertSame($expected, $entity->toArray());
 	}
+
 }
