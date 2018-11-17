@@ -35,8 +35,8 @@ class NullableBehavior extends Behavior {
 		foreach ($table->associations() as $association) {
 			$associations[$association->getProperty()] = $association->getName();
 		}
-		
-		if (is_null($data)) {
+
+		if ($data === null) {
 			return $data;
 		}
 
