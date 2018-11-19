@@ -12,7 +12,8 @@ class NullableBehaviorTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.shim.nullables'
+		'plugin.shim.nullables',
+		'plugin.shim.nullable_tenants',
 	];
 
 	/**
@@ -27,6 +28,7 @@ class NullableBehaviorTest extends TestCase {
 		parent::setUp();
 
 		$this->Table = TableRegistry::get('Nullables');
+		$this->Table->addAssociations(['hasOne' => ['NullableTenants' => ['hasMany' => 'Nullables']]]);
 		$this->Table->addBehavior('Shim.Nullable');
 	}
 
@@ -43,6 +45,7 @@ class NullableBehaviorTest extends TestCase {
 			'active_required' => '',
 			'datetime_optional' => '',
 			'datetime_required' => '',
+			'nullable_tenant' => null,
 		];
 		$entity = $this->Table->newEntity($data);
 
@@ -55,6 +58,38 @@ class NullableBehaviorTest extends TestCase {
 			'active_required' => false,
 			'datetime_optional' => null,
 			'datetime_required' => null,
+			'nullable_tenant' => null,
+		];
+		$this->assertSame($expected, $entity->toArray());
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testPatchAssociation() {
+		$data = [
+			'optional_id' => '',
+			'required_id' => '',
+			'string_optional' => '',
+			'string_required' => '',
+			'active_optional' => '',
+			'active_required' => '',
+			'datetime_optional' => '',
+			'datetime_required' => '',
+			'tenant' => ['id' => 1],
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$expected = [
+			'optional_id' => null,
+			'required_id' => null,
+			'string_optional' => null,
+			'string_required' => '',
+			'active_optional' => null,
+			'active_required' => false,
+			'datetime_optional' => null,
+			'datetime_required' => null,
+			'tenant' => ['id' => 1],
 		];
 		$this->assertSame($expected, $entity->toArray());
 	}
