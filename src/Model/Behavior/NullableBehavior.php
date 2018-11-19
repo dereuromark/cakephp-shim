@@ -36,13 +36,9 @@ class NullableBehavior extends Behavior {
 			$associations[$association->getProperty()] = $association->getName();
 		}
 
-		if ($data === null) {
-			return $data;
-		}
-
 		foreach ($data as $key => $value) {
 			if (array_key_exists($key, $associations)) {
-				$data[$key] = $this->_process($data[$key], $table->getAssociation($associations[$key])->getTarget());
+				$data[$key] = $data[$key] === null ? null : $this->_process($data[$key], $table->getAssociation($associations[$key])->getTarget());
 				continue;
 			}
 			$nullable = Hash::get((array)$table->getSchema()->getColumn($key), 'null');
