@@ -66,7 +66,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testPatchAssoication() {
+	public function testPatchAssociation() {
 		$data = [
 			'optional_id' => '',
 			'required_id' => '',
