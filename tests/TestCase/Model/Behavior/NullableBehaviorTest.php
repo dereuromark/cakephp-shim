@@ -28,7 +28,7 @@ class NullableBehaviorTest extends TestCase {
 		parent::setUp();
 
 		$this->Table = TableRegistry::get('Nullables');
-		$this->Table->addAssociations(['hasOne' => ['NullableTenants']]);
+		$this->Table->addAssociations(['hasOne' => ['NullableTenants' => ['hasMany' => 'Nullables']]]);
 		$this->Table->addBehavior('Shim.Nullable');
 	}
 
@@ -45,7 +45,7 @@ class NullableBehaviorTest extends TestCase {
 			'active_required' => '',
 			'datetime_optional' => '',
 			'datetime_required' => '',
-			'tenant' => null,
+			'nullable_tenant' => null,
 		];
 		$entity = $this->Table->newEntity($data);
 
@@ -58,7 +58,7 @@ class NullableBehaviorTest extends TestCase {
 			'active_required' => false,
 			'datetime_optional' => null,
 			'datetime_required' => null,
-			'tenant' => null,
+			'nullable_tenant' => null,
 		];
 		$this->assertSame($expected, $entity->toArray());
 	}
