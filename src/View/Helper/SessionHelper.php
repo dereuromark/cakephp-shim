@@ -20,7 +20,7 @@ class SessionHelper extends Helper {
 	 * @return mixed Values from the session vars
 	 */
 	public function read($name = null) {
-		return $this->request->getSession()->read($name);
+		return $this->_View->getRequest()->getSession()->read($name);
 	}
 
 	/**
@@ -32,7 +32,7 @@ class SessionHelper extends Helper {
 	 * @return bool
 	 */
 	public function check($name) {
-		return $this->request->getSession()->check($name);
+		return $this->_View->getRequest()->getSession()->check($name);
 	}
 
 	/**
@@ -43,7 +43,7 @@ class SessionHelper extends Helper {
 	 *   session not started, or provided name not found in the session.
 	 */
 	public function consume($name) {
-		return $this->request->getSession()->consume($name);
+		return $this->_View->getRequest()->getSession()->consume($name);
 	}
 
 	/**

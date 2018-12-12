@@ -63,7 +63,7 @@ $cache = [
 Cake\Cache\Cache::setConfig($cache);
 
 //needed?
-Cake\Core\Plugin::load('Shim', ['path' => ROOT . DS, 'autoload' => true]);
+Cake\Core\Plugin::getCollection()->add(new Shim\Plugin());
 
 // Ensure default test connection is defined
 if (getenv('db_dsn')) {

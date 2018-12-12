@@ -15,7 +15,7 @@ class CookieHelper extends Helper {
 	 * @return array
 	 */
 	public function getCookies() {
-		$cookies = $this->request->getCookieParams();
+		$cookies = $this->_View->getRequest()->getCookieParams();
 		if (!$cookies) {
 			return [];
 		}
@@ -33,7 +33,7 @@ class CookieHelper extends Helper {
 	 * @return mixed Values from the cookie vars
 	 */
 	public function read($key = null, $default = null) {
-		return $this->request->getCookie($key, $default);
+		return $this->_View->getRequest()->getCookie($key, $default);
 	}
 
 	/**
@@ -45,7 +45,7 @@ class CookieHelper extends Helper {
 	 * @return bool
 	 */
 	public function check($key) {
-		return $this->request->getCookie($key) !== null;
+		return $this->_View->getRequest()->getCookie($key) !== null;
 	}
 
 	/**
