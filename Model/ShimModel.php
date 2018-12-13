@@ -87,7 +87,7 @@ class ShimModel extends Model {
 			}
 		}
 
-		if ($this->hasBehavior('Tree')) {
+		if ($this->hasBehavior('Tree') || $this->hasBehavior('Shim.TreeShim')) {
 			if ($type === 'treeList') {
 				return $this->_findTreeList('before', $query);
 			}
