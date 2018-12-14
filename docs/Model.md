@@ -190,4 +190,11 @@ All other 3.x options (fields, conditions, order, ...) are now supported using t
 Note that for all these new custom finders you have to load the TreeBehavior on this model, first, though (just as you would with the
 former methods).
 
-Also that you should be using the `Shim.Tree` behavior if you want to use the deprecation info, as those silence the core usage of it.
+Also that you should be using the `Shim.Tree` behavior if you want to use the deprecation info, as those silence the core usage of it. 
+
+Load Tree behavior by using an alias:
+```
+$this->addBehavior('Tree', [
+	'className' => 'Shim.TreeShim',
+]);
+```
