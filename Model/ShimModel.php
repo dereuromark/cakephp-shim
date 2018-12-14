@@ -33,7 +33,7 @@ class ShimModel extends Model {
 	 * @param string|null $ds
 	 */
 	public function __construct($id = false, $table = null, $ds = null) {
-		if ($this->getAssociated()) {
+		if ($this->getAssociated() && get_class($this) !== 'Permission') {
 			$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
 			Shim::check(Shim::RELATIONSHIP_PROPERTIES, $message);
 		}
