@@ -16,6 +16,11 @@ class Shim {
 	const CHECK_PATHS = 'Shim.checkPaths';
 
 	/**
+	 * The name of the shim that checks the usage of the deprecated Controller::$base property.
+	 */
+	const CONTROLLER_BASE = 'Shim.controllerBase';
+
+	/**
 	 * The name of the shim that checks the usage of the deprecated Model::field() method.
 	 */
 	const DEPRECATE_FIELD = 'Shim.deprecateField';

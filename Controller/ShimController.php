@@ -109,4 +109,21 @@ class ShimController extends Controller {
 		}
 	}
 
+	/**
+	 * Provides backwards compatibility access to the request object properties.
+	 * Also provides the params alias.
+	 * Checks deprecated controller properties if related shims are enabled.
+	 *
+	 * @param string $name The name of the requested value
+	 * @return mixed The requested value for valid variables/aliases else null
+	 */
+	public function __get($name) {
+		$message = "Property $name is deprecated. Use CakeRequest::\$$name instead.";
+		switch ($name) {
+			case 'base':
+				Shim::check(Shim::CONTROLLER_BASE, $message);
+		}
+		return parent::__get($name);
+	}
+
 }

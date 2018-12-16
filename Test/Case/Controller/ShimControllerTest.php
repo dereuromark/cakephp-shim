@@ -1,5 +1,5 @@
 <?php
-
+Configure::write('debug', 2);
 App::uses('ShimController', 'Shim.Controller');
 App::uses('ComponentCollection', 'Controller');
 
@@ -15,6 +15,11 @@ class ShimControllerTest extends ControllerTestCase {
 		$this->ShimController = new TestShimController(new CakeRequest(), new CakeResponse());
 		$this->ShimController->constructClasses();
 		$this->ShimController->startupProcess();
+	}
+
+	public function tearDown() {
+		Configure::delete('Shim');
+		parent::tearDown();
 	}
 
 	public function tearDown() {
@@ -93,6 +98,16 @@ class ShimControllerTest extends ControllerTestCase {
 
 		$is = $this->ShimController->Components->loaded('Security');
 		$this->assertTrue($is);
+	}
+
+	/**
+	* @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	* @expectedExceptionMessage Property base is deprecated. Use CakeRequest::$base instead.
+	* @return void
+	*/
+	public function testBasePropery() {
+		Configure::write(Shim::CONTROLLER_BASE, true);
+		$this->ShimController->base;
 	}
 
 }
