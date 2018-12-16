@@ -1,5 +1,5 @@
 <?php
-
+Configure::write('debug', 2);
 App::uses('ShimController', 'Shim.Controller');
 App::uses('ComponentCollection', 'Controller');
 
@@ -18,6 +18,7 @@ class ShimControllerTest extends ControllerTestCase {
 	}
 
 	public function tearDown() {
+		Configure::delete('Shim');
 		parent::tearDown();
 	}
 
@@ -93,6 +94,66 @@ class ShimControllerTest extends ControllerTestCase {
 
 		$is = $this->ShimController->Components->loaded('Security');
 		$this->assertTrue($is);
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Property $action is deprecated. Use CakeRequest::$action instead.
+	 * @return void
+	 */
+	public function testActionPropery() {
+		Configure::write(Shim::CONTROLLER_ACTION, true);
+		$this->ShimController->action;
+	}
+
+	/**
+	* @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	* @expectedExceptionMessage Property $base is deprecated. Use CakeRequest::$base instead.
+	* @return void
+	*/
+	public function testBasePropery() {
+		Configure::write(Shim::CONTROLLER_BASE, true);
+		$this->ShimController->base;
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Property $data is deprecated. Use CakeRequest::$data instead.
+	 * @return void
+	 */
+	public function testDataPropery() {
+		Configure::write(Shim::CONTROLLER_DATA, true);
+		$this->ShimController->data;
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Property $here is deprecated. Use CakeRequest::$here instead.
+	 * @return void
+	 */
+	public function testHerePropery() {
+		Configure::write(Shim::CONTROLLER_HERE, true);
+		$this->ShimController->here;
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Property $params is deprecated. Use CakeRequest::$params instead.
+	 * @return void
+	 */
+	public function testParamsPropery() {
+		Configure::write(Shim::CONTROLLER_PARAMS, true);
+		$this->ShimController->params;
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Property $webroot is deprecated. Use CakeRequest::$webroot instead.
+	 * @return void
+	 */
+	public function testWebrootPropery() {
+		Configure::write(Shim::CONTROLLER_WEBROOT, true);
+		$this->ShimController->webroot;
 	}
 
 }

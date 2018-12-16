@@ -12,6 +12,12 @@ Configure::write('Search', [
 
 // Shims - add them in your own bootstrap/config
 /*
+Configure::write('Shim.controllerAction', true);
+Configure::write('Shim.controllerBase', true);
+Configure::write('Shim.controllerData', true);
+Configure::write('Shim.controllerHere', true);
+Configure::write('Shim.controllerParams', true);
+Configure::write('Shim.controllerWebroot', true);
 Configure::write('Shim.warnAboutRelationProperty', true);
 Configure::write('Shim.warnAboutBindModelMethod', true);
 Configure::write('Shim.warnAboutValidateProperty', true);

@@ -16,6 +16,36 @@ class Shim {
 	const CHECK_PATHS = 'Shim.checkPaths';
 
 	/**
+	 * The name of the shim that checks the usage of the deprecated Controller::$action property.
+	 */
+	const CONTROLLER_ACTION = 'Shim.controllerAction';
+
+	/**
+	 * The name of the shim that checks the usage of the deprecated Controller::$base property.
+	 */
+	const CONTROLLER_BASE = 'Shim.controllerBase';
+
+	/**
+	 * The name of the shim that checks the usage of the deprecated Controller::$data property.
+	 */
+	const CONTROLLER_DATA = 'Shim.controllerData';
+
+	/**
+	 * The name of the shim that checks the usage of the deprecated Controller::$here property.
+	 */
+	const CONTROLLER_HERE = 'Shim.controllerHere';
+
+	/**
+	 * The name of the shim that checks the usage of the deprecated Controller::$params property.
+	 */
+	const CONTROLLER_PARAMS = 'Shim.controllerParams';
+
+	/**
+	 * The name of the shim that checks the usage of the deprecated Controller::$webroot property.
+	 */
+	const CONTROLLER_WEBROOT = 'Shim.controllerWebroot';
+
+	/**
 	 * The name of the shim that checks the usage of the deprecated Model::field() method.
 	 */
 	const DEPRECATE_FIELD = 'Shim.deprecateField';
