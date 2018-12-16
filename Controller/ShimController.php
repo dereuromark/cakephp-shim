@@ -119,6 +119,14 @@ class ShimController extends Controller {
 	 */
 	public function __get($name) {
 		$message = "Property \$$name is deprecated. Use CakeRequest::\$$name instead.";
+		$properyShims = [
+			'action' => Shim::CONTROLLER_ACTION,
+			'base' => Shim::CONTROLLER_BASE,
+			'data' => Shim::CONTROLLER_DATA,
+			'here' => Shim::CONTROLLER_HERE,
+			'params' => Shim::CONTROLLER_PARAMS,
+			'webroot' => Shim::CONTROLLER_WEBROOT,
+		];
 		switch ($name) {
 			case 'action':
 			case 'base':
@@ -126,7 +134,7 @@ class ShimController extends Controller {
 			case 'here':
 			case 'params':
 			case 'webroot':
-				Shim::check(Shim::CONTROLLER_BASE, $message);
+				Shim::check($properyShims[$name], $message);
 		}
 		return parent::__get($name);
 	}
