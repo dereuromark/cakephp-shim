@@ -118,9 +118,14 @@ class ShimController extends Controller {
 	 * @return mixed The requested value for valid variables/aliases else null
 	 */
 	public function __get($name) {
-		$message = "Property $name is deprecated. Use CakeRequest::\$$name instead.";
+		$message = "Property \$$name is deprecated. Use CakeRequest::\$$name instead.";
 		switch ($name) {
+			case 'action':
 			case 'base':
+			case 'data':
+			case 'here':
+			case 'params':
+			case 'webroot':
 				Shim::check(Shim::CONTROLLER_BASE, $message);
 		}
 		return parent::__get($name);
