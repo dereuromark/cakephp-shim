@@ -22,10 +22,6 @@ class ShimControllerTest extends ControllerTestCase {
 		parent::tearDown();
 	}
 
-	public function tearDown() {
-		parent::tearDown();
-	}
-
 	/**
 	 * ShimControllerTest::testObject()
 	 *
