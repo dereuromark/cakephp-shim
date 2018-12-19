@@ -23,8 +23,6 @@ class ShimModel extends Model {
 
 	public $recursive = -1;
 
-	public $actsAs = ['Containable'];
-
 	/**
 	 * MyModel::__construct()
 	 *
@@ -36,6 +34,10 @@ class ShimModel extends Model {
 		if ($this->getAssociated() && get_class($this) !== 'Permission') {
 			$message = 'Relations must be defined using $this->initialized() in ' . get_class($this);
 			Shim::check(Shim::RELATIONSHIP_PROPERTIES, $message);
+		}
+		if (!empty($this->actsAs)) {
+			$message = 'Configure behaviors by using `addBehavior()` method inside `initialiaze() method`.';
+			Shim::check(Shim::MODEL_ACTS_AS, $message);
 		}
 		if (!empty($this->validate)) {
 			$message = 'Default validation rules must be defined in Model::validationDefault().';
@@ -755,6 +757,7 @@ class ShimModel extends Model {
 	 * @return void
 	 */
 	public function initialize(array $config) {
+		$this->addBehavior('Containable');
 	}
 
 	/**

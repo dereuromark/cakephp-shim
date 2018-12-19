@@ -91,6 +91,11 @@ class Shim {
 	const MISSING_CONTAIN = 'Shim.warnAboutMissingContain';
 
 	/**
+	 * The name of the shim that checks the usage of $actsAs property.
+	 */
+	const MODEL_ACTS_AS = 'Shim.modelActsAs';
+
+	/**
 	 * The name of the shim that checks the usage of id parameter in Model::delete() method.
 	 */
 	const MODEL_DELETE = 'Shim.modelDelete';
