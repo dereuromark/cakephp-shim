@@ -36,7 +36,7 @@ class ShimModel extends Model {
 			Shim::check(Shim::RELATIONSHIP_PROPERTIES, $message);
 		}
 		if (!empty($this->actsAs)) {
-			$message = 'Configure behaviors by using `addBehavior()` method inside `initialiaze() method`.';
+			$message = 'Configure behaviors by using `addBehavior()` method inside `initialize()` method.';
 			Shim::check(Shim::MODEL_ACTS_AS, $message);
 		}
 		if (!empty($this->validate)) {

@@ -25,7 +25,7 @@ class ShimModelTest extends ShimTestCase {
 
 	public function tearDown() {
 		Configure::delete('Shim');
-
+		unset($this->Post, $this->User);
 		parent::tearDown();
 	}
 
@@ -986,6 +986,19 @@ class ShimModelTest extends ShimTestCase {
 			'hasMany' => ['Post'],
 		]);
 	}
+
+	/**
+	 * Testing deprecated $actsAs.
+	 *
+	 * @expectedException PHPUnit_Framework_Error_Deprecated
+	 * @expectedExceptionMessage Configure behaviors by using `addBehavior()` method inside `initialize()` method.
+	 */
+	public function testActsAs() {
+		Configure::write(Shim::MODEL_ACTS_AS, true);
+		ClassRegistry::removeObject('ShimAppModelUser');
+		ClassRegistry::init('ShimAppModelUser');
+	}
+
 }
 
 class ShimAppModelPost extends ShimModel {
@@ -1002,6 +1015,8 @@ class ShimAppModelPost extends ShimModel {
 			'message' => 'The title is too long.',
 		],
 	];
+
+	public $actsAs = ['Containable'];
 
 }
 
