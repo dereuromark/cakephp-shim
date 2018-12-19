@@ -56,7 +56,9 @@ class ShimModel extends Model {
 			'alias' => $this->alias,
 			'schema' => $this->schemaName,
 		];
-		$this->addBehavior('Containable');
+		if (empty($this->actsAs) || (is_array($this->actsAs) && !in_array('Containable', $this->actsAs))) {
+			$this->addBehavior('Containable');
+		}
 		$this->initialize($config);
 	}
 
