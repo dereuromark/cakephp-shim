@@ -56,6 +56,7 @@ class ShimModel extends Model {
 			'alias' => $this->alias,
 			'schema' => $this->schemaName,
 		];
+		$this->addBehavior('Containable');
 		$this->initialize($config);
 	}
 
@@ -757,7 +758,6 @@ class ShimModel extends Model {
 	 * @return void
 	 */
 	public function initialize(array $config) {
-		$this->addBehavior('Containable');
 	}
 
 	/**
