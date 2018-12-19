@@ -995,8 +995,8 @@ class ShimModelTest extends ShimTestCase {
 	 */
 	public function testActsAs() {
 		Configure::write(Shim::MODEL_ACTS_AS, true);
-		ClassRegistry::removeObject('ShimAppModelUser');
-		ClassRegistry::init('ShimAppModelUser');
+		ClassRegistry::removeObject('ShimAppModelPost');
+		ClassRegistry::init('ShimAppModelPost');
 	}
 
 }
