@@ -17,7 +17,9 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = ['plugin.shim.year_types'];
+	public $fixtures = [
+		'plugin.Shim.YearTypes'
+	];
 
 	/**
 	 * @var \Shim\Model\Table\Table

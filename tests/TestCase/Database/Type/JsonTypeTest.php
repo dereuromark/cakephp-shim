@@ -16,7 +16,9 @@ class JsonTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = ['plugin.shim.json_types'];
+	public $fixtures = [
+		'plugin.Shim.JsonTypes'
+	];
 
 	/**
 	 * @var \Shim\Model\Table\Table

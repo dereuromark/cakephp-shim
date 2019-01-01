@@ -24,7 +24,13 @@ class TableTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = ['core.users', 'core.posts', 'core.authors', 'plugin.Shim.Wheels', 'plugin.Shim.Cars'];
+	public $fixtures = [
+		'core.Users',
+		'core.Posts',
+		'core.Authors',
+		'plugin.Shim.Wheels',
+		'plugin.Shim.Cars'
+	];
 
 	/**
 	 * @return void

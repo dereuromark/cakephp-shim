@@ -12,8 +12,8 @@ class NullableBehaviorTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.shim.nullables',
-		'plugin.shim.nullable_tenants',
+		'plugin.Shim.Nullables',
+		'plugin.Shim.NullableTenants'
 	];
 
 	/**
