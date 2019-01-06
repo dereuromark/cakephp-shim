@@ -84,7 +84,7 @@ class MyControllerTest extends IntegrationTestCase {
 }
 ```
 
-The syntax is the same as documented in [3.x cookbook](http://book.cakephp.org/3.0/en/development/testing.html#controller-integration-testing).
+The syntax is the same as documented in [3.x cookbook](https://book.cakephp.org/3.0/en/development/testing.html#controller-integration-testing).
 See examples @ [cakefest app](https://github.com/dereuromark/cakefest/tree/3.0/tests/TestCase/Controller).
 
 ### Additional tools
