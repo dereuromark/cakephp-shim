@@ -78,4 +78,45 @@ class TreeShimBehavior extends TreeBehavior {
 		return $result;
 	}
 
+	/**
+	 * Check if the current tree is valid.
+	 *
+	 * Returns true if the tree is valid otherwise an array of (type, incorrect left/right index, message)
+	 *
+	 * @param Model $Model Model using this behavior
+	 * @return mixed true if the tree is valid or empty, otherwise an array of (error type [index, node],
+	 *  [incorrect left/right index,node id], message)
+	 * @link https://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html#TreeBehavior::verify
+	 */
+	public function verify(Model $Model) {
+		$shim = Configure::read(Shim::BIND_MODEL_METHOD);
+		Configure::write(Shim::BIND_MODEL_METHOD, false);
+		$result = parent::verify($Model);
+		Configure::write(Shim::BIND_MODEL_METHOD, $shim);
+		return $result;
+	}
+
+	/**
+	 * Recover a corrupted tree
+	 *
+	 * The mode parameter is used to specify the source of info that is valid/correct. The opposite source of data
+	 * will be populated based upon that source of info. E.g. if the MPTT fields are corrupt or empty, with the $mode
+	 * 'parent' the values of the parent_id field will be used to populate the left and right fields. The missingParentAction
+	 * parameter only applies to "parent" mode and determines what to do if the parent field contains an id that is not present.
+	 *
+	 * @param Model $Model Model using this behavior
+	 * @param string $mode parent or tree
+	 * @param string|int|null $missingParentAction 'return' to do nothing and return, 'delete' to
+	 * delete, or the id of the parent to set as the parent_id
+	 * @return bool true on success, false on failure
+	 * @link https://book.cakephp.org/2.0/en/core-libraries/behaviors/tree.html#TreeBehavior::recover
+	 */
+	public function recover(Model $Model, $mode = 'parent', $missingParentAction = null) {
+		$shim = Configure::read(Shim::BIND_MODEL_METHOD);
+		Configure::write(Shim::BIND_MODEL_METHOD, false);
+		$result = parent::recover($Model, $mode, $missingParentAction);
+		Configure::write(Shim::BIND_MODEL_METHOD, $shim);
+		return $result;
+	}
+
 }
