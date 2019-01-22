@@ -60,6 +60,7 @@ class Controller extends CoreController {
 		parent::beforeRender($event);
 
 		// Automatically shim $this->request->data = $this->Model->find() etc which used to be of type array
+		/** @var \Cake\ORM\Entity|null $data */
 		$data = $this->request->getData();
 		if ($data && $data instanceof Entity) {
 			$this->request = $this->request->withParsedBody($data->toArray());
