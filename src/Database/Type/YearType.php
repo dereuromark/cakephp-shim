@@ -28,7 +28,7 @@ class YearType extends Type {
 	 * Binary data is not altered before being inserted into the database.
 	 * As PDO will handle reading file handles.
 	 *
-	 * @param string|resource $value The value to convert.
+	 * @param int|string|array|null $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
 	 * @return int|null
 	 */
