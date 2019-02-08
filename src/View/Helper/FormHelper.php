@@ -70,7 +70,7 @@ class FormHelper extends CoreFormHelper {
 	 */
 	protected function _singleDatetime(array $options, string $keep): array {
 		$off = array_diff($this->_datetimeParts, [$keep]);
-		$off = array_combine(
+		$off = (array)array_combine(
 			$off,
 			array_fill(0, count($off), false)
 		);

@@ -5,4 +5,3 @@ parameters:
 	excludes_analyse:
 		- %rootDir%/../../../src/TestSuite/*
 	ignoreErrors:
-		- '#Variable \$_SESSION in isset\(\) always exists and is not nullable.#'
