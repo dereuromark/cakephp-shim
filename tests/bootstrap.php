@@ -32,10 +32,12 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 require CORE_PATH . 'config/bootstrap.php';
 
 Cake\Core\Configure::write('App', [
+	'encoding' => 'UTF-8',
 	'namespace' => 'App',
 	'paths' => [
 		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS],
-	]
+	],
+	'fullBaseUrl' => 'http://localhost',
 ]);
 
 Cake\Core\Configure::write('debug', true);
@@ -87,9 +89,9 @@ Cake\Datasource\ConnectionManager::setConfig('test', [
 	'className' => 'Cake\Database\Connection',
 	'driver' => getenv('db_class'),
 	'dsn' => getenv('db_dsn'),
-	'database' => getenv('db_database'),
-	'username' => getenv('db_username'),
-	'password' => getenv('db_password'),
+	// 'database' => getenv('db_database'),
+	// 'username' => getenv('db_username'),
+	// 'password' => getenv('db_password'),
 	'timezone' => 'UTC',
 	'quoteIdentifiers' => true,
 	'cacheMetadata' => true,
