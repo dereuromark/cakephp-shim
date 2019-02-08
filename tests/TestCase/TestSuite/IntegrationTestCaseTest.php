@@ -2,7 +2,6 @@
 namespace Shim\Test\TestCase\TestSuite;
 
 use Cake\Core\Configure;
-use Cake\Routing\DispatcherFactory;
 use Cake\Routing\Router;
 use Shim\TestSuite\IntegrationTestCase;
 
@@ -13,10 +12,7 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 
 		Configure::write('App.namespace', 'TestApp');
 
-		Router::connect('/:controller/:action/*', [], ['routeClass' => 'InflectedRoute']);
-		DispatcherFactory::clear();
-		DispatcherFactory::add('Routing');
-		DispatcherFactory::add('ControllerFactory');
+		Router::connect('/:controller/:action/*');
 	}
 
 	public function testDebug() {
@@ -39,6 +35,8 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 	 * @return void
 	 */
 	public function testBasic() {
+		$this->disableErrorHandlerMiddleware();
+
 		$this->get(['controller' => 'Items', 'action' => 'index']);
 
 		$this->assertResponseCode(200);

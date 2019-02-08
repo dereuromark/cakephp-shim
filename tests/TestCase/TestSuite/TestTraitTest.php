@@ -10,8 +10,6 @@ class TestTraitTest extends TestCase {
 	}
 
 	/**
-	 * test testAssertWithinRange()
-	 *
 	 * @return void
 	 */
 	public function testOsFix() {
@@ -23,7 +21,8 @@ class TestTraitTest extends TestCase {
 	 * @return void
 	 */
 	public function testIsVerbose() {
-		$this->isVerbose();
+		$result = $this->isVerbose();
+		$this->assertTrue(is_bool($result));
 	}
 
 	/**
@@ -31,6 +30,7 @@ class TestTraitTest extends TestCase {
 	 */
 	public function testDebug() {
 		$this->debug('Foo');
+		$this->assertTrue(true);
 	}
 
 }

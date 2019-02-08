@@ -19,7 +19,7 @@ class Component extends CoreComponent {
 	 * @param array $config
 	 * @return void
 	 */
-	public function initialize(array $config) {
+	public function initialize(array $config): void {
 		$this->Controller = $this->_registry->getController();
 
 		if (Configure::read('Shim.assertActionNames')) {
@@ -30,7 +30,7 @@ class Component extends CoreComponent {
 	/**
 	 * @return void
 	 */
-	protected function _assertValidActionNames() {
+	protected function _assertValidActionNames(): void {
 		$parentClassMethods = get_class_methods(get_parent_class($this->Controller));
 		$subClassMethods = get_class_methods($this->Controller);
 		$classMethods = array_diff($subClassMethods, $parentClassMethods);

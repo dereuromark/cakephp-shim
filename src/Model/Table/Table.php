@@ -45,7 +45,7 @@ class Table extends CoreTable {
 	 * @param array $config
 	 * @return void
 	 */
-	public function initialize(array $config) {
+	public function initialize(array $config): void {
 		// Shims
 		if (isset($this->useTable)) {
 			$this->setTable($this->useTable);
@@ -173,7 +173,7 @@ class Table extends CoreTable {
 	 * @param \Cake\Validation\Validator $validator
 	 * @return \Cake\Validation\Validator
 	 */
-	public function validationDefault(Validator $validator) {
+	public function validationDefault(Validator $validator): Validator {
 		if (!empty($this->validate)) {
 			foreach ($this->validate as $field => $rules) {
 				if (is_int($field)) {
@@ -247,23 +247,6 @@ class Table extends CoreTable {
 		return $args;
 	}
 
-	/**
-	 * Shim to provide 2.x way of find('first') for easier upgrade.
-	 *
-	 * @param string $type
-	 * @param array $options
-	 * @return array|\Cake\Datasource\EntityInterface|\Cake\ORM\Query|int
-	 */
-	public function find($type = 'all', $options = []) {
-		if ($type === 'first') {
-			return parent::find('all', $options)->first();
-		}
-		if ($type === 'count') {
-			return parent::find('all', $options)->count();
-		}
-		return parent::find($type, $options);
-	}
-
 	/*
 	 * Overwrite findList() to make it work as in 2.x when only providing
 	 * 1-2 fields to select (no keyField/valueField).
@@ -272,7 +255,7 @@ class Table extends CoreTable {
 	 * @param array $options The options for the find
 	 * @return \Cake\ORM\Query The query builder
 	 */
-	public function findList(Query $query, array $options) {
+	public function findList(Query $query, array $options): Query {
 		if (!isset($options['keyField']) && !isset($options['valueField'])) {
 			$select = $query->clause('select');
 			if ($select && count($select) <= 2) {
@@ -476,7 +459,7 @@ class Table extends CoreTable {
 	 * @return bool success
 	 * @throws \InvalidArgumentException
 	 */
-	public function delete(EntityInterface $entity, $options = []) {
+	public function delete(EntityInterface $entity, $options = []): bool {
 		if (!is_array($options)) {
 			throw new InvalidArgumentException('Invalid options input.');
 		}

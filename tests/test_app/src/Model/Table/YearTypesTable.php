@@ -17,7 +17,7 @@ class YearTypesTable extends Table {
 	 *
 	 * @return \Cake\Database\Schema\TableSchema
 	 */
-	protected function _initializeSchema(TableSchema $schema) {
+	protected function _initializeSchema(TableSchema $schema): TableSchema {
 		$schema->setColumnType('year_of_birth', 'year');
 
 		return $schema;

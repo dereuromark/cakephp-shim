@@ -3,10 +3,9 @@ namespace Shim\Controller;
 
 use Cake\Controller\Controller as CoreController;
 use Cake\Core\Configure;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
-use Cake\ORM\Entity;
 use Cake\Utility\Inflector;
 use Exception;
 
@@ -53,31 +52,16 @@ class Controller extends CoreController {
 	}
 
 	/**
-	 * @param \Cake\Event\Event $event
-	 * @return \Cake\Http\Response|null
-	 */
-	public function beforeRender(Event $event) {
-		parent::beforeRender($event);
-
-		// Automatically shim $this->request->data = $this->Model->find() etc which used to be of type array
-		/** @var \Cake\ORM\Entity|null $data */
-		$data = $this->request->getData();
-		if ($data && $data instanceof Entity) {
-			$this->request = $this->request->withParsedBody($data->toArray());
-		}
-	}
-
-	/**
 	 * Hook to monitor headers being sent.
 	 *
 	 * This, if desired, adds a check if your controller actions are cleanly built and no headers
 	 * or output is being sent prior to the response class, which should be the only one doing this.
 	 *
-	 * @param \Cake\Event\Event $event An Event instance
+	 * @param \Cake\Event\EventInterface $event An Event instance
 	 * @throws \Exception
 	 * @return \Cake\Http\Response|null
 	 */
-	public function afterFilter(Event $event) {
+	public function afterFilter(EventInterface $event) {
 		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && PHP_SAPI !== 'cli') {
 			if (headers_sent($filename, $lineNumber)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $lineNumber);

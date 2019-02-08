@@ -3,7 +3,6 @@ namespace Shim\Test\TestCase\Controller;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
-use Cake\ORM\Entity;
 use Cake\TestSuite\TestCase;
 use Shim\Controller\Controller;
 
@@ -43,22 +42,9 @@ class ControllerTest extends TestCase {
 	public function testDisableCache() {
 		$this->Controller->disableCache();
 
-		$result = $this->Controller->response->getHeaders();
+		$result = $this->Controller->getResponse()->getHeaders();
 		$expected = ['Content-Type', 'Pragma', 'Expires', 'Last-Modified', 'Cache-Control'];
 		$this->assertSame($expected, array_keys($result));
-	}
-
-	/**
-	 * @return void
-	 */
-	public function testBeforeRender() {
-		$event = new Event('beforeRender');
-
-		$this->Controller->request->data = new Entity();
-
-		$this->Controller->beforeRender($event);
-
-		$this->assertSame([], $this->Controller->request->getData());
 	}
 
 	/**
@@ -68,6 +54,8 @@ class ControllerTest extends TestCase {
 		$event = new Event('afterFilter');
 
 		$this->Controller->afterFilter($event);
+		$headers = $this->Controller->getResponse()->getHeaders();
+		$this->assertNotEmpty($headers['Content-Type']);
 	}
 
 }

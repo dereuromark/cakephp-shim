@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -15,105 +15,23 @@ declare(strict_types=1);
  */
 namespace Shim\Test\TestCase\View\Helper;
 
-use Cake\Collection\Collection;
 use Cake\Core\Configure;
-use Cake\Form\Form;
 use Cake\Http\ServerRequest;
 use Cake\ORM\Entity;
 use Cake\ORM\Table;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
-use Cake\Validation\Validator;
-use Cake\View\Form\EntityContext;
 use Cake\View\View;
-use Cake\View\Widget\WidgetLocator;
+use DateTime;
 use Shim\View\Helper\FormHelper;
 
 /**
- * Test stub.
- */
-class Article extends Entity
-{
-}
-
-/**
- * Contact class
- */
-class ContactsTable extends Table
-{
-	/**
-	 * Default schema
-	 *
-	 * @var array
-	 */
-	protected $_schema = [
-		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
-		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'phone' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'password' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'published' => ['type' => 'date', 'null' => true, 'default' => null, 'length' => null],
-		'created' => ['type' => 'date', 'null' => '1', 'default' => '', 'length' => ''],
-		'updated' => ['type' => 'datetime', 'null' => '1', 'default' => '', 'length' => null],
-		'age' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => null],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
-	];
-
-	/**
-	 * Initializes the schema
-	 *
-	 * @return void
-	 */
-	public function initialize(array $config): void
-	{
-		$this->setSchema($this->_schema);
-	}
-}
-
-/**
- * ValidateUser class
- */
-class ValidateUsersTable extends Table
-{
-	/**
-	 * schema method
-	 *
-	 * @var array
-	 */
-	protected $_schema = [
-		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
-		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'balance' => ['type' => 'float', 'null' => false, 'length' => 5, 'precision' => 2],
-		'cost_decimal' => ['type' => 'decimal', 'null' => false, 'length' => 6, 'precision' => 3],
-		'null_decimal' => ['type' => 'decimal', 'null' => false, 'length' => null, 'precision' => null],
-		'ratio' => ['type' => 'decimal', 'null' => false, 'length' => 10, 'precision' => 6],
-		'population' => ['type' => 'decimal', 'null' => false, 'length' => 15, 'precision' => 0],
-		'created' => ['type' => 'date', 'null' => '1', 'default' => '', 'length' => ''],
-		'updated' => ['type' => 'datetime', 'null' => '1', 'default' => '', 'length' => null],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
-	];
-
-	/**
-	 * Initializes the schema
-	 *
-	 * @return void
-	 */
-	public function initialize(array $config): void
-	{
-		$this->setSchema($this->_schema);
-	}
-}
-
-/**
- * FormHelperTest class
- *
  * @property \Cake\View\Helper\FormHelper $Form
  * @property \Cake\View\View $View
  */
-class FormHelperTest extends TestCase
-{
+class FormHelperTest extends TestCase {
+
 	/**
 	 * Fixtures to be used
 	 *
@@ -134,12 +52,9 @@ class FormHelperTest extends TestCase
 	protected $article = [];
 
 	/**
-	 * setUp method
-	 *
 	 * @return void
 	 */
-	public function setUp()
-	{
+	public function setUp() {
 		parent::setUp();
 
 		Configure::write('Config.language', 'eng');
@@ -189,12 +104,9 @@ class FormHelperTest extends TestCase
 	}
 
 	/**
-	 * tearDown method
-	 *
 	 * @return void
 	 */
-	public function tearDown()
-	{
+	public function tearDown() {
 		parent::tearDown();
 		unset($this->Form, $this->Controller, $this->View);
 		$this->getTableLocator()->clear();
@@ -207,8 +119,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testControlDatetime()
-	{
+	public function testControlDatetime() {
 		$this->Form = $this->getMockBuilder('Cake\View\Helper\FormHelper')
 			->setMethods(['datetime'])
 			->setConstructorArgs([new View()])
@@ -249,8 +160,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testControlDatetimeIdPrefix()
-	{
+	public function testControlDatetimeIdPrefix() {
 		$this->Form = $this->getMockBuilder('Cake\View\Helper\FormHelper')
 			->setMethods(['datetime'])
 			->setConstructorArgs([new View()])
@@ -294,8 +204,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testTime()
-	{
+	public function testTime() {
 		$result = $this->Form->time('start_time', [
 			'timeFormat' => 12,
 			'interval' => 5,
@@ -326,10 +235,9 @@ class FormHelperTest extends TestCase
 	 *
 	 * Ensure that timeFormat=24 has no merdian.
 	 *
-	 * @return void.
+	 * @return void
 	 */
-	public function testTimeFormat24NoMeridian()
-	{
+	public function testTimeFormat24NoMeridian() {
 		$result = $this->Form->time('start_time', [
 			'timeFormat' => 24,
 			'interval' => 5,
@@ -351,8 +259,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDate()
-	{
+	public function testDate() {
 		$result = $this->Form->date('start_day', [
 			'value' => ['year' => '2014', 'month' => '03', 'day' => '08'],
 		]);
@@ -372,8 +279,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTime()
-	{
+	public function testDateTime() {
 		extract($this->dateRegex);
 
 		$result = $this->Form->dateTime('Contact.date', ['default' => true]);
@@ -475,8 +381,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeSecured()
-	{
+	public function testDateTimeSecured() {
 		$this->View->setRequest(
 			$this->View->getRequest()->withParam('_Token', ['unlockedFields' => []])
 		);
@@ -507,8 +412,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeSecuredDisabled()
-	{
+	public function testDateTimeSecuredDisabled() {
 		$this->View->setRequest(
 			$this->View->getRequest()->withParam('_Token', ['unlockedFields' => []])
 		);
@@ -529,8 +433,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDatetimeEmpty()
-	{
+	public function testDatetimeEmpty() {
 		extract($this->dateRegex);
 
 		$result = $this->Form->dateTime('Contact.date', [
@@ -586,8 +489,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDatetimeMinuteInterval()
-	{
+	public function testDatetimeMinuteInterval() {
 		extract($this->dateRegex);
 
 		$result = $this->Form->dateTime('Contact.date', [
@@ -644,8 +546,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeRounding()
-	{
+	public function testDateTimeRounding() {
 		$this->View->setRequest($this->View->getRequest()->withData('Contact', [
 			'date' => [
 				'day' => '13',
@@ -674,8 +575,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDatetimeWithDefault()
-	{
+	public function testDatetimeWithDefault() {
 		$result = $this->Form->dateTime('Contact.updated', ['value' => '2009-06-01 11:15:30']);
 		$this->assertRegExp('/<option[^<>]+value="2009"[^<>]+selected="selected"[^>]*>2009<\/option>/', $result);
 		$this->assertRegExp('/<option[^<>]+value="01"[^<>]+selected="selected"[^>]*>1<\/option>/', $result);
@@ -696,8 +596,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeAllZeros()
-	{
+	public function testDateTimeAllZeros() {
 		$result = $this->Form->dateTime('Contact.date', [
 			'timeFormat' => false,
 			'empty' => ['day' => '-', 'month' => '-', 'year' => '-'],
@@ -713,8 +612,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeEmptyAsArray()
-	{
+	public function testDateTimeEmptyAsArray() {
 		$result = $this->Form->dateTime('Contact.date', [
 			'empty' => [
 				'day' => 'DAY',
@@ -751,8 +649,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testFormDateTimeMulti()
-	{
+	public function testFormDateTimeMulti() {
 		extract($this->dateRegex);
 
 		$result = $this->Form->dateTime('Contact.1.updated');
@@ -771,8 +668,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeLabelIdMatchesFirstControl()
-	{
+	public function testDateTimeLabelIdMatchesFirstControl() {
 		$result = $this->Form->control('Model.date', ['type' => 'date']);
 		$this->assertContains('<label>Date</label>', $result);
 
@@ -790,8 +686,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeSecondOptions()
-	{
+	public function testDateTimeSecondOptions() {
 		$result = $this->Form->dateTime('updated', ['second' => true]);
 		$this->assertContains('updated[second]', $result, 'Should have seconds');
 
@@ -812,8 +707,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testMonth()
-	{
+	public function testMonth() {
 		$result = $this->Form->month('Model.field', ['value' => '']);
 		$expected = [
 			['select' => ['name' => 'Model[field][month]']],
@@ -911,8 +805,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDay()
-	{
+	public function testDay() {
 		extract($this->dateRegex);
 
 		$result = $this->Form->day('Model.field', ['value' => '', 'class' => 'form-control']);
@@ -1015,8 +908,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testMinute()
-	{
+	public function testMinute() {
 		extract($this->dateRegex);
 
 		$result = $this->Form->minute('Model.field', ['value' => '']);
@@ -1117,11 +1009,10 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testMeridian()
-	{
+	public function testMeridian() {
 		extract($this->dateRegex);
 
-		$now = new \DateTime();
+		$now = new DateTime();
 		$result = $this->Form->meridian('Model.field', ['value' => 'am']);
 		$expected = [
 			['select' => ['name' => 'Model[field][meridian]']],
@@ -1143,8 +1034,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testHour()
-	{
+	public function testHour() {
 		extract($this->dateRegex);
 
 		$result = $this->Form->hour('Model.field', ['format' => 12, 'value' => '']);
@@ -1255,8 +1145,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testYear()
-	{
+	public function testYear() {
 		$this->View->setRequest(
 			$this->View->getRequest()->withData('Contact.published', '2006-10-10')
 		);
@@ -1325,8 +1214,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testControlDatetimePreEpoch()
-	{
+	public function testControlDatetimePreEpoch() {
 		$start = date('Y') - 80;
 		$end = date('Y') - 18;
 		$result = $this->Form->control('birth_year', [
@@ -1347,8 +1235,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testControlDatetimeRequired()
-	{
+	public function testControlDatetimeRequired() {
 		$result = $this->Form->control('birthday', [
 			'type' => 'date',
 			'required' => true,
@@ -1364,8 +1251,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testYearAutoExpandRange()
-	{
+	public function testYearAutoExpandRange() {
 		$this->View->setRequest($this->View->getRequest()->withData('User.birthday', '1930-10-10'));
 		$result = $this->Form->year('User.birthday');
 		preg_match_all('/<option value="([\d]+)"/', $result, $matches);
@@ -1403,8 +1289,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testControlDate()
-	{
+	public function testControlDate() {
 		$this->View->setRequest($this->View->getRequest()->withParsedBody([
 			'month_year' => ['month' => date('m')],
 		]));
@@ -1426,8 +1311,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testControlLabelFalse()
-	{
+	public function testControlLabelFalse() {
 		$this->Form->create($this->article);
 		$result = $this->Form->control('title', ['label' => false]);
 		$expected = [
@@ -1453,8 +1337,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testControlDateMaxYear()
-	{
+	public function testControlDateMaxYear() {
 		$this->Form->create($this->article);
 		$result = $this->Form->control('birthday', [
 			'label' => false,
@@ -1476,8 +1359,7 @@ class FormHelperTest extends TestCase
 	 *
 	 * @return void
 	 */
-	public function testDateTimeWithGetForms()
-	{
+	public function testDateTimeWithGetForms() {
 		extract($this->dateRegex);
 		$this->Form->create($this->article, ['type' => 'get']);
 		$result = $this->Form->datetime('created');
@@ -1488,4 +1370,73 @@ class FormHelperTest extends TestCase
 		$this->assertContains('name="created[hour]"', $result, 'hour name attribute is wrong.');
 		$this->assertContains('name="created[minute]"', $result, 'min name attribute is wrong.');
 	}
+
+}
+
+class Article extends Entity {
+}
+
+class ContactsTable extends Table {
+
+	/**
+	 * Default schema
+	 *
+	 * @var array
+	 */
+	protected $_schema = [
+		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
+		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
+		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
+		'phone' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
+		'password' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
+		'published' => ['type' => 'date', 'null' => true, 'default' => null, 'length' => null],
+		'created' => ['type' => 'date', 'null' => '1', 'default' => '', 'length' => ''],
+		'updated' => ['type' => 'datetime', 'null' => '1', 'default' => '', 'length' => null],
+		'age' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => null],
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+	];
+
+	/**
+	 * Initializes the schema
+	 *
+	 * @param array $config
+	 * @return void
+	 */
+	public function initialize(array $config): void {
+		$this->setSchema($this->_schema);
+	}
+
+}
+
+class ValidateUsersTable extends Table {
+
+	/**
+	 * schema method
+	 *
+	 * @var array
+	 */
+	protected $_schema = [
+		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
+		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
+		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
+		'balance' => ['type' => 'float', 'null' => false, 'length' => 5, 'precision' => 2],
+		'cost_decimal' => ['type' => 'decimal', 'null' => false, 'length' => 6, 'precision' => 3],
+		'null_decimal' => ['type' => 'decimal', 'null' => false, 'length' => null, 'precision' => null],
+		'ratio' => ['type' => 'decimal', 'null' => false, 'length' => 10, 'precision' => 6],
+		'population' => ['type' => 'decimal', 'null' => false, 'length' => 15, 'precision' => 0],
+		'created' => ['type' => 'date', 'null' => '1', 'default' => '', 'length' => ''],
+		'updated' => ['type' => 'datetime', 'null' => '1', 'default' => '', 'length' => null],
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
+	];
+
+	/**
+	 * Initializes the schema
+	 *
+	 * @param array $config
+	 * @return void
+	 */
+	public function initialize(array $config): void {
+		$this->setSchema($this->_schema);
+	}
+
 }

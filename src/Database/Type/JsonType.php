@@ -23,7 +23,7 @@ class JsonType extends CoreJsonType {
 	 *
 	 * @return string|null
 	 */
-	public function toDatabase($value, Driver $driver) {
+	public function toDatabase($value, Driver $driver): ?string {
 		if ($value === null) {
 			return null;
 		}

@@ -38,32 +38,18 @@ class InflectedRoute extends Route {
 	protected $_inflectedDefaults = false;
 
 	/**
-	 * Camelizes the previously underscored plugin route taking into account plugin vendors
-	 *
-	 * @param string $plugin Plugin name
-	 * @return string
-	 */
-	protected function _camelizePlugin($plugin) {
-		if (strpos($plugin, '/') === false) {
-			return Inflector::camelize($plugin);
-		}
-		list($vendor, $plugin) = explode('/', $plugin, 2);
-		return Inflector::camelize($vendor) . '/' . Inflector::camelize($plugin);
-	}
-
-	/**
 	 * Parses a string URL into an array. If it matches, it will convert the
 	 * controller and plugin keys to their CamelCased form and action key to
 	 * camelBacked form.
 	 *
 	 * @param string $url The URL to parse
 	 * @param string $method
-	 * @return array|false An array of request parameters, or false on failure.
+	 * @return array|null An array of request parameters, or false on failure.
 	 */
-	public function parse($url, $method = '') {
+	public function parse(string $url, string $method = ''): ?array {
 		$params = parent::parse($url, $method);
 		if (!$params) {
-			return false;
+			return null;
 		}
 		if (!empty($params['controller'])) {
 			$params['controller'] = Inflector::camelize($params['controller']);
@@ -82,6 +68,21 @@ class InflectedRoute extends Route {
 	}
 
 	/**
+	 * Camelizes the previously underscored plugin route taking into account plugin vendors
+	 *
+	 * @param string $plugin Plugin name
+	 * @return string
+	 */
+	protected function _camelizePlugin(string $plugin): string {
+		if (strpos($plugin, '/') === false) {
+			return Inflector::camelize($plugin);
+		}
+		list($vendor, $plugin) = explode('/', $plugin, 2);
+
+		return Inflector::camelize($vendor) . '/' . Inflector::camelize($plugin);
+	}
+
+	/**
 	 * Dasherizes the controller, action and plugin params before passing them on
 	 * to the parent class.
 	 *
@@ -89,9 +90,9 @@ class InflectedRoute extends Route {
 	 * @param array $context An array of the current request context.
 	 *   Contains information such as the current host, scheme, port, and base
 	 *   directory.
-	 * @return bool|string Either false or a string URL.
+	 * @return string|null Either false or a string URL.
 	 */
-	public function match(array $url, array $context = []) {
+	public function match(array $url, array $context = []): ?string {
 		$url = $this->_underscore($url);
 		if (!$this->_inflectedDefaults) {
 			$this->_inflectedDefaults = true;
@@ -106,7 +107,7 @@ class InflectedRoute extends Route {
 	 * @param array $url An array of URL keys.
 	 * @return array
 	 */
-	protected function _underscore($url) {
+	protected function _underscore(array $url): array {
 		foreach (['controller', 'plugin', 'action'] as $element) {
 			if (!empty($url[$element])) {
 				$url[$element] = Inflector::underscore($url[$element]);

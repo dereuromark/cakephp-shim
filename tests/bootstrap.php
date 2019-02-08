@@ -35,7 +35,7 @@ Cake\Core\Configure::write('App', [
 	'encoding' => 'UTF-8',
 	'namespace' => 'App',
 	'paths' => [
-		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS],
+		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'templates' . DS],
 	],
 	'fullBaseUrl' => 'http://localhost',
 ]);

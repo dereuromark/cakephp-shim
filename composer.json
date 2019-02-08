@@ -13,7 +13,8 @@
 		}
 	],
 	"require": {
-		"cakephp/cakephp": "4.x-dev as 4.0"
+		"php": ">=7.1",
+		"cakephp/cakephp": "4.x-dev as 4.0.0"
 	},
 	"require-dev": {
 		"fig-r/psr2r-sniffer": "dev-master"
@@ -36,11 +37,11 @@
 	},
 	"scripts": {
 		"test": "php phpunit.phar",
-		"test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-6.5.13.phar && mv phpunit-6.5.13.phar phpunit.phar || true",
+		"test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-7.5.4.phar && mv phpunit-7.5.4.phar phpunit.phar || true",
 		"test-coverage": "php phpunit.phar --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml",
 		"phpstan": "phpstan analyse -c tests/phpstan.neon -l 5 src/",
 		"phpstan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan && mv composer.backup composer.json",
-		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/cakephp-shim/vendor/,/tmp/,/logs/ --extensions=php ./",
-		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --ignore=/cakephp-shim/vendor/,/tmp/,/logs/ --extensions=php ./"
+		"cs-check": "phpcs -p --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --extensions=php --ignore=/tests/test_app/templates/ src/ tests/ config/",
+		"cs-fix": "phpcbf -v --standard=vendor/fig-r/psr2r-sniffer/PSR2R/ruleset.xml --extensions=php --ignore=/tests/test_app/templates/ src/ tests/ config/"
 	}
 }

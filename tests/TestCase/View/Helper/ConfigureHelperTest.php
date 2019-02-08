@@ -2,7 +2,6 @@
 namespace Shim\Test\TestCase\View\Helper;
 
 use Cake\Core\Configure;
-use Cake\Core\Plugin;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
 use Shim\View\Helper\ConfigureHelper;
@@ -31,7 +30,6 @@ class ConfigureHelperTest extends TestCase {
 	 */
 	public function tearDown() {
 		unset($this->_View, $this->_Configure);
-		Plugin::unload();
 		parent::tearDown();
 	}
 

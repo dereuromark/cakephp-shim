@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -22,8 +22,8 @@ use DateTime;
 /**
  * Form helper which retains CakePHP 3.x style selects for datetime fields.
  */
-class FormHelper extends CoreFormHelper
-{
+class FormHelper extends CoreFormHelper {
+
 	/**
 	 * The various pickers that make up a datetime picker.
 	 *
@@ -54,8 +54,7 @@ class FormHelper extends CoreFormHelper
 	 * @param \Cake\View\View $view The View this helper is being attached to.
 	 * @param array $config Configuration settings for the helper.
 	 */
-	public function __construct(View $view, array $config = [])
-	{
+	public function __construct(View $view, array $config = []) {
 		$this->_defaultConfig['templates']['dateWidget'] = '{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}';
 		$this->_defaultWidgets['datetime'] = ['Shim.DateTime', 'select'];
 
@@ -69,8 +68,7 @@ class FormHelper extends CoreFormHelper
 	 * @param string $keep The option to not disable.
 	 * @return array
 	 */
-	protected function _singleDatetime(array $options, string $keep): array
-	{
+	protected function _singleDatetime(array $options, string $keep): array {
 		$off = array_diff($this->_datetimeParts, [$keep]);
 		$off = array_combine(
 			$off,
@@ -104,8 +102,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string A generated day select box.
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-day-inputs
 	 */
-	public function day(?string $fieldName = null, array $options = []): string
-	{
+	public function day(?string $fieldName = null, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'day');
 
 		if (isset($options['val']) && $options['val'] > 0 && $options['val'] <= 31) {
@@ -118,7 +115,6 @@ class FormHelper extends CoreFormHelper
 
 		return $this->dateTime($fieldName, $options);
 	}
-
 
 	/**
 	 * Returns a SELECT element for years
@@ -138,8 +134,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string Completed year select input
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-year-inputs
 	 */
-	public function year(string $fieldName, array $options = []): string
-	{
+	public function year(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'year');
 
 		$len = isset($options['val']) ? strlen($options['val']) : 0;
@@ -170,8 +165,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string A generated month select dropdown.
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-month-inputs
 	 */
-	public function month(string $fieldName, array $options = []): string
-	{
+	public function month(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'month');
 
 		if (isset($options['val']) && $options['val'] > 0 && $options['val'] <= 12) {
@@ -200,8 +194,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string Completed hour select input
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-hour-inputs
 	 */
-	public function hour(string $fieldName, array $options = []): string
-	{
+	public function hour(string $fieldName, array $options = []): string {
 		$options += ['format' => 24];
 		$options = $this->_singleDatetime($options, 'hour');
 
@@ -235,8 +228,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string Completed minute select input.
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-minute-inputs
 	 */
-	public function minute(string $fieldName, array $options = []): string
-	{
+	public function minute(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'minute');
 
 		if (isset($options['val']) && $options['val'] > 0 && $options['val'] <= 60) {
@@ -263,8 +255,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string Completed meridian select input
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-meridian-inputs
 	 */
-	public function meridian(string $fieldName, array $options = []): string
-	{
+	public function meridian(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'meridian');
 
 		if (isset($options['val'])) {
@@ -286,7 +277,7 @@ class FormHelper extends CoreFormHelper
 	 *
 	 * - `empty` - If true, the empty select option is shown. If a string,
 	 *   that string is displayed as the empty element.
-	 * - `value` | `default` The default value to be used by the input. A value in `$this->data`
+	 * - `value`|`default` The default value to be used by the input. A value in ` $this->data`
 	 *   matching the field name will override this value. If no default is provided `time()` will be used.
 	 * - `monthNames` If false, 2 digit numbers will be used instead of text.
 	 *   If an array, the given array will be used.
@@ -298,7 +289,7 @@ class FormHelper extends CoreFormHelper
 	 * ### Time options:
 	 *
 	 * - `empty` - If true, the empty select option is shown. If a string,
-	 * - `value` | `default` The default value to be used by the input. A value in `$this->data`
+	 * - `value`|`default` The default value to be used by the input. A value in ` $this->data`
 	 *   matching the field name will override this value. If no default is provided `time()` will be used.
 	 * - `timeFormat` The time format to use, either 12 or 24.
 	 * - `interval` The interval for the minutes select. Defaults to 1
@@ -315,8 +306,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string Generated set of select boxes for the date and time formats chosen.
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-date-and-time-inputs
 	 */
-	public function dateTime(string $fieldName, array $options = []): string
-	{
+	public function dateTime(string $fieldName, array $options = []): string {
 		$options += [
 			'empty' => true,
 			'value' => null,
@@ -341,8 +331,7 @@ class FormHelper extends CoreFormHelper
 	 * @param array $options Options to convert.
 	 * @return array Converted options.
 	 */
-	protected function _datetimeOptions(array $options): array
-	{
+	protected function _datetimeOptions(array $options): array {
 		foreach ($this->_datetimeParts as $type) {
 			if (!array_key_exists($type, $options)) {
 				$options[$type] = [];
@@ -424,8 +413,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string Generated set of select boxes for time formats chosen.
 	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 */
-	public function time(string $fieldName, array $options = []): string
-	{
+	public function time(string $fieldName, array $options = []): string {
 		$options += [
 			'empty' => true,
 			'value' => null,
@@ -453,8 +441,7 @@ class FormHelper extends CoreFormHelper
 	 * @return string Generated set of select boxes for time formats chosen.
 	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 */
-	public function date(string $fieldName, array $options = []): string
-	{
+	public function date(string $fieldName, array $options = []): string {
 		$options += [
 			'empty' => true,
 			'value' => null,
@@ -471,4 +458,5 @@ class FormHelper extends CoreFormHelper
 
 		return $this->widget('datetime', $options);
 	}
+
 }

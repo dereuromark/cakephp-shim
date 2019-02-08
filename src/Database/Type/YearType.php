@@ -3,7 +3,7 @@
 namespace Shim\Database\Type;
 
 use Cake\Database\Driver;
-use Cake\Database\Type;
+use Cake\Database\Type\BaseType;
 use PDO;
 
 /**
@@ -13,7 +13,7 @@ use PDO;
  * - Type::map('year', 'Shim\Database\Type\YearType'); in bootstrap
  * - Manual FormHelper $this->Form->control('published', ['type' => 'year']);
  */
-class YearType extends Type {
+class YearType extends BaseType {
 
 	/**
 	 * Date format for DateTime object
@@ -66,6 +66,22 @@ class YearType extends Type {
 	 */
 	public function toStatement($value, Driver $driver) {
 		return PDO::PARAM_INT;
+	}
+
+	/**
+	 * Marshalls flat data into PHP objects.
+	 *
+	 * Most useful for converting request data into PHP objects,
+	 * that make sense for the rest of the ORM/Database layers.
+	 *
+	 * @param mixed $value The value to convert.
+	 * @return mixed Converted value.
+	 */
+	public function marshal($value) {
+		if ($value === null || !(int)$value) {
+			return null;
+		}
+		return $value;
 	}
 
 }
