@@ -56,10 +56,10 @@ class ShimModelTest extends ShimTestCase {
 		$this->assertEquals(2, $record['Post']['id']);
 
 		$record = $this->Post->get(2, ['fields' => ['id', 'created']]);
-		$this->assertEquals(2, count($record['Post']));
+		$this->assertCount(2, $record['Post']);
 
 		$record = $this->Post->get(2, ['fields' => ['id', 'title', 'body'], 'contain' => ['Author']]);
-		$this->assertEquals(3, count($record['Post']));
+		$this->assertCount(3, $record['Post']);
 		$this->assertEquals(3, $record['Author']['id']);
 	}
 
@@ -180,10 +180,10 @@ class ShimModelTest extends ShimTestCase {
 		$this->assertEquals(2, $record['Post']['id']);
 
 		$record = $this->Post->record(2, ['fields' => ['id', 'created']]);
-		$this->assertEquals(2, count($record['Post']));
+		$this->assertCount(2, $record['Post']);
 
 		$record = $this->Post->record(2, ['fields' => ['id', 'title', 'body'], 'contain' => ['Author']]);
-		$this->assertEquals(3, count($record['Post']));
+		$this->assertCount(3, $record['Post']);
 		$this->assertEquals(3, $record['Author']['id']);
 	}
 
@@ -777,7 +777,7 @@ class ShimModelTest extends ShimTestCase {
 		$this->User->invalidate('fieldx', sprintf('e %s f', 33));
 		$res = $this->User->validationErrors;
 		$this->out($res);
-		$this->assertTrue(!empty($res));
+		$this->assertNotEmpty($res);
 
 		$this->User->create();
 		$this->User->invalidate('Model.fieldy', sprintf('e %s f %s g', 33, 'xyz'));
@@ -795,13 +795,13 @@ class ShimModelTest extends ShimTestCase {
 		$this->User->invalidate('fieldy', ['valErrMandatoryField']);
 		$res = $this->User->validationErrors;
 		$this->out($res);
-		$this->assertTrue(!empty($res));
+		$this->assertNotEmpty($res);
 
 		$this->User->create();
 		$this->User->invalidate('fieldy', 'valErrMandatoryField');
 		$res = $this->User->validationErrors;
 		$this->out($res);
-		$this->assertTrue(!empty($res));
+		$this->assertNotEmpty($res);
 
 		$this->User->create();
 		$this->User->invalidate('fieldy', sprintf('a %s b %s c %s %s %s %s %s h %s', 1, 2, 3, 4, 5, 6, 7, 8));
