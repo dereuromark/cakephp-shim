@@ -12,6 +12,19 @@ use RuntimeException;
 trait GetTrait {
 
 	/**
+	 * @param string $property
+	 * @return mixed
+	 * @throws \RuntimeException
+	 */
+	public function getOrFail($property) {
+		if (!isset($this->$property)) {
+			throw new RuntimeException('$' . $property . ' is null, expected non-null value.');
+		}
+
+		return $this->$property;
+	}
+
+	/**
 	 * @param string $name
 	 * @param array $arguments
 	 * @return mixed
@@ -24,11 +37,7 @@ trait GetTrait {
 
 		$property = Inflector::underscore($matches[1]);
 
-		if (!isset($this->$property)) {
-			throw new RuntimeException('$' . $property . ' is null, expected non-null value.');
-		}
-
-		return $this->$property;
+		return $this->getOrFail($property);
 	}
 
 }
