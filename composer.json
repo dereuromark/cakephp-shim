@@ -17,6 +17,7 @@
 		"cakephp/cakephp": "^3.7.0"
 	},
 	"require-dev": {
+		"dereuromark/cakephp-ide-helper": "^0.13.11",
 		"fig-r/psr2r-sniffer": "dev-master"
 	},
 	"support": {
