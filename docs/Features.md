@@ -125,6 +125,25 @@ $articles->connection()->transactional(function () use ($articles, $entities) {
 }
 ```
 
+### Entity get...OrFail()
+You want to use "asserted return values" or "safe chaining" in your entities?
+Then you want to ensure you are not getting null values returned where you expect actual values.
+
+Add the trait first:
+```php
+class MyEntity extends Entity {
+	use GetTrait;
+```
+
+Use the included annotator to get all method annotations into your entities:
+```php
+'IdeHelper' => [
+	'annotators' => [
+		\IdeHelper\Annotator\EntityAnnotator::class => \Shim\Annotator\EntityAnnotator::class,
+	],
+```
+This replaces the native one and adds support for these get methods on top.
+
 
 ## Database
 
