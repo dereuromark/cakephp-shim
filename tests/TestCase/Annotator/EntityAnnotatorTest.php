@@ -3,8 +3,8 @@
 namespace Shim\Test\TestCase\Annotator;
 
 use Cake\I18n\FrozenTime;
-use IdeHelper\View\Helper\DocBlockHelper;
 use Cake\View\View;
+use IdeHelper\View\Helper\DocBlockHelper;
 use ReflectionClass;
 use Shim\Annotator\EntityAnnotator;
 use Shim\TestSuite\TestCase;
@@ -16,7 +16,7 @@ class EntityAnnotatorTest extends TestCase {
 	 * @return void
 	 */
 	public function testBuildAnnotations() {
-		/** @var EntityAnnotator $entityAnnotator */
+		/** @var \Shim\Annotator\EntityAnnotator $entityAnnotator */
 		$entityAnnotator = $this->getMockBuilder(EntityAnnotator::class)->disableOriginalConstructor()->setMethods(['annotate'])->getMock();
 		$entityAnnotator->setConfig('class', TestEntity::class);
 
