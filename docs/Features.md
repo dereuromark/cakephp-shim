@@ -144,6 +144,9 @@ Then you can use it like this:
 echo $entity->read('tags.2.name', $default);
 ```
 
+This means, you are OK with part of the path being empty/null.
+If you want the opposite, making sure all required fields in the path are present, check the next part about getOrFail().
+
 ### Entity get...OrFail()
 You want to use "asserted return values" or "safe chaining" in your entities?
 Then you want to ensure you are not getting null values returned where you expect actual values.
