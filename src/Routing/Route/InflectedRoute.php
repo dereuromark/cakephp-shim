@@ -24,6 +24,8 @@ use Cake\Utility\Inflector;
  *
  * Note that this is a shimmed version of 2.x - for upgraded projects (and to keep URL BC).
  * For new 3.x projects you should use the DashedRoute class instead.
+ *
+ * @deprecated 3.x Will be removed with the upgrade to 4.x.
  */
 class InflectedRoute extends Route {
 

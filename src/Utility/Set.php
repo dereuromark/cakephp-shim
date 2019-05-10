@@ -5,6 +5,8 @@ namespace Shim\Utility;
  * BC wrapper for 2.x methods until they can be rewritten.
  *
  * Note that pretty much all other methods can now be found in Hash class.
+ *
+ * @deprecated 3.x Will be removed with the upgrade to 4.x.
  */
 class Set {
 
