@@ -10,6 +10,8 @@ namespace Shim\Utility;
 
 /**
  * Multibyte handling methods.
+ *
+ * @deprecated 3.x Will be removed with the upgrade to 4.x.
  */
 class Multibyte {
 
