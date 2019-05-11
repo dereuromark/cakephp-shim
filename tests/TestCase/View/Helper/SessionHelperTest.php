@@ -27,7 +27,7 @@ class SessionHelperTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->View = new View();
 		$session = new Session();
@@ -69,7 +69,7 @@ class SessionHelperTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		$_SESSION = [];
 		unset($this->View, $this->Session);
 		parent::tearDown();

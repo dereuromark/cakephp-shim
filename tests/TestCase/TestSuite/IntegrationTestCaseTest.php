@@ -7,7 +7,7 @@ use Shim\TestSuite\IntegrationTestCase;
 
 class IntegrationTestCaseTest extends IntegrationTestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Configure::write('App.namespace', 'TestApp');

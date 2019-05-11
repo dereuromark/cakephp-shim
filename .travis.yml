@@ -3,7 +3,7 @@ language: php
 sudo: false
 
 php:
-  - 7.1
+  - 7.2
   - 7.3
 
 env:
@@ -16,7 +16,7 @@ matrix:
   fast_finish: true
 
   include:
-    - php: 7.1
+    - php: 7.2
       env: DB=pgsql db_dsn='postgres://postgres@127.0.0.1/cakephp_test'
 
     - php: 7.1
@@ -28,11 +28,14 @@ matrix:
     - php: 7.2
       env: CODECOVERAGE=1 DEFAULT=0 DB=mysql db_dsn='mysql://root@127.0.0.1/cakephp_test'
 
+before_install:
+  - if [[ $CODECOVERAGE != 1 ]]; then phpenv config-rm xdebug.ini; fi
+
 before_script:
   - if [[ $PREFER_LOWEST != 1 ]]; then composer install --prefer-source --no-interaction ; fi
   - if [[ $PREFER_LOWEST == 1 ]]; then composer update --prefer-lowest --prefer-stable --prefer-dist --no-interaction ; fi
 
-  - if [[ $CHECKS != 1 ]]; then composer require --dev phpunit/phpunit:"^7.0" ; fi
+  - if [[ $CHECKS != 1 ]]; then composer require --dev phpunit/phpunit:"^8.0" ; fi
 
   - if [[ $DB == 'mysql' ]]; then mysql -e 'CREATE DATABASE cakephp_test;' ; fi
   - if [[ $DB == 'pgsql' ]]; then psql -c 'CREATE DATABASE cakephp_test;' -U postgres; fi

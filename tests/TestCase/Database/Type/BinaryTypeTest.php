@@ -16,7 +16,7 @@ class BinaryTypeTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Type::map('binary', BinaryType::class);
@@ -37,7 +37,7 @@ class BinaryTypeTest extends TestCase {
 		$this->assertSame('5945c961-e74d-478f-8afe-da53cf4189e3', $result);
 
 		$result = $this->type->toPHP('some data', $this->driver);
-		$this->assertInternalType('resource', $result);
+		$this->assertIsResource($result);
 	}
 
 	/**

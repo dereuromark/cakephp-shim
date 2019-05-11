@@ -54,7 +54,7 @@ class FormHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Configure::write('Config.language', 'eng');
@@ -106,7 +106,7 @@ class FormHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 		unset($this->Form, $this->Controller, $this->View);
 		$this->getTableLocator()->clear();
@@ -210,24 +210,24 @@ class FormHelperTest extends TestCase {
 			'interval' => 5,
 			'value' => ['hour' => '4', 'minute' => '30', 'meridian' => 'pm'],
 		]);
-		$this->assertContains('<option value="04" selected="selected">4</option>', $result);
-		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
-		$this->assertContains('<option value="pm" selected="selected">pm</option>', $result);
-		$this->assertNotContains('year', $result);
-		$this->assertNotContains('month', $result);
-		$this->assertNotContains('day', $result);
+		$this->assertStringContainsString('<option value="04" selected="selected">4</option>', $result);
+		$this->assertStringContainsString('<option value="30" selected="selected">30</option>', $result);
+		$this->assertStringContainsString('<option value="pm" selected="selected">pm</option>', $result);
+		$this->assertStringNotContainsString('year', $result);
+		$this->assertStringNotContainsString('month', $result);
+		$this->assertStringNotContainsString('day', $result);
 
 		$result = $this->Form->time('start_time', [
 			'timeFormat' => 12,
 			'interval' => 5,
 			'value' => '2014-03-08 16:30:00',
 		]);
-		$this->assertContains('<option value="04" selected="selected">4</option>', $result);
-		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
-		$this->assertContains('<option value="pm" selected="selected">pm</option>', $result);
-		$this->assertNotContains('year', $result);
-		$this->assertNotContains('month', $result);
-		$this->assertNotContains('day', $result);
+		$this->assertStringContainsString('<option value="04" selected="selected">4</option>', $result);
+		$this->assertStringContainsString('<option value="30" selected="selected">30</option>', $result);
+		$this->assertStringContainsString('<option value="pm" selected="selected">pm</option>', $result);
+		$this->assertStringNotContainsString('year', $result);
+		$this->assertStringNotContainsString('month', $result);
+		$this->assertStringNotContainsString('day', $result);
 	}
 
 	/**
@@ -243,13 +243,13 @@ class FormHelperTest extends TestCase {
 			'interval' => 5,
 			'value' => '2014-03-08 16:30:00',
 		]);
-		$this->assertContains('<option value="16" selected="selected">16</option>', $result);
-		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
-		$this->assertNotContains('meridian', $result);
-		$this->assertNotContains('pm', $result);
-		$this->assertNotContains('year', $result);
-		$this->assertNotContains('month', $result);
-		$this->assertNotContains('day', $result);
+		$this->assertStringContainsString('<option value="16" selected="selected">16</option>', $result);
+		$this->assertStringContainsString('<option value="30" selected="selected">30</option>', $result);
+		$this->assertStringNotContainsString('meridian', $result);
+		$this->assertStringNotContainsString('pm', $result);
+		$this->assertStringNotContainsString('year', $result);
+		$this->assertStringNotContainsString('month', $result);
+		$this->assertStringNotContainsString('day', $result);
 	}
 
 	/**
@@ -263,13 +263,13 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->date('start_day', [
 			'value' => ['year' => '2014', 'month' => '03', 'day' => '08'],
 		]);
-		$this->assertContains('<option value="2014" selected="selected">2014</option>', $result);
-		$this->assertContains('<option value="03" selected="selected">March</option>', $result);
-		$this->assertContains('<option value="08" selected="selected">8</option>', $result);
-		$this->assertNotContains('hour', $result);
-		$this->assertNotContains('minute', $result);
-		$this->assertNotContains('second', $result);
-		$this->assertNotContains('meridian', $result);
+		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);
+		$this->assertStringContainsString('<option value="03" selected="selected">March</option>', $result);
+		$this->assertStringContainsString('<option value="08" selected="selected">8</option>', $result);
+		$this->assertStringNotContainsString('hour', $result);
+		$this->assertStringNotContainsString('minute', $result);
+		$this->assertStringNotContainsString('second', $result);
+		$this->assertStringNotContainsString('meridian', $result);
 	}
 
 	/**
@@ -653,11 +653,11 @@ class FormHelperTest extends TestCase {
 		extract($this->dateRegex);
 
 		$result = $this->Form->dateTime('Contact.1.updated');
-		$this->assertContains('Contact[1][updated][month]', $result);
-		$this->assertContains('Contact[1][updated][day]', $result);
-		$this->assertContains('Contact[1][updated][year]', $result);
-		$this->assertContains('Contact[1][updated][hour]', $result);
-		$this->assertContains('Contact[1][updated][minute]', $result);
+		$this->assertStringContainsString('Contact[1][updated][month]', $result);
+		$this->assertStringContainsString('Contact[1][updated][day]', $result);
+		$this->assertStringContainsString('Contact[1][updated][year]', $result);
+		$this->assertStringContainsString('Contact[1][updated][hour]', $result);
+		$this->assertStringContainsString('Contact[1][updated][minute]', $result);
 	}
 
 	/**
@@ -670,13 +670,13 @@ class FormHelperTest extends TestCase {
 	 */
 	public function testDateTimeLabelIdMatchesFirstControl() {
 		$result = $this->Form->control('Model.date', ['type' => 'date']);
-		$this->assertContains('<label>Date</label>', $result);
+		$this->assertStringContainsString('<label>Date</label>', $result);
 
 		$result = $this->Form->control('Model.date', ['type' => 'date', 'dateFormat' => 'DMY']);
-		$this->assertContains('<label>Date</label>', $result);
+		$this->assertStringContainsString('<label>Date</label>', $result);
 
 		$result = $this->Form->control('Model.date', ['type' => 'date', 'dateFormat' => 'YMD']);
-		$this->assertContains('<label>Date</label>', $result);
+		$this->assertStringContainsString('<label>Date</label>', $result);
 	}
 
 	/**
@@ -688,16 +688,16 @@ class FormHelperTest extends TestCase {
 	 */
 	public function testDateTimeSecondOptions() {
 		$result = $this->Form->dateTime('updated', ['second' => true]);
-		$this->assertContains('updated[second]', $result, 'Should have seconds');
+		$this->assertStringContainsString('updated[second]', $result, 'Should have seconds');
 
 		$result = $this->Form->dateTime('updated', ['second' => []]);
-		$this->assertContains('updated[second]', $result, 'Should have seconds');
+		$this->assertStringContainsString('updated[second]', $result, 'Should have seconds');
 
 		$result = $this->Form->dateTime('updated', ['second' => null]);
-		$this->assertNotContains('updated[second]', $result, 'Should not have seconds');
+		$this->assertStringNotContainsString('updated[second]', $result, 'Should not have seconds');
 
 		$result = $this->Form->dateTime('updated', ['second' => false]);
-		$this->assertNotContains('updated[second]', $result, 'Should not have seconds');
+		$this->assertStringNotContainsString('updated[second]', $result, 'Should not have seconds');
 	}
 
 	/**
@@ -795,7 +795,7 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->month('Contact.published', [
 			'empty' => 'Published on',
 		]);
-		$this->assertContains('Published on', $result);
+		$this->assertStringContainsString('Published on', $result);
 	}
 
 	/**
@@ -898,7 +898,7 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->day('Contact.published', [
 			'empty' => 'Published on',
 		]);
-		$this->assertContains('Published on', $result);
+		$this->assertStringContainsString('Published on', $result);
 	}
 
 	/**
@@ -1079,10 +1079,10 @@ class FormHelperTest extends TestCase {
 		$this->View->setRequest($this->View->getRequest()->withData('Model.field', ''));
 		$this->Form->create();
 		$result = $this->Form->hour('Model.field', ['format' => 24, 'value' => '23']);
-		$this->assertContains('<option value="23" selected="selected">23</option>', $result);
+		$this->assertStringContainsString('<option value="23" selected="selected">23</option>', $result);
 
 		$result = $this->Form->hour('Model.field', ['format' => 12, 'value' => '23']);
-		$this->assertContains('<option value="11" selected="selected">11</option>', $result);
+		$this->assertStringContainsString('<option value="11" selected="selected">11</option>', $result);
 
 		$this->View->setRequest(
 			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:12:32')
@@ -1204,7 +1204,7 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->year('Contact.published', [
 			'empty' => 'Published on',
 		]);
-		$this->assertContains('Published on', $result);
+		$this->assertStringContainsString('Published on', $result);
 	}
 
 	/**
@@ -1225,9 +1225,9 @@ class FormHelperTest extends TestCase {
 			'month' => false,
 			'day' => false,
 		]);
-		$this->assertContains('value="' . $start . '">' . $start, $result);
-		$this->assertContains('value="' . $end . '" selected="selected">' . $end, $result);
-		$this->assertNotContains('value="00">00', $result);
+		$this->assertStringContainsString('value="' . $start . '">' . $start, $result);
+		$this->assertStringContainsString('value="' . $end . '" selected="selected">' . $end, $result);
+		$this->assertStringNotContainsString('value="00">00', $result);
 	}
 
 	/**
@@ -1240,7 +1240,7 @@ class FormHelperTest extends TestCase {
 			'type' => 'date',
 			'required' => true,
 		]);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<select name="birthday[year]" required="required"',
 			$result
 		);
@@ -1300,8 +1300,8 @@ class FormHelperTest extends TestCase {
 				'minYear' => 2006,
 				'maxYear' => 2008,
 		]);
-		$this->assertContains('value="' . date('m') . '" selected="selected"', $result);
-		$this->assertNotContains('value="2008" selected="selected"', $result);
+		$this->assertStringContainsString('value="' . date('m') . '" selected="selected"', $result);
+		$this->assertStringNotContainsString('value="2008" selected="selected"', $result);
 	}
 
 	/**
@@ -1346,10 +1346,10 @@ class FormHelperTest extends TestCase {
 			'maxYear' => 2008,
 			'default' => true,
 		]);
-		$this->assertContains('value="2008" selected="selected"', $result);
-		$this->assertContains('value="2006"', $result);
-		$this->assertNotContains('value="2005"', $result);
-		$this->assertNotContains('value="2009"', $result);
+		$this->assertStringContainsString('value="2008" selected="selected"', $result);
+		$this->assertStringContainsString('value="2006"', $result);
+		$this->assertStringNotContainsString('value="2005"', $result);
+		$this->assertStringNotContainsString('value="2009"', $result);
 	}
 
 	/**
@@ -1364,11 +1364,11 @@ class FormHelperTest extends TestCase {
 		$this->Form->create($this->article, ['type' => 'get']);
 		$result = $this->Form->datetime('created');
 
-		$this->assertContains('name="created[year]"', $result, 'year name attribute is wrong.');
-		$this->assertContains('name="created[month]"', $result, 'month name attribute is wrong.');
-		$this->assertContains('name="created[day]"', $result, 'day name attribute is wrong.');
-		$this->assertContains('name="created[hour]"', $result, 'hour name attribute is wrong.');
-		$this->assertContains('name="created[minute]"', $result, 'min name attribute is wrong.');
+		$this->assertStringContainsString('name="created[year]"', $result, 'year name attribute is wrong.');
+		$this->assertStringContainsString('name="created[month]"', $result, 'month name attribute is wrong.');
+		$this->assertStringContainsString('name="created[day]"', $result, 'day name attribute is wrong.');
+		$this->assertStringContainsString('name="created[hour]"', $result, 'hour name attribute is wrong.');
+		$this->assertStringContainsString('name="created[minute]"', $result, 'min name attribute is wrong.');
 	}
 
 }

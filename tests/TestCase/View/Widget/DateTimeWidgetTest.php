@@ -40,7 +40,7 @@ class DateTimeWidgetTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		date_default_timezone_set('UTC');
@@ -84,7 +84,7 @@ class DateTimeWidgetTest extends TestCase {
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
 		$now = new DateTime();
 		$format = '<option value="%s" selected="selected">%s</option>';
-		$this->assertContains(
+		$this->assertStringContainsString(
 			sprintf($format, $now->format('Y'), $now->format('Y')),
 			$result
 		);
@@ -104,7 +104,7 @@ class DateTimeWidgetTest extends TestCase {
 			'hour' => ['empty' => true],
 			'minute' => ['empty' => true],
 		], $this->context);
-		$this->assertContains('<option value="" selected="selected"></option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected"></option>', $result);
 		$this->assertNotRegExp('/value="\d+" selected="selected"/', $result);
 
 		$result = $this->DateTime->render([
@@ -115,7 +115,7 @@ class DateTimeWidgetTest extends TestCase {
 			'hour' => ['empty' => true],
 			'minute' => ['empty' => true],
 		], $this->context);
-		$this->assertContains('<option value="" selected="selected"></option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected"></option>', $result);
 		$this->assertNotRegExp('/value="\d+" selected="selected"/', $result);
 	}
 
@@ -131,8 +131,8 @@ class DateTimeWidgetTest extends TestCase {
 				'empty' => ['nope' => '(choose one)'],
 			],
 		], $this->context);
-		$this->assertContains('<option value="nope">(choose one)</option>', $result);
-		$this->assertNotContains('<optgroup', $result, 'No optgroups should be present.');
+		$this->assertStringContainsString('<option value="nope">(choose one)</option>', $result);
+		$this->assertStringNotContainsString('<optgroup', $result, 'No optgroups should be present.');
 	}
 
 	/**
@@ -164,16 +164,16 @@ class DateTimeWidgetTest extends TestCase {
 	 */
 	public function testRenderSelected($selected) {
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
-		$this->assertContains('<option value="2014" selected="selected">2014</option>', $result);
-		$this->assertContains('<option value="01" selected="selected">1</option>', $result);
-		$this->assertContains('<option value="20" selected="selected">20</option>', $result);
+		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);
+		$this->assertStringContainsString('<option value="01" selected="selected">1</option>', $result);
+		$this->assertStringContainsString('<option value="20" selected="selected">20</option>', $result);
 
 		if ((bool)getenv('TRAVIS')) {
-			$this->assertContains('<option value="12" selected="selected">12</option>', $result);
+			$this->assertStringContainsString('<option value="12" selected="selected">12</option>', $result);
 		}
 
-		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
-		$this->assertContains('<option value="45" selected="selected">45</option>', $result);
+		$this->assertStringContainsString('<option value="30" selected="selected">30</option>', $result);
+		$this->assertStringContainsString('<option value="45" selected="selected">45</option>', $result);
 	}
 
 	/**
@@ -185,16 +185,16 @@ class DateTimeWidgetTest extends TestCase {
 			'hour' => '12', 'minute' => '30', 'second' => '45',
 		];
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
-		$this->assertContains('<option value="2014" selected="selected">2014</option>', $result);
-		$this->assertContains('<option value="02" selected="selected">2</option>', $result);
-		$this->assertContains('<option value="31" selected="selected">31</option>', $result);
+		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);
+		$this->assertStringContainsString('<option value="02" selected="selected">2</option>', $result);
+		$this->assertStringContainsString('<option value="31" selected="selected">31</option>', $result);
 
 		if ((bool)getenv('TRAVIS')) {
-			$this->assertContains('<option value="12" selected="selected">12</option>', $result);
+			$this->assertStringContainsString('<option value="12" selected="selected">12</option>', $result);
 		}
 
-		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
-		$this->assertContains('<option value="45" selected="selected">45</option>', $result);
+		$this->assertStringContainsString('<option value="30" selected="selected">30</option>', $result);
+		$this->assertStringContainsString('<option value="45" selected="selected">45</option>', $result);
 	}
 
 	/**
@@ -208,18 +208,18 @@ class DateTimeWidgetTest extends TestCase {
 			'hour' => '12', 'minute' => '30',
 		];
 		$result = $this->DateTime->render(['name' => 'created', 'val' => $selected], $this->context);
-		$this->assertContains('name="created[year]"', $result);
-		$this->assertContains('<option value="2014" selected="selected">2014</option>', $result);
-		$this->assertContains('name="created[month]"', $result);
-		$this->assertContains('<option value="01" selected="selected">1</option>', $result);
-		$this->assertContains('name="created[day]"', $result);
-		$this->assertContains('<option value="20" selected="selected">20</option>', $result);
-		$this->assertContains('name="created[hour]"', $result);
-		$this->assertContains('<option value="12" selected="selected">12</option>', $result);
-		$this->assertContains('name="created[minute]"', $result);
-		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
-		$this->assertContains('name="created[second]"', $result);
-		$this->assertContains('<option value="30" selected="selected">30</option>', $result);
+		$this->assertStringContainsString('name="created[year]"', $result);
+		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);
+		$this->assertStringContainsString('name="created[month]"', $result);
+		$this->assertStringContainsString('<option value="01" selected="selected">1</option>', $result);
+		$this->assertStringContainsString('name="created[day]"', $result);
+		$this->assertStringContainsString('<option value="20" selected="selected">20</option>', $result);
+		$this->assertStringContainsString('name="created[hour]"', $result);
+		$this->assertStringContainsString('<option value="12" selected="selected">12</option>', $result);
+		$this->assertStringContainsString('name="created[minute]"', $result);
+		$this->assertStringContainsString('<option value="30" selected="selected">30</option>', $result);
+		$this->assertStringContainsString('name="created[second]"', $result);
+		$this->assertStringContainsString('<option value="30" selected="selected">30</option>', $result);
 	}
 
 	/**
@@ -233,10 +233,10 @@ class DateTimeWidgetTest extends TestCase {
 			'hour' => '7', 'minute' => '30', 'meridian' => 'pm',
 		];
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
-		$this->assertContains('<option value="2014" selected="selected">2014</option>', $result);
-		$this->assertContains('<option value="01" selected="selected">1</option>', $result);
-		$this->assertContains('<option value="20" selected="selected">20</option>', $result);
-		$this->assertContains('<option value="19" selected="selected">19</option>', $result);
+		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);
+		$this->assertStringContainsString('<option value="01" selected="selected">1</option>', $result);
+		$this->assertStringContainsString('<option value="20" selected="selected">20</option>', $result);
+		$this->assertStringContainsString('<option value="19" selected="selected">19</option>', $result);
 	}
 
 	/**
@@ -254,13 +254,13 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => ['empty' => 'SECOND'],
 			'meridian' => ['empty' => 'MERIDIAN'],
 		], $this->context);
-		$this->assertContains('<option value="" selected="selected">YEAR</option>', $result);
-		$this->assertContains('<option value="" selected="selected">MONTH</option>', $result);
-		$this->assertContains('<option value="" selected="selected">DAY</option>', $result);
-		$this->assertContains('<option value="" selected="selected">HOUR</option>', $result);
-		$this->assertContains('<option value="" selected="selected">MINUTE</option>', $result);
-		$this->assertContains('<option value="" selected="selected">SECOND</option>', $result);
-		$this->assertContains('<option value="" selected="selected">MERIDIAN</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">YEAR</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">MONTH</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">DAY</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">HOUR</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">MINUTE</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">SECOND</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">MERIDIAN</option>', $result);
 	}
 
 	/**
@@ -280,19 +280,19 @@ class DateTimeWidgetTest extends TestCase {
 		], $this->context);
 		$year = $now->format('Y');
 		$format = '<option value="%s" selected="selected">%s</option>';
-		$this->assertContains(sprintf($format, $year, $year), $result);
+		$this->assertStringContainsString(sprintf($format, $year, $year), $result);
 
 		$format = '<option value="%s">%s</option>';
 		$maxYear = $now->format('Y') + 5;
 		$minYear = $now->format('Y') - 5;
-		$this->assertContains(sprintf($format, $maxYear, $maxYear), $result);
-		$this->assertContains(sprintf($format, $minYear, $minYear), $result);
+		$this->assertStringContainsString(sprintf($format, $maxYear, $maxYear), $result);
+		$this->assertStringContainsString(sprintf($format, $minYear, $minYear), $result);
 
 		$nope = $now->format('Y') + 6;
-		$this->assertNotContains(sprintf($format, $nope, $nope), $result);
+		$this->assertStringNotContainsString(sprintf($format, $nope, $nope), $result);
 
 		$nope = $now->format('Y') - 6;
-		$this->assertNotContains(sprintf($format, $nope, $nope), $result);
+		$this->assertStringNotContainsString(sprintf($format, $nope, $nope), $result);
 	}
 
 	/**
@@ -479,22 +479,22 @@ class DateTimeWidgetTest extends TestCase {
 			'/select',
 		];
 		$this->assertHtml($expected, $result);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="01">January</option>',
 			$result,
 			'no 01 in value'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'value="0"',
 			$result,
 			'no 0 in value'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'value="00"',
 			$result,
 			'no 00 in value'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'value="13"',
 			$result,
 			'no 13 in value'
@@ -642,28 +642,28 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'val' => $now,
 		], $this->context);
-		$this->assertContains('<select name="date[hour]">', $result);
-		$this->assertNotContains(
+		$this->assertStringContainsString('<select name="date[hour]">', $result);
+		$this->assertStringNotContainsString(
 			'<option value="01">1</option>',
 			$result,
 			'no 1 am'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="07">7</option>',
 			$result,
 			'contain 7'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="13" selected="selected">13</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="17">17</option>',
 			$result,
 			'contains 17 hours'
 		);
-		$this->assertNotContains('meridian', $result, '24hrs has no meridian');
+		$this->assertStringNotContainsString('meridian', $result, '24hrs has no meridian');
 	}
 
 	/**
@@ -687,29 +687,29 @@ class DateTimeWidgetTest extends TestCase {
 			'val' => $now,
 			'meridian' => [],
 		], $this->context);
-		$this->assertContains('<select name="date[hour]" data-foo="test">', $result);
-		$this->assertContains('<option value="00">0</option>', $result);
-		$this->assertContains(
+		$this->assertStringContainsString('<select name="date[hour]" data-foo="test">', $result);
+		$this->assertStringContainsString('<option value="00">0</option>', $result);
+		$this->assertStringContainsString(
 			'<option value="01">1</option>',
 			$result,
 			'contain 1 am'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="05">5</option>',
 			$result,
 			'contain 5 am'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="13" selected="selected">13</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertContains('<option value="23">23</option>', $result);
-		$this->assertNotContains('date[day]', $result, 'No day select.');
-		$this->assertNotContains('value="0"', $result, 'No zero hour');
-		$this->assertNotContains('value="24"', $result, 'No 25th hour');
-		$this->assertNotContains('<select name="date[meridian]">', $result);
-		$this->assertNotContains('<option value="pm" selected="selected">pm</option>', $result);
+		$this->assertStringContainsString('<option value="23">23</option>', $result);
+		$this->assertStringNotContainsString('date[day]', $result, 'No day select.');
+		$this->assertStringNotContainsString('value="0"', $result, 'No zero hour');
+		$this->assertStringNotContainsString('value="24"', $result, 'No 25th hour');
+		$this->assertStringNotContainsString('<select name="date[meridian]">', $result);
+		$this->assertStringNotContainsString('<option value="pm" selected="selected">pm</option>', $result);
 	}
 
 	/**
@@ -730,11 +730,11 @@ class DateTimeWidgetTest extends TestCase {
 			'val' => $now,
 		];
 		$result = $this->DateTime->render($data, $this->context);
-		$this->assertContains('<option value="23" selected="selected">23</option>', $result);
+		$this->assertStringContainsString('<option value="23" selected="selected">23</option>', $result);
 
 		$data['val'] = '2010-09-09 23:00:00';
 		$result = $this->DateTime->render($data, $this->context);
-		$this->assertContains('<option value="23" selected="selected">23</option>', $result);
+		$this->assertStringContainsString('<option value="23" selected="selected">23</option>', $result);
 	}
 
 	/**
@@ -757,32 +757,32 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'val' => $now,
 		], $this->context);
-		$this->assertContains('<select name="date[hour]" data-foo="test">', $result);
-		$this->assertContains(
+		$this->assertStringContainsString('<select name="date[hour]" data-foo="test">', $result);
+		$this->assertStringContainsString(
 			'<option value="01" selected="selected">1</option>',
 			$result,
 			'contain 1pm selected'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="05">5</option>',
 			$result,
 			'contain 5'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="12">12</option>',
 			$result,
 			'contain 12'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="13">13</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertNotContains('date[day]', $result, 'No day select.');
-		$this->assertNotContains('value="0"', $result, 'No zero hour');
+		$this->assertStringNotContainsString('date[day]', $result, 'No day select.');
+		$this->assertStringNotContainsString('value="0"', $result, 'No zero hour');
 
-		$this->assertContains('<select name="date[meridian]">', $result);
-		$this->assertContains('<option value="pm" selected="selected">pm</option>', $result);
+		$this->assertStringContainsString('<select name="date[meridian]">', $result);
+		$this->assertStringContainsString('<option value="pm" selected="selected">pm</option>', $result);
 	}
 
 	/**
@@ -801,7 +801,7 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'meridian' => ['empty' => '--'],
 		], $this->context);
-		$this->assertContains('<option value="" selected="selected">--</option>', $result);
+		$this->assertStringContainsString('<option value="" selected="selected">--</option>', $result);
 		$this->assertNotRegExp('/value="\d+" selected="selected"/', $result);
 	}
 
@@ -824,7 +824,7 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'val' => $now,
 		], $this->context);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="12" selected="selected">12</option>',
 			$result,
 			'12 is selected'
@@ -851,28 +851,28 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'val' => $now,
 		], $this->context);
-		$this->assertContains('<select name="date[hour]">', $result);
-		$this->assertContains(
+		$this->assertStringContainsString('<select name="date[hour]">', $result);
+		$this->assertStringContainsString(
 			'<option value="08">8</option>',
 			$result,
 			'contains 8am'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="12">12</option>',
 			$result,
 			'contains 8am'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="01">1</option>',
 			$result,
 			'no 1 am'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="07">7</option>',
 			$result,
 			'contain 7'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="13" selected="selected">13</option>',
 			$result,
 			'selected value present'
@@ -898,28 +898,28 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'val' => $now,
 		], $this->context);
-		$this->assertContains('<select name="date[minute]" data-foo="test">', $result);
-		$this->assertContains(
+		$this->assertStringContainsString('<select name="date[minute]" data-foo="test">', $result);
+		$this->assertStringContainsString(
 			'<option value="00">00</option>',
 			$result,
 			'contains 00'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
 			'contains 05'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="59">59</option>',
 			$result,
 			'contains 59'
 		);
-		$this->assertNotContains('value="60"', $result, 'No 60 value');
+		$this->assertStringNotContainsString('value="60"', $result, 'No 60 value');
 	}
 
 	/**
@@ -943,39 +943,39 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'val' => $now,
 		], $this->context);
-		$this->assertContains('<select name="date[minute]" data-foo="test">', $result);
-		$this->assertContains(
+		$this->assertStringContainsString('<select name="date[minute]" data-foo="test">', $result);
+		$this->assertStringContainsString(
 			'<option value="">-</option>',
 			$result,
 			'contains empty option -'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="00" selected="selected">00</option>',
 			$result,
 			'selected value present and correct at 00'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
 			'contains 05'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="25">25</option>',
 			$result,
 			'contains 25'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="59">59</option>',
 			$result,
 			'contains 59'
 		);
-		$this->assertNotContains(
+		$this->assertStringNotContainsString(
 			'<option value="" selected="selected">-</option>',
 			$result,
 			'No 0 value as empty value'
 		);
-		$this->assertNotContains('value="0"', $result, 'No unpadded 0 value');
-		$this->assertNotContains('value="60"', $result, 'No 60 value');
+		$this->assertStringNotContainsString('value="0"', $result, 'No unpadded 0 value');
+		$this->assertStringNotContainsString('value="60"', $result, 'No 60 value');
 	}
 
 	/**
@@ -997,32 +997,32 @@ class DateTimeWidgetTest extends TestCase {
 			'second' => false,
 			'val' => $now,
 		], $this->context);
-		$this->assertContains('<select name="date[minute]">', $result);
-		$this->assertContains(
+		$this->assertStringContainsString('<select name="date[minute]">', $result);
+		$this->assertStringContainsString(
 			'<option value="00">00</option>',
 			$result,
 			'contains 00'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
 			'contains 05'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="55">55</option>',
 			$result,
 			'contains 55'
 		);
-		$this->assertNotContains('value="2"', $result, 'No 2 value');
-		$this->assertNotContains('value="23"', $result, 'No 23 value');
-		$this->assertNotContains('value="58"', $result, 'No 58 value');
-		$this->assertNotContains('value="59"', $result, 'No 59 value');
-		$this->assertNotContains('value="60"', $result, 'No 60 value');
+		$this->assertStringNotContainsString('value="2"', $result, 'No 2 value');
+		$this->assertStringNotContainsString('value="23"', $result, 'No 23 value');
+		$this->assertStringNotContainsString('value="58"', $result, 'No 58 value');
+		$this->assertStringNotContainsString('value="59"', $result, 'No 59 value');
+		$this->assertStringNotContainsString('value="60"', $result, 'No 60 value');
 	}
 
 	/**
@@ -1046,21 +1046,21 @@ class DateTimeWidgetTest extends TestCase {
 			'val' => $now,
 		];
 		$result = $this->DateTime->render($data, $this->context);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertNotContains('value="23"', $result, 'No 23 value');
+		$this->assertStringNotContainsString('value="23"', $result, 'No 23 value');
 
 		$data['minute']['round'] = 'down';
 		$result = $this->DateTime->render($data, $this->context);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="20" selected="selected">20</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertNotContains('value="23"', $result, 'No 23 value');
+		$this->assertStringNotContainsString('value="23"', $result, 'No 23 value');
 	}
 
 	/**
@@ -1082,12 +1082,12 @@ class DateTimeWidgetTest extends TestCase {
 			'val' => $now,
 		], $this->context);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="00" selected="selected">00</option>',
 			$result,
 			'selected minute present'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="10" selected="selected">10</option>',
 			$result,
 			'selected day present'
@@ -1113,34 +1113,34 @@ class DateTimeWidgetTest extends TestCase {
 			],
 			'val' => $now,
 		], $this->context);
-		$this->assertContains('<select name="date[second]" data-foo="test">', $result);
-		$this->assertContains(
+		$this->assertStringContainsString('<select name="date[second]" data-foo="test">', $result);
+		$this->assertStringContainsString(
 			'<option value="00">00</option>',
 			$result,
 			'contains 00'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="01">01</option>',
 			$result,
 			'contains 01'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
 			'contains 05'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
 			'selected value present'
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<option value="59">59</option>',
 			$result,
 			'contains 59'
 		);
-		$this->assertNotContains('value="0"', $result, 'No unpadded zero value');
-		$this->assertNotContains('value="60"', $result, 'No 60 value');
+		$this->assertStringNotContainsString('value="0"', $result, 'No unpadded zero value');
+		$this->assertStringNotContainsString('value="60"', $result, 'No 60 value');
 	}
 
 	/**
@@ -1222,11 +1222,11 @@ class DateTimeWidgetTest extends TestCase {
 			],
 		], $this->context);
 
-		$this->assertContains('<option data-o="not-default" value="2015">2015</option>', $result);
-		$this->assertContains('<option data-o="o-val" value="01">January</option>', $result);
-		$this->assertContains('<select data-s="s-val" name="date[year]">', $result);
-		$this->assertContains('<select data-s="s-val" name="date[month]">', $result);
-		$this->assertContains('</select>some help', $result);
+		$this->assertStringContainsString('<option data-o="not-default" value="2015">2015</option>', $result);
+		$this->assertStringContainsString('<option data-o="o-val" value="01">January</option>', $result);
+		$this->assertStringContainsString('<select data-s="s-val" name="date[year]">', $result);
+		$this->assertStringContainsString('<select data-s="s-val" name="date[month]">', $result);
+		$this->assertStringContainsString('</select>some help', $result);
 	}
 
 	/**

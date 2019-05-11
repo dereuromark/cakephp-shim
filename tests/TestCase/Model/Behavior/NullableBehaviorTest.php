@@ -24,7 +24,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->Table = TableRegistry::get('Nullables');
@@ -55,7 +55,7 @@ class NullableBehaviorTest extends TestCase {
 			'string_optional' => null,
 			'string_required' => '',
 			'active_optional' => null,
-			'active_required' => false,
+			'active_required' => null,
 			'datetime_optional' => null,
 			'datetime_required' => null,
 			'nullable_tenant' => null,
@@ -86,7 +86,7 @@ class NullableBehaviorTest extends TestCase {
 			'string_optional' => null,
 			'string_required' => '',
 			'active_optional' => null,
-			'active_required' => false,
+			'active_required' => null,
 			'datetime_optional' => null,
 			'datetime_required' => null,
 			'tenant' => ['id' => 1],

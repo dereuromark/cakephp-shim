@@ -62,7 +62,6 @@ class ConfigureHelper extends Helper {
 	 *
 	 * @param string $name Variable to obtain. Use '.' to access array elements.
 	 * @return mixed Value stored in configure.
-	 * @throws \RuntimeException if the requested configuration is not set.
 	 */
 	public function readOrFail($name) {
 		return Configure::readOrFail($name);

@@ -3,9 +3,11 @@ namespace Shim\Test\TestCase\Model\Table;
 
 use Cake\Core\Configure;
 use Cake\Database\ValueBinder;
+use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
+use InvalidArgumentException;
 use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 
@@ -36,7 +38,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Configure::write('App.namespace', 'TestApp');
@@ -51,7 +53,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		Configure::delete('Shim');
 
 		parent::tearDown();
@@ -96,12 +98,11 @@ class TableTest extends TestCase {
 	}
 
 	/**
-	 * ShimModelTest::testGetFail()
-	 *
-	 * @expectedException \Cake\Datasource\Exception\RecordNotFoundException
 	 * @return void
 	 */
 	public function testGetFail() {
+		$this->expectException(RecordNotFoundException::class);
+
 		$this->Posts->get(2222);
 	}
 
@@ -355,16 +356,6 @@ class TableTest extends TestCase {
 	}
 
 	/**
-	 * Shim support for exists and primary key directly.
-	 *
-	 * @return void
-	 */
-	public function testExistsById() {
-		$result = $this->Posts->existsById(1);
-		$this->assertTrue($result);
-	}
-
-	/**
 	 * Shim support for 2.x relation arrays
 	 *
 	 * @return void
@@ -465,7 +456,6 @@ class TableTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \InvalidArgumentException
 	 * @return void
 	 */
 	public function testSaveStrict() {
@@ -473,6 +463,9 @@ class TableTest extends TestCase {
 
 		$wheel = $this->Wheels->newEntity(['position' => '']);
 		$this->assertNotSame([], $wheel->getErrors());
+
+		$this->expectException(InvalidArgumentException::class);
+
 		$this->Wheels->save($wheel, ['strict' => true]);
 	}
 

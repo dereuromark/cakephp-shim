@@ -4,6 +4,7 @@ namespace Shim\Test\TestCase\View\Helper;
 use Cake\Core\Configure;
 use Cake\TestSuite\TestCase;
 use Cake\View\View;
+use RuntimeException;
 use Shim\View\Helper\ConfigureHelper;
 
 /**
@@ -19,7 +20,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->_View = new View();
 		$this->_Configure = new ConfigureHelper($this->_View);
@@ -28,7 +29,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		unset($this->_View, $this->_Configure);
 		parent::tearDown();
 	}
@@ -84,10 +85,11 @@ class ConfigureHelperTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \RuntimeException
 	 * @return void
 	 */
 	public function testReadOrFailFail() {
+		$this->expectException(RuntimeException::class);
+
 		$this->_Configure->readOrFail('Deeply.nested.key');
 	}
 

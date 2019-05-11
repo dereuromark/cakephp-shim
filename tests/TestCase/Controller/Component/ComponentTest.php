@@ -22,7 +22,7 @@ class ComponentTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		$this->Controller = new Controller(new ServerRequest());
 		$this->ComponentRegistry = new ComponentRegistry($this->Controller);
 	}

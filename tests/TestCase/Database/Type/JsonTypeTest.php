@@ -5,6 +5,7 @@ namespace Shim\Test\TestCase\Database\Type;
 use Cake\Database\Driver\Mysql;
 use Cake\Database\Type;
 use Cake\ORM\TableRegistry;
+use PDOException;
 use Shim\Database\Type\JsonType;
 use Shim\TestSuite\TestCase;
 use TestApp\Model\Table\JsonTypesTable;
@@ -28,7 +29,7 @@ class JsonTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Type::map('json', JsonType::class);
@@ -42,7 +43,7 @@ class JsonTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->Table);
@@ -96,7 +97,6 @@ class JsonTypeTest extends TestCase {
 	/**
 	 * data_required as not null field should throw "Column 'data_required' cannot be null" exception
 	 *
-	 * @expectedException \PDOException
 	 * @return void
 	 */
 	public function testSaveNullInvalid() {
@@ -108,6 +108,8 @@ class JsonTypeTest extends TestCase {
 		$entity = $this->Table->newEntity($data);
 		$result = $this->Table->save($entity);
 		$this->assertTrue((bool)$result);
+
+		$this->expectException(PDOException::class);
 
 		$this->Table->get($entity->id);
 	}

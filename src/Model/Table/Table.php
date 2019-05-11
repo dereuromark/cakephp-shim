@@ -12,7 +12,6 @@ use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use Exception;
 use InvalidArgumentException;
-use RuntimeException;
 
 class Table extends CoreTable {
 
@@ -328,24 +327,6 @@ class Table extends CoreTable {
 			return null;
 		}
 		return $result->get($name);
-	}
-
-	/**
-	 * 2.x shim for exists() and primary key.
-	 *
-	 * @deprecated Not usable as array, only for single primary keys. Use exists() directly.
-	 * @param int $id
-	 * @return bool
-	 */
-	public function existsById($id) {
-		$primaryKey = $this->getPrimaryKey();
-		if (is_array($primaryKey)) {
-			throw new RuntimeException('Not supported with multiple primary keys');
-		}
-		$conditions = [
-			$primaryKey => $id
-		];
-		return parent::exists($conditions);
 	}
 
 	/**
