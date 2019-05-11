@@ -121,7 +121,7 @@ Table:saveAll() wraps saving multiple entities. Optionally, you can wrap them to
 ```php
 // In a controller.
 $articles->connection()->transactional(function () use ($articles, $entities) {
-	$articles->saveAll($entities, ['atomic' => false]);
+    $articles->saveAll($entities, ['atomic' => false]);
 }
 ```
 
@@ -136,7 +136,7 @@ Add the trait first:
 use Shim\Model\Entity\ReadTrait;
 
 class MyEntity extends Entity {
-	use ReadTrait;
+    use ReadTrait;
 ```
 
 Then you can use it like this:
@@ -156,15 +156,15 @@ Add the trait first:
 use Shim\Model\Entity\GetTrait;
 
 class MyEntity extends Entity {
-	use GetTrait;
+    use GetTrait;
 ```
 
 Use the included annotator to get all method annotations into your entities:
 ```php
 'IdeHelper' => [
-	'annotators' => [
-		\IdeHelper\Annotator\EntityAnnotator::class => \Shim\Annotator\EntityAnnotator::class,
-	],
+    'annotators' => [
+        \IdeHelper\Annotator\EntityAnnotator::class => \Shim\Annotator\EntityAnnotator::class,
+    ],
 ```
 This replaces the native one and adds support for these get methods on top.
 
@@ -179,9 +179,9 @@ The clean way would be to mark those columns as type `uuid` manually:
 ```php
 // In your Table class
 protected function _initializeSchema(Table $table) {
-	$table->columnType('id', 'uuid');
-	...
-	return $table;
+    $table->columnType('id', 'uuid');
+    ...
+    return $table;
 }
 ```
 
