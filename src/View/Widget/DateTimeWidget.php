@@ -204,7 +204,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Deconstructs the passed date value into all time units
 	 *
-	 * @param string|int|array|\DateTime|null $value Value to deconstruct.
+	 * @param string|int|bool|array|\DateTime|null $value Value to deconstruct.
 	 * @param array $options Options for conversion.
 	 * @return array
 	 */
@@ -219,6 +219,8 @@ class DateTimeWidget implements WidgetInterface {
 		try {
 			if (is_string($value) && !is_numeric($value)) {
 				$date = new DateTime($value);
+			} elseif (is_bool($value)) {
+				$date = new DateTime();
 			} elseif (is_int($value) || is_numeric($value)) {
 				$date = new DateTime('@' . $value);
 			} elseif (is_array($value)) {
