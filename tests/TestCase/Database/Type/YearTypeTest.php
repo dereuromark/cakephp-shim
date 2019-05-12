@@ -90,7 +90,7 @@ class YearTypeTest extends TestCase {
 		$entity = $this->Table->newEmptyEntity();
 		$Form->create($entity);
 		$html = $Form->control('year_of_birth', ['type' => 'year']);
-		$this->assertStringContainsString('<select name="year_of_birth[year]" type="year"', $html);
+		$this->assertStringContainsString('<select name="year_of_birth"', $html);
 		// <div class="input number"><label for="year-of-birth">Year Of Birth</label><input type="number" name="year_of_birth" id="year-of-birth"/></div>
 	}
 
