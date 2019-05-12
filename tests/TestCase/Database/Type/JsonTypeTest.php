@@ -106,12 +106,10 @@ class JsonTypeTest extends TestCase {
 			'data_required' => null,
 		];
 		$entity = $this->Table->newEntity($data);
-		$result = $this->Table->save($entity);
-		$this->assertTrue((bool)$result);
 
 		$this->expectException(PDOException::class);
 
-		$this->Table->get($entity->id);
+		$this->Table->save($entity);
 	}
 
 }

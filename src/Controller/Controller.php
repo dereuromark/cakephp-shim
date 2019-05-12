@@ -11,8 +11,6 @@ use Exception;
 
 /**
  * DRY Controller stuff
- *
- * @property \Shim\Controller\Component\SessionComponent $Session
  */
 class Controller extends CoreController {
 
