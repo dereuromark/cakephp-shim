@@ -19,8 +19,8 @@ trait CastTrait {
 	 * @return int|null
 	 */
 	protected function assertInt($integer) {
-		if ($integer === null) {
-			return $integer;
+		if ($integer === null || $integer === '') {
+			return null;
 		}
 
 		return $this->castInt($integer);
@@ -34,6 +34,9 @@ trait CastTrait {
 	 * @return int
 	 */
 	protected function castInt($integer) {
+		if ($integer === null || $integer === '') {
+			return 0;
+		}
 		if (!is_numeric($integer)) {
 			throw new BadRequestException('The given number is not numeric: ' . Debugger::exportVar($integer));
 		}
@@ -47,8 +50,8 @@ trait CastTrait {
 	 * @return float|null
 	 */
 	protected function assertFloat($float) {
-		if ($float === null) {
-			return $float;
+		if ($float === null || $float === '') {
+			return null;
 		}
 
 		return $this->castFloat($float);
@@ -62,6 +65,9 @@ trait CastTrait {
 	 * @return float
 	 */
 	protected function castFloat($float) {
+		if ($float === null || $float === '') {
+			return 0;
+		}
 		if (!is_numeric($float)) {
 			throw new BadRequestException('The given number is not numeric: ' . Debugger::exportVar($float));
 		}
@@ -90,6 +96,9 @@ trait CastTrait {
 	 * @return string
 	 */
 	protected function castString($string) {
+		if ($string === null) {
+			return '';
+		}
 		if (!is_scalar($string)) {
 			throw new BadRequestException('The given string is not scalar: ' . Debugger::exportVar($string));
 		}
@@ -103,8 +112,8 @@ trait CastTrait {
 	 * @return bool|null
 	 */
 	protected function assertBool($boolean) {
-		if ($boolean === null) {
-			return $boolean;
+		if ($boolean === null || $boolean === '') {
+			return null;
 		}
 
 		return $this->castBool($boolean);
@@ -118,6 +127,9 @@ trait CastTrait {
 	 * @return bool
 	 */
 	protected function castBool($boolean) {
+		if ($boolean === null) {
+			return false;
+		}
 		if (!is_scalar($boolean)) {
 			throw new BadRequestException('The given string is not scalar: ' . Debugger::exportVar($boolean));
 		}
@@ -140,8 +152,8 @@ trait CastTrait {
 	 * @return array|null
 	 */
 	protected function assertArray($array) {
-		if ($array === null) {
-			return $array;
+		if ($array === null || $array === '') {
+			return null;
 		}
 
 		return $this->castArray($array);
@@ -155,7 +167,10 @@ trait CastTrait {
 	 * @return array
 	 */
 	protected function castArray($array) {
-		if (!is_array($array) || !$array instanceof ArrayAccess) {
+		if ($array === null || $array === '') {
+			return [];
+		}
+		if (!is_array($array) && !$array instanceof ArrayAccess) {
 			throw new BadRequestException('The given string is not scalar: ' . Debugger::exportVar($array));
 		}
 
