@@ -9,6 +9,8 @@ you want it to match the signature of the method you pass it into.
 Especially if you introspect your code with static analyzers (like PHPStan), you will need this kind of additional
 type safety. Even more so if you enabled strict types.
 
+Static analyzer happiness included: "PHPStan level 7" approved.
+
 Add it at the top of your controller or globally in your AppController:
 ```php
 use Shim\Utility\CastTrait;

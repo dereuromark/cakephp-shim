@@ -1,5 +1,8 @@
 # Entity shims
 
+Static analyzer happiness included: "PHPStan level 7" approved.
+If you are looking into non-entity approaches, consider [DTOs](https://github.com/dereuromark/cakephp-dto).
+
 ## Entity read()
 You want to read nested properties of your entity, but you do not want tons of !empty() checks?
 ```
