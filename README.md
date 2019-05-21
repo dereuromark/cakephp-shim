@@ -10,12 +10,14 @@
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
 It also provides some small app-specific fixes.
 
-## This branch is for shimming 2.x in 3.x
+## This branch is for shimming 2.x in 3.x (and preparing for 4.x)
 It provides compatibility wrapper access to 2.x functionality in 3.x.
 
 This is mainly useful when upgrading large applications to the next major framework version.
 Tons of code needs to be adjusted, using this Shim plugin quite a few lines less need to be touched.
-Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working againc.
+Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working again.
+
+It also contains useful 4.x preparation shims.
 
 **This branch requires CakePHP 3.7+**
 
@@ -41,6 +43,9 @@ A full overview of all shimming between 2.x and 3.x can be found in the [Wiki](h
 - Still supports model properties `$primaryKey`, `$displayField`, `$order`, `$validate`, `$actsAs` and all
 relations (`$belongsTo`, `$hasMany`, ...) as it would be very time-consuming to
 manually adjust all those.
+
+## Bc shims for upgrading to 4.x
+- Controller referer() local security fix
 
 ## Helpful links
 When planning to upgrade, you should look into the [upgrade plugin for 2.x](https://github.com/dereuromark/cakephp-upgrade) and [upgrade app for 3.x](https://github.com/dereuromark/upgrade). They both extend the core ones and contain tons of more ideas on how to get code aligned with the current direction of the framework to reduce friction in the long run.

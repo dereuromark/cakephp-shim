@@ -42,6 +42,16 @@ class Controller extends CoreController {
 	}
 
 	/**
+	 * @param string|array|null $default
+	 * @param bool $local
+	 *
+	 * @return string Referring URL
+	 */
+	public function referer($default = null, $local = true) {
+		return parent::referer($default, $local);
+	}
+
+	/**
 	 * Add headers for IE8 etc to fix caching issues in those stupid browsers
 	 *
 	 * @return void
