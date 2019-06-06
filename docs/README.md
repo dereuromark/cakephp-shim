@@ -26,6 +26,10 @@ Helper
 Routing
 - [Inflected route](Routing/Inflected.md)
 
+## Deprecation help
+The following deprecation warnings help with 3.x => 4.x:
+
+- [Url helper](View/Url.md)
 
 ## ORM
 ### Table
