@@ -44,8 +44,11 @@ A full overview of all shimming between 2.x and 3.x can be found in the [Wiki](h
 relations (`$belongsTo`, `$hasMany`, ...) as it would be very time-consuming to
 manually adjust all those.
 
-## Bc shims for upgrading to 4.x
+## BC shims for upgrading to 4.x
 - Controller referer() local security fix
+
+## Deprecation help (for 3.x => 4.x)
+- `UrlHelper::build()`
 
 ## Helpful links
 When planning to upgrade, you should look into the [upgrade plugin for 2.x](https://github.com/dereuromark/cakephp-upgrade) and [upgrade app for 3.x](https://github.com/dereuromark/upgrade). They both extend the core ones and contain tons of more ideas on how to get code aligned with the current direction of the framework to reduce friction in the long run.
