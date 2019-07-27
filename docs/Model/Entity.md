@@ -14,6 +14,7 @@ Add the trait first:
 use Shim\Model\Entity\ReadTrait;
 
 class MyEntity extends Entity {
+
     use ReadTrait;
 ```
 
@@ -34,6 +35,7 @@ Add the trait first:
 use Shim\Model\Entity\GetTrait;
 
 class MyEntity extends Entity {
+
     use GetTrait;
 ```
 
