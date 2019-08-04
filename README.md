@@ -15,9 +15,9 @@ It provides compatibility wrapper access to 3.x functionality in 4.x.
 
 This is mainly useful when upgrading large applications to the next major framework version.
 Tons of code needs to be adjusted, using this Shim plugin quite a few lines less need to be touched.
-Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working againc.
+Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working again.
 
-**This branch requires CakePHP 4.0+**
+This branch is for use with **CakePHP 4.0+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 ## Installation
 Please see [SETUP.md](docs/SETUP.md)

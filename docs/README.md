@@ -3,6 +3,26 @@
 ## Preconditions
 See [Preconditions](Preconditions.md).
 
+## Main shims
+These will most likely all be ported over to future releases.
+
+Controller
+- [Asserting/Casting](Controller/CastTrait.md)
+
+Model
+- [Entity Get/Fail](Model/Entity.md)
+- [Nullable](Model/Nullable.md)
+
+## BC shims
+The following shims are only in place for 3.x => 4.x and can possibly be removed in the future.
+
+Helper
+- [Configure helper](View/Configure.md)
+- [Cookie helper](View/Cookie.md)
+
+Inflector
+- `Inflector::slug()`
+
 ## ORM
 ### Table
 Extend the Shim plugin Table class to get the functionality:
@@ -40,15 +60,6 @@ namespace App\Model\Table;
 class MyTable extends Table {
 }
 ```
-
-### Nullable Behavior
-You should attach the following behavior for better data consistency:
-```php
-// In your Table
-$this->addBehavior('Shim.Nullable');
-```
-This will make sure empty strings posted will respect the nullable type of the table schema.
-
 
 ## Controller
 ### Component
@@ -111,7 +122,7 @@ Sometimes it can be useful to have additional debug output, which will only be
 printed with one of the above verbose flags set. This is a quick convenience wrapper to do so.
 
 
-### Features
+### Additional Features
 See [Features](Features.md).
 
 ### Not Shimmed

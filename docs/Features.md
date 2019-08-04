@@ -24,48 +24,6 @@ class MyComponent extends Component {
 }
 ```
 
-### Session component shim
-The session should be used directly via `$this->request->getSession()` object.
-But when upgrading you might want to keep the old way until you can refactor it fully:
-```php
-public $components = array('Shim.Session');
-```
-and you don't have to change your code.
-
-
-## Helper
-
-### Session helper shim
-The session should be used directly via `$this->request->getSession()` object.
-But when upgrading you might want to keep the old way until you can refactor it fully:
-```php
-public $helpers = array('Shim.Session');
-```
-and you don't have to change your code.
-Note that this Session helper also provides an additional `consume()` method on top.
-
-### Configure helper shim
-For static access you would usually need to include use statements in the files itself.
-
-You can either replace them with the FQCN, use
-```php
-class_alias('Cake\Core\Configure', 'Configure');
-```
-in your bootstrap to continue to use the 2.x static Configure access in your templates, or you can
-use the `Configure` helper and preg replace the static with a dynamic call:
-```php
-public $helpers = array('Shim.Configure');
-```
-Then you access the Configure class this way:
-```php
-$this->Configure->read($name)
-$this->Configure->check($name)
-$this->Configure->consume($name)
-$this->Configure->readOrFail($name)
-```
-The aliasing has the disadvantage that you cannot use another class with that name.
-In general it is usually best to move the logic here out of the template, though. At least in some later cleanup step then.
-
 ## Model
 By using the Shim plugin Table class you can instantly re-use some 2.x behaviors.
 This is super-useful when upgrading a very large codebase and you first need to get it to
@@ -124,49 +82,7 @@ $articles->connection()->transactional(function () use ($articles, $entities) {
     $articles->saveAll($entities, ['atomic' => false]);
 }
 ```
-
-### Entity read()
-You want to read nested properties of your entity, but you do not want tons of !empty() checks?
-```
-if (!empty($entity->tags && !empty($entity->tags[2]->name)) {} else {}
-```
-
-Add the trait first:
-```php
-use Shim\Model\Entity\ReadTrait;
-
-class MyEntity extends Entity {
-    use ReadTrait;
-```
-
-Then you can use it like this:
-```php
-echo $entity->read('tags.2.name', $default);
-```
-
-This means, you are OK with part of the path being empty/null.
-If you want the opposite, making sure all required fields in the path are present, check the next part about getOrFail().
-
-### Entity get...OrFail()
-You want to use "asserted return values" or "safe chaining" in your entities?
-Then you want to ensure you are not getting null values returned where you expect actual values.
-
-Add the trait first:
-```php
-use Shim\Model\Entity\GetTrait;
-
-class MyEntity extends Entity {
-    use GetTrait;
-```
-
-Use the included annotator to get all method annotations into your entities:
-```php
-'IdeHelper' => [
-    'annotators' => [
-        \IdeHelper\Annotator\EntityAnnotator::class => \Shim\Annotator\EntityAnnotator::class,
-    ],
-```
-This replaces the native one and adds support for these get methods on top.
+Note: In 4x. this will be coming as `saveMany()`/`saveManyOrFail()`.
 
 
 ## Database
@@ -197,34 +113,8 @@ Type::map('binary', 'Shim\Database\Type\BinaryType');
 Note: BINARY(16) would even be more performant, but then you would need to manually hex() and unhex() directly in the database.
 So at this point this cannot be supported yet.
 
-## Route
-InflectedRoute as proper replacement when upgrading from 2.x.
-The core one still expects method names for actions as `foo_bar()` underscored, which does not make sense (not only because of PSR).
-This `Shim.InflectedRoute` class will work with the same method naming scheme as all other routes in 3.x: `fooBar()` camelBacked actions as method names.
-
-So in your routes.php class:
-```php
-// At the top of the file
-Router::defaultRouteClass('Shim.InflectedRoute');
-
-// Also any other mentioned class name
-..., ['routeClass' => 'Shim.InflectedRoute']
-```
-
-`/plugin_name/controller_name/action_name` now maps to PluginName plugin and `ControllerName::actionName()`.
-The array to form such a URL is like with Dashed routing: `['plugin' => 'PluginName', 'controller' => 'ControllerName', 'action' => 'actionName']`
-
 ## Utility
 
 ### Set
 Set class has been removed in favor of Hash. `pushDiff()` method has been dropped completely, though.
 The Shim Set class provides this for easier migration.
-
-### Session
-The CakeSession in 2.x was static, and often times abused in the model layer to make them stateful.
-While it is recommended to get the 2.x app model layer stateless prior to upgrading, sometimes this is not easily doable.
-If during an upgrade it is necessary to shim this a little while longer, you can use the Session class, which allows
-static access from the model layer.
-This must be a temporary workaround only, though. Also note that you must invoke the session via regular non-static access prior to using
-the static access, so be sure to have at least one `$this->request->getSession()->read(...)` call in your beforeFilter() to enable
-session  in your application before any model tries to use the static shim wrapper.

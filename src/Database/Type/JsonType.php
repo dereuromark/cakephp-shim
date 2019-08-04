@@ -2,7 +2,7 @@
 
 namespace Shim\Database\Type;
 
-use Cake\Database\Driver;
+use Cake\Database\DriverInterface;
 use Cake\Database\Type\JsonType as CoreJsonType;
 
 /**
@@ -19,11 +19,11 @@ class JsonType extends CoreJsonType {
 
 	/**
 	 * @param mixed $value
-	 * @param \Cake\Database\Driver $driver
+	 * @param \Cake\Database\DriverInterface $driver
 	 *
 	 * @return string|null
 	 */
-	public function toDatabase($value, Driver $driver): ?string {
+	public function toDatabase($value, DriverInterface $driver): ?string {
 		if ($value === null) {
 			return null;
 		}

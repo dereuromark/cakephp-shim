@@ -20,20 +20,16 @@ trait ReadTrait {
 	 *
 	 * Note: Hash::get($this->toArray(), $path, $default); would be simpler, but slower.
 	 *
-	 * @param string $path
+	 * @param string|array $path
 	 * @param mixed $default The return value when the path does not exist
 	 * @return mixed|null The value fetched from the entity, or null.
 	 */
 	public function read($path, $default = null) {
-		if (isset($this->$path)) {
-			return $this->$path;
+		if (!is_array($path)) {
+			$parts = explode('.', $path);
+		} else {
+			$parts = $path;
 		}
-
-		if (strpos($path, '.') === false) {
-			return $default;
-		}
-
-		$parts = explode('.', $path);
 
 		$data = null;
 		foreach ($parts as $key) {

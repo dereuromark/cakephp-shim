@@ -2,7 +2,7 @@
 
 namespace Shim\Database\Type;
 
-use Cake\Database\Driver;
+use Cake\Database\DriverInterface;
 use Cake\Database\Type\BaseType;
 use PDO;
 
@@ -29,10 +29,10 @@ class YearType extends BaseType {
 	 * As PDO will handle reading file handles.
 	 *
 	 * @param int|string|array|null $value The value to convert.
-	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
+	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return int|null
 	 */
-	public function toDatabase($value, Driver $driver) {
+	public function toDatabase($value, DriverInterface $driver) {
 		if (is_array($value)) {
 			$value = $value['year'];
 		}
@@ -46,11 +46,11 @@ class YearType extends BaseType {
 	 * Convert binary into resource handles
 	 *
 	 * @param null|string|resource $value The value to convert.
-	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
+	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return int|null
 	 * @throws \Cake\Core\Exception\Exception
 	 */
-	public function toPHP($value, Driver $driver) {
+	public function toPHP($value, DriverInterface $driver) {
 		if ($value === null || !(int)$value) {
 			return null;
 		}
@@ -61,10 +61,10 @@ class YearType extends BaseType {
 	 * Get the correct PDO binding type for Year data.
 	 *
 	 * @param mixed $value The value being bound.
-	 * @param \Cake\Database\Driver $driver The driver.
+	 * @param \Cake\Database\DriverInterface $driver The driver.
 	 * @return int
 	 */
-	public function toStatement($value, Driver $driver) {
+	public function toStatement($value, DriverInterface $driver) {
 		return PDO::PARAM_INT;
 	}
 
