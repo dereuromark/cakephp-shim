@@ -24,9 +24,9 @@ class TimeStringType extends Type {
 	public static $normalizeUpperBoundary = false;
 
 	/**
-	 * @param int|string|array|null $value The value to convert.
+	 * @param string|array|null $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
-	 * @return int|null
+	 * @return string|null
 	 */
 	public function toDatabase($value, Driver $driver) {
 		if (is_array($value)) {
