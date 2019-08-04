@@ -19,7 +19,7 @@ Especially the ORM layer, which would need heavy refactoring, requires a lot les
 
 It also contains useful 4.x preparation shims.
 
-**This branch requires CakePHP 3.7+**
+This branch is for use with **CakePHP 3.7+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 ## Installation
 Please see [SETUP.md](docs/SETUP.md)
