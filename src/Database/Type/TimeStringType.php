@@ -2,8 +2,8 @@
 
 namespace Shim\Database\Type;
 
-use Cake\Database\Driver;
-use Cake\Database\Type;
+use Cake\Database\DriverInterface;
+use Cake\Database\Type\BaseType;
 use PDO;
 
 /**
@@ -13,7 +13,7 @@ use PDO;
  * - Type::map('time', 'Shim\Database\Type\TimeStringType'); in bootstrap
  * - Manual FormHelper $this->Form->control('closing_time', ['type' => 'time']);
  */
-class TimeStringType extends Type {
+class TimeStringType extends BaseType {
 
 	/**
 	 * If 24:00:00 should be normalized to 00:00:00, defaults to false as this could change
@@ -25,10 +25,10 @@ class TimeStringType extends Type {
 
 	/**
 	 * @param string|array|null $value The value to convert.
-	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
+	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return string|null
 	 */
-	public function toDatabase($value, Driver $driver) {
+	public function toDatabase($value, DriverInterface $driver) {
 		if (is_array($value)) {
 			$value = $this->fromArray($value);
 		}
@@ -45,10 +45,27 @@ class TimeStringType extends Type {
 	 * Convert binary into resource handles
 	 *
 	 * @param string|null $value The value to convert.
-	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
+	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return string|null
 	 */
-	public function toPHP($value, Driver $driver) {
+	public function toPHP($value, DriverInterface $driver) {
+		if ($value === null) {
+			return null;
+		}
+		return $value;
+	}
+
+	/**
+	 * @param mixed $value The value to convert.
+	 * @return mixed Converted value.
+	 */
+	public function marshal($value) {
+		if (is_array($value)) {
+			$value = $this->fromArray($value);
+		}
+		if ($value !== null) {
+			$value = $this->normalize($value);
+		}
 		if ($value === null) {
 			return null;
 		}
@@ -59,10 +76,10 @@ class TimeStringType extends Type {
 	 * Get the correct PDO binding type for time data.
 	 *
 	 * @param mixed $value The value being bound.
-	 * @param \Cake\Database\Driver $driver The driver.
+	 * @param \Cake\Database\DriverInterface $driver The driver.
 	 * @return int
 	 */
-	public function toStatement($value, Driver $driver) {
+	public function toStatement($value, DriverInterface $driver) {
 		return PDO::PARAM_STR;
 	}
 
