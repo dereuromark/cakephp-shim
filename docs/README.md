@@ -13,6 +13,12 @@ Model
 - [Entity Get/Fail](Model/Entity.md)
 - [Nullable](Model/Nullable.md)
 
+Database
+- [UUID type](Database/Uuid.md)
+- [Time type](Database/Time.md)
+- [Year type](Database/Year.md)
+- [Json type](Database/Json.md)
+
 ## BC shims
 The following shims are only in place for 3.x => 4.x and can possibly be removed in the future.
 
