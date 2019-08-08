@@ -571,7 +571,6 @@ class Table extends CoreTable {
 		return $query;
 	}
 
-
 	/**
 	 * This creates a new entity object.
 	 *
