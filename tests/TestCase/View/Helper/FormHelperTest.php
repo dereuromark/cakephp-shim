@@ -1314,6 +1314,7 @@ class FormHelperTest extends TestCase {
 	public function testControlLabelFalse() {
 		$this->Form->create($this->article);
 		$result = $this->Form->control('title', ['label' => false]);
+		/*
 		$expected = [
 			'div' => ['class' => 'input text required'],
 			'input' => [
@@ -1321,12 +1322,15 @@ class FormHelperTest extends TestCase {
 				'required' => 'required',
 				'id' => 'title',
 				'name' => 'title',
-				'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;)',
-				'onvalid' => 'this.setCustomValidity(&#039;&#039;)',
+				'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;); if (!this.validity.valid) this.setCustomValidity(&#039;This field is required&#039;)',
+				'oninput' => 'this.setCustomValidity(&#039;&#039;)',
 			],
 			'/div',
 		];
 		$this->assertHtml($expected, $result);
+		*/
+		$expected = '<div class="input text required"><input type="text" name="title" required="required" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.validity.valid) this.setCustomValidity(&#039;This field is required&#039;)" oninput="this.setCustomValidity(&#039;&#039;)" id="title"/></div>';
+		$this->assertSame($expected, $result);
 	}
 
 	/**
