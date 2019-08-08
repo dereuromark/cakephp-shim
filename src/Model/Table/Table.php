@@ -571,6 +571,22 @@ class Table extends CoreTable {
 		return $query;
 	}
 
+
+	/**
+	 * This creates a new entity object.
+	 *
+	 * Careful: This does not trigger any field validation.
+	 * This entity can be persisted without validation error as empty record.
+	 * Always patch in required fields before saving.
+	 *
+	 * 4.x shim into 3.x to already adjust your code future proof.
+	 *
+	 * @return \Cake\Datasource\EntityInterface
+	 */
+	public function newEmptyEntity() {
+		return $this->newEntity();
+	}
+
 	/**
 	 * Prefixes the order property with the actual alias if its a string or array.
 	 *

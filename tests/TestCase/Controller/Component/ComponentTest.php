@@ -7,9 +7,6 @@ use Cake\Http\ServerRequest;
 use Shim\Controller\Component\Component;
 use Shim\TestSuite\TestCase;
 
-/**
- * SessionComponentTest class
- */
 class ComponentTest extends TestCase {
 
 	/**

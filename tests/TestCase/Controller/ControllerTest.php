@@ -7,8 +7,6 @@ use Cake\ORM\Entity;
 use Cake\TestSuite\TestCase;
 use Shim\Controller\Controller;
 
-/**
- */
 class ControllerTest extends TestCase {
 
 	/**

@@ -10,9 +10,6 @@ use Cake\Routing\DispatcherFactory;
 use Shim\Controller\Component\SessionComponent;
 use Shim\TestSuite\TestCase;
 
-/**
- * SessionComponentTest class
- */
 class SessionComponentTest extends TestCase {
 
 	/**

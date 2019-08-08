@@ -32,6 +32,13 @@ Helper
 Routing
 - [Inflected route](Routing/Inflected.md)
 
+## FC shims
+The following shims are only in place for 3.x => 4.x and help easing migration by reducing the diff between those versions.
+Often functionality or methods are backported here to already use in 3.x code.
+
+- `Cake\ORM\Table::newEmptyEntity()` method available
+- Controller referer() local security fix
+
 ## Deprecation help
 The following deprecation warnings help with 3.x => 4.x:
 

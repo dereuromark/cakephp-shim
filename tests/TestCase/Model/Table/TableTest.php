@@ -475,4 +475,14 @@ class TableTest extends TestCase {
 		$this->Wheels->save($wheel, ['strict' => true]);
 	}
 
+	/**
+	 * Test 4.x newEmptyEntity() shim method in 3.x.
+	 *
+	 * @return void
+	 */
+	public function testNewEmptyEntity() {
+		$entity = $this->Posts->newEmptyEntity();
+		$this->assertInstanceOf(Entity::class, $entity);
+	}
+
 }
