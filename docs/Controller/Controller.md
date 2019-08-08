@@ -1,14 +1,11 @@
 # Controller shims
 
-## Referer defaults to local
+## BC shims
+You can also use `disableCache()` to auto-include `'Pragma' => 'no-cache'` which
+shims it for older (IE) version to work there, as well.
 
-A security improvement that has been shimmed back from 4.x.:
-Local referers are only considered by default.
+Using `Configure::read('Shim.monitorHeaders')` you can monitor if all headers are properly
+set via Response class and not for some reason sent prior to that.
 
-As soon as you use the Shim Component you activate this and you manually need to disable it, e.g. by setting the 2nd argument to `false`:
-```php
-$this->referer($url, false);
-```
-
-For most of your (internal) redirecting, nothing changes.
-For any external or subdomain referring, check what has to be manually whitelisted, and do so carefully.1
+Using `Configure::read('Shim.assertActionNames')` you can assert that all controller actions
+have been properly migrated to the new camelBacked naming scheme. They must not be underscored anymore for DashedRoute setup.

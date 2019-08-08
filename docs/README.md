@@ -8,10 +8,12 @@ These will most likely all be ported over to future releases.
 
 Controller
 - [Asserting/Casting](Controller/CastTrait.md)
+- [Component shims](Controller/Component.md)
 
 Model
+- [Table shim](Model/Table.md)
 - [Entity Get/Fail](Model/Entity.md)
-- [Nullable](Model/Nullable.md)
+- [Nullable behavior](Model/Nullable.md)
 
 Database
 - [UUID type](Database/Uuid.md)
@@ -25,6 +27,9 @@ The following shims are only in place for 2.x => 3.x and can possibly be removed
 Session
 - [Session component/helper](Session/Session.md)
 
+Controller
+- [Controller shims](Controller/Controller.md)
+
 Helper
 - [Configure helper](View/Configure.md)
 - [Cookie helper](View/Cookie.md)
@@ -32,12 +37,18 @@ Helper
 Routing
 - [Inflected route](Routing/Inflected.md)
 
+- Utility
+- [Set class](Utility/Set.md)
+
 ## FC shims
 The following shims are only in place for 3.x => 4.x and help easing migration by reducing the diff between those versions.
 Often functionality or methods are backported here to already use in 3.x code.
 
-- `Cake\ORM\Table::newEmptyEntity()` method available
-- Controller referer() local security fix
+Controller
+- [Referer Security Handling](Controller/Referer.md)
+
+Model
+- `Cake\ORM\Table::newEmptyEntity()` method available, see [Table](Model/Table.md).
 
 ## Deprecation help
 The following deprecation warnings help with 3.x => 4.x:
@@ -142,9 +153,6 @@ $this->debug($var);
 Sometimes it can be useful to have additional debug output, which will only be
 printed with one of the above verbose flags set. This is a quick convenience wrapper to do so.
 
-
-### Additional Features
-See [Features](Features.md).
 
 ### Not Shimmed
 See [NotShimmed](NotShimmed.md).
