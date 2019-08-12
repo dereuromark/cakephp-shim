@@ -55,6 +55,9 @@ The following deprecation warnings help with 3.x => 4.x:
 
 - [Url helper](View/Url.md)
 
+To quickly enable Shim deprecations: `Configure::write('Shim.deprecations', true);`
+
+
 ## ORM
 ### Table
 Extend the Shim plugin Table class to get the functionality:

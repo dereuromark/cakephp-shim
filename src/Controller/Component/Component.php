@@ -32,6 +32,7 @@ class Component extends CoreComponent {
 	 * @return void
 	 */
 	protected function _assertValidActionNames() {
+		/** @var string|false $parentClass */
 		$parentClass = get_parent_class($this->Controller);
 		if (!$parentClass) {
 			return;
@@ -39,7 +40,7 @@ class Component extends CoreComponent {
 		$parentClassMethods = get_class_methods($parentClass);
 		$subClassMethods = get_class_methods($this->Controller);
 		$classMethods = array_diff($subClassMethods, $parentClassMethods);
-debug(get_class($this->Controller)); ob_flush();
+
 		foreach ($classMethods as $classMethod) {
 			if (substr($classMethod, 0, 1) !== '_' && strpos($classMethod, '_') !== false) {
 				trigger_error('Invalid controller action name ' . $classMethod . ', no underscore expected, should be camelBacked.', E_USER_DEPRECATED);
