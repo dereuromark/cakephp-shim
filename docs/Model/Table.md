@@ -63,7 +63,7 @@ Note: In 4x. this will be coming as `saveMany()`/`saveManyOrFail()`.
 ## FC shims
 
 ### newEntity() vs newEmptyEntity()
-Null as first argument is not acceptected anymore in 4.x.
+Null as first argument is not accepted anymore in 4.x.
 
 `Cake\ORM\Table::newEmptyEntity()` method is available in 3.x to help making the code already future proof towards 4.x.
 
