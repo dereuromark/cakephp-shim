@@ -14,6 +14,7 @@ use Cake\Validation\Validator;
 use Exception;
 use InvalidArgumentException;
 use RuntimeException;
+use Shim\Config;
 
 class Table extends CoreTable {
 
@@ -593,10 +594,13 @@ class Table extends CoreTable {
 	 * Shim to help find newEntity() usage with null - as this is removed in 4.x.
 	 *
 	 * @see \Shim\Model\Table\Table::newEmptyEntity()
+	 *
+	 * @param array|null $data The data to build an entity with.
+	 * @param array $options A list of options for the object hydration.
+	 * @return \Cake\Datasource\EntityInterface
 	 */
-	public function newEntity($data = null, array $options = [])
-	{
-		if ($data === null && Configure::read('Shim.deprecations.newEntity')) {
+	public function newEntity($data = null, array $options = []) {
+		if ($data === null && Config::deprecations('newEntity')) {
 			trigger_error('newEntity() with null is deprecated (and removed in 4.x), use newEntityEmpty() instead.', E_USER_DEPRECATED);
 		}
 

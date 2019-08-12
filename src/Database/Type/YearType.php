@@ -55,8 +55,7 @@ class YearType extends Type implements TypeInterface {
 	 * @param int|string|array|null $value
 	 * @return int|null
 	 */
-	public function marshal($value)
-	{
+	public function marshal($value) {
 		if (is_array($value)) {
 			$value = $value['year'];
 		}

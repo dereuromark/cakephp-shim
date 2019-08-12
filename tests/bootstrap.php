@@ -40,6 +40,8 @@ Cake\Core\Configure::write('App', [
 
 Cake\Core\Configure::write('debug', true);
 
+require ROOT . DS . 'config/bootstrap.php';
+
 $cache = [
 	'default' => [
 		'engine' => 'File'
