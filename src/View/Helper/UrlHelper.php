@@ -2,6 +2,7 @@
 namespace Shim\View\Helper;
 
 use Cake\View\Helper\UrlHelper as CoreUrlHelper;
+use Shim\Deprecations;
 
 /**
  * Use this for better 4.x safety as this can alert you about deprecations.
@@ -24,8 +25,8 @@ class UrlHelper extends CoreUrlHelper {
 	 * @return string Full translated URL with base path.
 	 */
 	public function build($url = null, $options = false) {
-		if (!is_array($options)) {
-			trigger_error('The bool $options part is deprecated. Use an array here instead with `\'fullBase\' => true`.', E_USER_DEPRECATED);
+		if (!is_array($options) && Deprecations::enabled('urlBuild')) {
+			Deprecations::error('The bool $options part is deprecated. Use an array here instead with `\'fullBase\' => true`.');
 		}
 
 		return parent::build($url, $options);

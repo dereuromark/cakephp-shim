@@ -4,6 +4,7 @@ namespace Shim\Database\Type;
 
 use Cake\Database\Driver;
 use Cake\Database\Type;
+use Cake\Database\TypeInterface;
 use PDO;
 
 /**
@@ -13,7 +14,7 @@ use PDO;
  * - Type::map('year', 'Shim\Database\Type\YearType'); in bootstrap
  * - Manual FormHelper $this->Form->control('published', ['type' => 'year']);
  */
-class YearType extends Type {
+class YearType extends Type implements TypeInterface {
 
 	/**
 	 * Date format for DateTime object
@@ -23,27 +24,18 @@ class YearType extends Type {
 	protected $_format = 'Y';
 
 	/**
-	 * Convert binary data into the database format.
-	 *
-	 * Binary data is not altered before being inserted into the database.
-	 * As PDO will handle reading file handles.
+	 * Converts year data into the database format.
 	 *
 	 * @param int|string|array|null $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
 	 * @return int|null
 	 */
 	public function toDatabase($value, Driver $driver) {
-		if (is_array($value)) {
-			$value = $value['year'];
-		}
-		if ($value === null || !(int)$value) {
-			return null;
-		}
-		return $value;
+		return $this->marshal($value);
 	}
 
 	/**
-	 * Convert binary into resource handles
+	 * Converts DB year column into PHP int.
 	 *
 	 * @param null|string|resource $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
@@ -55,6 +47,22 @@ class YearType extends Type {
 			return null;
 		}
 		return (int)$value;
+	}
+
+	/**
+	 * Converts year data into the database format.
+	 *
+	 * @param int|string|array|null $value
+	 * @return int|null
+	 */
+	public function marshal($value) {
+		if (is_array($value)) {
+			$value = $value['year'];
+		}
+		if ($value === null || !(int)$value) {
+			return null;
+		}
+		return $value;
 	}
 
 	/**

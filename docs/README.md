@@ -55,6 +55,17 @@ The following deprecation warnings help with 3.x => 4.x:
 
 - [Url helper](View/Url.md)
 
+To quickly enable Shim deprecations: `Configure::write('Shim.deprecations', true);`
+
+If you need to customize the error type (defaults to `E_USER_DEPRECATED`), you can use 
+```php
+Configure::write('Shim.deprecationType', E_USER_NOTICE);
+```
+
+This is useful if you need to run your app with `'errorLevel' => E_ALL & ~E_USER_DEPRECATED` for other reasons
+and want to display this plugin's deprecations.
+
+
 ## ORM
 ### Table
 Extend the Shim plugin Table class to get the functionality:

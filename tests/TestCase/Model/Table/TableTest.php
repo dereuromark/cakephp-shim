@@ -481,8 +481,24 @@ class TableTest extends TestCase {
 	 * @return void
 	 */
 	public function testNewEmptyEntity() {
+		Configure::write('Shim.deprecations.newEntity', true);
+
 		$entity = $this->Posts->newEmptyEntity();
 		$this->assertInstanceOf(Entity::class, $entity);
+	}
+
+	/**
+	 * Test 4.x newEmptyEntity() shim method in 3.x.
+	 *
+	 * @return void
+	 */
+	public function testEmptyEntityDeprecated() {
+		Configure::write('Shim.deprecations.newEntity', true);
+
+		$this->deprecated(function () {
+			$entity = $this->Posts->newEntity();
+			$this->assertInstanceOf(Entity::class, $entity);
+		});
 	}
 
 }
