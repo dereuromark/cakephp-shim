@@ -2,7 +2,6 @@
 
 namespace Shim\Model\Table;
 
-use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
@@ -14,7 +13,7 @@ use Cake\Validation\Validator;
 use Exception;
 use InvalidArgumentException;
 use RuntimeException;
-use Shim\Config;
+use Shim\Deprecations;
 
 class Table extends CoreTable {
 
@@ -600,8 +599,8 @@ class Table extends CoreTable {
 	 * @return \Cake\Datasource\EntityInterface
 	 */
 	public function newEntity($data = null, array $options = []) {
-		if ($data === null && Config::deprecations('newEntity')) {
-			trigger_error('newEntity() with null is deprecated (and removed in 4.x), use newEntityEmpty() instead.', E_USER_DEPRECATED);
+		if ($data === null && Deprecations::enabled('newEntity')) {
+			Deprecations::error('newEntity() with null is deprecated (and removed in 4.x), use newEntityEmpty() instead.');
 		}
 
 		return parent::newEntity($data, $options);

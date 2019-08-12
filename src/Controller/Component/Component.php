@@ -3,7 +3,7 @@ namespace Shim\Controller\Component;
 
 use Cake\Controller\Component as CoreComponent;
 use Cake\Core\Configure;
-use Shim\Config;
+use Shim\Deprecations;
 
 /**
  * Convenience class that automatically provides the controller
@@ -23,7 +23,7 @@ class Component extends CoreComponent {
 	public function initialize(array $config) {
 		$this->Controller = $this->_registry->getController();
 
-		if (Config::deprecations('actionNames') || Configure::read('Shim.assertActionNames')) {
+		if (Deprecations::enabled('actionNames') || Configure::read('Shim.assertActionNames')) {
 			$this->_assertValidActionNames();
 		}
 	}
@@ -42,9 +42,17 @@ class Component extends CoreComponent {
 		$classMethods = array_diff($subClassMethods, $parentClassMethods);
 
 		foreach ($classMethods as $classMethod) {
-			if (substr($classMethod, 0, 1) !== '_' && strpos($classMethod, '_') !== false) {
-				trigger_error('Invalid controller action name ' . $classMethod . ', no underscore expected, should be camelBacked.', E_USER_DEPRECATED);
-			}
+			$this->_assertActioName($classMethod);
+		}
+	}
+
+	/**
+	 * @param string $classMethod
+	 * @return void
+	 */
+	protected function _assertActioName($classMethod) {
+		if (substr($classMethod, 0, 1) !== '_' && strpos($classMethod, '_') !== false) {
+			Deprecations::error('Invalid controller action name ' . $classMethod . ', no underscore expected, should be camelBacked.');
 		}
 	}
 
