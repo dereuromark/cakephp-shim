@@ -43,6 +43,7 @@ A full overview of all shimming between 2.x and 3.x can be found in the [Wiki](h
 - Still supports model properties `$primaryKey`, `$displayField`, `$order`, `$validate`, `$actsAs` and all
 relations (`$belongsTo`, `$hasMany`, ...) as it would be very time-consuming to
 manually adjust all those.
+- Shims controller `$uses` with deprecation warning.
 
 ## FC shims for upgrading to 4.x
 - Controller referer() local security fix

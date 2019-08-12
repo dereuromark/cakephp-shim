@@ -1,4 +1,4 @@
-# Referer Security Handling
+# Referer Security Handling FC shim
 
 ## Referer defaults to local
 
@@ -11,4 +11,4 @@ $this->referer($url, false);
 ```
 
 For most of your (internal) redirecting, nothing changes.
-For any external or subdomain referring, check what has to be manually whitelisted, and do so carefully.1
+For any external or subdomain referring, check what has to be manually whitelisted, and do so carefully.
