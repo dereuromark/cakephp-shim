@@ -80,6 +80,23 @@ class TimeStringType extends Type {
 	}
 
 	/**
+	 * @param mixed $value The value to convert.
+	 * @return mixed Converted value.
+	 */
+	public function marshal($value) {
+		if (is_array($value)) {
+			$value = $this->fromArray($value);
+		}
+		if ($value !== null) {
+			$value = $this->normalize($value);
+		}
+		if ($value === null) {
+			return null;
+		}
+		return $value;
+	}
+
+	/**
 	 * @param string $value
 	 * @return string|null
 	 */

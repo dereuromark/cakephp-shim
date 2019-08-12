@@ -3,4 +3,5 @@
 /*
 Configure::write('Shim.monitorHeaders', true);
 Configure::write('Shim.assertActionNames', true);
+Configure::write('Shim.deprecations.newEntity', true);
 */

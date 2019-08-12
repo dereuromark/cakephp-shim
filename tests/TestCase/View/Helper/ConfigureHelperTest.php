@@ -31,7 +31,7 @@ class ConfigureHelperTest extends TestCase {
 	 */
 	public function tearDown() {
 		unset($this->_View, $this->_Configure);
-		Plugin::unload();
+		Plugin::getCollection()->clear();
 		parent::tearDown();
 	}
 

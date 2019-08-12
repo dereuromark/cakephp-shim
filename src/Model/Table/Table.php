@@ -2,6 +2,7 @@
 
 namespace Shim\Model\Table;
 
+use Cake\Core\Configure;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\Event;
@@ -583,7 +584,23 @@ class Table extends CoreTable {
 	 * @return \Cake\Datasource\EntityInterface
 	 */
 	public function newEmptyEntity() {
-		return $this->newEntity();
+		return parent::newEntity();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * Shim to help find newEntity() usage with null - as this is removed in 4.x.
+	 *
+	 * @see \Shim\Model\Table\Table::newEmptyEntity()
+	 */
+	public function newEntity($data = null, array $options = [])
+	{
+		if ($data === null && Configure::read('Shim.deprecations.newEntity')) {
+			trigger_error('newEntity() with null is deprecated (and removed in 4.x), use newEntityEmpty() instead.', E_USER_DEPRECATED);
+		}
+
+		return parent::newEntity($data, $options);
 	}
 
 	/**

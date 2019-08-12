@@ -50,13 +50,13 @@ class ControllerTest extends TestCase {
 	 * @return void
 	 */
 	public function testBeforeRender() {
-		$event = new Event('beforeRender');
+		$this->deprecated(function () {
+			$event = new Event('beforeRender');
+			$this->Controller->request->data = new Entity();
+			$this->Controller->beforeRender($event);
 
-		$this->Controller->request->data = new Entity();
-
-		$this->Controller->beforeRender($event);
-
-		$this->assertSame([], $this->Controller->request->getData());
+			$this->assertSame([], $this->Controller->request->getData());
+		});
 	}
 
 	/**

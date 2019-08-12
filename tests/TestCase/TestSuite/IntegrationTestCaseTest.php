@@ -39,15 +39,17 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 	 * @return void
 	 */
 	public function testBasic() {
-		$this->get(['controller' => 'Items', 'action' => 'index']);
+		$this->deprecated(function () {
+			$this->get(['controller' => 'Items', 'action' => 'index']);
 
-		$this->assertResponseCode(200);
-		$this->assertResponseOk();
-		$this->assertResponseSuccess();
-		$this->assertNoRedirect();
-		$this->assertResponseNotEmpty();
-		$this->assertResponseContains('<body>');
-		$this->assertResponseContains('My Index Test ctp');
+			$this->assertResponseCode(200);
+			$this->assertResponseOk();
+			$this->assertResponseSuccess();
+			$this->assertNoRedirect();
+			$this->assertResponseNotEmpty();
+			$this->assertResponseContains('<body>');
+			$this->assertResponseContains('My Index Test ctp');
+		});
 	}
 
 }

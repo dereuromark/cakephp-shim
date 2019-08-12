@@ -15,13 +15,19 @@ class CookieHelperTest extends TestCase {
 	public $Cookie;
 
 	/**
+	 * @var \Cake\Http\ServerRequest|\PHPUnit\Framework\MockObject\MockObject
+	 */
+	protected $request;
+
+	/**
 	 * @return void
 	 */
 	public function setUp() {
 		parent::setUp();
 
-		$this->Cookie = new CookieHelper(new View(null));
-		$this->Cookie->request = $this->getMockBuilder(ServerRequest::class)->setMethods(['getCookie', 'getCookieParams'])->getMock();
+		$this->request = $this->getMockBuilder(ServerRequest::class)->setMethods(['getCookie', 'getCookieParams'])->getMock();
+		$view = new View($this->request);
+		$this->Cookie = new CookieHelper($view);
 	}
 
 	/**
@@ -37,7 +43,7 @@ class CookieHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testGetChookies() {
-		$this->Cookie->request->expects($this->at(0))
+		$this->request->expects($this->at(0))
 			->method('getCookieParams')
 			->will($this->returnValue(['one' => 1, 'two' => 2]));
 
@@ -50,10 +56,10 @@ class CookieHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testCheck() {
-		$this->Cookie->request->expects($this->at(0))
+		$this->request->expects($this->at(0))
 			->method('getCookie')
 			->will($this->returnValue(null));
-		$this->Cookie->request->expects($this->at(1))
+		$this->request->expects($this->at(1))
 			->method('getCookie')
 			->will($this->returnValue('val'));
 
@@ -67,7 +73,7 @@ class CookieHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testRead() {
-		$this->Cookie->request->expects($this->once())
+		$this->request->expects($this->once())
 			->method('getCookie')
 			->will($this->returnValue('val'));
 

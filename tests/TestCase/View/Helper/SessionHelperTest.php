@@ -32,7 +32,7 @@ class SessionHelperTest extends TestCase {
 		parent::setUp();
 		$this->View = new View();
 		$session = new Session();
-		$this->View->request = new ServerRequest(['session' => $session]);
+		$this->View->setRequest(new ServerRequest(['session' => $session]));
 		$this->Session = new SessionHelper($this->View);
 
 		$session->write([
@@ -73,7 +73,7 @@ class SessionHelperTest extends TestCase {
 	public function tearDown() {
 		$_SESSION = [];
 		unset($this->View, $this->Session);
-		Plugin::unload();
+		Plugin::getCollection()->clear();
 		parent::tearDown();
 	}
 
