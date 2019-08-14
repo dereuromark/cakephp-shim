@@ -66,6 +66,7 @@ class ControllerTest extends TestCase {
 		$event = new Event('afterFilter');
 
 		$this->Controller->afterFilter($event);
+		$this->assertTrue(true);
 	}
 
 }

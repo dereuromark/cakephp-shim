@@ -3,6 +3,7 @@
 namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
+use Cake\Database\Type\BoolType as CoreBoolType;
 use Cake\ORM\TableRegistry;
 use Shim\Database\Type\BoolType;
 use Shim\TestSuite\TestCase;
@@ -46,6 +47,7 @@ class BoolTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
+		Type::map('boolean', CoreBoolType::class);
 	}
 
 	/**

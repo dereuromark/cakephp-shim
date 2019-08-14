@@ -26,6 +26,15 @@ class BinaryTypeTest extends TestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function tearDown() {
+		parent::tearDown();
+
+		unset($this->Table);
+	}
+
+	/**
 	 * Test toPHP
 	 *
 	 * @return void

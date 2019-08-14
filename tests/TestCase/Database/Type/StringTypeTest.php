@@ -3,6 +3,7 @@
 namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
+use Cake\Database\Type\StringType as CoreStringType;
 use Cake\ORM\TableRegistry;
 use Shim\Database\Type\StringType;
 use Shim\TestSuite\TestCase;
@@ -46,6 +47,7 @@ class StringTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
+		Type::map('string', CoreStringType::class);
 	}
 
 	/**

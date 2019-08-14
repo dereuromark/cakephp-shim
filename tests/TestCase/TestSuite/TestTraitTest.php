@@ -24,6 +24,7 @@ class TestTraitTest extends TestCase {
 	 */
 	public function testIsVerbose() {
 		$this->isVerbose();
+		$this->assertTrue(true);
 	}
 
 	/**
@@ -31,6 +32,7 @@ class TestTraitTest extends TestCase {
 	 */
 	public function testDebug() {
 		$this->debug('Foo');
+		$this->assertTrue(true);
 	}
 
 }

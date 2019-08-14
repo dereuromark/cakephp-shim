@@ -3,6 +3,7 @@
 namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
+use Cake\Database\Type\TimeType;
 use Cake\ORM\TableRegistry;
 use Cake\View\Helper\FormHelper;
 use Cake\View\View;
@@ -42,6 +43,7 @@ class TimeStringTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
+		Type::map('time', TimeType::class);
 	}
 
 	/**

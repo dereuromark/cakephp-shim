@@ -3,6 +3,7 @@
 namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
+use Cake\Database\Type\DecimalType as CoreDecimalType;
 use Cake\ORM\TableRegistry;
 use Shim\Database\Type\DecimalType;
 use Shim\TestSuite\TestCase;
@@ -46,6 +47,7 @@ class DecimalTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
+		Type::map('decimal', CoreDecimalType::class);
 	}
 
 	/**

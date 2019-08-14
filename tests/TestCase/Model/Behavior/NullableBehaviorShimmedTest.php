@@ -2,11 +2,18 @@
 
 namespace Tools\Test\TestCase\Model\Behavior;
 
-use Cake\Core\Configure;
+use Cake\Database\Type;
+use Cake\Database\Type\BoolType as CoreBoolType;
+use Cake\Database\Type\StringType as CoreStringType;
 use Cake\ORM\TableRegistry;
+use Shim\Database\Type\BoolType;
+use Shim\Database\Type\StringType;
 use Shim\TestSuite\TestCase;
 
-class NullableBehaviorTest extends TestCase {
+/**
+ * With StringType and BoolType from Shim plugin behavior is a bit different now (as per 4.x behavior).
+ */
+class NullableBehaviorShimmedTest extends TestCase {
 
 	/**
 	 * @var array
@@ -27,6 +34,9 @@ class NullableBehaviorTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		Type::map('string', StringType::class);
+		Type::map('boolean', BoolType::class);
+
 		$this->Table = TableRegistry::get('Nullables');
 		$this->Table->addAssociations(['hasOne' => ['NullableTenants' => ['hasMany' => 'Nullables']]]);
 		$this->Table->addBehavior('Shim.Nullable');
@@ -37,6 +47,9 @@ class NullableBehaviorTest extends TestCase {
 	 */
 	public function tearDown() {
 		parent::tearDown();
+
+		Type::map('string', CoreStringType::class);
+		Type::map('boolean', CoreBoolType::class);
 
 		TableRegistry::clear();
 	}
@@ -64,60 +77,10 @@ class NullableBehaviorTest extends TestCase {
 			'string_optional' => null,
 			'string_required' => '',
 			'active_optional' => null,
-			'active_required' => false,
+			'active_required' => null, // !
 			'datetime_optional' => null,
 			'datetime_required' => null,
 			'nullable_tenant' => null,
-		];
-		$this->assertSame($expected, $entity->toArray());
-	}
-
-	/**
-	 * @return void
-	 */
-	public function testPatchAssociation() {
-		$data = [
-			'optional_id' => '',
-			'required_id' => '',
-			'string_optional' => '',
-			'string_required' => '',
-			'active_optional' => '',
-			'active_required' => '',
-			'datetime_optional' => '',
-			'datetime_required' => '',
-			'tenant' => ['id' => 1],
-		];
-		$entity = $this->Table->newEntity($data);
-
-		$expected = [
-			'optional_id' => null,
-			'required_id' => null,
-			'string_optional' => null,
-			'string_required' => '',
-			'active_optional' => null,
-			'active_required' => false,
-			'datetime_optional' => null,
-			'datetime_required' => null,
-			'tenant' => ['id' => 1],
-		];
-		$this->assertSame($expected, $entity->toArray());
-	}
-
-	/**
-	 * @return void
-	 */
-	public function testPatchOptionalNotNull() {
-		$this->skipIf(version_compare(Configure::version(), '3.3.7') <= 0);
-
-		$data = [
-			'string_optional_notnull' => '',
-			'active_optional_notnull' => '',
-		];
-		$entity = $this->Table->newEntity($data);
-
-		$expected = [
-			'string_optional_notnull' => '',
-			'active_optional_notnull' => false,
 		];
 		$this->assertSame($expected, $entity->toArray());
 	}

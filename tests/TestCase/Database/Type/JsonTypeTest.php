@@ -4,6 +4,7 @@ namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Driver\Mysql;
 use Cake\Database\Type;
+use Cake\Database\Type\JsonType as CoreJsonType;
 use Cake\ORM\TableRegistry;
 use Shim\Database\Type\JsonType;
 use Shim\TestSuite\TestCase;
@@ -52,6 +53,7 @@ class JsonTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
+		Type::map('json', CoreJsonType::class);
 	}
 
 	/**
