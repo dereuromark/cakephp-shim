@@ -14,6 +14,8 @@ use Cake\Database\Type\JsonType as CoreJsonType;
  * Needs:
  * - Type::map('json', 'Shim\Database\Type\JsonType'); in bootstrap
  * - Run `UPDATE table_name SET field_name = null WHERE field_name = 'null'` to clean up the table
+ *
+ * @see https://github.com/cakephp/cakephp/issues/13519
  */
 class JsonType extends CoreJsonType {
 

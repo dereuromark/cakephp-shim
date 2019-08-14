@@ -47,6 +47,7 @@ manually adjust all those.
 
 ## FC shims for upgrading to 4.x
 - Controller referer() local security fix
+- BoolType, StringType, DecimalType behave like in 4.x
 - Table newEmptyEntity() method available
 
 ## Deprecation help (for 3.x => 4.x)

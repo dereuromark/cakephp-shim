@@ -21,9 +21,14 @@ class JsonTypeTest extends TestCase {
 	];
 
 	/**
+	 * @var \Shim\Database\Type\JsonType
+	 */
+	protected $type;
+
+	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Table;
+	protected $Table;
 
 	/**
 	 * @return void
@@ -33,6 +38,7 @@ class JsonTypeTest extends TestCase {
 
 		Type::map('json', JsonType::class);
 
+		$this->type = Type::build('json');
 		$this->Table = TableRegistry::get('JsonTypes', ['className' => JsonTypesTable::class]);
 
 		$connection = $this->Table->getConnection()->config();
@@ -46,6 +52,20 @@ class JsonTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
+	}
+
+	/**
+	 * Test marshalling
+	 *
+	 * @return void
+	 */
+	public function testMarshal() {
+		$this->assertNull($this->type->marshal(null));
+		$this->assertNull($this->type->marshal(''));
+		$this->assertSame('word', $this->type->marshal('word'));
+		$this->assertSame(2.123, $this->type->marshal(2.123));
+		$this->assertSame([1, 2, 3], $this->type->marshal([1, 2, 3]));
+		$this->assertSame(['a' => 1, 2, 3], $this->type->marshal(['a' => 1, 2, 3]));
 	}
 
 	/**

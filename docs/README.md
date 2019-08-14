@@ -50,6 +50,11 @@ Controller
 Model
 - `Cake\ORM\Table::newEmptyEntity()` method available, see [Table](Model/Table.md).
 
+Database
+- [String type](Database/String.md)
+- [Bool type](Database/Bool.md)
+- [Decimal type](Database/Decimal.md)
+
 ## Deprecation help
 The following deprecation warnings help with 3.x => 4.x:
 

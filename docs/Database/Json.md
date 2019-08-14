@@ -8,4 +8,4 @@ This is mainly for MySQL. Postgres etc can use their native implementations.
 
 Needs:
 - `Type::map('json', 'Shim\Database\Type\JsonType');` in bootstrap
-- Run `UPDATE table_name SET field_name = null WHERE field_name = 'null'` to clean up the table
+- Run `UPDATE table_name SET field_name = null WHERE field_name = 'null';` to clean up the table
