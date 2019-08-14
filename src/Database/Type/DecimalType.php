@@ -72,7 +72,7 @@ class DecimalType extends CoreDecimalType {
 	 * aware parser.
 	 *
 	 * @param string $value The value to parse and convert to an float.
-	 * @return float
+	 * @return string
 	 */
 	protected function _parseValue($value) {
 		/** @var \Cake\I18n\Number $class */
