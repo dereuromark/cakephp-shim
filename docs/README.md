@@ -19,7 +19,6 @@ Database
 - [UUID type](Database/Uuid.md)
 - [Time type](Database/Time.md)
 - [Year type](Database/Year.md)
-- [Json type](Database/Json.md)
 
 ## BC shims
 The following shims are only in place for 2.x => 3.x and can possibly be removed in the future.
@@ -54,6 +53,7 @@ Database
 - [String type](Database/String.md)
 - [Bool type](Database/Bool.md)
 - [Decimal type](Database/Decimal.md)
+- [JSON type](Database/Json.md)
 
 ## Deprecation help
 The following deprecation warnings help with 3.x => 4.x:

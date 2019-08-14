@@ -1,5 +1,8 @@
 # Json Type class
 
+FC shim (will not be needed in 4.x anymore).
+
+## JsonType
 Does not convert null values to JSON string "null". Respects the nullable part of a table field.
 This essentially fixes the internal JSON type handling of the core.
 

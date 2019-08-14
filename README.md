@@ -45,9 +45,9 @@ relations (`$belongsTo`, `$hasMany`, ...) as it would be very time-consuming to
 manually adjust all those.
 - Shims controller `$uses` with deprecation warning.
 
-## FC shims for upgrading to 4.x
+## FC shims for 4.x compatibility
 - Controller referer() local security fix
-- BoolType, StringType, DecimalType behave like in 4.x
+- BoolType, StringType, DecimalType, JsonType behave like in 4.x
 - Table newEmptyEntity() method available
 
 ## Deprecation help (for 3.x => 4.x)
