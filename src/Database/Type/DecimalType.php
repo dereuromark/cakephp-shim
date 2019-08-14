@@ -23,7 +23,7 @@ class DecimalType extends CoreDecimalType {
 			return null;
 		}
 		if (is_string($value) && $this->_useLocaleParser) {
-			return $this->_parseValue($value);
+			return $this->_parseValueAsString($value);
 		}
 		if (is_numeric($value)) {
 			return (string)$value;
@@ -74,7 +74,7 @@ class DecimalType extends CoreDecimalType {
 	 * @param string $value The value to parse and convert to an float.
 	 * @return string
 	 */
-	protected function _parseValue($value) {
+	protected function _parseValueAsString($value) {
 		/** @var \Cake\I18n\Number $class */
 		$class = static::$numberClass;
 
