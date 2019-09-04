@@ -8,6 +8,9 @@ use Shim\TestSuite\IntegrationTestCase;
 
 class IntegrationTestCaseTest extends IntegrationTestCase {
 
+	/**
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -19,6 +22,9 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 		DispatcherFactory::add('ControllerFactory');
 	}
 
+	/**
+	 * @return void
+	 */
 	public function testDebug() {
 		$backup = $_SERVER['argv'];
 

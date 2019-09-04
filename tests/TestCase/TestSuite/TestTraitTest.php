@@ -5,6 +5,9 @@ use Shim\TestSuite\TestCase;
 
 class TestTraitTest extends TestCase {
 
+	/**
+	 * @return void
+	 */
 	public function setUp() {
 		parent::setUp();
 	}

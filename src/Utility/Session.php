@@ -274,7 +274,6 @@ class Session {
 	 *
 	 * @return bool True if session has been started.
 	 */
-
 	public static function started() {
 		if (function_exists('session_status')) {
 			return isset($_SESSION) && (session_status() === PHP_SESSION_ACTIVE);
