@@ -70,7 +70,7 @@ class Session {
 	/**
 	 * Error number of last occurred error
 	 *
-	 * @var int
+	 * @var int|null
 	 */
 	public static $lastError = null;
 
@@ -98,21 +98,21 @@ class Session {
 	/**
 	 * Current Session id
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	public static $id = null;
 
 	/**
 	 * Hostname
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	public static $host = null;
 
 	/**
 	 * Session timeout multiplier factor
 	 *
-	 * @var int
+	 * @var int|null
 	 */
 	public static $timeout = null;
 
@@ -134,7 +134,7 @@ class Session {
 	/**
 	 * Session cookie name
 	 *
-	 * @var string
+	 * @var string|null
 	 */
 	protected static $_cookieName = null;
 

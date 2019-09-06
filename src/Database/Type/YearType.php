@@ -37,7 +37,7 @@ class YearType extends Type implements TypeInterface {
 	/**
 	 * Converts DB year column into PHP int.
 	 *
-	 * @param null|string|resource $value The value to convert.
+	 * @param resource|string|null $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
 	 * @return int|null
 	 * @throws \Cake\Core\Exception\Exception
