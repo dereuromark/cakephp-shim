@@ -18,7 +18,9 @@
 	},
 	"require-dev": {
 		"dereuromark/cakephp-ide-helper": "^0.13.11",
-		"fig-r/psr2r-sniffer": "dev-master"
+		"fig-r/psr2r-sniffer": "dev-master",
+		"phpunit/phpunit": "^5.7.27|^6.5",
+		"phpunit/phpunit-mock-objects": "dev-php74 as 5.0.9"
 	},
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"
@@ -36,6 +38,12 @@
 			"TestApp\\": "tests/test_app/src/"
 		}
 	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://github.com/dereuromark/phpunit-mock-objects.git"
+		}
+	],
 	"scripts": {
 		"test": "php phpunit.phar",
 		"test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-6.5.13.phar && mv phpunit-6.5.13.phar phpunit.phar || true",
