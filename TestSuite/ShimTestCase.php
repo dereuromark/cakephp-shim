@@ -1,4 +1,5 @@
 <?php
+App::uses('CakeTestCase', 'TestSuite');
 
 abstract class ShimTestCase extends CakeTestCase {
 
