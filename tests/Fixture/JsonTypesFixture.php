@@ -4,8 +4,6 @@ namespace Shim\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
-/**
- */
 class JsonTypesFixture extends TestFixture {
 
 	/**

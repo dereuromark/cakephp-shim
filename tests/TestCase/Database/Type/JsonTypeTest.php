@@ -10,8 +10,6 @@ use Shim\Database\Type\JsonType;
 use Shim\TestSuite\TestCase;
 use TestApp\Model\Table\JsonTypesTable;
 
-/**
- */
 class JsonTypeTest extends TestCase {
 
 	/**
