@@ -8,26 +8,30 @@ These will most likely all be ported over to future releases.
 
 Controller
 - [Asserting/Casting](Controller/CastTrait.md)
+- [Component shims](Controller/Component.md)
 
 Model
+- [Table shim](Model/Table.md)
 - [Entity Get/Fail](Model/Entity.md)
-- [Nullable](Model/Nullable.md)
+- [Nullable behavior](Model/Nullable.md)
 
 Database
 - [UUID type](Database/Uuid.md)
 - [Time type](Database/Time.md)
 - [Year type](Database/Year.md)
-- [Json type](Database/Json.md)
 
 ## BC shims
 The following shims are only in place for 3.x => 4.x and can possibly be removed in the future.
+
+Controller
+- [Controller shims](Controller/Controller.md)
 
 Helper
 - [Configure helper](View/Configure.md)
 - [Cookie helper](View/Cookie.md)
 
 Inflector
-- `Inflector::slug()`
+- [Inflector::slug()](Utility/Inflector.md)
 
 ## ORM
 ### Table
@@ -127,9 +131,6 @@ $this->debug($var);
 Sometimes it can be useful to have additional debug output, which will only be
 printed with one of the above verbose flags set. This is a quick convenience wrapper to do so.
 
-
-### Additional Features
-See [Features](Features.md).
 
 ### Not Shimmed
 See [NotShimmed](NotShimmed.md).

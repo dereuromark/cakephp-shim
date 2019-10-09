@@ -10,8 +10,6 @@ use Shim\Database\Type\YearType;
 use Shim\TestSuite\TestCase;
 use TestApp\Model\Table\YearTypesTable;
 
-/**
- */
 class YearTypeTest extends TestCase {
 
 	/**

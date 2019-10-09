@@ -6,8 +6,6 @@ use Cake\Event\Event;
 use Cake\TestSuite\TestCase;
 use Shim\Controller\Controller;
 
-/**
- */
 class ControllerTest extends TestCase {
 
 	/**

@@ -6,7 +6,7 @@ php:
 
 env:
   matrix:
-    - DB=mysql db_dsn='mysql://root@127.0.0.1/cakephp_test'
+    - DB=mysql DB_DSN='mysql://root@127.0.0.1/cakephp_test'
   global:
     - DEFAULT=1
 
@@ -19,7 +19,7 @@ matrix:
 
   include:
     - php: 7.2
-      env: DB=pgsql db_dsn='postgres://postgres@127.0.0.1/cakephp_test'
+      env: DB=pgsql DB_DSN='postgres://postgres@127.0.0.1/cakephp_test'
 
     - php: 7.2
       env: PREFER_LOWEST=1
@@ -28,7 +28,7 @@ matrix:
       env: CHECKS=1 DEFAULT=0
 
     - php: 7.2
-      env: CODECOVERAGE=1 DEFAULT=0 DB=mysql db_dsn='mysql://root@127.0.0.1/cakephp_test'
+      env: CODECOVERAGE=1 DEFAULT=0 DB=mysql DB_DSN='mysql://root@127.0.0.1/cakephp_test'
 
 before_install:
   - if [[ $CODECOVERAGE != 1 ]]; then phpenv config-rm xdebug.ini; fi

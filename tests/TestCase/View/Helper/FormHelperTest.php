@@ -17,8 +17,6 @@ namespace Shim\Test\TestCase\View\Helper;
 
 use Cake\Core\Configure;
 use Cake\Http\ServerRequest;
-use Cake\ORM\Entity;
-use Cake\ORM\Table;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\Utility\Security;
@@ -144,7 +142,7 @@ class FormHelperTest extends TestCase {
 		]);
 		$expected = [
 			'div' => ['class' => 'input datetime'],
-			'<label',
+			'label' => ['for' => 'prueba'],
 			'Prueba',
 			'/label',
 			'This is it!',
@@ -166,7 +164,7 @@ class FormHelperTest extends TestCase {
 			->setConstructorArgs([new View()])
 			->getMock();
 
-		$this->Form->create(false, ['idPrefix' => 'prefix']);
+		$this->Form->create(null, ['idPrefix' => 'prefix']);
 
 		$this->Form->expects($this->once())->method('datetime')
 			->with('prueba', [
@@ -188,7 +186,7 @@ class FormHelperTest extends TestCase {
 		]);
 		$expected = [
 			'div' => ['class' => 'input datetime'],
-			'<label',
+			'label' => ['for' => 'prefix-prueba'],
 			'Prueba',
 			'/label',
 			'This is it!',
@@ -1329,7 +1327,7 @@ class FormHelperTest extends TestCase {
 		];
 		$this->assertHtml($expected, $result);
 		*/
-		$expected = '<div class="input text required"><input type="text" name="title" required="required" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.validity.valid) this.setCustomValidity(&#039;This field is required&#039;)" oninput="this.setCustomValidity(&#039;&#039;)" id="title"/></div>';
+		$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title"/></div>';
 		$this->assertSame($expected, $result);
 	}
 
@@ -1373,74 +1371,6 @@ class FormHelperTest extends TestCase {
 		$this->assertStringContainsString('name="created[day]"', $result, 'day name attribute is wrong.');
 		$this->assertStringContainsString('name="created[hour]"', $result, 'hour name attribute is wrong.');
 		$this->assertStringContainsString('name="created[minute]"', $result, 'min name attribute is wrong.');
-	}
-
-}
-
-class Article extends Entity {
-}
-
-class ContactsTable extends Table {
-
-	/**
-	 * Default schema
-	 *
-	 * @var array
-	 */
-	protected $_schema = [
-		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
-		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'phone' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'password' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'published' => ['type' => 'date', 'null' => true, 'default' => null, 'length' => null],
-		'created' => ['type' => 'date', 'null' => '1', 'default' => '', 'length' => ''],
-		'updated' => ['type' => 'datetime', 'null' => '1', 'default' => '', 'length' => null],
-		'age' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => null],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
-	];
-
-	/**
-	 * Initializes the schema
-	 *
-	 * @param array $config
-	 * @return void
-	 */
-	public function initialize(array $config): void {
-		$this->setSchema($this->_schema);
-	}
-
-}
-
-class ValidateUsersTable extends Table {
-
-	/**
-	 * schema method
-	 *
-	 * @var array
-	 */
-	protected $_schema = [
-		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
-		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
-		'balance' => ['type' => 'float', 'null' => false, 'length' => 5, 'precision' => 2],
-		'cost_decimal' => ['type' => 'decimal', 'null' => false, 'length' => 6, 'precision' => 3],
-		'null_decimal' => ['type' => 'decimal', 'null' => false, 'length' => null, 'precision' => null],
-		'ratio' => ['type' => 'decimal', 'null' => false, 'length' => 10, 'precision' => 6],
-		'population' => ['type' => 'decimal', 'null' => false, 'length' => 15, 'precision' => 0],
-		'created' => ['type' => 'date', 'null' => '1', 'default' => '', 'length' => ''],
-		'updated' => ['type' => 'datetime', 'null' => '1', 'default' => '', 'length' => null],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
-	];
-
-	/**
-	 * Initializes the schema
-	 *
-	 * @param array $config
-	 * @return void
-	 */
-	public function initialize(array $config): void {
-		$this->setSchema($this->_schema);
 	}
 
 }

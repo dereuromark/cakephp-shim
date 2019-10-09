@@ -154,7 +154,7 @@ class Table extends CoreTable {
 		return $array;
 	}
 
-	/*
+	/**
 	 * @param string $key
 	 * @return string
 	 */
@@ -246,7 +246,7 @@ class Table extends CoreTable {
 		return $args;
 	}
 
-	/*
+	/**
 	 * Overwrite findList() to make it work as in 2.x when only providing
 	 * 1-2 fields to select (no keyField/valueField).
 	 *

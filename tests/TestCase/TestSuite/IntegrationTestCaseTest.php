@@ -7,6 +7,9 @@ use Shim\TestSuite\IntegrationTestCase;
 
 class IntegrationTestCaseTest extends IntegrationTestCase {
 
+	/**
+	 * @return void
+	 */
 	public function setUp(): void {
 		parent::setUp();
 
@@ -15,6 +18,9 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 		Router::connect('/:controller/:action/*');
 	}
 
+	/**
+	 * @return void
+	 */
 	public function testDebug() {
 		$backup = $_SERVER['argv'];
 

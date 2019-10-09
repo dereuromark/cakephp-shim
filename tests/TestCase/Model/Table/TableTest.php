@@ -270,7 +270,7 @@ class TableTest extends TestCase {
 		$this->assertSame($expected, $query->toArray());
 	}
 
-	/*
+	/**
 	 * @return void
 	 */
 	public function testArrayCondition() {
@@ -299,7 +299,7 @@ class TableTest extends TestCase {
 		$this->assertSame(3, count($result));
 	}
 
-	/*
+	/**
 	 * @return void
 	 */
 	public function testArrayConditionArray() {

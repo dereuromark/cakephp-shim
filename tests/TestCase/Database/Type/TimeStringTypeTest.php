@@ -3,6 +3,7 @@
 namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Type;
+use Cake\Database\Type\TimeType;
 use Cake\ORM\TableRegistry;
 use Cake\View\Helper\FormHelper;
 use Cake\View\View;
@@ -42,6 +43,7 @@ class TimeStringTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
+		Type::map('time', TimeType::class);
 	}
 
 	/**
@@ -103,7 +105,7 @@ class TimeStringTypeTest extends TestCase {
 		$entity = $this->Table->newEmptyEntity();
 		$Form->create($entity);
 		$x = $Form->control('closing_time', ['type' => 'time']);
-		$this->assertTextContains('<div class="input time"><label>Closing Time</label><input type="time" name="closing_time"', $x);
+		$this->assertTextContains('<div class="input time"><label for="closing-time">Closing Time</label><input type="time" name="closing_time"', $x);
 	}
 
 	/**

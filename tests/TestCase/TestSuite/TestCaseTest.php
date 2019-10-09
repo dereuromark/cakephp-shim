@@ -5,10 +5,6 @@ use Shim\TestSuite\TestCase;
 
 class TestCaseTest extends TestCase {
 
-	public function setUp(): void {
-		parent::setUp();
-	}
-
 	/**
 	 * test testAssertWithinRange()
 	 *

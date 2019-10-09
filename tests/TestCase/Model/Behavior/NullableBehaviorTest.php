@@ -35,6 +35,15 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function tearDown(): void {
+		parent::tearDown();
+
+		TableRegistry::clear();
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testPatch() {
 		$data = [
 			'optional_id' => '',

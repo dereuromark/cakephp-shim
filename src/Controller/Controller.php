@@ -8,6 +8,7 @@ use Cake\Http\Response;
 use Cake\Http\ServerRequest;
 use Cake\Utility\Inflector;
 use Exception;
+use Shim\Deprecations;
 
 /**
  * DRY Controller stuff
@@ -32,7 +33,7 @@ class Controller extends CoreController {
 			$modelClass = Inflector::pluralize($model);
 			$this->modelClass = $modelClass;
 
-			trigger_error('Use $modelClass instead of $uses property.', E_USER_DEPRECATED);
+			Deprecations::error('Use $modelClass instead of $uses property.');
 		}
 
 		parent::__construct($request, $response, $name, $eventManager, $components);

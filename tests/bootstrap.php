@@ -42,6 +42,8 @@ Cake\Core\Configure::write('App', [
 
 Cake\Core\Configure::write('debug', true);
 
+require ROOT . DS . 'config/bootstrap.php';
+
 $cache = [
 	'default' => [
 		'engine' => 'File'
@@ -68,10 +70,10 @@ Cake\Cache\Cache::setConfig($cache);
 Cake\Core\Plugin::getCollection()->add(new Shim\Plugin());
 
 // Ensure default test connection is defined
-if (getenv('db_dsn')) {
+if (getenv('DB_DSN')) {
 	Cake\Datasource\ConnectionManager::setConfig('test', [
 		'className' => 'Cake\Database\Connection',
-		'url' => getenv('db_dsn'),
+		'url' => getenv('DB_DSN'),
 		'timezone' => 'UTC',
 		'quoteIdentifiers' => true,
 		'cacheMetadata' => true,
@@ -80,18 +82,18 @@ if (getenv('db_dsn')) {
 	return;
 }
 
-if (!getenv('db_class')) {
-	putenv('db_class=Cake\Database\Driver\Sqlite');
-	putenv('db_dsn=sqlite::memory:');
+if (!getenv('DB_CLASS')) {
+	putenv('DB_CLASS=Cake\Database\Driver\Sqlite');
+	putenv('DB_DSN=sqlite::memory:');
 }
 
 Cake\Datasource\ConnectionManager::setConfig('test', [
 	'className' => 'Cake\Database\Connection',
-	'driver' => getenv('db_class'),
-	'dsn' => getenv('db_dsn'),
-	// 'database' => getenv('db_database'),
-	// 'username' => getenv('db_username'),
-	// 'password' => getenv('db_password'),
+	'driver' => getenv('DB_CLASS'),
+	'dsn' => getenv('DB_DSN'),
+	//'database' => getenv('DB_DATABASE'),
+	//'username' => getenv('DB_USERNAME'),
+	//'password' => getenv('DB_PASSWORD'),
 	'timezone' => 'UTC',
 	'quoteIdentifiers' => true,
 	'cacheMetadata' => true,

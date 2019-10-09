@@ -7,6 +7,7 @@ use Cake\Http\MiddlewareQueue;
 use Cake\Routing\Middleware\RoutingMiddleware;
 
 class Application extends BaseApplication {
+
 	/**
 	 * @param \Cake\Http\MiddlewareQueue $middlewareQueue The middleware queue to set in your App Class
 	 * @return \Cake\Http\MiddlewareQueue

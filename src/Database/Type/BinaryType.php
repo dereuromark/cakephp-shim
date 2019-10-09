@@ -18,7 +18,7 @@ class BinaryType extends CoreBinaryType {
 	/**
 	 * Convert binary into resource handles
 	 *
-	 * @param null|string|resource $value The value to convert.
+	 * @param string|resource|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return string|resource|null
 	 * @throws \Cake\Core\Exception\Exception

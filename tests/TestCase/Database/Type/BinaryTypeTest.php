@@ -12,6 +12,16 @@ use Shim\Database\Type\BinaryType;
 class BinaryTypeTest extends TestCase {
 
 	/**
+	 * @var \Cake\Database\TypeInterface
+	 */
+	protected $type;
+
+	/**
+	 * @var \Cake\Database\Driver|\PHPUnit\Framework\MockObject\MockObject
+	 */
+	protected $driver;
+
+	/**
 	 * Setup
 	 *
 	 * @return void
@@ -23,6 +33,15 @@ class BinaryTypeTest extends TestCase {
 
 		$this->type = Type::build('binary');
 		$this->driver = $this->getMockBuilder(Driver::class)->getMock();
+	}
+
+	/**
+	 * @return void
+	 */
+	public function tearDown(): void {
+		parent::tearDown();
+
+		unset($this->Table);
 	}
 
 	/**

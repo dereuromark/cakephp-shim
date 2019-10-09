@@ -23,10 +23,7 @@ class YearType extends BaseType {
 	protected $_format = 'Y';
 
 	/**
-	 * Convert binary data into the database format.
-	 *
-	 * Binary data is not altered before being inserted into the database.
-	 * As PDO will handle reading file handles.
+	 * Converts year data into the database format.
 	 *
 	 * @param int|string|array|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
@@ -43,9 +40,9 @@ class YearType extends BaseType {
 	}
 
 	/**
-	 * Convert binary into resource handles
+	 * Converts DB year column into PHP int.
 	 *
-	 * @param null|string|resource $value The value to convert.
+	 * @param resource|string|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return int|null
 	 * @throws \Cake\Core\Exception\Exception
@@ -58,6 +55,22 @@ class YearType extends BaseType {
 	}
 
 	/**
+	 * Converts year data into the database format.
+	 *
+	 * @param int|string|array|null $value
+	 * @return int|null
+	 */
+	public function marshal($value) {
+		if (is_array($value)) {
+			$value = $value['year'];
+		}
+		if ($value === null || !(int)$value) {
+			return null;
+		}
+		return $value;
+	}
+
+	/**
 	 * Get the correct PDO binding type for Year data.
 	 *
 	 * @param mixed $value The value being bound.
@@ -66,22 +79,6 @@ class YearType extends BaseType {
 	 */
 	public function toStatement($value, DriverInterface $driver) {
 		return PDO::PARAM_INT;
-	}
-
-	/**
-	 * Marshalls flat data into PHP objects.
-	 *
-	 * Most useful for converting request data into PHP objects,
-	 * that make sense for the rest of the ORM/Database layers.
-	 *
-	 * @param mixed $value The value to convert.
-	 * @return mixed Converted value.
-	 */
-	public function marshal($value) {
-		if ($value === null || !(int)$value) {
-			return null;
-		}
-		return $value;
 	}
 
 }
