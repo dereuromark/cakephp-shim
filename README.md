@@ -21,7 +21,9 @@ This way you save yourself quite some time, because that code will need almost z
 finally upgrading. So be smart and prepare your 2.x application already for 3.x.
 All new code ideally is as close to 3.x as it gets, making the future upgrade as smooth as possible.
 
-**This plugin requires CakePHP 2.5+** (ideally you always use the current stable version).
+This plugin requires **CakePHP 2.5+** (ideally you always use the current stable version).
+
+**DEPRECATED**: This branch will be removed. Use `cake2` branch instead. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 ## Installation
 Please see [SETUP.md](docs/SETUP.md)
