@@ -12,13 +12,6 @@ class CastTraitTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testAssertString() {
 		$result = $this->assertString(null);
 		$this->assertSame(null, $result);

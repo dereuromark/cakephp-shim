@@ -10,13 +10,6 @@ class MultibyteTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
-		parent::setUp();
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testUtf() {
 		$string = 'äöü';
 		$result = Multibyte::utf8($string);
