@@ -55,6 +55,9 @@ Database
 - [Decimal type](Database/Decimal.md)
 - [JSON type](Database/Json.md)
 
+Utility
+- [Inflector and pluralize()](Utility/Inflector.md)
+
 ## Deprecation help
 The following deprecation warnings help with 3.x => 4.x:
 
