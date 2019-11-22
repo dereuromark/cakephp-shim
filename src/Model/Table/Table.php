@@ -361,7 +361,7 @@ class Table extends CoreTable {
 			throw new RuntimeException('Not supported with multiple primary keys');
 		}
 		$conditions = [
-			$primaryKey => $id
+			$primaryKey => $id,
 		];
 		return parent::exists($conditions);
 	}
@@ -409,7 +409,7 @@ class Table extends CoreTable {
 	public function saveField($id, $field, $value) {
 		$entity = [
 			'id' => $id,
-			$field => $value
+			$field => $value,
 		];
 		return $this->saveArray($entity, ['accessibleFields' => ['id' => true]]);
 	}

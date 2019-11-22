@@ -35,7 +35,7 @@ Cake\Core\Configure::write('App', [
 	'namespace' => 'App',
 	'paths' => [
 		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS],
-	]
+	],
 ]);
 
 Cake\Core\Configure::write('debug', true);
@@ -44,22 +44,22 @@ require ROOT . DS . 'config/bootstrap.php';
 
 $cache = [
 	'default' => [
-		'engine' => 'File'
+		'engine' => 'File',
 	],
 	'_cake_core_' => [
 		'className' => 'File',
 		'prefix' => 'crud_myapp_cake_core_',
 		'path' => CACHE . 'persistent/',
 		'serialize' => true,
-		'duration' => '+10 seconds'
+		'duration' => '+10 seconds',
 	],
 	'_cake_model_' => [
 		'className' => 'File',
 		'prefix' => 'crud_my_app_cake_model_',
 		'path' => CACHE . 'models/',
 		'serialize' => 'File',
-		'duration' => '+10 seconds'
-	]
+		'duration' => '+10 seconds',
+	],
 ];
 
 Cake\Cache\Cache::setConfig($cache);

@@ -13,7 +13,7 @@ class NullableBehaviorTest extends TestCase {
 	 */
 	public $fixtures = [
 		'plugin.Shim.Nullables',
-		'plugin.Shim.NullableTenants'
+		'plugin.Shim.NullableTenants',
 	];
 
 	/**

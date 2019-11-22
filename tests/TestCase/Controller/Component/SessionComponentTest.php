@@ -16,7 +16,7 @@ class SessionComponentTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'core.Sessions'
+		'core.Sessions',
 	];
 
 	/**

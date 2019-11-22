@@ -15,7 +15,7 @@ class BoolTypesFixture extends TestFixture {
 		'id' => ['type' => 'integer'],
 		'required' => ['type' => 'boolean', 'null' => false],
 		'optional' => ['type' => 'boolean', 'null' => true],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**

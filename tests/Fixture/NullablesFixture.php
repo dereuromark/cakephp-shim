@@ -22,7 +22,7 @@ class NullablesFixture extends TestFixture {
 		'datetime_optional' => ['type' => 'datetime', 'null' => true],
 		'datetime_required' => ['type' => 'datetime', 'null' => false],
 		'nullable_tenant_id' => ['type' => 'integer', 'null' => true],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**

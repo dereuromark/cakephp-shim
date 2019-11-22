@@ -15,7 +15,7 @@ class StringTypesFixture extends TestFixture {
 		'id' => ['type' => 'integer'],
 		'name' => ['type' => 'string', 'null' => false],
 		'optional' => ['type' => 'string', 'null' => true],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**

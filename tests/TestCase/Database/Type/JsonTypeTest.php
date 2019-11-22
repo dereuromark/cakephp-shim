@@ -16,7 +16,7 @@ class JsonTypeTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.Shim.JsonTypes'
+		'plugin.Shim.JsonTypes',
 	];
 
 	/**
@@ -85,7 +85,7 @@ class JsonTypeTest extends TestCase {
 		$data = [
 			'name' => 'Foo',
 			'data' => ['some' => 'thing'],
-			'data_required' => ['some' => 'thing else']
+			'data_required' => ['some' => 'thing else'],
 		];
 		$entity = $this->Table->newEntity($data);
 		$result = $this->Table->save($entity);
@@ -102,7 +102,7 @@ class JsonTypeTest extends TestCase {
 		$data = [
 			'name' => 'Foo',
 			'data' => null,
-			'data_required' => ['some' => 'thing']
+			'data_required' => ['some' => 'thing'],
 		];
 		$entity = $this->Table->newEntity($data);
 		$result = $this->Table->save($entity);

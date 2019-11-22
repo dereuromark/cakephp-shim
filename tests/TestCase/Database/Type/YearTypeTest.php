@@ -16,7 +16,7 @@ class YearTypeTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.Shim.YearTypes'
+		'plugin.Shim.YearTypes',
 	];
 
 	/**
@@ -50,7 +50,7 @@ class YearTypeTest extends TestCase {
 	public function testSave() {
 		$data = [
 			'name' => 'Foo',
-			'year_of_birth' => '2015'
+			'year_of_birth' => '2015',
 		];
 		$entity = $this->Table->newEntity($data);
 		$this->Table->save($entity);
@@ -68,8 +68,8 @@ class YearTypeTest extends TestCase {
 			'year_of_birth' => [
 				'day' => '1',
 				'month' => '12',
-				'year' => '2015'
-			]
+				'year' => '2015',
+			],
 		];
 		$entity = $this->Table->newEntity($data);
 		$result = $this->Table->save($entity);

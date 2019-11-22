@@ -17,7 +17,7 @@ class MultibyteTest extends TestCase {
 		$expected = [
 			228,
 			246,
-			252
+			252,
 		];
 		$this->assertSame($expected, $result);
 	}
@@ -29,7 +29,7 @@ class MultibyteTest extends TestCase {
 		$array = [
 			228,
 			246,
-			252
+			252,
 		];
 		$result = Multibyte::ascii($array);
 

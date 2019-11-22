@@ -15,7 +15,7 @@ class DecimalTypeTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.Shim.DecimalTypes'
+		'plugin.Shim.DecimalTypes',
 	];
 
 	/**
@@ -91,7 +91,7 @@ class DecimalTypeTest extends TestCase {
 	public function testSave() {
 		$data = [
 			'required' => '-1.1',
-			'optional' => '0.22'
+			'optional' => '0.22',
 		];
 		$entity = $this->Table->newEntity($data);
 

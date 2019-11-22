@@ -11,7 +11,7 @@ class NullableTenantsFixture extends TestFixture {
 	 */
 	public $fields = [
 		'id' => ['type' => 'integer'],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**

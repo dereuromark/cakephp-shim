@@ -15,7 +15,7 @@ class BoolTypeTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.Shim.BoolTypes'
+		'plugin.Shim.BoolTypes',
 	];
 
 	/**
@@ -98,7 +98,7 @@ class BoolTypeTest extends TestCase {
 			'optional' => [
 				'day' => '1',
 				'month' => '12',
-				'year' => '2015'
+				'year' => '2015',
 			],
 		];
 		$entity = $this->Table->newEntity($data);

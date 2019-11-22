@@ -24,7 +24,7 @@ class SessionTest extends TestCase {
 	 */
 	public function testId() {
 		$_SESSION = [
-			'Foo' => 'bar'
+			'Foo' => 'bar',
 		];
 
 		$result = Session::started();
@@ -44,7 +44,7 @@ class SessionTest extends TestCase {
 	 */
 	public function testRead() {
 		$_SESSION = [
-			'Foo' => 'bar'
+			'Foo' => 'bar',
 		];
 
 		$read = Session::read('Baz');
@@ -59,7 +59,7 @@ class SessionTest extends TestCase {
 	 */
 	public function testCheck() {
 		$_SESSION = [
-			'Foo' => 'bar'
+			'Foo' => 'bar',
 		];
 
 		$result = Session::check('Foo');
@@ -79,7 +79,7 @@ class SessionTest extends TestCase {
 			'Config' => [
 				'time' => time() + DAY,
 				'userAgent' => 'xyz',
-			]
+			],
 		];
 
 		$result = Session::valid();

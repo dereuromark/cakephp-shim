@@ -16,7 +16,7 @@ class JsonTypesFixture extends TestFixture {
 		'name' => ['type' => 'string', 'null' => true],
 		'data' => ['type' => 'text', 'null' => true],
 		'data_required' => ['type' => 'text', 'null' => false],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**
@@ -28,7 +28,7 @@ class JsonTypesFixture extends TestFixture {
 		[
 			'name' => 'Some person',
 			'data' => null,
-			'data_required' => 'null'
+			'data_required' => 'null',
 		],
 	];
 

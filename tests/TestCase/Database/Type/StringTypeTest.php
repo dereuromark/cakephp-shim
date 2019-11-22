@@ -15,7 +15,7 @@ class StringTypeTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.Shim.StringTypes'
+		'plugin.Shim.StringTypes',
 	];
 
 	/**
@@ -68,7 +68,7 @@ class StringTypeTest extends TestCase {
 	public function testSave() {
 		$data = [
 			'name' => 'Foo',
-			'optional' => 'Bar'
+			'optional' => 'Bar',
 		];
 		$entity = $this->Table->newEntity($data);
 
@@ -87,8 +87,8 @@ class StringTypeTest extends TestCase {
 			'optional' => [
 				'day' => '1',
 				'month' => '12',
-				'year' => '2015'
-			]
+				'year' => '2015',
+			],
 		];
 		$entity = $this->Table->newEntity($data);
 
