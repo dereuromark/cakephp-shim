@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Database\Type;
 
 use Cake\Database\Driver;

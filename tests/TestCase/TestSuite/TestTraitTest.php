@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\TestCase\TestSuite;
 
 use Shim\TestSuite\TestCase;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\TestCase\Model\Table;
 
 use Cake\Core\Configure;

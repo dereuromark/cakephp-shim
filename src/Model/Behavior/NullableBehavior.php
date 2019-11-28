@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Model\Behavior;
 
 use ArrayObject;

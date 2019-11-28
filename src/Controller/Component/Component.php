@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Controller\Component;
 
 use Cake\Controller\Component as CoreComponent;
