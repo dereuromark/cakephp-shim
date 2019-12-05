@@ -15,7 +15,7 @@ class YearTypesFixture extends TestFixture {
 		'id' => ['type' => 'integer'],
 		'name' => ['type' => 'string', 'null' => true],
 		'year_of_birth' => ['type' => 'integer', 'null' => true],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**
@@ -26,7 +26,7 @@ class YearTypesFixture extends TestFixture {
 	public $records = [
 		[
 			'name' => 'Some person',
-			'year_of_birth' => 2015
+			'year_of_birth' => 2015,
 		],
 	];
 

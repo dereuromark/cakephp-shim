@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\TestSuite;
 
 use Cake\TestSuite\IntegrationTestCase as CoreIntegrationTestCase;

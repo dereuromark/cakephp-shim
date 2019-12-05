@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\TestCase\Controller\Component;
 
 use Cake\Controller\ComponentRegistry;

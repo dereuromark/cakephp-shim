@@ -16,8 +16,8 @@ class CarsTable extends Table {
 	 */
 	public $hasMany = [
 		'Wheel' => [
-			'className' => 'Wheel'
-		]
+			'className' => 'Wheel',
+		],
 	];
 
 }

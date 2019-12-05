@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
@@ -18,7 +19,7 @@ class CarsFixture extends TestFixture {
 		'model' => ['type' => 'string', 'null' => false, 'length' => 255, 'comment' => '', 'charset' => 'utf8'],
 		'created' => 'datetime',
 		'updated' => 'datetime',
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**
@@ -30,8 +31,8 @@ class CarsFixture extends TestFixture {
 		[
 			'model' => 'Audi',
 			'created' => '2007-03-18 10:55:23',
-			'updated' => '2007-03-18 10:57:31'
-		]
+			'updated' => '2007-03-18 10:57:31',
+		],
 	];
 
 }

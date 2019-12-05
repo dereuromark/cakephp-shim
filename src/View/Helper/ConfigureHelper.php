@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\View\Helper;
 
 use Cake\Core\Configure;

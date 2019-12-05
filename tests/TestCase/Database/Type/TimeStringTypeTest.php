@@ -17,7 +17,7 @@ class TimeStringTypeTest extends TestCase {
 	 * @var array
 	 */
 	public $fixtures = [
-		'plugin.Shim.TimeTypes'
+		'plugin.Shim.TimeTypes',
 	];
 
 	/**
@@ -85,8 +85,8 @@ class TimeStringTypeTest extends TestCase {
 			'closing_time' => [
 				'hour' => '1',
 				'minute' => '12',
-				'second' => '20'
-			]
+				'second' => '20',
+			],
 		];
 		$entity = $this->Table->newEntity($data);
 		$result = $this->Table->save($entity);

@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\TestCase\TestSuite;
 
 use Cake\Core\Configure;

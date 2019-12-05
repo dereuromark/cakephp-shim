@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim;
 
 use Cake\Core\BasePlugin;

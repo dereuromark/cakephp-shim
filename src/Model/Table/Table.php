@@ -372,7 +372,7 @@ class Table extends CoreTable {
 	public function saveField($id, $field, $value) {
 		$entity = [
 			'id' => $id,
-			$field => $value
+			$field => $value,
 		];
 		return $this->saveArray($entity, ['accessibleFields' => ['id' => true]]);
 	}

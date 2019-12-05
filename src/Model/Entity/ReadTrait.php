@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Model\Entity;
 
 use ArrayAccess;

@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\TestCase\View\Helper;
 
 use Cake\Http\ServerRequest;
@@ -40,25 +41,25 @@ class SessionHelperTest extends TestCase {
 				'flash' => [
 					'type' => 'info',
 					'params' => [],
-					'message' => 'This is a calling'
+					'message' => 'This is a calling',
 				],
 				'notification' => [
 					'type' => 'info',
 					'params' => [
 						'title' => 'Notice!',
 						'name' => 'Alert!',
-						'element' => 'session_helper'
+						'element' => 'session_helper',
 					],
 					'message' => 'This is a test of the emergency broadcasting system',
 				],
 				'classy' => [
 					'type' => 'success',
 					'params' => ['class' => 'positive'],
-					'message' => 'Recorded'
+					'message' => 'Recorded',
 				],
 				'incomplete' => [
 					'message' => 'A thing happened',
-				]
+				],
 			],
 			'Deeply' => ['nested' => ['key' => 'value']],
 		]);

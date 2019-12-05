@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\TestCase\Model\Table;
 
 use Cake\Core\Configure;
@@ -22,6 +23,11 @@ class TableTest extends TestCase {
 	 * @var \Shim\Model\Table\Table
 	 */
 	public $Users;
+
+	/**
+	 * @var \Shim\Model\Table\Table
+	 */
+	public $Wheels;
 
 	/**
 	 * @var array
@@ -265,7 +271,7 @@ class TableTest extends TestCase {
 			1 => 1,
 			2 => 2,
 			3 => 3,
-			4 => 4
+			4 => 4,
 		];
 		$this->assertSame($expected, $query->toArray());
 	}
@@ -431,8 +437,8 @@ class TableTest extends TestCase {
 		$wheel = $this->Wheels->newEntity(['position' => '12345678901234567890abc']);
 		$expected = [
 			'position' => [
-				'maxLength' => 'valErrMaxCharacters xyz 20'
-			]
+				'maxLength' => 'valErrMaxCharacters xyz 20',
+			],
 		];
 		$this->assertSame($expected, $wheel->getErrors());
 		$result = $this->Wheels->save($wheel);
@@ -445,7 +451,7 @@ class TableTest extends TestCase {
 		$wheel = $this->Wheels->newEntity(['position' => 'rear left', 'car_id' => 'a']);
 		$expected = [
 			'car_id' => [
-				'numeric' => 'The provided value is invalid'
+				'numeric' => 'The provided value is invalid',
 			],
 		];
 		$this->assertSame($expected, $wheel->getErrors());

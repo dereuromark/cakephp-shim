@@ -47,7 +47,7 @@ class WheelsTable extends Table {
 				'allowEmpty' => false,
 				'last' => true,
 			],
-		]
+		],
 	];
 
 	/**
@@ -55,8 +55,8 @@ class WheelsTable extends Table {
 	 */
 	public $belongsTo = [
 		'Car' => [
-			'className' => 'Car'
-		]
+			'className' => 'Car',
+		],
 	];
 
 	/**
@@ -66,8 +66,8 @@ class WheelsTable extends Table {
 	 */
 	public $hasAndBelongsToMany = [
 		'HABTMCar' => [
-			'className' => 'Car'
-		]
+			'className' => 'Car',
+		],
 	];
 
 	/**
@@ -77,8 +77,8 @@ class WheelsTable extends Table {
 	 */
 	public $hasOne = [
 		'BogusCar' => [
-			'className' => 'Car'
-		]
+			'className' => 'Car',
+		],
 	];
 
 }
