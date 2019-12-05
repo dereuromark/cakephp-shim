@@ -389,18 +389,21 @@ class Table extends CoreTable {
 	/**
 	 * Convenience wrapper when upgrading save() from 2.x.
 	 *
-	 * @param array $entity Data
+	 * @deprecated 3.x Will be removed with the upgrade to 4.x.
+	 * @param array $data Data
 	 * @param array $options Options
 	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
-	public function saveArray(array $entity, array $options = []) {
-		$entity = $this->newEntity($entity, $options);
+	public function saveArray(array $data, array $options = []) {
+		$entity = $this->newEntity($data, $options);
+
 		return $this->save($entity, $options);
 	}
 
 	/**
 	 * Convenience wrapper when upgrading saveField() from 2.x.
 	 *
+	 * @deprecated 3.x Will be removed with the upgrade to 4.x.
 	 * @param int $id
 	 * @param string $field
 	 * @param mixed $value
