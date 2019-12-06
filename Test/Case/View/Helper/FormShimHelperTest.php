@@ -71,19 +71,15 @@ class FormShimHelperTest extends ShimTestCase {
 	}
 
 	/**
-	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
-	 * @expectedExceptionMessage FormHelper::control() does not support before, after option(s).
 	 * @return void
 	 */
-	public function testControlWithoutDivAndLabel() {
+	public function testControl() {
 		Configure::write(Shim::FORM_INPUTS, true);
-		$expected = '<input name="data[title]" class="form-control" type="text" value="" id="title">';
-		$actual = $this->Form->control('title', [
-			'templates' => [
-				'inputContainer' => '{{content}}',
-			],
-			'label' => false,
-		]);
+		$expected = '<div>';
+		$expected .= '<label for="Title" class="form-label">Title</label>';
+		$expected .= '<input name="data[title]" class="form-control" type="text" value="" id="title">';
+		$expected .= '</div>';
+		$actual = $this->Form->control('title');
 		$this->assertEquals($expected, $actual);
 	}
 

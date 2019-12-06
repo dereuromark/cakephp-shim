@@ -201,9 +201,6 @@ class FormShimHelper extends FormHelper {
 	public function control($fieldName, array $options = []) {
 		$optionKeys = array_keys($options);
 		$this->_checkDeprecatedInputOptions($optionKeys);
-		if ($options['templates']['inputContainer'] === '{{content}}') {
-			$options['div'] = false;
-		}
 		return parent::input($fieldName, $options);
 	}
 
