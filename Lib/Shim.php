@@ -136,8 +136,6 @@ class Shim {
 	/**
 	 * The name of the shim that checks the usage of deprecated since 3.4.0
 	 * FormHelper::input() and FormHelper::inputs().
-	 *
-	 * @var string
 	 */
 	const FORM_INPUTS = 'Shim.warnAboutFormInputs';
 

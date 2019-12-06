@@ -57,4 +57,17 @@ class FormShimHelperTest extends ShimTestCase {
 		$this->Form->input('title');
 	}
 
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage FormHelper::control() does not support before, after option(s).
+	 * @return void
+	 */
+	public function testControlDeprecatedOptions() {
+		Configure::write(Shim::FORM_INPUTS, true);
+		$this->Form->control('title', [
+			'before' => '<p>'
+			'after' => '</p>',
+		]);
+	}
+
 }
