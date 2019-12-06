@@ -27,3 +27,11 @@ If the project is going to be migrated directly to CakePHP 3.4.0 or higher then
 'Shim.warnAboutFormInputs' shim can be used to warn about these deprecated 
 methods. `FormHelper::control()` and `FormHelper::controls()` are supposed 
 to be used instead.
+
+The support of 'div', 'before', 'after', 'between' and 'errorMessage' options was removed in 3.x.
+
+In order to migrate the code that uses `input()` method with these deprecated options
+use specific input type methods `text()`, `select()`, `radio()` etc., 
+`label()` method for the label and place the code from 'div', 'before', 'after', 
+'between' and 'errorMessage' to the corresponding places around the input 
+and the label in HTML.

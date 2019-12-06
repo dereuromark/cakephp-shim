@@ -58,6 +58,15 @@ class FormShimHelperTest extends ShimTestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testInputNoShim() {
+		Configure::write(Shim::FORM_INPUTS, false);
+		$actual = $this->Form->input('title');
+		$this->assertContains('<input', $actual);
+	}
+
+	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
 	 * @expectedExceptionMessage FormHelper::control() does not support before, after option(s).
 	 * @return void
@@ -68,6 +77,83 @@ class FormShimHelperTest extends ShimTestCase {
 			'before' => '<p>',
 			'after' => '</p>',
 		]);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testControlDeprecatedOptionsNoShim() {
+		Configure::write(Shim::FORM_INPUTS, false);
+		$actual = $this->Form->control('title', [
+			'before' => '<p>',
+			'after' => '</p>',
+		]);
+		$this->assertContains('<input', $actual);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testControl() {
+		Configure::write(Shim::FORM_INPUTS, true);
+		$expected = '<div class="input text">';
+		$expected .= '<label for="title">Title</label>';
+		$expected .= '<input name="data[title]" type="text" id="title"/>';
+		$expected .= '</div>';
+		$actual = $this->Form->control('title');
+		$this->assertEquals($expected, $actual);
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage FormHelper::inputs() is deprecated. Use FormHelper::controls() instead.
+	 * @return void
+	 */
+	public function testInputs() {
+		Configure::write(Shim::FORM_INPUTS, true);
+		$this->Form->inputs(['title', 'description']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testInputsNoShim() {
+		Configure::write(Shim::FORM_INPUTS, false);
+		$actual = $this->Form->inputs(['title', 'description']);
+		$this->assertContains('<input', $actual);
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage FormHelper::control() does not support before, after option(s).
+	 * @return void
+	 */
+	public function testControlsDeprecatedOptions() {
+		Configure::write(Shim::FORM_INPUTS, true);
+		$fields = [
+			'title' => [
+				'before' => '<p>',
+				'after' => '</p>',
+			],
+			'description',
+		];
+		$this->Form->controls($fields);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testControlsDeprecatedOptionsNoShim() {
+		Configure::write(Shim::FORM_INPUTS, false);
+		$fields = [
+			'title' => [
+				'before' => '<p>',
+				'after' => '</p>',
+			],
+			'description',
+		];
+		$actual = $this->Form->controls($fields);
+		$this->assertContains('<input', $actual);
 	}
 
 }
