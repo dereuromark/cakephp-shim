@@ -25,7 +25,7 @@ matrix:
       env: DB=mysql PHPUNIT=5.7.19
 
 before_script:
-  - git clone -b 2.x https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
+  - git clone -b master https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
   - cd ../cakephp/app
   - composer global remove phpunit/phpunit
