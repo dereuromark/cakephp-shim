@@ -1,7 +1,5 @@
 language: php
 
-sudo: false
-
 env:
   global:
     - REPO_NAME=cakephp-shim
@@ -24,7 +22,7 @@ matrix:
     - php: 7.1
       env: DB=mysql PHPUNIT=5.7.19
 
-    - php: 7.2
+    - php: 7.4
       env: DB=mysql PHPUNIT=5.7.19
 
 before_script:
