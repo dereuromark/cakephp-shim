@@ -20,3 +20,10 @@ Note: Passing `false` will get you the former 2.x behavior again.
 
 #### DRY Configure options
 You can also declare your options side-wide using Configure key 'Shim.jsonOptions'.
+
+### FormHelper::input() and inputs()
+`FormHelper::input()` and `FormHelper::inputs()` are deprecated since 3.4.0.
+If the project is going to be migrated directly to CakePHP 3.4.0 or higher then 
+'Shim.warnAboutFormInputs' shim can be used to warn about these deprecated 
+methods. `FormHelper::control()` and `FormHelper::controls()` are supposed 
+to be used instead.

@@ -10,6 +10,9 @@ env:
     - CAKE_VERSION=2.x
     - CAKE_REF=2.x
 
+services:
+    - mysql
+
 matrix:
   include:
     - php: 5.6
