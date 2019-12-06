@@ -75,9 +75,9 @@ class FormShimHelperTest extends ShimTestCase {
 	 */
 	public function testControl() {
 		Configure::write(Shim::FORM_INPUTS, true);
-		$expected = '<div>';
-		$expected .= '<label for="Title" class="form-label">Title</label>';
-		$expected .= '<input name="data[title]" class="form-control" type="text" value="" id="title">';
+		$expected = '<div class="input text">';
+		$expected .= '<label for="title">Title</label>';
+		$expected .= '<input name="data[title]" type="text" id="title"/>';
 		$expected .= '</div>';
 		$actual = $this->Form->control('title');
 		$this->assertEquals($expected, $actual);
