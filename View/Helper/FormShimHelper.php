@@ -140,6 +140,14 @@ class FormShimHelper extends FormHelper {
 		return parent::input($fieldName, $options);
 	}
 
+	/**
+	 * Checks whether the option keys are valid.
+	 * Triggers the deprecation error or an exception if invalid option key
+	 * is found.
+	 *
+	 * @param array $optionKeys Option keys that were used in `control()` method.
+	 * @return void
+	 */
 	protected function _checkDeprecatedInputOptions($optionKeys) {
 		$supportedKeys = [
 			'type',
