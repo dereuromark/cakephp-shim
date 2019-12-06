@@ -153,7 +153,7 @@ class FormShimHelper extends FormHelper {
 		];
 		$diff = array_diff($optionKeys, $supportedKeys);
 		if (!empty($diff)) {
-			$unsupportedKeys = explode(', ', $diff);
+			$unsupportedKeys = implode(', ', $diff);
 			$message = "FormHelper::control() does not support $unsupportedKeys option(s).";
 			Shim::check(Shim::FORM_INPUTS, $message);
 		}
