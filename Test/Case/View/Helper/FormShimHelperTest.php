@@ -65,7 +65,7 @@ class FormShimHelperTest extends ShimTestCase {
 	public function testControlDeprecatedOptions() {
 		Configure::write(Shim::FORM_INPUTS, true);
 		$this->Form->control('title', [
-			'before' => '<p>'
+			'before' => '<p>',
 			'after' => '</p>',
 		]);
 	}
