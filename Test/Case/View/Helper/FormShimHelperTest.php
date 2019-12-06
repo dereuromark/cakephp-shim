@@ -47,4 +47,14 @@ class FormShimHelperTest extends ShimTestCase {
 		$this->Form->end('Click me');
 	}
 
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage FormHelper::input() is deprecated. Use FormHelper::control() instead.
+	 * @return void
+	 */
+	public function testInput() {
+		Configure::write(Shim::FORM_INPUTS, true);
+		$this->Form->input('title');
+	}
+
 }

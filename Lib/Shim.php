@@ -134,6 +134,14 @@ class Shim {
 	const VALIDATE_PROPERTY = 'Shim.warnAboutValidateProperty';
 
 	/**
+	 * The name of the shim that checks the usage of deprecated since 3.4.0
+	 * FormHelper::input() and FormHelper::inputs().
+	 *
+	 * @var string
+	 */
+	const FORM_INPUTS = 'Shim.warnAboutFormInputs';
+
+	/**
 	 * Checks whether the shim is enabled and generates an error or an exception.
 	 *
 	 * @param string $name    Name of the shim.
