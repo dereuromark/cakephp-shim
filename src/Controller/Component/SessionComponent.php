@@ -2,14 +2,14 @@
 
 namespace Shim\Controller\Component;
 
-use Shim\Controller\Component\Component;
-
 /**
  * The CakePHP SessionComponent provides a way to persist client data between
  * page requests. It acts as a wrapper for the `$_SESSION` as well as providing
  * convenience methods for several `$_SESSION` related functions.
  *
  * This class is here for backwards compatibility with CakePHP 2.x
+ *
+ * @deprecated Will be removed with Cake4. Use request directly instead.
  */
 class SessionComponent extends Component {
 
@@ -131,7 +131,8 @@ class SessionComponent extends Component {
 			$session->start();
 			return $session->id();
 		}
-		$this->_session->id($id);
+
+		return $this->_session->id($id);
 	}
 
 	/**
