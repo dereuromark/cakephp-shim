@@ -6,3 +6,4 @@ parameters:
 		- %rootDir%/../../../src/TestSuite/*
 	ignoreErrors:
 		- '#Variable \$_SESSION in isset\(\) always exists and is not nullable.#'
+		- '#Unreachable statement - code above always terminates.#'
