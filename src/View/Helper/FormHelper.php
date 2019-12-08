@@ -13,6 +13,7 @@ declare(strict_types = 1);
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace Shim\View\Helper;
 
 use Cake\View\Helper\FormHelper as CoreFormHelper;

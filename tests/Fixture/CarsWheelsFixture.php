@@ -1,4 +1,5 @@
 <?php
+
 namespace Shim\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
@@ -17,7 +18,7 @@ class CarsWheelsFixture extends TestFixture {
 		'id' => ['type' => 'integer'],
 		'car_id' => ['type' => 'integer', 'null' => false, 'default' => '0', 'length' => 11, 'collate' => null, 'comment' => ''],
 		'wheel_id' => ['type' => 'integer', 'null' => false, 'default' => '0', 'length' => 11, 'collate' => null, 'comment' => ''],
-		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]]
+		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**
