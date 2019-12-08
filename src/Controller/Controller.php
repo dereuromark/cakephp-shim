@@ -77,6 +77,8 @@ class Controller extends CoreController {
 		if ($data && $data instanceof Entity) {
 			$this->request = $this->request->withParsedBody($data->toArray());
 		}
+
+		return null;
 	}
 
 	/**
@@ -99,6 +101,8 @@ class Controller extends CoreController {
 				trigger_error($message);
 			}
 		}
+
+		return null;
 	}
 
 }

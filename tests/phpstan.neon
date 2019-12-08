@@ -1,8 +1,9 @@
 parameters:
 	autoload_files:
-		- %rootDir%/../../../tests/bootstrap.php
-		- %rootDir%/../../../tests/shim.php
+		- bootstrap.php
+		- shim.php
 	excludes_analyse:
 		- %rootDir%/../../../src/TestSuite/*
 	ignoreErrors:
 		- '#Variable \$_SESSION in isset\(\) always exists and is not nullable.#'
+		- '#Unreachable statement - code above always terminates.#'
