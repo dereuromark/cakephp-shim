@@ -350,35 +350,7 @@ class Table extends CoreTable {
 	}
 
 	/**
-	 * Convenience wrapper when upgrading save() from 2.x.
-	 *
-	 * @param array $entity Data
-	 * @param array $options Options
-	 * @return \Cake\Datasource\EntityInterface|bool
-	 */
-	public function saveArray(array $entity, array $options = []) {
-		$entity = $this->newEntity($entity, $options);
-		return $this->save($entity, $options);
-	}
-
-	/**
-	 * Convenience wrapper when upgrading saveField() from 2.x.
-	 *
-	 * @param int $id
-	 * @param string $field
-	 * @param mixed $value
-	 * @return \Cake\Datasource\EntityInterface|bool
-	 */
-	public function saveField($id, $field, $value) {
-		$entity = [
-			'id' => $id,
-			$field => $value,
-		];
-		return $this->saveArray($entity, ['accessibleFields' => ['id' => true]]);
-	}
-
-	/**
-	 * A 2.x shim of saveAll() wrapping save() calls for multiple entities.
+	 * A shim of saveAll() wrapping save() calls for multiple entities.
 	 *
 	 * Wrap it to be transaction safe for all save calls:
 	 *
@@ -386,6 +358,8 @@ class Table extends CoreTable {
 	 *  $articles->connection()->transactional(function () use ($articles, $entities) {
 	 *      $articles->saveAll($entities, ['atomic' => false]);
 	 *  }
+	 *
+	 * Use saveMany() if you want to get early exception instead of combined boolean result.
 	 *
 	 * @param \Cake\Datasource\EntityInterface[] $entities
 	 * @param array $options

@@ -71,6 +71,8 @@ class Controller extends CoreController {
 				trigger_error($message);
 			}
 		}
+
+		return null;
 	}
 
 }

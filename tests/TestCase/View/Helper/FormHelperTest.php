@@ -130,9 +130,8 @@ class FormHelperTest extends TestCase {
 				'maxYear' => 2011,
 				'interval' => 15,
 				'options' => null,
-				'empty' => false,
 				'id' => 'prueba',
-				'required' => false,
+				'required' => null,
 				'templateVars' => [],
 			])
 			->will($this->returnValue('This is it!'));
@@ -174,9 +173,8 @@ class FormHelperTest extends TestCase {
 				'maxYear' => 2011,
 				'interval' => 15,
 				'options' => null,
-				'empty' => false,
 				'id' => 'prefix-prueba',
-				'required' => false,
+				'required' => null,
 				'templateVars' => [],
 			])
 			->will($this->returnValue('This is it!'));

@@ -169,37 +169,6 @@ class TableTest extends TestCase {
 	}
 
 	/**
-	 * Shim support for saving via saveField() similar to 2.x
-	 *
-	 * @return void
-	 */
-	public function testSaveField() {
-		$post = $this->Posts->find()->first();
-		$this->assertInstanceOf(Entity::class, $post);
-
-		$res = $this->Posts->saveField($post['id'], 'title', 'FooBar');
-		$this->assertTrue((bool)$res);
-
-		$post = $this->Posts->record($post['id']);
-		$this->assertEquals('FooBar', $post['title']);
-	}
-
-	/**
-	 * Shim support for saving arrays directly.
-	 *
-	 * @return void
-	 */
-	public function testSaveArray() {
-		$array = [
-			'title' => 'Foo',
-			'author_id' => 1,
-		];
-		$res = $this->Posts->saveArray($array);
-		$this->assertTrue((bool)$res);
-		$this->assertNotEmpty($res->id);
-	}
-
-	/**
 	 * Shim support for saving arrays directly.
 	 *
 	 * @return void
