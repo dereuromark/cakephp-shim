@@ -1,5 +1,6 @@
 <?php
 App::uses('FormHelper', 'View/Helper');
+App::uses('Shim', 'Shim.Lib');
 
 /**
  * Helps migrating to 3.x
