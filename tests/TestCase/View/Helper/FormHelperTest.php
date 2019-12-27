@@ -372,58 +372,6 @@ class FormHelperTest extends TestCase {
 	}
 
 	/**
-	 * testDateTimeSecured method
-	 *
-	 * Test that datetime fields are added to protected fields list.
-	 *
-	 * @return void
-	 */
-	public function testDateTimeSecured() {
-		$this->View->setRequest(
-			$this->View->getRequest()->withParam('_Token', ['unlockedFields' => []])
-		);
-		$this->Form->dateTime('Contact.date');
-		$expected = [
-			'Contact.date.year',
-			'Contact.date.month',
-			'Contact.date.day',
-			'Contact.date.hour',
-			'Contact.date.minute',
-		];
-		$this->assertEquals($expected, $this->Form->fields);
-
-		$this->Form->fields = [];
-		$this->Form->date('Contact.published');
-		$expected = [
-			'Contact.published.year',
-			'Contact.published.month',
-			'Contact.published.day',
-		];
-		$this->assertEquals($expected, $this->Form->fields);
-	}
-
-	/**
-	 * testDateTimeSecuredDisabled method
-	 *
-	 * Test that datetime fields are added to protected fields list.
-	 *
-	 * @return void
-	 */
-	public function testDateTimeSecuredDisabled() {
-		$this->View->setRequest(
-			$this->View->getRequest()->withParam('_Token', ['unlockedFields' => []])
-		);
-		$this->Form->dateTime('Contact.date', ['secure' => false]);
-		$expected = [];
-		$this->assertEquals($expected, $this->Form->fields);
-
-		$this->Form->fields = [];
-		$this->Form->date('Contact.published', ['secure' => false]);
-		$expected = [];
-		$this->assertEquals($expected, $this->Form->fields);
-	}
-
-	/**
 	 * testDatetimeEmpty method
 	 *
 	 * Test empty defaulting to true for datetime.
@@ -1221,6 +1169,7 @@ class FormHelperTest extends TestCase {
 			'maxYear' => $end,
 			'month' => false,
 			'day' => false,
+			'empty' => false,
 		]);
 		$this->assertStringContainsString('value="' . $start . '">' . $start, $result);
 		$this->assertStringContainsString('value="' . $end . '" selected="selected">' . $end, $result);
