@@ -5,11 +5,7 @@ namespace Shim\Controller;
 use Cake\Controller\Controller as CoreController;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
-use Cake\Http\Response;
-use Cake\Http\ServerRequest;
-use Cake\Utility\Inflector;
 use Exception;
-use Shim\Deprecations;
 
 /**
  * DRY Controller stuff
@@ -30,13 +26,13 @@ class Controller extends CoreController {
 				}
 				$this->loadComponent($component, $config);
 			}
-			unset($this->components);
+			$this->components = null;
 		}
 
 		if (!empty($this->helpers)) {
 			$this->viewBuilder()->setHelpers($this->helpers);
 
-			unset($this->helpers);
+			$this->helpers = null;
 		}
 
 		parent::initialize();
