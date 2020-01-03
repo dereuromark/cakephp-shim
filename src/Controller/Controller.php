@@ -17,27 +17,29 @@ use Shim\Deprecations;
 class Controller extends CoreController {
 
 	/**
-	 * Sets a number of properties based on conventions if they are empty. To override the
-	 * conventions CakePHP uses you can define properties in your class declaration.
+	 * Shim components and helpers as class property array.
 	 *
-	 * @param \Cake\Http\ServerRequest|null $request Request object for this controller. Can be null for testing,
-	 *   but expect that features that use the request parameters will not work.
-	 * @param \Cake\Http\Response|null $response Response object for this controller.
-	 * @param string|null $name Override the name useful in testing when using mocks.
-	 * @param \Cake\Event\EventManager|null $eventManager The event manager. Defaults to a new instance.
-	 * @param \Cake\Controller\ComponentRegistry|null $components The component registry. Defaults to a new instance.
+	 * @return void
 	 */
-	public function __construct(ServerRequest $request = null, Response $response = null, $name = null, $eventManager = null, $components = null) {
-		if (!isset($this->modelClass) && !empty($this->uses)) {
-			$uses = (array)$this->uses;
-			$model = array_shift($uses);
-			$modelClass = Inflector::pluralize($model);
-			$this->modelClass = $modelClass;
-
-			Deprecations::error('Use $modelClass instead of $uses property.');
+	public function initialize(): void {
+		if (!empty($this->components)) {
+			foreach ($this->components as $component => $config) {
+				if (!is_string($component)) {
+					$component = $config;
+					$config = [];
+				}
+				$this->loadComponent($component, $config);
+			}
+			unset($this->components);
 		}
 
-		parent::__construct($request, $response, $name, $eventManager, $components);
+		if (!empty($this->helpers)) {
+			$this->viewBuilder()->setHelpers($this->helpers);
+
+			unset($this->helpers);
+		}
+
+		parent::initialize();
 	}
 
 	/**
