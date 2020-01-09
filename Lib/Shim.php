@@ -140,6 +140,13 @@ class Shim {
 	const FORM_INPUTS = 'Shim.warnAboutFormInputs';
 
 	/**
+	 * The name of the shim that checks the usage of deprecated since 3.0.0
+	 * FormHelper::inputDefaults() method and 'inputDefaults' option of
+	 * create() method.
+	 */
+	const FORM_INPUT_DEFAULTS = 'Shim.formInputDefaults';
+
+	/**
 	 * Checks whether the shim is enabled and generates an error or an exception.
 	 *
 	 * @param string $name    Name of the shim.
