@@ -168,7 +168,7 @@ class FormShimHelperTest extends ShimTestCase {
 
 	/**
 	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
-	 * @expectedExceptionMessage Using key 'inputDefaults' is deprecated.'
+	 * @expectedExceptionMessage Using key `inputDefaults` is deprecated.
 	 * @return void
 	 */
 	public function testInputDefaultsOption() {

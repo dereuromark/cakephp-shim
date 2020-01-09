@@ -44,7 +44,7 @@ class FormShimHelper extends FormHelper {
 			trigger_error('Using key `action` is deprecated, use `url` directly instead.', E_USER_DEPRECATED);
 		}
 		if (isset($options['inputDefaults'])) {
-			$message = "Using key 'inputDefaults' is deprecated.'";
+			$message = 'Using key `inputDefaults` is deprecated.';
 			Shim::check(Shim::FORM_INPUT_DEFAULTS, $message);
 		}
 		return parent::create($model, $options);
@@ -280,7 +280,7 @@ class FormShimHelper extends FormHelper {
 	/**
 	 * Set/Get inputDefaults for form elements
 	 *
-	 * @param array $defaults New default values.
+	 * @param array|null $defaults New default values.
 	 * @param bool $merge Merge with current defaults.
 	 * @return array inputDefaults
 	 */
