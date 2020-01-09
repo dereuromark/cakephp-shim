@@ -156,4 +156,29 @@ class FormShimHelperTest extends ShimTestCase {
 		$this->assertContains('<input', $actual);
 	}
 
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage FormHelper::inputDefaults() is deprecated.
+	 * @return void
+	 */
+	public function testInputDefaultsMethod() {
+		Configure::write(Shim::FORM_INPUT_DEFAULTS, true);
+		$this->Form->inputDefaults(array('class' => 'text_input'));
+	}
+
+	/**
+	 * @expectedException PHPUNIT_FRAMEWORK_ERROR_DEPRECATED
+	 * @expectedExceptionMessage Using key 'inputDefaults' is deprecated.'
+	 * @return void
+	 */
+	public function testInputDefaultsOption() {
+		Configure::write(Shim::FORM_INPUT_DEFAULTS, true);
+		$options = array(
+			'inputDefaults' => array(
+				'class' => 'text_input'
+			),
+		);
+		$this->Form->create(null, $options);
+	}
+
 }

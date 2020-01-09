@@ -35,3 +35,9 @@ use specific input type methods `text()`, `select()`, `radio()` etc.,
 `label()` method for the label and place the code from 'div', 'before', 'after', 
 'between' and 'errorMessage' to the corresponding places around the input 
 and the label in HTML.
+
+### FormHelper::inputDefaults() and 'inputDefaults' option
+The 'inputDefaults' option has been removed from `create()` and 
+`FormHelper::inputDefaults()` method has been removed in 3.x. 
+'Shim.formInputDefaults' shim can be used to warn about this deprecated method 
+and the option. The code from `inputDefaults` can be moved to form inputs.
