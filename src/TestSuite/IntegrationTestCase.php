@@ -2,13 +2,15 @@
 
 namespace Shim\TestSuite;
 
-use Cake\TestSuite\IntegrationTestCase as CoreIntegrationTestCase;
+use Cake\TestSuite\IntegrationTestTrait;
+use Cake\TestSuite\TestCase;
 
 /**
- * Enhanced IntegrationTestCase backport from 3.x
+ * Enhanced IntegrationTestCase class with debugging tools.
  */
-abstract class IntegrationTestCase extends CoreIntegrationTestCase {
+abstract class IntegrationTestCase extends TestCase {
 
+	use IntegrationTestTrait;
 	use TestTrait;
 
 }

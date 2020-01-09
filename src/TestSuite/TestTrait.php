@@ -13,7 +13,7 @@ trait TestTrait {
 	 * @param string $string
 	 * @return string
 	 */
-	protected static function osFix($string) {
+	protected static function osFix(string $string): string {
 		return str_replace(["\r\n", "\r"], "\n", $string);
 	}
 
@@ -25,7 +25,7 @@ trait TestTrait {
 	 *
 	 * @return bool Success
 	 */
-	protected static function isDebug() {
+	protected static function isDebug(): bool {
 		return !empty($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'], true);
 	}
 
@@ -38,7 +38,7 @@ trait TestTrait {
 	 * @param bool $onlyVeryVerbose If only -vv should be counted.
 	 * @return bool Success
 	 */
-	protected static function isVerbose($onlyVeryVerbose = false) {
+	protected static function isVerbose(bool $onlyVeryVerbose = false): bool {
 		if (empty($_SERVER['argv'])) {
 			return false;
 		}
@@ -61,7 +61,7 @@ trait TestTrait {
 	 * @param mixed $data
 	 * @return void
 	 */
-	protected static function debug($data) {
+	protected static function debug($data): void {
 		if (!static::isVerbose()) {
 			return;
 		}
