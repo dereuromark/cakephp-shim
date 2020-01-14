@@ -64,6 +64,15 @@ php phpunit.phar --filter testFooBar /path/to/SomeTest.php -vv
 
 See the above trait features.
 
+### Disable ErrorHandlerMiddleware
+You can globally set
+```php
+    protected $disableErrorHandlerMiddleware = true;
+```
+
+This is a quick way to disable all error handler middlewares on this integration test case.
+A useful default for all controllers/actions that are not expected to provide an error result (2xx/3xx).
+
 ## TestCase
 
 Also see the above trait features.
