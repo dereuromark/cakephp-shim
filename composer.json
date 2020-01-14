@@ -18,7 +18,7 @@
 	},
 	"require-dev": {
 		"fig-r/psr2r-sniffer": "dev-master",
-		"dereuromark/cakephp-ide-helper": "^1.0.0"
+		"dereuromark/cakephp-ide-helper": "dev-cake4"
 	},
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"
@@ -37,7 +37,6 @@
 		}
 	},
 	"prefer-stable": true,
-	"minimum-stability": "beta",
 	"scripts": {
 		"test": "php phpunit.phar",
 		"test-setup": "[ ! -f phpunit.phar ] && wget https://phar.phpunit.de/phpunit-8.1.4.phar && mv phpunit-8.1.4.phar phpunit.phar || true",
