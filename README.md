@@ -20,14 +20,15 @@ Especially the ORM layer, which would need heavy refactoring, requires a lot les
 This branch is for use with **CakePHP 4.0+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 ## Installation
-Please see [SETUP.md](docs/SETUP.md)
+Please see [Install.md](docs/Install.md)
 
 ## Usage
-Please see [Docs](docs).
+Please see [Docs](docs/).
 
 A full overview of all shimming between versions can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 
 ## New shims
+- Controller setup for components and helpers
 - FormHelper BC for datetime ([details](https://github.com/dereuromark/cakephp-shim/pull/46)).
 
 ## Existing shims from 3.x
@@ -37,13 +38,6 @@ A full overview of all shimming between versions can be found in the [Wiki](http
 relations (`$belongsTo`, `$hasMany`, ...) as it would be very time-consuming to
 manually adjust all those.
 - Auto-adds Timestamp behavior if `created` or `modified` field exists in table.
-
-## Removed shims of 2.x used in 3.x
-- Primary level `Table::find('first')` support.
-- Primary level `Table::find('count')` support.
-- Contains Session component as compatibility wrapper for request session object, also Session helper.
-- Partial Set class shim
-- beforeRender() controller shim for request-data as entity
 
 ## Helpful links
 When planning to upgrade, you should look into [upgrade app for 3.x/4.x](https://github.com/dereuromark/upgrade) as well as the [rector tool](https://github.com/rectorphp/rector).

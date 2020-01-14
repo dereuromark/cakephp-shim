@@ -9,12 +9,12 @@ class CarsTable extends Table {
 	/**
 	 * @var array
 	 */
-	public $actsAs = ['Useless'];
+	protected $actsAs = ['Useless'];
 
 	/**
 	 * @var array
 	 */
-	public $hasMany = [
+	protected $hasMany = [
 		'Wheel' => [
 			'className' => 'Wheel',
 		],

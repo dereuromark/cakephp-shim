@@ -10,7 +10,7 @@ class JsonTypesTable extends Table {
 	/**
 	 * @var array
 	 */
-	public $order = ['name' => 'ASC'];
+	protected $order = ['name' => 'ASC'];
 
 	/**
 	 * @param \Cake\Database\Schema\TableSchemaInterface $schema

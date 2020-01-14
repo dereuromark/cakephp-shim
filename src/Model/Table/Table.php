@@ -18,22 +18,22 @@ class Table extends CoreTable {
 	/**
 	 * @var array|string|null
 	 */
-	public $order = null;
+	protected $order;
 
 	/**
 	 * @var string
 	 */
-	public $createdField = 'created';
+	protected $createdField = 'created';
 
 	/**
 	 * @var string
 	 */
-	public $modifiedField = 'modified';
+	protected $modifiedField = 'modified';
 
 	/**
 	 * @var string
 	 */
-	public $validationDomain = 'default';
+	protected $validationDomain = 'default';
 
 	/**
 	 * initialize()
