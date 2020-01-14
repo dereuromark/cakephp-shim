@@ -1,4 +1,4 @@
-# Time Type classes
+# Time Type class
 
 ## TimeStringType
 The `TimeStringType` can be used to represent a specific string field for `HH:MM:SS` times.
@@ -36,7 +36,7 @@ use Cake\Database\Type;
 Type::map('time', 'Shim\Database\Type\TimeStringType');
 ```
 
-If you want to disable `24:00:00` as valid upper boundary (and transform it to `00:00:00` instead): 
+If you want to disable `24:00:00` as valid upper boundary (and transform it to `00:00:00` instead):
 ```php
 // in your bootstrap
 \Shim\Database\Type\TimeStringType::$normalizeUpperBoundary = true;
@@ -51,7 +51,7 @@ This way you could offer a bit more functionality:
 - isSame()/isBefore()/isAfter() methods
 - fromDateTime() and alike to extract the time part
 
-Even custom localized formatting like `AM/PM` could be added, but I think this should really be kept rather 
+Even custom localized formatting like `AM/PM` could be added, but I think this should really be kept rather
 in the presentation layer to keep such logic out of the value object itself.
 
 Feel free to add a `TimeObjectType` class here.

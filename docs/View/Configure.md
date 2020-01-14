@@ -8,9 +8,9 @@ class_alias('Cake\Core\Configure', 'Configure');
 in your bootstrap to continue to use the 2.x static Configure access in your templates, or you can
 use the `Configure` helper and preg replace the static with a dynamic call:
 ```php
-public $helpers = ['Shim.Configure'];
+$this->loadHelper('Shim.Configure');
 ```
-Then you access the Configure class this way:
+Then you access the Configure class this way in any template file directly:
 ```php
 $this->Configure->read($name)
 $this->Configure->check($name)

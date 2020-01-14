@@ -32,7 +32,7 @@ class TableTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	protected $fixtures =  [
+	protected $fixtures = [
 		'core.Users',
 		'core.Posts',
 		'core.Authors',

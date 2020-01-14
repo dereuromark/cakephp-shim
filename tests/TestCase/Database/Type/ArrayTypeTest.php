@@ -6,6 +6,7 @@ use Cake\Database\Driver;
 use Cake\Database\Type;
 use Cake\TestSuite\TestCase;
 use Shim\Database\Type\ArrayType;
+use stdClass;
 
 /**
  * Test for the Array type.
@@ -58,7 +59,7 @@ class ArrayTypeTest extends TestCase {
 		$result = $this->type->marshal(['foo', 'bar']);
 		$this->assertSame(['foo', 'bar'], $result);
 
-		$result = $this->type->marshal(new \stdClass());
+		$result = $this->type->marshal(new stdClass());
 		$this->assertNull($result);
 	}
 
@@ -77,7 +78,7 @@ class ArrayTypeTest extends TestCase {
 		$result = $this->type->toPHP(['foo', 'bar'], $this->driver);
 		$this->assertSame(['foo', 'bar'], $result);
 
-		$result = $this->type->toPHP(new \stdClass(), $this->driver);
+		$result = $this->type->toPHP(new stdClass(), $this->driver);
 		$this->assertNull($result);
 	}
 
@@ -97,7 +98,7 @@ class ArrayTypeTest extends TestCase {
 		$result = $this->type->toDatabase('', $this->driver);
 		$this->assertSame('', $result);
 
-		$result = $this->type->toDatabase(new \stdClass(), $this->driver);
+		$result = $this->type->toDatabase(new stdClass(), $this->driver);
 		$this->assertNull($result);
 	}
 
