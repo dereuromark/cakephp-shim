@@ -12,7 +12,7 @@ class CookieHelperTest extends TestCase {
 	/**
 	 * @var \Shim\View\Helper\CookieHelper
 	 */
-	public $Cookie;
+	protected $Cookie;
 
 	/**
 	 * @var \Cake\Http\ServerRequest|\PHPUnit\Framework\MockObject\MockObject

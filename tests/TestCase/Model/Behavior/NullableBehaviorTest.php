@@ -11,7 +11,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = [
+	protected $fixtures =  [
 		'plugin.Shim.Nullables',
 		'plugin.Shim.NullableTenants',
 	];
@@ -19,7 +19,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @var \Shim\Model\Table\Table|\Shim\Model\Behavior\NullableBehavior
 	 */
-	public $Table;
+	protected $Table;
 
 	/**
 	 * @return void

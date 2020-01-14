@@ -17,22 +17,22 @@ class TableTest extends TestCase {
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Posts;
+	protected $Posts;
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Users;
+	protected $Users;
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Wheels;
+	protected $Wheels;
 
 	/**
 	 * @var array
 	 */
-	public $fixtures = [
+	protected $fixtures =  [
 		'core.Users',
 		'core.Posts',
 		'core.Authors',

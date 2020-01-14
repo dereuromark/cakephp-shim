@@ -16,14 +16,14 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = [
+	protected $fixtures = [
 		'plugin.Shim.TimeTypes',
 	];
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Table;
+	protected $Table;
 
 	/**
 	 * @return void

@@ -12,7 +12,7 @@ class ControllerTest extends TestCase {
 	/**
 	 * @var \Shim\Controller\Controller
 	 */
-	public $Controller;
+	protected $Controller;
 
 	/**
 	 * @return void

@@ -13,7 +13,7 @@ use Shim\Database\Type\BinaryType;
 class BinaryTypeTest extends TestCase {
 
 	/**
-	 * @var \Cake\Database\TypeInterface
+	 * @var \Shim\Database\Type\BinaryType
 	 */
 	protected $type;
 

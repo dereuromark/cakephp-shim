@@ -32,18 +32,18 @@ use Shim\View\Helper\FormHelper;
 class FormHelperTest extends TestCase {
 
 	/**
-	 * Fixtures to be used
-	 *
-	 * @var array
-	 */
-	public $fixtures = ['core.Articles', 'core.Comments'];
-
-	/**
 	 * Do not load the fixtures by default
 	 *
 	 * @var bool
 	 */
 	public $autoFixtures = false;
+
+	/**
+	 * Fixtures to be used
+	 *
+	 * @var array
+	 */
+	protected $fixtures =  ['core.Articles', 'core.Comments'];
 
 	/**
 	 * @var array

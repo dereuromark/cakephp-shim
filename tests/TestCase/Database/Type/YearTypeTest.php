@@ -15,14 +15,14 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = [
+	protected $fixtures = [
 		'plugin.Shim.YearTypes',
 	];
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Table;
+	protected $Table;
 
 	/**
 	 * @return void
