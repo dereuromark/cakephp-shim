@@ -12,30 +12,28 @@ use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use Exception;
 use InvalidArgumentException;
-use RuntimeException;
-use Shim\Deprecations;
 
 class Table extends CoreTable {
 
 	/**
 	 * @var array|string|null
 	 */
-	public $order = null;
+	protected $order;
 
 	/**
 	 * @var string
 	 */
-	public $createdField = 'created';
+	protected $createdField = 'created';
 
 	/**
 	 * @var string
 	 */
-	public $modifiedField = 'modified';
+	protected $modifiedField = 'modified';
 
 	/**
 	 * @var string
 	 */
-	public $validationDomain = 'default';
+	protected $validationDomain = 'default';
 
 	/**
 	 * initialize()
@@ -46,7 +44,7 @@ class Table extends CoreTable {
 	 * @param array $config
 	 * @return void
 	 */
-	public function initialize(array $config) {
+	public function initialize(array $config): void {
 		// Shims
 		if (isset($this->useTable)) {
 			$this->setTable($this->useTable);
@@ -174,7 +172,7 @@ class Table extends CoreTable {
 	 * @param \Cake\Validation\Validator $validator
 	 * @return \Cake\Validation\Validator
 	 */
-	public function validationDefault(Validator $validator) {
+	public function validationDefault(Validator $validator): Validator {
 		if (!empty($this->validate)) {
 			foreach ($this->validate as $field => $rules) {
 				if (is_int($field)) {
@@ -249,23 +247,6 @@ class Table extends CoreTable {
 	}
 
 	/**
-	 * Shim to provide 2.x way of find('first') for easier upgrade.
-	 *
-	 * @param string $type
-	 * @param array $options
-	 * @return array|\Cake\Datasource\EntityInterface|\Cake\ORM\Query|int
-	 */
-	public function find($type = 'all', $options = []) {
-		if ($type === 'first') {
-			return parent::find('all', $options)->first();
-		}
-		if ($type === 'count') {
-			return parent::find('all', $options)->count();
-		}
-		return parent::find($type, $options);
-	}
-
-	/**
 	 * Overwrite findList() to make it work as in 2.x when only providing
 	 * 1-2 fields to select (no keyField/valueField).
 	 *
@@ -273,7 +254,7 @@ class Table extends CoreTable {
 	 * @param array $options The options for the find
 	 * @return \Cake\ORM\Query The query builder
 	 */
-	public function findList(Query $query, array $options) {
+	public function findList(Query $query, array $options): Query {
 		if (!isset($options['keyField']) && !isset($options['valueField'])) {
 			$select = $query->clause('select');
 			if ($select && count($select) <= 2) {
@@ -349,24 +330,6 @@ class Table extends CoreTable {
 	}
 
 	/**
-	 * 2.x shim for exists() and primary key.
-	 *
-	 * @deprecated Not usable as array, only for single primary keys. Use exists() directly.
-	 * @param int $id
-	 * @return bool
-	 */
-	public function existsById($id) {
-		$primaryKey = $this->getPrimaryKey();
-		if (is_array($primaryKey)) {
-			throw new RuntimeException('Not supported with multiple primary keys');
-		}
-		$conditions = [
-			$primaryKey => $id,
-		];
-		return parent::exists($conditions);
-	}
-
-	/**
 	 * Sets the default ordering as 2.x shim.
 	 *
 	 * If you don't want that, don't call parent when overwriting it in extending classes.
@@ -387,38 +350,7 @@ class Table extends CoreTable {
 	}
 
 	/**
-	 * Convenience wrapper when upgrading save() from 2.x.
-	 *
-	 * @deprecated 3.x Will be removed with the upgrade to 4.x.
-	 * @param array $data Data
-	 * @param array $options Options
-	 * @return \Cake\Datasource\EntityInterface|bool
-	 */
-	public function saveArray(array $data, array $options = []) {
-		$entity = $this->newEntity($data, $options);
-
-		return $this->save($entity, $options);
-	}
-
-	/**
-	 * Convenience wrapper when upgrading saveField() from 2.x.
-	 *
-	 * @deprecated 3.x Will be removed with the upgrade to 4.x.
-	 * @param int $id
-	 * @param string $field
-	 * @param mixed $value
-	 * @return \Cake\Datasource\EntityInterface|bool
-	 */
-	public function saveField($id, $field, $value) {
-		$entity = [
-			'id' => $id,
-			$field => $value,
-		];
-		return $this->saveArray($entity, ['accessibleFields' => ['id' => true]]);
-	}
-
-	/**
-	 * A 2.x shim of saveAll() wrapping save() calls for multiple entities.
+	 * A shim of saveAll() wrapping save() calls for multiple entities.
 	 *
 	 * Wrap it to be transaction safe for all save calls:
 	 *
@@ -426,6 +358,8 @@ class Table extends CoreTable {
 	 *  $articles->connection()->transactional(function () use ($articles, $entities) {
 	 *      $articles->saveAll($entities, ['atomic' => false]);
 	 *  }
+	 *
+	 * Use saveMany() if you want to get early exception instead of combined boolean result.
 	 *
 	 * @param \Cake\Datasource\EntityInterface[] $entities
 	 * @param array $options
@@ -480,7 +414,7 @@ class Table extends CoreTable {
 	 * @return bool success
 	 * @throws \InvalidArgumentException
 	 */
-	public function delete(EntityInterface $entity, $options = []) {
+	public function delete(EntityInterface $entity, $options = []): bool {
 		if (!is_array($options)) {
 			throw new InvalidArgumentException('Invalid options input.');
 		}
@@ -573,40 +507,6 @@ class Table extends CoreTable {
 		$query->where([$field . ' IN' => $valueArray]);
 
 		return $query;
-	}
-
-	/**
-	 * This creates a new entity object.
-	 *
-	 * Careful: This does not trigger any field validation.
-	 * This entity can be persisted without validation error as empty record.
-	 * Always patch in required fields before saving.
-	 *
-	 * 4.x shim into 3.x to already adjust your code future proof.
-	 *
-	 * @return \Cake\Datasource\EntityInterface
-	 */
-	public function newEmptyEntity() {
-		return parent::newEntity();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * Shim to help find newEntity() usage with null - as this is removed in 4.x.
-	 *
-	 * @see \Shim\Model\Table\Table::newEmptyEntity()
-	 *
-	 * @param array|null $data The data to build an entity with.
-	 * @param array $options A list of options for the object hydration.
-	 * @return \Cake\Datasource\EntityInterface
-	 */
-	public function newEntity($data = null, array $options = []) {
-		if ($data === null && Deprecations::enabled('newEntity')) {
-			Deprecations::error('newEntity() with null is deprecated (and removed in 4.x), use newEntityEmpty() instead.');
-		}
-
-		return parent::newEntity($data, $options);
 	}
 
 	/**

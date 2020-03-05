@@ -16,7 +16,7 @@ class EntityAnnotator extends IdeHelperEntityAnnotator {
 	 * @return \IdeHelper\Annotation\AbstractAnnotation[]
 	 * @throws \RuntimeException
 	 */
-	protected function buildAnnotations(array $propertyHintMap, DocBlockHelper $helper) {
+	protected function buildAnnotations(array $propertyHintMap, DocBlockHelper $helper): array {
 		$map = parent::buildAnnotations($propertyHintMap, $helper);
 
 		$class = $this->getConfig('class');

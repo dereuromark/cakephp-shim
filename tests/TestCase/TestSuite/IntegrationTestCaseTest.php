@@ -3,7 +3,6 @@
 namespace Shim\Test\TestCase\TestSuite;
 
 use Cake\Core\Configure;
-use Cake\Routing\DispatcherFactory;
 use Cake\Routing\Router;
 use Shim\TestSuite\IntegrationTestCase;
 
@@ -12,15 +11,12 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Configure::write('App.namespace', 'TestApp');
 
-		Router::connect('/:controller/:action/*', [], ['routeClass' => 'InflectedRoute']);
-		DispatcherFactory::clear();
-		DispatcherFactory::add('Routing');
-		DispatcherFactory::add('ControllerFactory');
+		Router::connect('/:controller/:action/*');
 	}
 
 	/**
@@ -46,17 +42,17 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 	 * @return void
 	 */
 	public function testBasic() {
-		$this->deprecated(function () {
-			$this->get(['controller' => 'Items', 'action' => 'index']);
+		$this->disableErrorHandlerMiddleware();
 
-			$this->assertResponseCode(200);
-			$this->assertResponseOk();
-			$this->assertResponseSuccess();
-			$this->assertNoRedirect();
-			$this->assertResponseNotEmpty();
-			$this->assertResponseContains('<body>');
-			$this->assertResponseContains('My Index Test ctp');
-		});
+		$this->get(['controller' => 'Items', 'action' => 'index']);
+
+		$this->assertResponseCode(200);
+		$this->assertResponseOk();
+		$this->assertResponseSuccess();
+		$this->assertNoRedirect();
+		$this->assertResponseNotEmpty();
+		$this->assertResponseContains('<body>');
+		$this->assertResponseContains('My Index Test ctp');
 	}
 
 }

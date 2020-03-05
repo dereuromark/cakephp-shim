@@ -15,8 +15,6 @@ It will by default look if it can re-use the following (if not nothing bad happe
 manually adjust all those.
 
 Also:
-- `Table::find('first')` support (for basic cases).
-- `Table::find('count')` support.
 - `Table::field()` support and `fieldByConditions()` alias to migrate to.
 - `Table::saveField()` support.
 - `Table::saveArray()` support.
@@ -50,26 +48,12 @@ Of course this shimmed functionality and `NOT` clauses with deleting records can
 applied. In most cases one would not want the sudden 0 exception, though, and you either manually add !empty() checking or you use this functionality when you are sure it is safe
 to do so.
 
-## saveAll() and transactions
-Table:saveAll() wraps saving multiple entities. Optionally, you can wrap them to be transaction safe together:
+## saveMany() and transactions
+`Table:saveMany()` wraps saving multiple entities. Optionally, you can wrap them to be transaction safe together:
 ```php
 // In a controller.
 $articles->connection()->transactional(function () use ($articles, $entities) {
-    $articles->saveAll($entities, ['atomic' => false]);
+    $articles->saveMany($entities, ['atomic' => false]);
 }
 ```
-Note: In 4x. this will be coming as `saveMany()`/`saveManyOrFail()`.
-
-## FC shims
-
-### newEntity() vs newEmptyEntity()
-Null as first argument is not accepted anymore in 4.x.
-
-`Cake\ORM\Table::newEmptyEntity()` method is available in 3.x to help making the code already future proof towards 4.x.
-
-Make sure you loaded the plugin's bootstrap or manually set
-```php
-Configure::write('Shim.deprecations.newEntity', true);
-// or
-Configure::write('Shim.deprecations', true);
-```
+Note: Use `saveManyOrFail()` if you want to throw exception instead.

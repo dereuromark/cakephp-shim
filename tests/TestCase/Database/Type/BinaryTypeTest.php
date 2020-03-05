@@ -13,11 +13,21 @@ use Shim\Database\Type\BinaryType;
 class BinaryTypeTest extends TestCase {
 
 	/**
+	 * @var \Shim\Database\Type\BinaryType
+	 */
+	protected $type;
+
+	/**
+	 * @var \Cake\Database\Driver|\PHPUnit\Framework\MockObject\MockObject
+	 */
+	protected $driver;
+
+	/**
 	 * Setup
 	 *
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Type::map('binary', BinaryType::class);
@@ -29,7 +39,7 @@ class BinaryTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->Table);
@@ -47,7 +57,7 @@ class BinaryTypeTest extends TestCase {
 		$this->assertSame('5945c961-e74d-478f-8afe-da53cf4189e3', $result);
 
 		$result = $this->type->toPHP('some data', $this->driver);
-		$this->assertInternalType('resource', $result);
+		$this->assertIsResource($result);
 	}
 
 	/**

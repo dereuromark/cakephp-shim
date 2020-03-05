@@ -16,19 +16,19 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = [
+	protected $fixtures = [
 		'plugin.Shim.TimeTypes',
 	];
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Table;
+	protected $Table;
 
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Type::map('time', TimeStringType::class);
@@ -39,7 +39,7 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->Table);
@@ -105,7 +105,7 @@ class TimeStringTypeTest extends TestCase {
 		$entity = $this->Table->newEmptyEntity();
 		$Form->create($entity);
 		$x = $Form->control('closing_time', ['type' => 'time']);
-		$this->assertContains('<div class="input time"><label>Closing Time</label><select name="closing_time[hour]', $x);
+		$this->assertTextContains('<div class="input time"><label for="closing-time">Closing Time</label><input type="time" name="closing_time"', $x);
 	}
 
 	/**

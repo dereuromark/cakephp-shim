@@ -12,7 +12,7 @@ class CookieHelperTest extends TestCase {
 	/**
 	 * @var \Shim\View\Helper\CookieHelper
 	 */
-	public $Cookie;
+	protected $Cookie;
 
 	/**
 	 * @var \Cake\Http\ServerRequest|\PHPUnit\Framework\MockObject\MockObject
@@ -22,18 +22,18 @@ class CookieHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
+		/** @var \Cake\Http\ServerRequest|\PHPUnit\Framework\MockObject\MockObject $request */
 		$this->request = $this->getMockBuilder(ServerRequest::class)->setMethods(['getCookie', 'getCookieParams'])->getMock();
-		$view = new View($this->request);
-		$this->Cookie = new CookieHelper($view);
+		$this->Cookie = new CookieHelper(new View($this->request));
 	}
 
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		unset($this->Table);
 
 		parent::tearDown();

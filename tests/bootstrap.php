@@ -32,10 +32,12 @@ require dirname(__DIR__) . '/vendor/autoload.php';
 require CORE_PATH . 'config/bootstrap.php';
 
 Cake\Core\Configure::write('App', [
+	'encoding' => 'UTF-8',
 	'namespace' => 'App',
 	'paths' => [
-		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'src' . DS . 'Template' . DS],
+		'templates' => [ROOT . DS . 'tests' . DS . 'test_app' . DS . 'templates' . DS],
 	],
+	'fullBaseUrl' => 'http://localhost',
 ]);
 
 Cake\Core\Configure::write('debug', true);
@@ -82,16 +84,13 @@ if (getenv('DB_DSN')) {
 
 if (!getenv('DB_CLASS')) {
 	putenv('DB_CLASS=Cake\Database\Driver\Sqlite');
-	putenv('DB_DSN=sqlite::memory:');
+	putenv('DB_DSN=sqlite:///:memory:');
 }
 
 Cake\Datasource\ConnectionManager::setConfig('test', [
 	'className' => 'Cake\Database\Connection',
 	'driver' => getenv('DB_CLASS'),
 	'dsn' => getenv('DB_DSN'),
-	'database' => getenv('DB_DATABASE'),
-	'username' => getenv('DB_USERNAME'),
-	'password' => getenv('DB_PASSWORD'),
 	'timezone' => 'UTC',
 	'quoteIdentifiers' => true,
 	'cacheMetadata' => true,

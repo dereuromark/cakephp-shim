@@ -2,7 +2,7 @@
 
 namespace TestApp\Model\Table;
 
-use Cake\Database\Schema\TableSchema;
+use Cake\Database\Schema\TableSchemaInterface;
 use Shim\Model\Table\Table;
 
 class YearTypesTable extends Table {
@@ -10,14 +10,14 @@ class YearTypesTable extends Table {
 	/**
 	 * @var array
 	 */
-	public $order = ['name' => 'ASC'];
+	protected $order = ['name' => 'ASC'];
 
 	/**
-	 * @param \Cake\Database\Schema\TableSchema $schema
+	 * @param \Cake\Database\Schema\TableSchemaInterface $schema
 	 *
-	 * @return \Cake\Database\Schema\TableSchema
+	 * @return \Cake\Database\Schema\TableSchemaInterface
 	 */
-	protected function _initializeSchema(TableSchema $schema) {
+	protected function _initializeSchema(TableSchemaInterface $schema): TableSchemaInterface {
 		$schema->setColumnType('year_of_birth', 'year');
 
 		return $schema;

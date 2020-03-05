@@ -2,9 +2,8 @@
 
 namespace Shim\Database\Type;
 
-use Cake\Database\Driver;
-use Cake\Database\Type;
-use Cake\Database\TypeInterface;
+use Cake\Database\DriverInterface;
+use Cake\Database\Type\BaseType;
 use PDO;
 
 /**
@@ -14,7 +13,7 @@ use PDO;
  * - Type::map('year', 'Shim\Database\Type\YearType'); in bootstrap
  * - Manual FormHelper $this->Form->control('published', ['type' => 'year']);
  */
-class YearType extends Type implements TypeInterface {
+class YearType extends BaseType {
 
 	/**
 	 * Date format for DateTime object
@@ -27,22 +26,28 @@ class YearType extends Type implements TypeInterface {
 	 * Converts year data into the database format.
 	 *
 	 * @param int|string|array|null $value The value to convert.
-	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
+	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return int|null
 	 */
-	public function toDatabase($value, Driver $driver) {
-		return $this->marshal($value);
+	public function toDatabase($value, DriverInterface $driver) {
+		if (is_array($value)) {
+			$value = $value['year'];
+		}
+		if ($value === null || !(int)$value) {
+			return null;
+		}
+		return $value;
 	}
 
 	/**
 	 * Converts DB year column into PHP int.
 	 *
 	 * @param resource|string|null $value The value to convert.
-	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
+	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return int|null
 	 * @throws \Cake\Core\Exception\Exception
 	 */
-	public function toPHP($value, Driver $driver) {
+	public function toPHP($value, DriverInterface $driver) {
 		if ($value === null || !(int)$value) {
 			return null;
 		}
@@ -69,10 +74,10 @@ class YearType extends Type implements TypeInterface {
 	 * Get the correct PDO binding type for Year data.
 	 *
 	 * @param mixed $value The value being bound.
-	 * @param \Cake\Database\Driver $driver The driver.
+	 * @param \Cake\Database\DriverInterface $driver The driver.
 	 * @return int
 	 */
-	public function toStatement($value, Driver $driver) {
+	public function toStatement($value, DriverInterface $driver) {
 		return PDO::PARAM_INT;
 	}
 

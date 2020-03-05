@@ -11,7 +11,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = [
+	protected $fixtures = [
 		'plugin.Shim.Nullables',
 		'plugin.Shim.NullableTenants',
 	];
@@ -19,12 +19,12 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @var \Shim\Model\Table\Table|\Shim\Model\Behavior\NullableBehavior
 	 */
-	public $Table;
+	protected $Table;
 
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->Table = TableRegistry::get('Nullables');
@@ -35,7 +35,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		TableRegistry::clear();
@@ -64,7 +64,7 @@ class NullableBehaviorTest extends TestCase {
 			'string_optional' => null,
 			'string_required' => '',
 			'active_optional' => null,
-			'active_required' => false,
+			'active_required' => null,
 			'datetime_optional' => null,
 			'datetime_required' => null,
 			'nullable_tenant' => null,
@@ -95,7 +95,7 @@ class NullableBehaviorTest extends TestCase {
 			'string_optional' => null,
 			'string_required' => '',
 			'active_optional' => null,
-			'active_required' => false,
+			'active_required' => null,
 			'datetime_optional' => null,
 			'datetime_required' => null,
 			'tenant' => ['id' => 1],

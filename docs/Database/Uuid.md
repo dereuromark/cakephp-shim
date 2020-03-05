@@ -1,4 +1,4 @@
-# UUID type classes
+# UUID type class
 
 ## BinaryUuidType
 

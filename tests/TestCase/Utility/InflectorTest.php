@@ -3,21 +3,20 @@
 namespace Shim\Test\TestCase\Utility;
 
 use Shim\TestSuite\TestCase;
+use Shim\Utility\CastTrait;
 use Shim\Utility\Inflector;
 
 class InflectorTest extends TestCase {
 
+	use CastTrait;
+
 	/**
 	 * @return void
 	 */
-	public function testPluralize() {
-		$string = 'my_index';
-		$result = Inflector::pluralize($string);
-		$this->assertSame('my_indexes', $result);
-
-		$string = 'myIndex';
-		$result = Inflector::pluralize($string);
-		$this->assertSame('myIndexes', $result);
+	public function testSlug() {
+		$result = Inflector::slug('äöü');
+		$expected = 'aeoeue';
+		$this->assertSame($expected, $result);
 	}
 
 }

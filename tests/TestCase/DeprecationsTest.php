@@ -11,7 +11,7 @@ class DeprecationsTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		Configure::delete('Shim.deprecations');
 
 		parent::setUp();
@@ -20,7 +20,7 @@ class DeprecationsTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		Configure::delete('Shim.deprecations');
 
 		parent::tearDown();

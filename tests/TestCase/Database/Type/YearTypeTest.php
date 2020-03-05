@@ -15,19 +15,19 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	public $fixtures = [
+	protected $fixtures = [
 		'plugin.Shim.YearTypes',
 	];
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	public $Table;
+	protected $Table;
 
 	/**
 	 * @return void
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		Type::map('year', YearType::class);
@@ -38,7 +38,7 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function tearDown() {
+	public function tearDown(): void {
 		parent::tearDown();
 
 		unset($this->Table);
@@ -87,8 +87,8 @@ class YearTypeTest extends TestCase {
 
 		$entity = $this->Table->newEmptyEntity();
 		$Form->create($entity);
-		$x = $Form->control('year_of_birth', ['type' => 'year']);
-		$this->assertContains('<select name="year_of_birth[year]" type="year"', $x);
+		$html = $Form->control('year_of_birth', ['type' => 'year']);
+		$this->assertStringContainsString('<select name="year_of_birth"', $html);
 		// <div class="input number"><label for="year-of-birth">Year Of Birth</label><input type="number" name="year_of_birth" id="year-of-birth"/></div>
 	}
 

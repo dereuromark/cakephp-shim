@@ -9,27 +9,27 @@ class WheelsTable extends Table {
 	/**
 	 * @var string
 	 */
-	public $displayField = 'position';
+	protected $displayField = 'position';
 
 	/**
 	 * @var array
 	 */
-	public $order = ['position' => 'ASC'];
+	protected $order = ['position' => 'ASC'];
 
 	/**
 	 * @var bool
 	 */
-	public $createdField = false;
+	protected $createdField = false;
 
 	/**
 	 * @var bool
 	 */
-	public $modifiedField = false;
+	protected $modifiedField = false;
 
 	/**
 	 * @var array
 	 */
-	public $validate = [
+	protected $validate = [
 		'car_id' => [
 			'numeric',
 		],
@@ -53,7 +53,7 @@ class WheelsTable extends Table {
 	/**
 	 * @var array
 	 */
-	public $belongsTo = [
+	protected $belongsTo = [
 		'Car' => [
 			'className' => 'Car',
 		],
@@ -64,7 +64,7 @@ class WheelsTable extends Table {
 	 *
 	 * @var array
 	 */
-	public $hasAndBelongsToMany = [
+	protected $hasAndBelongsToMany = [
 		'HABTMCar' => [
 			'className' => 'Car',
 		],
@@ -75,7 +75,7 @@ class WheelsTable extends Table {
 	 *
 	 * @var array
 	 */
-	public $hasOne = [
+	protected $hasOne = [
 		'BogusCar' => [
 			'className' => 'Car',
 		],
