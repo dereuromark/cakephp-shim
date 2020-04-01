@@ -12,3 +12,9 @@ This is mainly for MySQL. Postgres etc can use their native implementations.
 Needs:
 - `Type::map('json', 'Shim\Database\Type\JsonType');` in bootstrap
 - Run `UPDATE table_name SET field_name = null WHERE field_name = 'null';` to clean up the table
+
+You can also use the included shell command to run this for your `json` type fields:
+```
+bin/cake shim_json [ModelName] -d -v [-p PluginName]
+```
+Use `-d`/`--dry-run` to analyze your database first.
