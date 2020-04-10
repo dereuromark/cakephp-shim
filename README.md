@@ -1,5 +1,5 @@
 # Shim plugin for CakePHP
-[![Build Status](https://api.travis-ci.org/dereuromark/cakephp-shim.svg?branch=master)](https://travis-ci.org/dereuromark/cakephp-shim)
+[![Build Status](https://api.travis-ci.com/dereuromark/cakephp-shim.svg?branch=cake3)](https://travis-ci.org/dereuromark/cakephp-shim)
 [![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-shim/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%205.6-8892BF.svg)](https://php.net/)
