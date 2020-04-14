@@ -3,6 +3,7 @@
 namespace Shim\Model\Behavior;
 
 use ArrayObject;
+use Cake\Datasource\EntityInterface;
 use Cake\Event\Event;
 use Cake\ORM\Behavior;
 use Cake\ORM\Table;
@@ -19,13 +20,38 @@ use Cake\Utility\Hash;
 class NullableBehavior extends Behavior {
 
 	/**
+	 * @var array
+	 */
+	protected $_defaultConfig = [
+		'on' => 'beforeMarshal', // beforeMarshal/afterSave
+	];
+
+	/**
 	 * @param \Cake\Event\Event $event
 	 * @param \ArrayObject $data
 	 * @param \ArrayObject $options
 	 * @return void
 	 */
 	public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
-		$this->_process($data, $this->_table);
+		if ($this->_config['on'] !== 'beforeMarshal') {
+			return;
+		}
+
+		$this->_processArray($data, $this->_table);
+	}
+
+	/**
+	 * @param \Cake\Event\Event $event
+	 * @param \Cake\ORM\Entity $entity
+	 * @param \ArrayObject $options
+	 * @return void
+	 */
+	public function beforeSave(Event $event, EntityInterface $entity, ArrayObject $options) {
+		if ($this->_config['on'] !== 'beforeSave') {
+			return;
+		}
+
+		$this->_processEntity($entity, $this->_table);
 	}
 
 	/**
@@ -33,7 +59,7 @@ class NullableBehavior extends Behavior {
 	 * @param \Cake\ORM\Table $table
 	 * @return \ArrayObject
 	 */
-	protected function _process($data, Table $table) {
+	protected function _processArray($data, Table $table) {
 		$associations = [];
 		/** @var \Cake\ORM\Association $association */
 		foreach ($table->associations() as $association) {
@@ -42,7 +68,7 @@ class NullableBehavior extends Behavior {
 
 		foreach ($data as $key => $value) {
 			if (array_key_exists($key, $associations)) {
-				$data[$key] = $data[$key] === null ? null : $this->_process($data[$key], $table->getAssociation($associations[$key])->getTarget());
+				$data[$key] = $data[$key] === null ? null : $this->_processArray($data[$key], $table->getAssociation($associations[$key])->getTarget());
 				continue;
 			}
 			$nullable = Hash::get((array)$table->getSchema()->getColumn($key), 'null');
@@ -58,6 +84,41 @@ class NullableBehavior extends Behavior {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * @param \Cake\ORM\Entity $entity
+	 * @param \Cake\ORM\Table $table
+	 * @return \Cake\ORM\Entity
+	 */
+	protected function _processEntity(EntityInterface $entity, Table $table) {
+		$associations = [];
+		/** @var \Cake\ORM\Association $association */
+		foreach ($table->associations() as $association) {
+			$associations[$association->getProperty()] = $association->getName();
+		}
+
+		foreach ($entity->getDirty() as $field) {
+			$value = $entity->get($field);
+
+			if (array_key_exists($field, $associations)) {
+				$value = ($value === null) ? null : $this->_processEntity($value, $table->getAssociation($associations[$field])->getTarget());
+				$entity->set($field, $value);
+				continue;
+			}
+			$nullable = Hash::get((array)$table->getSchema()->getColumn($field), 'null');
+			if ($nullable !== true) {
+				continue;
+			}
+			if ($value !== '') {
+				continue;
+			}
+
+			$default = Hash::get((array)$table->getSchema()->getColumn($field), 'default');
+			$entity->set($field, $default);
+		}
+
+		return $entity;
 	}
 
 }

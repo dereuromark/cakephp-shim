@@ -85,4 +85,53 @@ class NullableBehaviorShimmedTest extends TestCase {
 		$this->assertSame($expected, $entity->toArray());
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testSave() {
+		$data = [
+			'optional_id' => '',
+			'required_id' => '0',
+			'string_optional' => '',
+			'string_required' => '',
+			'active_optional' => '',
+			'active_required' => '0',
+			'datetime_optional' => '',
+			'datetime_required' => '2019-01-01 00:01:02',
+			'nullable_tenant' => null,
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$expected = [
+			'optional_id' => null,
+			'required_id' => 0,
+			'string_optional' => null,
+			'string_required' => '',
+			'active_optional' => null,
+			'active_required' => false,
+			'datetime_optional' => null,
+			'nullable_tenant' => null,
+		];
+		$result = $entity->toArray();
+		unset($result['datetime_required']);
+		$this->assertSame($expected, $result);
+
+		$entity = $this->Table->saveOrFail($entity);
+
+		$expected = [
+			'optional_id' => null,
+			'required_id' => 0,
+			'string_optional' => null,
+			'string_required' => '',
+			'active_optional' => null,
+			'active_required' => false,
+			'datetime_optional' => null,
+			'nullable_tenant' => null,
+		];
+		$result = $entity->toArray();
+		unset($result['id']);
+		unset($result['datetime_required']);
+		$this->assertSame($expected, $result);
+	}
+
 }
