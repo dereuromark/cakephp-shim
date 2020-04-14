@@ -2,7 +2,6 @@
 
 namespace Tools\Test\TestCase\Model\Behavior;
 
-use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Shim\TestSuite\TestCase;
 
@@ -107,8 +106,6 @@ class NullableBehaviorTest extends TestCase {
 	 * @return void
 	 */
 	public function testPatchOptionalNotNull() {
-		$this->skipIf(version_compare(Configure::version(), '3.3.7') <= 0);
-
 		$data = [
 			'string_optional_notnull' => '',
 			'active_optional_notnull' => '',
@@ -120,6 +117,96 @@ class NullableBehaviorTest extends TestCase {
 			'active_optional_notnull' => false,
 		];
 		$this->assertSame($expected, $entity->toArray());
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testSave() {
+		$this->Table->removeBehavior('Nullable');
+		$this->Table->addBehavior('Shim.Nullable', ['on' => 'beforeSave']);
+
+		$data = [
+			'optional_id' => '',
+			'required_id' => '0',
+			'string_optional' => '',
+			'string_required' => '',
+			'active_optional' => '',
+			'active_required' => '',
+			'datetime_optional' => '',
+			'datetime_required' => '2019-01-01 00:01:02',
+			'nullable_tenant' => '',
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$expected = [
+			'optional_id' => null,
+			'required_id' => 0,
+			'string_optional' => '',
+			'string_required' => '',
+			'active_optional' => false,
+			'active_required' => false,
+			'datetime_optional' => null,
+			'nullable_tenant' => null,
+		];
+		$result = $entity->toArray();
+		unset($result['datetime_required']);
+		$this->assertSame($expected, $result);
+
+		$entity = $this->Table->saveOrFail($entity);
+
+		$expected = [
+			'optional_id' => null,
+			'required_id' => 0,
+			'string_optional' => null,
+			'string_required' => '',
+			'active_optional' => false,
+			'active_required' => false,
+			'datetime_optional' => null,
+			'nullable_tenant' => null,
+		];
+		$result = $entity->toArray();
+		unset($result['id']);
+		unset($result['datetime_required']);
+		$this->assertSame($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testSaveAssociation() {
+		$this->Table->removeBehavior('Nullable');
+		$this->Table->addBehavior('Shim.Nullable', ['on' => 'beforeSave']);
+
+		$data = [
+			'optional_id' => '',
+			'required_id' => '0',
+			'string_optional' => '',
+			'string_required' => '',
+			'active_optional' => '',
+			'active_required' => '',
+			'datetime_optional' => '',
+			'datetime_required' => '2019-01-01 00:01:02',
+			'tenant' => ['id' => 1],
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$this->Table->saveOrFail($entity);
+
+		$expected = [
+			'optional_id' => null,
+			'required_id' => 0,
+			'string_optional' => null,
+			'string_required' => '',
+			'active_optional' => false,
+			'active_required' => false,
+			'datetime_optional' => null,
+			'tenant' => ['id' => 1],
+		];
+		$result = $entity->toArray();
+		unset($result['id']);
+		unset($result['datetime_required']);
+		$this->assertSame($expected, $result);
 	}
 
 }
