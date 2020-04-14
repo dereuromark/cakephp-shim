@@ -42,7 +42,7 @@ class NullableBehavior extends Behavior {
 
 	/**
 	 * @param \Cake\Event\Event $event
-	 * @param \Cake\ORM\Entity $entity
+	 * @param \Cake\Datasource\EntityInterface $entity
 	 * @param \ArrayObject $options
 	 * @return void
 	 */
@@ -55,7 +55,7 @@ class NullableBehavior extends Behavior {
 	}
 
 	/**
-	 * @param \ArrayObject $data
+	 * @param \ArrayObject|array $data
 	 * @param \Cake\ORM\Table $table
 	 * @return \ArrayObject
 	 */
@@ -87,9 +87,9 @@ class NullableBehavior extends Behavior {
 	}
 
 	/**
-	 * @param \Cake\ORM\Entity $entity
+	 * @param \Cake\Datasource\EntityInterface $entity
 	 * @param \Cake\ORM\Table $table
-	 * @return \Cake\ORM\Entity
+	 * @return \Cake\Datasource\EntityInterface
 	 */
 	protected function _processEntity(EntityInterface $entity, Table $table) {
 		$associations = [];
@@ -98,14 +98,25 @@ class NullableBehavior extends Behavior {
 			$associations[$association->getProperty()] = $association->getName();
 		}
 
+		/** @var \Cake\ORM\Entity $entity */
 		foreach ($entity->getDirty() as $field) {
 			$value = $entity->get($field);
 
 			if (array_key_exists($field, $associations)) {
-				$value = ($value === null) ? null : $this->_processEntity($value, $table->getAssociation($associations[$field])->getTarget());
-				$entity->set($field, $value);
+				if ($value !== null) {
+					if ($value instanceof EntityInterface) {
+						$value = $this->_processEntity($value, $table->getAssociation($associations[$field])->getTarget());
+					}
+					if (is_array($value) || $value instanceof ArrayObject) {
+						$value = $this->_processArray($value, $table->getAssociation($associations[$field])->getTarget());
+					}
+
+					$entity->set($field, $value);
+				}
+
 				continue;
 			}
+
 			$nullable = Hash::get((array)$table->getSchema()->getColumn($field), 'null');
 			if ($nullable !== true) {
 				continue;
