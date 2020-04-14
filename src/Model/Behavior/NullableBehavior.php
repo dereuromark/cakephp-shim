@@ -12,6 +12,9 @@ use Cake\Utility\Hash;
  * A behavior to assert data consistency regarding empty values.
  * It will check the schema and depending on nullable type or not transform empty string input
  * (from forms for example) into `null`.
+ *
+ * Careful with validation checking for isset(). In these cases it is better to use array_key_exists()
+ * as this works also with (now) `null` values passed.
  */
 class NullableBehavior extends Behavior {
 
