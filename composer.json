@@ -18,7 +18,7 @@
 	},
 	"require-dev": {
 		"dereuromark/cakephp-ide-helper": "^0.13.11",
-		"fig-r/psr2r-sniffer": "dev-master"
+		"fig-r/psr2r-sniffer": "^0.6"
 	},
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"
