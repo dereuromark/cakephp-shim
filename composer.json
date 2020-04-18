@@ -19,7 +19,7 @@
 	},
 	"require-dev": {
 		"mobiledetect/mobiledetectlib": "2.*",
-		"fig-r/psr2r-sniffer": "dev-master"
+		"fig-r/psr2r-sniffer": "^0.6"
 	},
 	"suggest": {
 		"ircmaxell/password-compat": "PHP5.4 compatability for the PHP5.5 password hashing functionality.",
