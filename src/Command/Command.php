@@ -27,10 +27,9 @@ class Command extends CakeCommand {
 	 * @param \Cake\Console\Arguments $args
 	 * @param \Cake\Console\ConsoleIo $io
 	 *
-	 * @return int|void|null
+	 * @return int|null|void
 	 */
-	public function execute(Arguments $args, ConsoleIo $io)
-	{
+	public function execute(Arguments $args, ConsoleIo $io) {
 		$this->args = $args;
 		$this->io = $io;
 	}
