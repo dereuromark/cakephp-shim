@@ -22,15 +22,16 @@ class EntityAnnotatorTest extends TestCase {
 
 		$propertyHintMap = ['id' => 'int', 'foo_bar' => '\\' . FrozenTime::class . '|null'];
 		$helper = new DocBlockHelper(new View());
+		$helper->virtualFields = [];
 
 		/** @var \IdeHelper\Annotation\AbstractAnnotation[] $result */
 		$result = $this->invokeMethod($entityAnnotator, 'buildAnnotations', [$propertyHintMap, $helper]);
 		$this->assertCount(4, $result);
 
-		$this->assertSame('int $id', $result[0]->build());
-		$this->assertSame('\\' . FrozenTime::class . '|null $foo_bar', $result[1]->build());
-		$this->assertSame('int getIdOrFail()', $result[2]->build());
-		$this->assertSame('\\' . FrozenTime::class . ' getFooBarOrFail()', $result[3]->build());
+		$this->assertSame('int $id', $result['id']->build());
+		$this->assertSame('\\' . FrozenTime::class . '|null $foo_bar', $result['foo_bar']->build());
+		$this->assertSame('int getIdOrFail()', $result['getIdOrFail()']->build());
+		$this->assertSame('\\' . FrozenTime::class . ' getFooBarOrFail()', $result['getFooBarOrFail()']->build());
 	}
 
 	/**

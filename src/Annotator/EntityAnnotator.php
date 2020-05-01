@@ -30,7 +30,7 @@ class EntityAnnotator extends IdeHelperEntityAnnotator {
 				$type = str_replace('|null', '', $type);
 			}
 
-			$map[] = new MethodAnnotation($type, $method);
+			$map[$method] = new MethodAnnotation($type, $method);
 		}
 
 		return $map;
