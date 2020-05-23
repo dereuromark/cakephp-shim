@@ -9,6 +9,7 @@ use Cake\TestSuite\TestCase as CoreTestCase;
  */
 abstract class TestCase extends CoreTestCase {
 
+	use FixtureTrait;
 	use TestTrait;
 
 }
