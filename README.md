@@ -35,8 +35,8 @@ A full overview of all shimming between 2.x and 3.x can be found in the [Wiki](h
 - Auto-adds Timestamp behavior if `created` or `modified` field exists in table.
 - Get/Read trait for clean and speaking entity access.
 
-## Backwords Compatibility shims 
-Only for 2.x => 3.x shimming: Ccontinue to provide support for some 2.x functioality in 3.x.
+## Backword Compatibility shims
+Only for 2.x => 3.x shimming: Continue to provide support for some 2.x functionality in 3.x.
 
 - Contains Session component as compatibility wrapper for request session object (and Session helper).
 - Primary level `Table::find('first')` support.
@@ -47,14 +47,14 @@ relations (`$belongsTo`, `$hasMany`, ...) as it would be very time-consuming to
 manually adjust all those.
 - Shims controller `$uses` with deprecation warning.
 
-## Forwards Compatibility shims 
+## Forwards Compatibility shims
 For 4.x compatibility of 3.x apps: Make your 3.x app future proof.
 
 - Controller referer() local security fix
 - BoolType, StringType, DecimalType, JsonType behave like in 4.x
 - Table newEmptyEntity() method available
 
-## Deprecation help 
+## Deprecation help
 For 3.x => 4.x: Report early on about what can be changed to prepare for 4.x.
 
 - `UrlHelper::build()`
