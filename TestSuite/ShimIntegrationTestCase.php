@@ -401,7 +401,7 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 		if (!isset($headers[$header])) {
 			$this->fail("The '$header' header is not set. " . $message);
 		}
-		$this->assertContains($headers[$header], $content, $message);
+		$this->assertContains($content, $headers[$header], $message);
 	}
 
 	/**
