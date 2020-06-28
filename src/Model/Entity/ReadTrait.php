@@ -39,6 +39,7 @@ trait ReadTrait {
 			}
 			if ($data === null) {
 				$data = $this->$key;
+
 				continue;
 			}
 

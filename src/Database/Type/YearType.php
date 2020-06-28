@@ -36,6 +36,7 @@ class YearType extends BaseType {
 		if ($value === null || !(int)$value) {
 			return null;
 		}
+
 		return $value;
 	}
 
@@ -44,13 +45,14 @@ class YearType extends BaseType {
 	 *
 	 * @param resource|string|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
-	 * @return int|null
 	 * @throws \Cake\Core\Exception\Exception
+	 * @return int|null
 	 */
 	public function toPHP($value, DriverInterface $driver) {
 		if ($value === null || !(int)$value) {
 			return null;
 		}
+
 		return (int)$value;
 	}
 
@@ -67,6 +69,7 @@ class YearType extends BaseType {
 		if ($value === null || !(int)$value) {
 			return null;
 		}
+
 		return $value;
 	}
 

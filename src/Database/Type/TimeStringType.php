@@ -38,6 +38,7 @@ class TimeStringType extends BaseType {
 		if ($value === null) {
 			return null;
 		}
+
 		return $value;
 	}
 
@@ -52,6 +53,7 @@ class TimeStringType extends BaseType {
 		if ($value === null) {
 			return null;
 		}
+
 		return $value;
 	}
 
@@ -69,6 +71,7 @@ class TimeStringType extends BaseType {
 		if ($value === null) {
 			return null;
 		}
+
 		return $value;
 	}
 

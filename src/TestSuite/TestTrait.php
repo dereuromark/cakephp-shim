@@ -50,6 +50,7 @@ trait TestTrait {
 		if (in_array('-vv', $_SERVER['argv'], true)) {
 			return true;
 		}
+
 		return false;
 	}
 

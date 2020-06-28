@@ -14,8 +14,8 @@ trait GetTrait {
 
 	/**
 	 * @param string $property
-	 * @return mixed
 	 * @throws \RuntimeException
+	 * @return mixed
 	 */
 	public function getOrFail($property) {
 		if (!isset($this->$property)) {
@@ -28,8 +28,8 @@ trait GetTrait {
 	/**
 	 * @param string $name
 	 * @param array $arguments
-	 * @return mixed
 	 * @throws \RuntimeException
+	 * @return mixed
 	 */
 	public function __call($name, array $arguments) {
 		if (!preg_match('/get([A-Z][A-Za-z0-9]+)OrFail/', $name, $matches)) {

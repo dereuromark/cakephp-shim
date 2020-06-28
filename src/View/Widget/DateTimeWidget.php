@@ -8,10 +8,10 @@ declare(strict_types = 1);
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         3.0.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link https://cakephp.org CakePHP(tm) Project
+ * @since 3.0.0
+ * @license https://opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace Shim\View\Widget;
@@ -120,8 +120,8 @@ class DateTimeWidget implements WidgetInterface {
 	 *
 	 * @param array $data Data to render with.
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
-	 * @return string A generated select box.
 	 * @throws \RuntimeException When option data is invalid.
+	 * @return string A generated select box.
 	 */
 	public function render(array $data, ContextInterface $context): string {
 		$data = $this->_normalizeData($data);
@@ -133,6 +133,7 @@ class DateTimeWidget implements WidgetInterface {
 			if ($data[$select] === false || $data[$select] === null) {
 				$templateOptions[$select] = '';
 				unset($data[$select]);
+
 				continue;
 			}
 			if (!is_array($data[$select])) {
@@ -294,9 +295,11 @@ class DateTimeWidget implements WidgetInterface {
 		switch ($options['round']) {
 			case 'up':
 				$changeValue = ceil($changeValue);
+
 	   break;
 			case 'down':
 				$changeValue = floor($changeValue);
+
 	   break;
 			default:
 				$changeValue = round($changeValue);

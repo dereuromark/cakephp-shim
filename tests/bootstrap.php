@@ -1,6 +1,6 @@
 <?php
 /**
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @license http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 if (!defined('DS')) {

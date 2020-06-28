@@ -1,4 +1,5 @@
 <?php
+
 use Cake\Core\Configure;
 
 // Shims - add them in your own bootstrap/config

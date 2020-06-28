@@ -8,10 +8,10 @@ declare(strict_types = 1);
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       https://opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link https://cakephp.org CakePHP(tm) Project
+ * @since 0.10.0
+ * @license https://opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace Shim\View\Helper;
@@ -98,10 +98,10 @@ class FormHelper extends CoreFormHelper {
 	 *   that string is displayed as the empty element.
 	 * - `value` The selected value of the input.
 	 *
+	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-day-inputs
 	 * @param string|null $fieldName Prefix name for the SELECT element
 	 * @param array $options Options & HTML attributes for the select element
 	 * @return string A generated day select box.
-	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-day-inputs
 	 */
 	public function day(?string $fieldName = null, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'day');
@@ -130,10 +130,10 @@ class FormHelper extends CoreFormHelper {
 	 * - `maxYear` The max year to appear in the select element.
 	 * - `minYear` The min year to appear in the select element.
 	 *
+	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-year-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options Options & attributes for the select elements.
 	 * @return string Completed year select input
-	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-year-inputs
 	 */
 	public function year(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'year');
@@ -161,10 +161,10 @@ class FormHelper extends CoreFormHelper {
 	 *   that string is displayed as the empty element.
 	 * - `value` The selected value of the input.
 	 *
+	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-month-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options Attributes for the select element
 	 * @return string A generated month select dropdown.
-	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-month-inputs
 	 */
 	public function month(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'month');
@@ -190,10 +190,10 @@ class FormHelper extends CoreFormHelper {
 	 * - `value` The selected value of the input.
 	 * - `format` Set to 12 or 24 to use 12 or 24 hour formatting. Defaults to 24.
 	 *
+	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-hour-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options List of HTML attributes
 	 * @return string Completed hour select input
-	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-hour-inputs
 	 */
 	public function hour(string $fieldName, array $options = []): string {
 		$options += ['format' => 24];
@@ -224,10 +224,10 @@ class FormHelper extends CoreFormHelper {
 	 * - `round` How you want the value rounded when it does not fit neatly into an
 	 *   interval. Accepts 'up', 'down', and null.
 	 *
+	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-minute-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options Array of options.
 	 * @return string Completed minute select input.
-	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-minute-inputs
 	 */
 	public function minute(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'minute');
@@ -251,10 +251,10 @@ class FormHelper extends CoreFormHelper {
 	 *   that string is displayed as the empty element.
 	 * - `value` The selected value of the input.
 	 *
+	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-meridian-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options Array of options
 	 * @return string Completed meridian select input
-	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-meridian-inputs
 	 */
 	public function meridian(string $fieldName, array $options = []): string {
 		$options = $this->_singleDatetime($options, 'meridian');
@@ -302,10 +302,10 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * `{{month}}{{day}}{{year}}{{hour}}{{minute}}{{second}}{{meridian}}`
 	 *
+	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-date-and-time-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options Array of Options
 	 * @return string Generated set of select boxes for the date and time formats chosen.
-	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-date-and-time-inputs
 	 */
 	public function dateTime(string $fieldName, array $options = []): string {
 		$options += [
@@ -409,10 +409,10 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * See dateTime() for time options.
 	 *
+	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options Array of Options
 	 * @return string Generated set of select boxes for time formats chosen.
-	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 */
 	public function time(string $fieldName, array $options = []): string {
 		$options += [
@@ -437,10 +437,10 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * See dateTime() for date options.
 	 *
+	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 * @param string $fieldName Prefix name for the SELECT element
 	 * @param array $options Array of Options
 	 * @return string Generated set of select boxes for time formats chosen.
-	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 */
 	public function date(string $fieldName, array $options = []): string {
 		$options += [

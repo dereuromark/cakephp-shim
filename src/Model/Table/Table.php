@@ -124,8 +124,8 @@ class Table extends CoreTable {
 
 	/**
 	 * @param array $array
-	 * @return array
 	 * @throws \Exception
+	 * @return array
 	 */
 	protected function _parseRelation($array) {
 		if (isset($array['unique'])) {
@@ -151,6 +151,7 @@ class Table extends CoreTable {
 		}
 
 		$array = array_filter($array);
+
 		return $array;
 	}
 
@@ -163,6 +164,7 @@ class Table extends CoreTable {
 		if ($pos !== false) {
 			$key = Inflector::pluralize(substr($key, 0, $pos)) . '.' . substr($key, $pos + 1);
 		}
+
 		return $key;
 	}
 
@@ -181,7 +183,6 @@ class Table extends CoreTable {
 				}
 				if (!$rules) {
 					continue;
-
 				}
 				$rules = (array)$rules;
 
@@ -243,6 +244,7 @@ class Table extends CoreTable {
 				$args[$k] = __d($this->validationDomain, $arg);
 			}
 		}
+
 		return $args;
 	}
 
@@ -263,11 +265,11 @@ class Table extends CoreTable {
 				if (!is_string($keyField) || !is_string($valueField)) {
 					return parent::findList($query, $options);
 				}
-				list($model, $keyField) = pluginSplit($keyField);
+				[$model, $keyField] = pluginSplit($keyField);
 				if (!$model || $model === $this->getAlias()) {
 					$options['keyField'] = $keyField;
 				}
-				list($model, $valueField) = pluginSplit($valueField);
+				[$model, $valueField] = pluginSplit($valueField);
 				if (!$model || $model === $this->getAlias()) {
 					$options['valueField'] = $valueField;
 				}
@@ -292,6 +294,7 @@ class Table extends CoreTable {
 			return $this->get($id, $options);
 		} catch (RecordNotFoundException $e) {
 		}
+
 		return null;
 	}
 
@@ -326,6 +329,7 @@ class Table extends CoreTable {
 		if (!$result) {
 			return null;
 		}
+
 		return $result->get($name);
 	}
 
@@ -382,8 +386,8 @@ class Table extends CoreTable {
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity the entity to be saved
 	 * @param array|\ArrayAccess $options The options to use when saving.
-	 * @return \Cake\Datasource\EntityInterface|bool
 	 * @throws \InvalidArgumentException
+	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
 	public function save(EntityInterface $entity, $options = []) {
 		if ($options instanceof SaveOptionsBuilder) {
@@ -411,8 +415,8 @@ class Table extends CoreTable {
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity The entity to remove.
 	 * @param array|\ArrayAccess $options The options for the delete.
-	 * @return bool success
 	 * @throws \InvalidArgumentException
+	 * @return bool success
 	 */
 	public function delete(EntityInterface $entity, $options = []): bool {
 		if (!is_array($options)) {
@@ -472,6 +476,7 @@ class Table extends CoreTable {
 			if ($negated) {
 				$condition = '1=1';
 			}
+
 			return [$condition];
 		}
 
@@ -546,6 +551,7 @@ class Table extends CoreTable {
 		if (strpos($string, '.') === false) {
 			return $this->getAlias() . '.' . $string;
 		}
+
 		return $string;
 	}
 

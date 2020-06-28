@@ -7,10 +7,10 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link          https://cakephp.org CakePHP(tm) Project
- * @since         0.2.9
- * @license       https://opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
+ * @link https://cakephp.org CakePHP(tm) Project
+ * @since 0.2.9
+ * @license https://opensource.org/licenses/mit-license.php MIT License
  */
 
 namespace Shim\Utility;
@@ -270,11 +270,11 @@ class Inflector extends CoreInflector {
 	 * Returns a string with all spaces converted to dashes (by default), accented
 	 * characters converted to non-accented characters, and non word characters removed.
 	 *
+	 * @link https://book.cakephp.org/3.0/en/core-libraries/inflector.html#creating-url-safe-strings
 	 * @deprecated 3.2.7 Use Text::slug() instead.
 	 * @param string $string the string you want to slug
 	 * @param string $replacement will replace keys in map
 	 * @return string
-	 * @link https://book.cakephp.org/3.0/en/core-libraries/inflector.html#creating-url-safe-strings
 	 */
 	public static function slug($string, $replacement = '-') {
 		$quotedReplacement = preg_quote($replacement, '/');
