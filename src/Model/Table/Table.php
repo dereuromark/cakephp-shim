@@ -394,7 +394,7 @@ class Table extends CoreTable {
 			$options = $options->toArray();
 		}
 		if (!is_array($options)) {
-			throw new InvalidArgumentException('Invalid options input.');
+			$options = (array)$options;
 		}
 
 		$options += ['strict' => false];
