@@ -4,7 +4,7 @@ namespace Shim\Model\Table;
 
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\ORM\Query;
 use Cake\ORM\SaveOptionsBuilder;
 use Cake\ORM\Table as CoreTable;
@@ -338,13 +338,13 @@ class Table extends CoreTable {
 	 *
 	 * If you don't want that, don't call parent when overwriting it in extending classes.
 	 *
-	 * @param \Cake\Event\Event $event
+	 * @param \Cake\Event\EventInterface $event
 	 * @param \Cake\ORM\Query $query
 	 * @param array $options
 	 * @param bool $primary
 	 * @return \Cake\ORM\Query
 	 */
-	public function beforeFind(Event $event, Query $query, $options, $primary) {
+	public function beforeFind(EventInterface $event, Query $query, $options, $primary) {
 		$order = $query->clause('order');
 		if (($order === null || !count($order)) && !empty($this->order)) {
 			$query->order($this->order);
