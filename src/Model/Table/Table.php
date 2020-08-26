@@ -2,6 +2,7 @@
 
 namespace Shim\Model\Table;
 
+use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\EventInterface;
@@ -340,11 +341,11 @@ class Table extends CoreTable {
 	 *
 	 * @param \Cake\Event\EventInterface $event
 	 * @param \Cake\ORM\Query $query
-	 * @param array $options
+	 * @param \ArrayObject $options
 	 * @param bool $primary
 	 * @return \Cake\ORM\Query
 	 */
-	public function beforeFind(EventInterface $event, Query $query, $options, $primary) {
+	public function beforeFind(EventInterface $event, Query $query, ArrayObject $options, $primary) {
 		$order = $query->clause('order');
 		if (($order === null || !count($order)) && !empty($this->order)) {
 			$query->order($this->order);
