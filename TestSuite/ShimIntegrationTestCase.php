@@ -141,6 +141,20 @@ abstract class ShimIntegrationTestCase extends ShimControllerTestCase {
 	}
 
 	/**
+	 * Perform a HEAD request using the current request data.
+	 *
+	 * The response of the dispatched request will be stored as
+	 * a property. You can use various assert methods to check the
+	 * response.
+	 *
+	 * @param string|array $url The url to request.
+	 * @return void
+	 */
+	public function head($url) {
+		$this->_sendRequest($url, 'HEAD');
+	}
+
+	/**
 	 * Create and send the request into a Dispatcher instance.
 	 *
 	 * Receives and stores the response for future inspection.
