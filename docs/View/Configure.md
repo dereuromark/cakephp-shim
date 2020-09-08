@@ -18,4 +18,4 @@ $this->Configure->consume($name)
 $this->Configure->readOrFail($name)
 ```
 The aliasing has the disadvantage that you cannot use another class with that name.
-In general it is usually best to move the logic here out of the template, though. At least in some later cleanup step then.
+In general, it is usually best to move the logic here out of the template, though. At least in some later cleanup step then.
