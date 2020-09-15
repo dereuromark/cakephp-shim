@@ -200,6 +200,19 @@ class DateTimeWidget implements WidgetInterface {
 			$data['meridian'] = false;
 		}
 
+		// When using widget standalone
+		$monthNames = $data['monthNames'] ?? null;
+		if ($monthNames !== null && is_array($data['month'])) {
+			$data['month']['names'] = $monthNames;
+		}
+		unset($data['monthNames']);
+
+		$interval = $data['interval'] ?? null;
+		if ($interval) {
+			$data['minute']['interval'] = $interval;
+		}
+		unset($data['interval']);
+
 		return $data;
 	}
 
