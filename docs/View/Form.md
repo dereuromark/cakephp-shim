@@ -21,3 +21,27 @@ $this->loadHelper('Form', [
     ],
 ]);
 ```
+
+If you are not using the Shim helper, but the widgets standalone with core Form helper, you will
+have to extend the FormHelper on app level and overwrite a few methods in order to retain full BC
+(and configuration):
+
+```php
+    // \App\View\Helper\FormHelper extends \Cake\View\Helper\FormHelper
+	public function dateTime(string $fieldName, array $options = []): string {
+		$options += [
+			'empty' => true,
+			'value' => null,
+			'interval' => 1,
+			'round' => null,
+			'monthNames' => true,
+			'minYear' => null,
+			'maxYear' => null,
+			'orderYear' => 'desc',
+			'timeFormat' => 24,
+			'second' => false,
+		];
+
+		return parent::dateTime($fieldName, $options);
+	}
+```
