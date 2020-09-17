@@ -162,6 +162,9 @@ class FormShimHelper extends FormHelper {
 			'nestedInput',
 			'templates',
 			'labelOptions',
+			'id',
+			'default',
+			'value',
 		];
 		$diff = array_diff($optionKeys, $supportedKeys);
 		if (!empty($diff)) {
