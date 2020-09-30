@@ -153,20 +153,16 @@ class FormShimHelper extends FormHelper {
 	 * @return void
 	 */
 	protected function _checkDeprecatedInputOptions($optionKeys) {
-		$supportedKeys = [
-			'type',
-			'label',
-			'options',
-			'error',
-			'empty',
-			'nestedInput',
-			'templates',
-			'labelOptions',
-			'id',
-			'default',
-			'value',
+		$deprecatedKeys = [
+			'after',
+			'before',
+			'between',
+			'div',
+			'errorMessage',
+			'legend',
+			'separator',
 		];
-		$diff = array_diff($optionKeys, $supportedKeys);
+		$diff = array_intersect($optionKeys, $deprecatedKeys);
 		if (!empty($diff)) {
 			$unsupportedKeys = implode(', ', $diff);
 			$message = "FormHelper::control() does not support $unsupportedKeys option(s).";
