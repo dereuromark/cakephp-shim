@@ -326,6 +326,7 @@ class Table extends CoreTable {
 		}
 		$options += $customOptions;
 
+		/** @var \Cake\Datasource\EntityInterface|null $result */
 		$result = $this->find('all', $options)->first();
 		if (!$result) {
 			return null;

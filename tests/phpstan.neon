@@ -1,5 +1,7 @@
 parameters:
-	autoload_files:
+	checkMissingIterableValueType: false
+	checkGenericClassInNonGenericObjectType: false
+	bootstrapFiles:
 		- bootstrap.php
 		- shim.php
 	excludes_analyse:

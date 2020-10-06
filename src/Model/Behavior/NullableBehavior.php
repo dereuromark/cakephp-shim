@@ -57,7 +57,7 @@ class NullableBehavior extends Behavior {
 	/**
 	 * @param \ArrayObject|array $data
 	 * @param \Cake\ORM\Table $table
-	 * @return \ArrayObject
+	 * @return \ArrayObject|array
 	 */
 	protected function _processArray($data, Table $table) {
 		$associations = [];
