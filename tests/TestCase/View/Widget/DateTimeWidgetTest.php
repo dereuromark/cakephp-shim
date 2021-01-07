@@ -1223,7 +1223,7 @@ class DateTimeWidgetTest extends TestCase {
 			],
 		], $this->context);
 
-		$this->assertStringContainsString('<option data-o="not-default" value="2015">2015</option>', $result);
+		$this->assertStringContainsString('<option data-o="not-default" value="2020">2020</option>', $result);
 		$this->assertStringContainsString('<option data-o="o-val" value="01">January</option>', $result);
 		$this->assertStringContainsString('<select data-s="s-val" name="date[year]">', $result);
 		$this->assertStringContainsString('<select data-s="s-val" name="date[month]">', $result);
