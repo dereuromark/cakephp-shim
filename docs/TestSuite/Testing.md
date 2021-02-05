@@ -6,6 +6,22 @@ Let's you test even faster.
 
 This trait adds the following methods to your test suite:
 
+### invokeMethod()
+
+If you need to check a protected or private method directly:
+```php
+$user = new User();
+$this->invokeMethod($user, 'cryptPassword', array('passwordToCrypt'));
+```
+
+### invokeProperty()
+
+If you need to make a protected or private property visible or accessible in your test:
+```php
+$object = new Object();
+$this->invokeProperty($object, '_foo');
+```
+
 ### osFix()
 
 In case you need to format certain os specific files to "\n" before comparing
