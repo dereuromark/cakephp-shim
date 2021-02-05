@@ -10,19 +10,6 @@ This trait adds the following methods to your test suite:
 
 If you need to check a protected or private method directly:
 ```php
-$user = new User();
-$this->invokeMethod($user, 'cryptPassword', # Useful TestSuite additions
-
-Let's you test even faster.
-
-## TestTrait
-
-This trait adds the following methods to your test suite:
-
-### invokeMethod()
-
-If you need to check a protected or private method directly:
-```php
 $object = new Object();
 $arguments = ['first', 'second'];
 $this->invokeMethod($object, 'mySecretMethod', $arguments);
