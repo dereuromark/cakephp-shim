@@ -47,7 +47,11 @@ class FormShimHelper extends FormHelper {
 			$message = 'Using key `inputDefaults` is deprecated.';
 			Shim::check(Shim::FORM_INPUT_DEFAULTS, $message);
 		}
-		return parent::create($model, $options);
+		$shim = Configure::read(Shim::FORM_INPUT_DEFAULTS);
+		Configure::write(Shim::FORM_INPUT_DEFAULTS, false);
+		$result = parent::create($model, $options);
+		Configure::write(Shim::FORM_INPUT_DEFAULTS, $shim);
+		return $result;
 	}
 
 	/**
