@@ -1321,4 +1321,22 @@ class FormHelperTest extends TestCase {
 		$this->assertStringContainsString('name="created[minute]"', $result, 'min name attribute is wrong.');
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testDateWithControlNotMocked(): void {
+		$result = $this->Form->control('prueba', [
+			'type' => 'date', 'minYear' => 2008, 'maxYear' => 2011, 'orderYear' => 'asc',
+		]);
+
+		$expected = '<div class="input date"><label>Prueba</label><select name="prueba[year]">'
+			. '<option value="" selected="selected"></option>'
+			. '<option value="2008">2008</option>'
+			. '<option value="2009">2009</option>'
+			. '<option value="2010">2010</option>'
+			. '<option value="2011">2011</option>'
+			. '</select>';
+		$this->assertStringStartsWith($expected, $result);
+	}
+
 }

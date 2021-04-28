@@ -161,6 +161,19 @@ class DateTimeWidget implements WidgetInterface {
 			if (!isset($data[$select]['templateVars'])) {
 				$data[$select]['templateVars'] = $templateOptions['templateVars'];
 			}
+			if ($select === 'year' && isset($data['minYear'])) {
+				$data[$select]['start'] = $data['minYear'];
+			}
+			if ($select === 'year' && isset($data['maxYear'])) {
+				$data[$select]['end'] = $data['maxYear'];
+			}
+			if ($select === 'year' && isset($data['orderYear'])) {
+				$data[$select]['order'] = $data['orderYear'];
+			}
+			if (isset($data['class'])) {
+				$data[$select]['class'] = $data['class'];
+			}
+
 			$templateOptions[$select] = $this->{$method}($data[$select], $context);
 			unset($data[$select]);
 		}
