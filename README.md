@@ -2,7 +2,7 @@
 [![CI](https://github.com/dereuromark/cakephp-shim/workflows/CI/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-shim/actions?query=workflow%3ACI+branch%3Amaster)
 [![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-shim/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.2-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.3-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-shim/license.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-shim/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
@@ -17,7 +17,7 @@ This is mainly useful when upgrading large applications to the next major framew
 Tons of code needs to be adjusted, using this Shim plugin quite a few lines less need to be touched.
 Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working again.
 
-This branch is for use with **CakePHP 4.0+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
+This branch is for use with **CakePHP 4.2+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 ## Installation
 Please see [Install.md](docs/Install.md)

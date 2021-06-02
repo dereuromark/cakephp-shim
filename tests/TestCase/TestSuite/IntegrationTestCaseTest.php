@@ -11,7 +11,7 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 	/**
 	 * @return void
 	 */
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		Configure::write('App.namespace', 'TestApp');
