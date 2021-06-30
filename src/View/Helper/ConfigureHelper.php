@@ -69,6 +69,20 @@ class ConfigureHelper extends Helper {
 	}
 
 	/**
+	 * Reads and deletes a variable from Configure.
+	 *
+	 * Acts as a wrapper around Configure::consume() and Configure::check().
+	 * The configure key/value pair consumed via this method is expected to exist.
+	 * In case it does not an exception will be thrown.
+	 *
+	 * @param string $name The key to read and remove (or a path as sent to Hash.extract).
+	 * @return mixed The value of the Configure variable, null if not available
+	 */
+	public function consumeOrFail($name) {
+		return Configure::consumeOrFail($name);
+	}
+
+	/**
 	 * @return string Current version of CakePHP
 	 */
 	public function version() {
