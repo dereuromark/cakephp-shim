@@ -12,7 +12,7 @@ class CookieHelper extends Helper {
 	/**
 	 * Return all cookie names available.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public function getCookies() {
 		$cookies = $this->_View->getRequest()->getCookieParams();
