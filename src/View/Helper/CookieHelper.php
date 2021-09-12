@@ -3,6 +3,7 @@
 namespace Shim\View\Helper;
 
 use Cake\View\Helper;
+use InvalidArgumentException;
 
 /**
  * Cookie Helper.
@@ -34,7 +35,7 @@ class CookieHelper extends Helper {
 	 */
 	public function read($key = null, $default = null) {
 		if ($key === null) {
-			throw new \InvalidArgumentException('key required');
+			throw new InvalidArgumentException('key required');
 		}
 
 		return $this->_View->getRequest()->getCookie($key, $default);
