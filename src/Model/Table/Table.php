@@ -15,12 +15,12 @@ use Exception;
 use InvalidArgumentException;
 
 /**
- * @var array|null $belongsTo
- * @var array|null $hasOne
- * @var array|null $hasMany
- * @var array|null $hasAndBelongsToMany
- * @var string|array|null $order
- * @var array|null $validate
+ * @property array|null $belongsTo
+ * @property array|null $hasOne
+ * @property array|null $hasMany
+ * @property array|null $hasAndBelongsToMany
+ * @property string|array|null $order
+ * @property array|null $validate
  */
 class Table extends CoreTable {
 

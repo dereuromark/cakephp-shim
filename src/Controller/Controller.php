@@ -10,8 +10,8 @@ use Exception;
 /**
  * DRY Controller stuff
  *
- * @var array|null $components
- * @var array|null $helpers
+ * @property array|null $components
+ * @property array|null $helpers
  */
 class Controller extends CoreController {
 
