@@ -14,6 +14,14 @@ use Cake\Validation\Validator;
 use Exception;
 use InvalidArgumentException;
 
+/**
+ * @var array|null $belongsTo
+ * @var array|null $hasOne
+ * @var array|null $hasMany
+ * @var array|null $hasAndBelongsToMany
+ * @var string|array|null $order
+ * @var array|null $validate
+ */
 class Table extends CoreTable {
 
 	/**
