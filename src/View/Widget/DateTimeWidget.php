@@ -272,8 +272,11 @@ class DateTimeWidget implements WidgetInterface {
 						$dateArray['second'] = 0;
 					}
 					if (!empty($value['meridian'])) {
-						$isAm = strtolower($dateArray['meridian']) === 'am';
-						$dateArray['hour'] = $isAm ? $dateArray['hour'] : $dateArray['hour'] + 12;
+						/** @var string $meridian */
+						$meridian = $dateArray['meridian'];
+						$isAm = strtolower($meridian) === 'am';
+						$dateArray['hour'] = $isAm ? (int)$dateArray['hour'] : (int)$dateArray['hour'] + 12;
+						$dateArray['hour'] = str_pad((string)$dateArray['hour'], 2, '0', STR_PAD_LEFT);
 					}
 					if (!empty($dateArray['minute']) && isset($options['minute']['interval'])) {
 						$dateArray['minute'] += $this->_adjustValue((int)$dateArray['minute'], $options['minute']);

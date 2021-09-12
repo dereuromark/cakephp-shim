@@ -291,7 +291,7 @@ class Inflector extends CoreInflector {
 			$string
 		);
 
-		return preg_replace(array_keys($map), array_values($map), $string);
+		return (string)preg_replace(array_keys($map), array_values($map), $string);
 	}
 
 }

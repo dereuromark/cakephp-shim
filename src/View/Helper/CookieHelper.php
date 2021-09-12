@@ -33,6 +33,10 @@ class CookieHelper extends Helper {
 	 * @return mixed Values from the cookie vars
 	 */
 	public function read($key = null, $default = null) {
+		if ($key === null) {
+			throw new \InvalidArgumentException('key required');
+		}
+
 		return $this->_View->getRequest()->getCookie($key, $default);
 	}
 

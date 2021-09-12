@@ -104,6 +104,12 @@ class FormHelper extends CoreFormHelper {
 	 * @return string A generated day select box.
 	 */
 	public function day(?string $fieldName = null, array $options = []): string {
+		if ($fieldName === null) {
+			// Deprecated?
+
+			return '';
+		}
+
 		$options = $this->_singleDatetime($options, 'day');
 
 		if (isset($options['val']) && $options['val'] > 0 && $options['val'] <= 31) {

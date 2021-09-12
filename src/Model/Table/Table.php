@@ -25,6 +25,8 @@ use InvalidArgumentException;
 class Table extends CoreTable {
 
 	/**
+	 * @phpstan-var array<mixed, mixed>|string|null 
+	 * 
 	 * @var array|string|null
 	 */
 	protected $order;
@@ -539,8 +541,15 @@ class Table extends CoreTable {
 		if (is_array($this->order)) {
 			foreach ($this->order as $key => $value) {
 				if (is_numeric($key)) {
+					/** 
+					 * @var string $key
+					 * @var string $value 
+					 */
 					$this->order[$key] = $this->_prefixAlias($value);
 				} else {
+					/**
+					 * @var string $key
+					 */
 					$newKey = $this->_prefixAlias($key);
 					$this->order[$newKey] = $value;
 					if ($newKey !== $key) {
