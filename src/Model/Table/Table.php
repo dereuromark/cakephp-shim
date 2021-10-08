@@ -19,7 +19,6 @@ use InvalidArgumentException;
  * @property array|null $hasOne
  * @property array|null $hasMany
  * @property array|null $hasAndBelongsToMany
- * @property string|array|null $order
  * @property array|null $validate
  */
 class Table extends CoreTable {
