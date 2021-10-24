@@ -136,7 +136,7 @@ class FormHelperTest extends TestCase {
 			'templateVars' => [],
 		];
 		$version = Configure::version();
-		if (version_compare($version, '3.2.0') >= 0) {
+		if (version_compare($version, '4.3.0') >= 0) {
 			$array += [
 				'aria-required' => null,
 				'aria-invalid' => null,
@@ -189,7 +189,7 @@ class FormHelperTest extends TestCase {
 			'templateVars' => [],
 		];
 		$version = Configure::version();
-		if (version_compare($version, '3.2.0') >= 0) {
+		if (version_compare($version, '4.3.0') >= 0) {
 			$array += [
 				'aria-required' => null,
 				'aria-invalid' => null,
@@ -1283,7 +1283,7 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->control('title', ['label' => false]);
 
 		$version = Configure::version();
-		if (version_compare($version, '3.2.0') >= 0) {
+		if (version_compare($version, '4.3.0') >= 0) {
 			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"/></div>';
 		} else {
 			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title"/></div>';

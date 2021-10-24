@@ -42,7 +42,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * List of inputs that can be rendered
 	 *
-	 * @var array
+	 * @var array<string>
 	 */
 	protected $_selects = [
 		'year',
