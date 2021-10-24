@@ -123,18 +123,29 @@ class FormHelperTest extends TestCase {
 			->setMethods(['datetime'])
 			->setConstructorArgs([new View()])
 			->getMock();
+
+		$array = [
+			'type' => 'datetime',
+			'timeFormat' => 24,
+			'minYear' => 2008,
+			'maxYear' => 2011,
+			'interval' => 15,
+			'options' => null,
+			'id' => 'prueba',
+			'required' => null,
+			'templateVars' => [],
+		];
+		$version = Configure::version();
+		if (version_compare($version, '4.3.0') >= 0) {
+			$array += [
+				'aria-required' => null,
+				'aria-invalid' => null,
+				'aria-describedby' => null,
+			];
+		}
+
 		$this->Form->expects($this->once())->method('datetime')
-			->with('prueba', [
-				'type' => 'datetime',
-				'timeFormat' => 24,
-				'minYear' => 2008,
-				'maxYear' => 2011,
-				'interval' => 15,
-				'options' => null,
-				'id' => 'prueba',
-				'required' => null,
-				'templateVars' => [],
-			])
+			->with('prueba', $array)
 			->will($this->returnValue('This is it!'));
 		$result = $this->Form->control('prueba', [
 			'type' => 'datetime', 'timeFormat' => 24, 'minYear' => 2008,
@@ -166,18 +177,28 @@ class FormHelperTest extends TestCase {
 
 		$this->Form->create(null, ['idPrefix' => 'prefix']);
 
+		$array = [
+			'type' => 'datetime',
+			'timeFormat' => 24,
+			'minYear' => 2008,
+			'maxYear' => 2011,
+			'interval' => 15,
+			'options' => null,
+			'id' => 'prefix-prueba',
+			'required' => null,
+			'templateVars' => [],
+		];
+		$version = Configure::version();
+		if (version_compare($version, '4.3.0') >= 0) {
+			$array += [
+				'aria-required' => null,
+				'aria-invalid' => null,
+				'aria-describedby' => null,
+			];
+		}
+
 		$this->Form->expects($this->once())->method('datetime')
-			->with('prueba', [
-				'type' => 'datetime',
-				'timeFormat' => 24,
-				'minYear' => 2008,
-				'maxYear' => 2011,
-				'interval' => 15,
-				'options' => null,
-				'id' => 'prefix-prueba',
-				'required' => null,
-				'templateVars' => [],
-			])
+			->with('prueba', $array)
 			->will($this->returnValue('This is it!'));
 		$result = $this->Form->control('prueba', [
 			'type' => 'datetime', 'timeFormat' => 24, 'minYear' => 2008,
@@ -1260,22 +1281,13 @@ class FormHelperTest extends TestCase {
 	public function testControlLabelFalse() {
 		$this->Form->create($this->article);
 		$result = $this->Form->control('title', ['label' => false]);
-		/*
-		$expected = [
-			'div' => ['class' => 'input text required'],
-			'input' => [
-				'type' => 'text',
-				'required' => 'required',
-				'id' => 'title',
-				'name' => 'title',
-				'oninvalid' => 'this.setCustomValidity(&#039;This field is required&#039;); if (!this.validity.valid) this.setCustomValidity(&#039;This field is required&#039;)',
-				'oninput' => 'this.setCustomValidity(&#039;&#039;)',
-			],
-			'/div',
-		];
-		$this->assertHtml($expected, $result);
-		*/
-		$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title"/></div>';
+
+		$version = Configure::version();
+		if (version_compare($version, '4.3.0') >= 0) {
+			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"/></div>';
+		} else {
+			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title"/></div>';
+		}
 		$this->assertSame($expected, $result);
 	}
 

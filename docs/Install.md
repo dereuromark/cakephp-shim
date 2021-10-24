@@ -22,7 +22,7 @@ export DB_DSN="mysql://root:yourpwd@127.0.0.1/cake_test"
 ```
 before you actually run
 ```
-php phpunit.phar
+composer test
 ```
 
 Make sure such a cake_test database exists.

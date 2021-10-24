@@ -28,14 +28,14 @@ class FormHelper extends CoreFormHelper {
 	/**
 	 * The various pickers that make up a datetime picker.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $_datetimeParts = ['year', 'month', 'day', 'hour', 'minute', 'second', 'meridian'];
 
 	/**
 	 * Special options used for datetime inputs.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $_datetimeOptions = [
 		'interval', 'round', 'monthNames', 'minYear', 'maxYear',
@@ -45,7 +45,7 @@ class FormHelper extends CoreFormHelper {
 	/**
 	 * Grouped input types.
 	 *
-	 * @var array
+	 * @var string[]
 	 */
 	protected $_groupedInputTypes = ['radio', 'multicheckbox', 'date', 'time', 'datetime'];
 
