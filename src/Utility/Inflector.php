@@ -288,7 +288,7 @@ class Inflector extends CoreInflector {
 		$string = str_replace(
 			array_keys(static::$_transliteration),
 			static::$_transliteration,
-			$string
+			$string,
 		);
 
 		return (string)preg_replace(array_keys($map), array_values($map), $string);

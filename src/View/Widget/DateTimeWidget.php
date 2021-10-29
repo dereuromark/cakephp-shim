@@ -42,7 +42,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * List of inputs that can be rendered
 	 *
-	 * @var string[]
+	 * @var array<string>
 	 */
 	protected $_selects = [
 		'year',
@@ -139,7 +139,7 @@ class DateTimeWidget implements WidgetInterface {
 			if (!is_array($data[$select])) {
 				throw new RuntimeException(sprintf(
 					'Options for "%s" must be an array|false|null',
-					$select
+					$select,
 				));
 			}
 			$method = "_{$select}Select";
@@ -155,7 +155,7 @@ class DateTimeWidget implements WidgetInterface {
 			if (isset($data[$select]['templateVars']) && $templateOptions['templateVars']) {
 				$data[$select]['templateVars'] = array_merge(
 					$templateOptions['templateVars'],
-					$data[$select]['templateVars']
+					$data[$select]['templateVars'],
 				);
 			}
 			if (!isset($data[$select]['templateVars'])) {
@@ -464,7 +464,7 @@ class DateTimeWidget implements WidgetInterface {
 			$options['options'] = $this->_generateNumbers(
 				$options['start'],
 				$options['end'],
-				$options
+				$options,
 			);
 		}
 
@@ -473,7 +473,7 @@ class DateTimeWidget implements WidgetInterface {
 			$options['start'],
 			$options['format'],
 			$options['leadingZeroKey'],
-			$options['leadingZeroValue']
+			$options['leadingZeroValue'],
 		);
 
 		return $this->_select->render($options, $context);
@@ -505,7 +505,7 @@ class DateTimeWidget implements WidgetInterface {
 			$options['leadingZeroKey'],
 			$options['leadingZeroValue'],
 			$options['interval'],
-			$options['round']
+			$options['round'],
 		);
 
 		return $this->_select->render($options, $context);

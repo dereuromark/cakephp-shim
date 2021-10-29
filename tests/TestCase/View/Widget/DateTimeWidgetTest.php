@@ -87,7 +87,7 @@ class DateTimeWidgetTest extends TestCase {
 		$format = '<option value="%s" selected="selected">%s</option>';
 		$this->assertStringContainsString(
 			sprintf($format, $now->format('Y'), $now->format('Y')),
-			$result
+			$result,
 		);
 	}
 
@@ -483,22 +483,22 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringNotContainsString(
 			'<option value="01">January</option>',
 			$result,
-			'no 01 in value'
+			'no 01 in value',
 		);
 		$this->assertStringNotContainsString(
 			'value="0"',
 			$result,
-			'no 0 in value'
+			'no 0 in value',
 		);
 		$this->assertStringNotContainsString(
 			'value="00"',
 			$result,
-			'no 00 in value'
+			'no 00 in value',
 		);
 		$this->assertStringNotContainsString(
 			'value="13"',
 			$result,
-			'no 13 in value'
+			'no 13 in value',
 		);
 	}
 
@@ -647,22 +647,22 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringNotContainsString(
 			'<option value="01">1</option>',
 			$result,
-			'no 1 am'
+			'no 1 am',
 		);
 		$this->assertStringNotContainsString(
 			'<option value="07">7</option>',
 			$result,
-			'contain 7'
+			'contain 7',
 		);
 		$this->assertStringContainsString(
 			'<option value="13" selected="selected">13</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringNotContainsString(
 			'<option value="17">17</option>',
 			$result,
-			'contains 17 hours'
+			'contains 17 hours',
 		);
 		$this->assertStringNotContainsString('meridian', $result, '24hrs has no meridian');
 	}
@@ -693,17 +693,17 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="01">1</option>',
 			$result,
-			'contain 1 am'
+			'contain 1 am',
 		);
 		$this->assertStringContainsString(
 			'<option value="05">5</option>',
 			$result,
-			'contain 5 am'
+			'contain 5 am',
 		);
 		$this->assertStringContainsString(
 			'<option value="13" selected="selected">13</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringContainsString('<option value="23">23</option>', $result);
 		$this->assertStringNotContainsString('date[day]', $result, 'No day select.');
@@ -762,22 +762,22 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="01" selected="selected">1</option>',
 			$result,
-			'contain 1pm selected'
+			'contain 1pm selected',
 		);
 		$this->assertStringContainsString(
 			'<option value="05">5</option>',
 			$result,
-			'contain 5'
+			'contain 5',
 		);
 		$this->assertStringContainsString(
 			'<option value="12">12</option>',
 			$result,
-			'contain 12'
+			'contain 12',
 		);
 		$this->assertStringNotContainsString(
 			'<option value="13">13</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringNotContainsString('date[day]', $result, 'No day select.');
 		$this->assertStringNotContainsString('value="0"', $result, 'No zero hour');
@@ -828,7 +828,7 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="12" selected="selected">12</option>',
 			$result,
-			'12 is selected'
+			'12 is selected',
 		);
 	}
 
@@ -856,27 +856,27 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="08">8</option>',
 			$result,
-			'contains 8am'
+			'contains 8am',
 		);
 		$this->assertStringContainsString(
 			'<option value="12">12</option>',
 			$result,
-			'contains 8am'
+			'contains 8am',
 		);
 		$this->assertStringNotContainsString(
 			'<option value="01">1</option>',
 			$result,
-			'no 1 am'
+			'no 1 am',
 		);
 		$this->assertStringNotContainsString(
 			'<option value="07">7</option>',
 			$result,
-			'contain 7'
+			'contain 7',
 		);
 		$this->assertStringNotContainsString(
 			'<option value="13" selected="selected">13</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 	}
 
@@ -903,22 +903,22 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="00">00</option>',
 			$result,
-			'contains 00'
+			'contains 00',
 		);
 		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
-			'contains 05'
+			'contains 05',
 		);
 		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringContainsString(
 			'<option value="59">59</option>',
 			$result,
-			'contains 59'
+			'contains 59',
 		);
 		$this->assertStringNotContainsString('value="60"', $result, 'No 60 value');
 	}
@@ -948,32 +948,32 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="">-</option>',
 			$result,
-			'contains empty option -'
+			'contains empty option -',
 		);
 		$this->assertStringContainsString(
 			'<option value="00" selected="selected">00</option>',
 			$result,
-			'selected value present and correct at 00'
+			'selected value present and correct at 00',
 		);
 		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
-			'contains 05'
+			'contains 05',
 		);
 		$this->assertStringContainsString(
 			'<option value="25">25</option>',
 			$result,
-			'contains 25'
+			'contains 25',
 		);
 		$this->assertStringContainsString(
 			'<option value="59">59</option>',
 			$result,
-			'contains 59'
+			'contains 59',
 		);
 		$this->assertStringNotContainsString(
 			'<option value="" selected="selected">-</option>',
 			$result,
-			'No 0 value as empty value'
+			'No 0 value as empty value',
 		);
 		$this->assertStringNotContainsString('value="0"', $result, 'No unpadded 0 value');
 		$this->assertStringNotContainsString('value="60"', $result, 'No 60 value');
@@ -1002,22 +1002,22 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="00">00</option>',
 			$result,
-			'contains 00'
+			'contains 00',
 		);
 		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
-			'contains 05'
+			'contains 05',
 		);
 		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringContainsString(
 			'<option value="55">55</option>',
 			$result,
-			'contains 55'
+			'contains 55',
 		);
 		$this->assertStringNotContainsString('value="2"', $result, 'No 2 value');
 		$this->assertStringNotContainsString('value="23"', $result, 'No 23 value');
@@ -1050,7 +1050,7 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringNotContainsString('value="23"', $result, 'No 23 value');
 
@@ -1059,7 +1059,7 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="20" selected="selected">20</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringNotContainsString('value="23"', $result, 'No 23 value');
 	}
@@ -1086,12 +1086,12 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="00" selected="selected">00</option>',
 			$result,
-			'selected minute present'
+			'selected minute present',
 		);
 		$this->assertStringContainsString(
 			'<option value="10" selected="selected">10</option>',
 			$result,
-			'selected day present'
+			'selected day present',
 		);
 	}
 
@@ -1118,27 +1118,27 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertStringContainsString(
 			'<option value="00">00</option>',
 			$result,
-			'contains 00'
+			'contains 00',
 		);
 		$this->assertStringContainsString(
 			'<option value="01">01</option>',
 			$result,
-			'contains 01'
+			'contains 01',
 		);
 		$this->assertStringContainsString(
 			'<option value="05">05</option>',
 			$result,
-			'contains 05'
+			'contains 05',
 		);
 		$this->assertStringContainsString(
 			'<option value="25" selected="selected">25</option>',
 			$result,
-			'selected value present'
+			'selected value present',
 		);
 		$this->assertStringContainsString(
 			'<option value="59">59</option>',
 			$result,
-			'contains 59'
+			'contains 59',
 		);
 		$this->assertStringNotContainsString('value="0"', $result, 'No unpadded zero value');
 		$this->assertStringNotContainsString('value="60"', $result, 'No 60 value');

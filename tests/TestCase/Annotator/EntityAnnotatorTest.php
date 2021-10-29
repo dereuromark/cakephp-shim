@@ -24,7 +24,7 @@ class EntityAnnotatorTest extends TestCase {
 		$helper = new DocBlockHelper(new View());
 		$helper->virtualFields = [];
 
-		/** @var \IdeHelper\Annotation\AbstractAnnotation[] $result */
+		/** @var array<\IdeHelper\Annotation\AbstractAnnotation> $result */
 		$result = $this->invokeMethod($entityAnnotator, 'buildAnnotations', [$propertyHintMap, $helper]);
 		$this->assertCount(4, $result);
 

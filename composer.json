@@ -19,6 +19,7 @@
 	"require-dev": {
 		"fig-r/psr2r-sniffer": "dev-master",
 		"dereuromark/cakephp-ide-helper": "^1.9.0",
+		"spryker/code-sniffer": "dev-master",
 		"phpunit/phpunit": "^9.5"
 	},
 	"support": {

@@ -376,7 +376,7 @@ class Table extends CoreTable {
 	 *
 	 * Use saveMany() if you want to get early exception instead of combined boolean result.
 	 *
-	 * @param \Cake\Datasource\EntityInterface[] $entities
+	 * @param array<\Cake\Datasource\EntityInterface> $entities
 	 * @param array $options
 	 * @return bool True if all save calls where successful
 	 */

@@ -10,10 +10,14 @@ use Shim\View\Helper\ConfigureHelper;
 class ConfigureHelperTask extends ConfigureTask {
 
 	public const CLASS_CONFIGURE = ConfigureHelper::class;
+
+	/**
+	 * @var string
+	 */
 	public const SET_CONFIGURE_KEYS = 'configureHelperKeys';
 
 	/**
-	 * @var int[]
+	 * @var array<int>
 	 */
 	protected $methods = [
 		'\\' . self::CLASS_CONFIGURE . '::read()' => 0,
@@ -24,7 +28,7 @@ class ConfigureHelperTask extends ConfigureTask {
 	];
 
 	/**
-	 * @return \IdeHelper\Generator\Directive\BaseDirective[]
+	 * @return array<\IdeHelper\Generator\Directive\BaseDirective>
 	 */
 	public function collect(): array {
 		$result = [];

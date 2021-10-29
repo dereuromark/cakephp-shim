@@ -28,7 +28,7 @@ class ConsoleOutput extends CakeConsoleOutput {
 	/**
 	 * Holds all output messages.
 	 *
-	 * @var string[]
+	 * @var array<string>
 	 */
 	public $output = [];
 
