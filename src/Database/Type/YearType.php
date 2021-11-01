@@ -25,7 +25,7 @@ class YearType extends BaseType {
 	/**
 	 * Converts year data into the database format.
 	 *
-	 * @param int|string|array|null $value The value to convert.
+	 * @param array|string|int|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return int|null
 	 */
@@ -59,7 +59,7 @@ class YearType extends BaseType {
 	/**
 	 * Converts year data into the database format.
 	 *
-	 * @param int|string|array|null $value
+	 * @param array|string|int|null $value
 	 * @return int|null
 	 */
 	public function marshal($value) {

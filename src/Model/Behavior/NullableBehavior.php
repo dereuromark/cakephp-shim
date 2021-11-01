@@ -20,7 +20,7 @@ use Cake\Utility\Hash;
 class NullableBehavior extends Behavior {
 
 	/**
-	 * @var array
+	 * @var array<string, mixed>
 	 */
 	protected $_defaultConfig = [
 		'on' => 'beforeMarshal', // beforeMarshal/afterSave

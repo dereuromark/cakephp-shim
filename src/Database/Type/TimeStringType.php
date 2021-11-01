@@ -24,7 +24,7 @@ class TimeStringType extends BaseType {
 	public static $normalizeUpperBoundary = false;
 
 	/**
-	 * @param string|array|null $value The value to convert.
+	 * @param array|string|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @return string|null
 	 */

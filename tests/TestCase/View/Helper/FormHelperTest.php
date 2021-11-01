@@ -739,7 +739,7 @@ class FormHelperTest extends TestCase {
 		$this->assertHtml($expected, $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Project.release', '2050-02-10')
+			$this->View->getRequest()->withData('Project.release', '2050-02-10'),
 		);
 		$this->Form->create();
 		$result = $this->Form->month('Project.release');
@@ -791,7 +791,7 @@ class FormHelperTest extends TestCase {
 		$this->assertHtml($expected, $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Model.field', '2006-10-10 23:12:32')
+			$this->View->getRequest()->withData('Model.field', '2006-10-10 23:12:32'),
 		);
 		$this->Form->create();
 		$result = $this->Form->day('Model.field');
@@ -837,7 +837,7 @@ class FormHelperTest extends TestCase {
 		$this->assertHtml($expected, $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Project.release', '2050-10-10')
+			$this->View->getRequest()->withData('Project.release', '2050-10-10'),
 		);
 		$this->Form->create();
 		$result = $this->Form->day('Project.release');
@@ -897,7 +897,7 @@ class FormHelperTest extends TestCase {
 		$this->assertHtml($expected, $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:12:32')
+			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:12:32'),
 		);
 		$this->Form->create();
 		$result = $this->Form->minute('Model.field');
@@ -945,7 +945,7 @@ class FormHelperTest extends TestCase {
 		$this->assertHtml($expected, $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:10:32')
+			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:10:32'),
 		);
 		$this->Form->create();
 		$result = $this->Form->minute('Model.field', ['interval' => 5]);
@@ -1020,7 +1020,7 @@ class FormHelperTest extends TestCase {
 		$this->assertHtml($expected, $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:12:32')
+			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:12:32'),
 		);
 		$this->Form->create();
 		$result = $this->Form->hour('Model.field', ['format' => 12]);
@@ -1051,7 +1051,7 @@ class FormHelperTest extends TestCase {
 		$this->assertStringContainsString('<option value="11" selected="selected">11</option>', $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:12:32')
+			$this->View->getRequest()->withData('Model.field', '2006-10-10 00:12:32'),
 		);
 		$this->Form->create();
 		$result = $this->Form->hour('Model.field', ['format' => 24]);
@@ -1081,7 +1081,7 @@ class FormHelperTest extends TestCase {
 		$this->assertRegExp('/<option value="' . $thisHour . '" selected="selected">' . $optValue . '<\/option>/', $result);
 
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Model.field', '2050-10-10 01:12:32')
+			$this->View->getRequest()->withData('Model.field', '2050-10-10 01:12:32'),
 		);
 		$this->Form->create();
 		$result = $this->Form->hour('Model.field', ['format' => 24]);
@@ -1113,7 +1113,7 @@ class FormHelperTest extends TestCase {
 	 */
 	public function testYear() {
 		$this->View->setRequest(
-			$this->View->getRequest()->withData('Contact.published', '2006-10-10')
+			$this->View->getRequest()->withData('Contact.published', '2006-10-10'),
 		);
 		$result = $this->Form->year('Model.field', ['value' => '', 'minYear' => 2006, 'maxYear' => 2007]);
 		$expected = [
@@ -1209,7 +1209,7 @@ class FormHelperTest extends TestCase {
 		]);
 		$this->assertStringContainsString(
 			'<select name="birthday[year]" required="required"',
-			$result
+			$result,
 		);
 	}
 

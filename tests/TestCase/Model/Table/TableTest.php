@@ -193,7 +193,7 @@ class TableTest extends TestCase {
 			'title' => 'Gez',
 			'author_id' => null,
 		];
-		/** @var \Cake\ORM\Entity[] $entities */
+		/** @var array<\Cake\ORM\Entity> $entities */
 		$entities = $this->Posts->newEntities($array);
 		$entities[2]->setError('title', 'Some fake error reason');
 
