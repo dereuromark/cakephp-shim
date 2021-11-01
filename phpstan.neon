@@ -8,7 +8,7 @@ parameters:
 	bootstrapFiles:
 		- tests/bootstrap.php
 		- tests/shim.php
-	excludes_analyse:
+	excludePaths:
 		- %rootDir%/../../../src/TestSuite/*
 	ignoreErrors:
-		- '#Cannot assign offset string to array\|string#'
+		- '#Cannot assign offset string to array\<.+\>\|string\|null#'

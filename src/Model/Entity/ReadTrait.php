@@ -21,7 +21,7 @@ trait ReadTrait {
 	 *
 	 * Note: Hash::get($this->toArray(), $path, $default); would be simpler, but slower.
 	 *
-	 * @param string|array $path
+	 * @param array|string $path
 	 * @param mixed $default The return value when the path does not exist
 	 * @return mixed|null The value fetched from the entity, or null.
 	 */

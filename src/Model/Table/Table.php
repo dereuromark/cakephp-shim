@@ -396,7 +396,7 @@ class Table extends CoreTable {
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity the entity to be saved
-	 * @param array|\ArrayAccess $options The options to use when saving.
+	 * @param \ArrayAccess|array $options The options to use when saving.
 	 * @throws \InvalidArgumentException
 	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
@@ -425,7 +425,7 @@ class Table extends CoreTable {
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity The entity to remove.
-	 * @param array|\ArrayAccess $options The options for the delete.
+	 * @param \ArrayAccess|array $options The options for the delete.
 	 * @throws \InvalidArgumentException
 	 * @return bool success
 	 */

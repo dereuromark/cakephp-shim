@@ -19,10 +19,10 @@ class BinaryType extends CoreBinaryType {
 	/**
 	 * Convert binary into resource handles
 	 *
-	 * @param string|resource|null $value The value to convert.
+	 * @param resource|string|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
 	 * @throws \Cake\Core\Exception\Exception
-	 * @return string|resource|null
+	 * @return resource|string|null
 	 */
 	public function toPHP($value, DriverInterface $driver) {
 		// Do not convert UUIDs into a resource
