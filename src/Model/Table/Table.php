@@ -24,9 +24,7 @@ use InvalidArgumentException;
 class Table extends CoreTable {
 
 	/**
-	 * @phpstan-var array<mixed, mixed>|string|null
-	 *
-	 * @var array|string|null
+	 * @var array<mixed>|string|null
 	 */
 	protected $order;
 
