@@ -24,7 +24,7 @@ use InvalidArgumentException;
 class Table extends CoreTable {
 
 	/**
-	 * @var array<mixed>|string|null
+	 * @var array<int|string, mixed>|string|null
 	 */
 	protected $order;
 
