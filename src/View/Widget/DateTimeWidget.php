@@ -325,11 +325,11 @@ class DateTimeWidget implements WidgetInterface {
 			case 'up':
 				$changeValue = ceil($changeValue);
 
-	   break;
+	            break;
 			case 'down':
 				$changeValue = floor($changeValue);
 
-	   break;
+	            break;
 			default:
 				$changeValue = round($changeValue);
 		}
