@@ -9,13 +9,11 @@ class ShimViewBuilder extends CoreViewBuilder {
 	/**
 	 * Adds a helper to use.
 	 *
-	 * @param string $helper Helper to use.
-	 * @param array<string, mixed> $options Options.
-	 * @return $this
-	 * @since 4.1.0
+     * @param string $helper Helper to use.
+     * @param array<string, mixed> $options Options.
+     * @return $this
 	 */
-	public function addHelper(string $helper, array $options = [])
-	{
+	public function addHelper(string $helper, array $options = []) {
 		[$plugin, $name] = pluginSplit($helper);
 		if ($plugin) {
 			$options['class'] = $helper;
@@ -30,12 +28,10 @@ class ShimViewBuilder extends CoreViewBuilder {
 	/**
 	 * Adds helpers to use by merging with existing ones.
 	 *
-	 * @param array $helpers Helpers to use.
-	 * @return $this
-	 * @since 4.3.0
+     * @param array $helpers Helpers to use.
+     * @return $this
 	 */
-	public function addHelpers(array $helpers)
-	{
+	public function addHelpers(array $helpers) {
 		foreach ($helpers as $helper => $config) {
 			if (is_int($helper)) {
 				$helper = $config;
@@ -50,10 +46,10 @@ class ShimViewBuilder extends CoreViewBuilder {
 	 * Sets the helpers to use.
 	 *
 	 * @param array $helpers Helpers to use.
+	 * @param bool $merge Whether to merge existing data with the new data.
 	 * @return $this
 	 */
-	public function setHelpers(array $helpers, bool $merge = true)
-	{
+	public function setHelpers(array $helpers, bool $merge = true) {
 		if ($merge) {
 			deprecationWarning('The $merge param is deprecated, use addHelper()/addHelpers() instead.');
 		} else {
