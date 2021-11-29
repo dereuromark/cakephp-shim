@@ -36,7 +36,7 @@ trait GetSetTrait {
 			return $this->getOrFail($property);
 		}
 
-		$this->setOrFail($property, $arguments[1]);
+		return $this->setOrFail($property, $arguments[1]);
 	}
 
 }
