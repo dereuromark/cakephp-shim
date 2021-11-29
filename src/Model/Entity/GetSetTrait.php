@@ -6,9 +6,10 @@ use Cake\Utility\Inflector;
 use RuntimeException;
 
 /**
- * Trait to write entity properties in a way that the passed value is ensured.
+ * Trait to read/write entity properties in a way that the returned/passed value is ensured (not nullable).
  *
- * - set{PropertyName}OrFail() must have a non-null value or throws exception otherwise
+ * - get{PropertyName}OrFail() must return the property or throws exception otherwise
+ * - set{PropertyName}OrFail($value) must have a non-null value or throws exception otherwise
  */
 trait GetSetTrait {
 

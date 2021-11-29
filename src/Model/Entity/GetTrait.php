@@ -6,7 +6,7 @@ use Cake\Utility\Inflector;
 use RuntimeException;
 
 /**
- * Trait to read entity properties in a way that the return value is ensured.
+ * Trait to read entity properties in a way that the return value is ensured (not nullable).
  *
  * - get{PropertyName}OrFail() must return the property or throws exception otherwise
  */
