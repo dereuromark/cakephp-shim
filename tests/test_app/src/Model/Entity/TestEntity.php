@@ -3,7 +3,7 @@
 namespace TestApp\Model\Entity;
 
 use Cake\ORM\Entity;
-use Shim\Model\Entity\GetTrait;
+use Shim\Model\Entity\GetSetTrait;
 use Shim\Model\Entity\ReadTrait;
 
 /**
@@ -12,7 +12,7 @@ use Shim\Model\Entity\ReadTrait;
  */
 class TestEntity extends Entity {
 
-	use GetTrait;
+	use GetSetTrait;
 	use ReadTrait;
 
 }
