@@ -106,7 +106,7 @@ class DateTimeWidgetTest extends TestCase {
 			'minute' => ['empty' => true],
 		], $this->context);
 		$this->assertStringContainsString('<option value="" selected="selected"></option>', $result);
-		$this->assertNotRegExp('/value="\d+" selected="selected"/', $result);
+		$this->assertDoesNotMatchRegularExpression('/value="\d+" selected="selected"/', $result);
 
 		$result = $this->DateTime->render([
 			'val' => ['year' => '', 'month' => '', 'day' => '', 'hour' => '', 'minute' => ''],
@@ -117,7 +117,7 @@ class DateTimeWidgetTest extends TestCase {
 			'minute' => ['empty' => true],
 		], $this->context);
 		$this->assertStringContainsString('<option value="" selected="selected"></option>', $result);
-		$this->assertNotRegExp('/value="\d+" selected="selected"/', $result);
+		$this->assertDoesNotMatchRegularExpression('/value="\d+" selected="selected"/', $result);
 	}
 
 	/**
@@ -803,7 +803,7 @@ class DateTimeWidgetTest extends TestCase {
 			'meridian' => ['empty' => '--'],
 		], $this->context);
 		$this->assertStringContainsString('<option value="" selected="selected">--</option>', $result);
-		$this->assertNotRegExp('/value="\d+" selected="selected"/', $result);
+		$this->assertDoesNotMatchRegularExpression('/value="\d+" selected="selected"/', $result);
 	}
 
 	/**

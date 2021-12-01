@@ -445,7 +445,7 @@ class FormHelperTest extends TestCase {
 			'*/select',
 		];
 		$this->assertHtml($expected, $result);
-		$this->assertNotRegExp('/<option[^<>]+value=""[^<>]+selected="selected"[^>]*>/', $result);
+		$this->assertDoesNotMatchRegularExpression('/<option[^<>]+value=""[^<>]+selected="selected"[^>]*>/', $result);
 	}
 
 	/**
@@ -570,7 +570,7 @@ class FormHelperTest extends TestCase {
 		]);
 
 		$this->assertRegExp('/<option value="">-<\/option>/', $result);
-		$this->assertNotRegExp('/<option value="0" selected="selected">0<\/option>/', $result);
+		$this->assertDoesNotMatchRegularExpression('/<option value="0" selected="selected">0<\/option>/', $result);
 	}
 
 	/**
@@ -596,7 +596,7 @@ class FormHelperTest extends TestCase {
 		$this->assertRegExp('/<option value="">YEAR<\/option>/', $result);
 		$this->assertRegExp('/<option value="">HOUR<\/option>/', $result);
 		$this->assertRegExp('/<option value="">MINUTE<\/option>/', $result);
-		$this->assertNotRegExp('/<option value=""><\/option>/', $result);
+		$this->assertDoesNotMatchRegularExpression('/<option value=""><\/option>/', $result);
 
 		$result = $this->Form->dateTime('Contact.date', [
 			'empty' => ['day' => 'DAY', 'month' => 'MONTH', 'year' => 'YEAR'],
