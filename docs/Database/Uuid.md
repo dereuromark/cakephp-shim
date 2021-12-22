@@ -26,4 +26,8 @@ Type::map('binary', 'Shim\Database\Type\BinaryType');
 ```
 
 Note: BINARY(16) would even be more performant, but then you would need to manually hex() and unhex() directly in the database.
-So at this point this cannot be supported yet.
+So at this point this cannot be supported yet here.
+
+### BINARY(16)
+
+For this please see `Cake\Database\Type\BinaryUuidType` that is now shipped by default with Cake core.
