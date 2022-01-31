@@ -118,7 +118,7 @@ class DateTimeWidget implements WidgetInterface {
 	 * - `round` Accepts `up` or `down`. Defines which direction the current value
 	 *   should be rounded to match the select options.
 	 *
-	 * @param array $data Data to render with.
+	 * @param array<string, mixed> $data Data to render with.
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @throws \RuntimeException When option data is invalid.
 	 * @return string A generated select box.
@@ -186,8 +186,8 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Normalize data.
 	 *
-	 * @param array $data Data to normalize.
-	 * @return array Normalized data.
+	 * @param array<string, mixed> $data Data to normalize.
+	 * @return array<string, mixed> Normalized data.
 	 */
 	protected function _normalizeData(array $data): array {
 		$data += [
@@ -233,8 +233,8 @@ class DateTimeWidget implements WidgetInterface {
 	 * Deconstructs the passed date value into all time units
 	 *
 	 * @param \DateTime|array|string|int|bool|null $value Value to deconstruct.
-	 * @param array $options Options for conversion.
-	 * @return array
+	 * @param array<string, mixed> $options Options for conversion.
+	 * @return array<string, string>
 	 */
 	protected function _deconstructDate($value, array $options): array {
 		if ($value === '' || $value === null) {
@@ -315,7 +315,7 @@ class DateTimeWidget implements WidgetInterface {
 	 * Adjust $value based on rounding settings.
 	 *
 	 * @param int $value The value to adjust.
-	 * @param array $options The options containing interval and possibly round.
+	 * @param array<string, mixed> $options The options containing interval and possibly round.
 	 * @return int The amount to adjust $value by.
 	 */
 	protected function _adjustValue(int $value, array $options): int {
@@ -340,7 +340,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Generates a year select
 	 *
-	 * @param array $options Options list.
+	 * @param array<string, mixed> $options Options list.
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @return string
 	 */
@@ -373,7 +373,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Generates a month select
 	 *
-	 * @param array $options The options to build the month select with
+	 * @param array<string, mixed> $options The options to build the month select with
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @return string
 	 */
@@ -405,7 +405,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Generates a day select
 	 *
-	 * @param array $options The options to generate a day select with.
+	 * @param array<string, mixed> $options The options to generate a day select with.
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @return string
 	 */
@@ -427,7 +427,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Generates a hour select
 	 *
-	 * @param array $options The options to generate an hour select with
+	 * @param array<string, mixed> $options The options to generate an hour select with
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @return string
 	 */
@@ -482,7 +482,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Generates a minute select
 	 *
-	 * @param array $options The options to generate a minute select with.
+	 * @param array<string, mixed> $options The options to generate a minute select with.
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @return string
 	 */
@@ -514,7 +514,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Generates a second select
 	 *
-	 * @param array $options The options to generate a second select with
+	 * @param array<string, mixed> $options The options to generate a second select with
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @return string
 	 */
@@ -536,7 +536,7 @@ class DateTimeWidget implements WidgetInterface {
 	/**
 	 * Generates a meridian select
 	 *
-	 * @param array $options The options to generate a meridian select with.
+	 * @param array<string, mixed> $options The options to generate a meridian select with.
 	 * @param \Cake\View\Form\ContextInterface $context The current form context.
 	 * @return string
 	 */
@@ -555,7 +555,7 @@ class DateTimeWidget implements WidgetInterface {
 	 * Returns a translated list of month names
 	 *
 	 * @param bool $leadingZero Whether to generate month keys with leading zero.
-	 * @return array
+	 * @return array<string>
 	 */
 	protected function _getMonthNames(bool $leadingZero = false): array {
 		$months = [
@@ -595,8 +595,8 @@ class DateTimeWidget implements WidgetInterface {
 	 *
 	 * @param int $start Start of the range of numbers to generate
 	 * @param int $end End of the range of numbers to generate
-	 * @param array $options Options list.
-	 * @return array
+	 * @param array<string, mixed> $options Options list.
+	 * @return array<string, string>
 	 */
 	protected function _generateNumbers(int $start, int $end, array $options = []): array {
 		$options += [
@@ -629,8 +629,8 @@ class DateTimeWidget implements WidgetInterface {
 	 * When the hour picker is in 24hr mode (null or format=24) the meridian
 	 * picker will be omitted.
 	 *
-	 * @param array $data The data to render.
-	 * @return array Array of fields to secure.
+	 * @param array<string, mixed> $data The data to render.
+	 * @return array<string> Array of fields to secure.
 	 */
 	public function secureFields(array $data): array {
 		$data = $this->_normalizeData($data);

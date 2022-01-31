@@ -65,9 +65,9 @@ class FormHelper extends CoreFormHelper {
 	/**
 	 * Helper method for the various single datetime component methods.
 	 *
-	 * @param array $options The options array.
+	 * @param array<string, mixed> $options The options array.
 	 * @param string $keep The option to not disable.
-	 * @return array
+	 * @return array<string, mixed>
 	 */
 	protected function _singleDatetime(array $options, string $keep): array {
 		$off = array_diff($this->_datetimeParts, [$keep]);
@@ -100,7 +100,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-day-inputs
 	 * @param string|null $fieldName Prefix name for the SELECT element
-	 * @param array $options Options & HTML attributes for the select element
+	 * @param array<string, mixed> $options Options & HTML attributes for the select element
 	 * @return string A generated day select box.
 	 */
 	public function day(?string $fieldName = null, array $options = []): string {
@@ -138,7 +138,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-year-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options Options & attributes for the select elements.
+	 * @param array<string, mixed> $options Options & attributes for the select elements.
 	 * @return string Completed year select input
 	 */
 	public function year(string $fieldName, array $options = []): string {
@@ -169,7 +169,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-month-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options Attributes for the select element
+	 * @param array<string, mixed> $options Attributes for the select element
 	 * @return string A generated month select dropdown.
 	 */
 	public function month(string $fieldName, array $options = []): string {
@@ -198,7 +198,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-hour-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options List of HTML attributes
+	 * @param array<string, mixed> $options List of HTML attributes
 	 * @return string Completed hour select input
 	 */
 	public function hour(string $fieldName, array $options = []): string {
@@ -232,7 +232,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-minute-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options Array of options.
+	 * @param array<string, mixed> $options Array of options.
 	 * @return string Completed minute select input.
 	 */
 	public function minute(string $fieldName, array $options = []): string {
@@ -259,7 +259,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-meridian-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options Array of options
+	 * @param array<string, mixed> $options Array of options
 	 * @return string Completed meridian select input
 	 */
 	public function meridian(string $fieldName, array $options = []): string {
@@ -310,7 +310,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @link https://book.cakephp.org/3.0/en/views/helpers/form.html#creating-date-and-time-inputs
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options Array of Options
+	 * @param array<string, mixed> $options Array of Options
 	 * @return string Generated set of select boxes for the date and time formats chosen.
 	 */
 	public function dateTime(string $fieldName, array $options = []): string {
@@ -335,8 +335,8 @@ class FormHelper extends CoreFormHelper {
 	/**
 	 * Helper method for converting from FormHelper options data to widget format.
 	 *
-	 * @param array $options Options to convert.
-	 * @return array Converted options.
+	 * @param array<string, mixed> $options Options to convert.
+	 * @return array<string, mixed> Converted options.
 	 */
 	protected function _datetimeOptions(array $options): array {
 		foreach ($this->_datetimeParts as $type) {
@@ -417,7 +417,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options Array of Options
+	 * @param array<string, mixed> $options Array of Options
 	 * @return string Generated set of select boxes for time formats chosen.
 	 */
 	public function time(string $fieldName, array $options = []): string {
@@ -445,7 +445,7 @@ class FormHelper extends CoreFormHelper {
 	 *
 	 * @see \Cake\View\Helper\FormHelper::dateTime() for templating options.
 	 * @param string $fieldName Prefix name for the SELECT element
-	 * @param array $options Array of Options
+	 * @param array<string, mixed> $options Array of Options
 	 * @return string Generated set of select boxes for time formats chosen.
 	 */
 	public function date(string $fieldName, array $options = []): string {

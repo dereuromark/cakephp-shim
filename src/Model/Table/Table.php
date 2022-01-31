@@ -131,11 +131,11 @@ class Table extends CoreTable {
 	}
 
 	/**
-	 * @param array $array
+	 * @param array<string, mixed> $array
 	 * @throws \Exception
-	 * @return array
+	 * @return array<string, mixed>
 	 */
-	protected function _parseRelation($array) {
+	protected function _parseRelation(array $array) {
 		if (isset($array['unique'])) {
 			if ($array['unique'] === 'keepExisting') {
 				throw new Exception('A HABTM relation "unique" config must be transformed into a valid "saveStrategy" one.');
@@ -261,7 +261,7 @@ class Table extends CoreTable {
 	 * 1-2 fields to select (no keyField/valueField).
 	 *
 	 * @param \Cake\ORM\Query $query The query to find with
-	 * @param array $options The options for the find
+	 * @param array<string, mixed> $options The options for the find
 	 * @return \Cake\ORM\Query The query builder
 	 */
 	public function findList(Query $query, array $options): Query {
@@ -294,7 +294,7 @@ class Table extends CoreTable {
 	 *   $record = $this->Table->record($id);
 	 *
 	 * @param mixed $id
-	 * @param array $options Options for get().
+	 * @param array<string, mixed> $options Options for get().
 	 * @return mixed|null The first result from the ResultSet or null if not existent.
 	 */
 	public function record($id, array $options = []) {
@@ -311,7 +311,7 @@ class Table extends CoreTable {
 	 * Do NOT use with 2.x field()s. Make sure those have been replaced to fieldByConditions() instead.
 	 *
 	 * @param string $name
-	 * @param array $options
+	 * @param array<string, mixed> $options
 	 * @return mixed Field value or null if not available
 	 */
 	public function field($name, array $options = []) {
@@ -375,7 +375,7 @@ class Table extends CoreTable {
 	 * Use saveMany() if you want to get early exception instead of combined boolean result.
 	 *
 	 * @param array<\Cake\Datasource\EntityInterface> $entities
-	 * @param array $options
+	 * @param array<string, mixed> $options
 	 * @return bool True if all save calls where successful
 	 */
 	public function saveAll(array $entities, array $options = []) {
@@ -394,7 +394,7 @@ class Table extends CoreTable {
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity the entity to be saved
-	 * @param \ArrayAccess|array $options The options to use when saving.
+	 * @param \ArrayAccess|array<string, mixed> $options The options to use when saving.
 	 * @throws \InvalidArgumentException
 	 * @return \Cake\Datasource\EntityInterface|bool
 	 */
@@ -423,7 +423,7 @@ class Table extends CoreTable {
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity The entity to remove.
-	 * @param \ArrayAccess|array $options The options for the delete.
+	 * @param \ArrayAccess|array<string, mixed> $options The options for the delete.
 	 * @throws \InvalidArgumentException
 	 * @return bool success
 	 */
