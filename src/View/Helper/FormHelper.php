@@ -70,10 +70,11 @@ class FormHelper extends CoreFormHelper {
 	 * @return array<string, mixed>
 	 */
 	protected function _singleDatetime(array $options, string $keep): array {
-		$off = array_diff($this->_datetimeParts, [$keep]);
+		$offKeys = array_diff($this->_datetimeParts, [$keep]);
+		$offValues = array_fill(0, count($offKeys), false);
 		$off = (array)array_combine(
-			$off,
-			array_fill(0, count($off), false),
+			$offKeys,
+			$offValues,
 		);
 
 		$attributes = array_diff_key(
@@ -81,6 +82,7 @@ class FormHelper extends CoreFormHelper {
 			array_flip(array_merge($this->_datetimeOptions, ['value', 'empty'])),
 		);
 
+		/** @var array<string, mixed> $options */
 		$options = $options + $off + [$keep => $attributes];
 		if (isset($options['value'])) {
 			$options['val'] = $options['value'];
