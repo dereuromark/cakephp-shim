@@ -236,7 +236,7 @@ class DateTimeWidget implements WidgetInterface {
 	 * @param array $options Options for conversion.
 	 * @return array
 	 */
-	protected function _deconstructDate($value, $options): array {
+	protected function _deconstructDate($value, array $options): array {
 		if ($value === '' || $value === null) {
 			return [
 				'year' => '', 'month' => '', 'day' => '',
@@ -268,8 +268,8 @@ class DateTimeWidget implements WidgetInterface {
 					}
 				}
 				if ($validDate) {
-					if (!isset($dateArray['second'])) {
-						$dateArray['second'] = 0;
+					if (!$dateArray['second']) {
+						$dateArray['second'] = '0';
 					}
 					if (!empty($value['meridian'])) {
 						/** @var string $meridian */

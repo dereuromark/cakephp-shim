@@ -350,7 +350,7 @@ class TableTest extends TestCase {
 
 		$order = $wheels->clause('order');
 		$sql = $order->sql(new ValueBinder());
-		$this->assertRegExp('/["`]Wheels["`]\.["`]position["`] ASC/i', $sql);
+		$this->assertMatchesRegularExpression('/["`]Wheels["`]\.["`]position["`] ASC/i', $sql);
 
 		$this->assertSame(2, count($wheels->toArray()));
 

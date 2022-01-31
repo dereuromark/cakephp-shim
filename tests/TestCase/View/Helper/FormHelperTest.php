@@ -543,16 +543,16 @@ class FormHelperTest extends TestCase {
 	 */
 	public function testDatetimeWithDefault() {
 		$result = $this->Form->dateTime('Contact.updated', ['value' => '2009-06-01 11:15:30']);
-		$this->assertRegExp('/<option[^<>]+value="2009"[^<>]+selected="selected"[^>]*>2009<\/option>/', $result);
-		$this->assertRegExp('/<option[^<>]+value="01"[^<>]+selected="selected"[^>]*>1<\/option>/', $result);
-		$this->assertRegExp('/<option[^<>]+value="06"[^<>]+selected="selected"[^>]*>June<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option[^<>]+value="2009"[^<>]+selected="selected"[^>]*>2009<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option[^<>]+value="01"[^<>]+selected="selected"[^>]*>1<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option[^<>]+value="06"[^<>]+selected="selected"[^>]*>June<\/option>/', $result);
 
 		$result = $this->Form->dateTime('Contact.updated', [
 			'default' => '2009-06-01 11:15:30',
 		]);
-		$this->assertRegExp('/<option[^<>]+value="2009"[^<>]+selected="selected"[^>]*>2009<\/option>/', $result);
-		$this->assertRegExp('/<option[^<>]+value="01"[^<>]+selected="selected"[^>]*>1<\/option>/', $result);
-		$this->assertRegExp('/<option[^<>]+value="06"[^<>]+selected="selected"[^>]*>June<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option[^<>]+value="2009"[^<>]+selected="selected"[^>]*>2009<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option[^<>]+value="01"[^<>]+selected="selected"[^>]*>1<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option[^<>]+value="06"[^<>]+selected="selected"[^>]*>June<\/option>/', $result);
 	}
 
 	/**
@@ -569,7 +569,7 @@ class FormHelperTest extends TestCase {
 			'value' => '0000-00-00',
 		]);
 
-		$this->assertRegExp('/<option value="">-<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">-<\/option>/', $result);
 		$this->assertDoesNotMatchRegularExpression('/<option value="0" selected="selected">0<\/option>/', $result);
 	}
 
@@ -591,11 +591,11 @@ class FormHelperTest extends TestCase {
 			'default' => true,
 		]);
 
-		$this->assertRegExp('/<option value="">DAY<\/option>/', $result);
-		$this->assertRegExp('/<option value="">MONTH<\/option>/', $result);
-		$this->assertRegExp('/<option value="">YEAR<\/option>/', $result);
-		$this->assertRegExp('/<option value="">HOUR<\/option>/', $result);
-		$this->assertRegExp('/<option value="">MINUTE<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">DAY<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">MONTH<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">YEAR<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">HOUR<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">MINUTE<\/option>/', $result);
 		$this->assertDoesNotMatchRegularExpression('/<option value=""><\/option>/', $result);
 
 		$result = $this->Form->dateTime('Contact.date', [
@@ -603,9 +603,9 @@ class FormHelperTest extends TestCase {
 			'default' => true,
 		]);
 
-		$this->assertRegExp('/<option value="">DAY<\/option>/', $result);
-		$this->assertRegExp('/<option value="">MONTH<\/option>/', $result);
-		$this->assertRegExp('/<option value="">YEAR<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">DAY<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">MONTH<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="">YEAR<\/option>/', $result);
 	}
 
 	/**
@@ -1078,7 +1078,7 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->hour('Model.field', ['format' => 24, 'value' => 'now']);
 		$thisHour = date('H');
 		$optValue = date('G');
-		$this->assertRegExp('/<option value="' . $thisHour . '" selected="selected">' . $optValue . '<\/option>/', $result);
+		$this->assertMatchesRegularExpression('/<option value="' . $thisHour . '" selected="selected">' . $optValue . '<\/option>/', $result);
 
 		$this->View->setRequest(
 			$this->View->getRequest()->withData('Model.field', '2050-10-10 01:12:32'),

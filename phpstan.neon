@@ -11,4 +11,3 @@ parameters:
 	excludePaths:
 		- %rootDir%/../../../src/TestSuite/*
 	ignoreErrors:
-		- '#Cannot assign offset string to array\<.+\>\|string\|null#'
