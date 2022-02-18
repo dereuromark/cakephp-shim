@@ -172,7 +172,7 @@ class DateTimeWidget implements WidgetInterface {
 			}
 			if (isset($data['class'], $data[$select]['class'])) {
 				$classes = $this->_templates->addClass($data[$select]['class'], $data['class']);
-				$data[$select]['class'] = join($classes['class'], ' ');
+				$data[$select]['class'] = $classes['class'];
 			} else if (isset($data['class'])) {
 				$data[$select]['class'] = $data['class'];
 			}
