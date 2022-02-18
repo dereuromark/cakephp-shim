@@ -17,6 +17,7 @@ declare(strict_types = 1);
 namespace Shim\Test\TestCase\View\Helper;
 
 use Cake\Core\Configure;
+use Cake\Form\Form;
 use Cake\Http\ServerRequest;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
@@ -865,6 +866,26 @@ class FormHelperTest extends TestCase {
 			'empty' => 'Published on',
 		]);
 		$this->assertStringContainsString('Published on', $result);
+	}
+
+	/**
+	 * testClassAttributeMerged method
+	 *
+	 * Test merge current class with form-error class
+	 *
+	 * @return void
+	 */
+	public function testClassAttributeMerged() {
+		$form = new Form();
+		$form->setErrors(['birthday' => ['required' => 'required birthday']]);
+		$this->Form->create($form);
+		$result = $this->Form->control('birthday', [
+			'type' => 'date',
+			'year' => ['class' => 'published-year']
+		]);
+		$this->assertStringContainsString('<select name="birthday[year]" class="published-year form-error">', $result);
+		$this->assertStringContainsString('<select name="birthday[month]" class="form-error">', $result);
+		$this->assertStringContainsString('<select name="birthday[day]" class="form-error">', $result);
 	}
 
 	/**

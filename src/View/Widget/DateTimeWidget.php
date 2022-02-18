@@ -170,8 +170,11 @@ class DateTimeWidget implements WidgetInterface {
 			if ($select === 'year' && isset($data['orderYear'])) {
 				$data[$select]['order'] = $data['orderYear'];
 			}
-			if (isset($data['class'])) {
-				$this->_templates->addClass($data[$select]['class'], $data['class']);
+			if (isset($data['class'], $data[$select]['class'])) {
+				$classes = $this->_templates->addClass($data[$select]['class'], $data['class']);
+				$data[$select]['class'] = join($classes['class'], ' ');
+			} else if (isset($data['class'])) {
+				$data[$select]['class'] = $data['class'];
 			}
 
 			$templateOptions[$select] = $this->{$method}($data[$select], $context);
