@@ -49,7 +49,7 @@ class Table extends CoreTable {
 	 * All models will automatically get Timestamp behavior attached
 	 * if created or modified exists.
 	 *
-	 * @param array $config
+	 * @param array<string, mixed> $config
 	 * @return void
 	 */
 	public function initialize(array $config): void {
