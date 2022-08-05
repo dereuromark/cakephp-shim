@@ -45,7 +45,6 @@ class YearType extends BaseType {
 	 *
 	 * @param resource|string|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
-	 * @throws \Cake\Core\Exception\Exception
 	 * @return int|null
 	 */
 	public function toPHP($value, DriverInterface $driver) {

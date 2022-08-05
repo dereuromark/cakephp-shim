@@ -21,7 +21,6 @@ class BinaryType extends CoreBinaryType {
 	 *
 	 * @param resource|string|null $value The value to convert.
 	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
-	 * @throws \Cake\Core\Exception\Exception
 	 * @return resource|string|null
 	 */
 	public function toPHP($value, DriverInterface $driver) {
