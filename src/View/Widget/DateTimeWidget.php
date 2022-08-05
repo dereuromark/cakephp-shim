@@ -283,7 +283,7 @@ class DateTimeWidget implements WidgetInterface {
 						$dateArray['hour'] = str_pad((string)$dateArray['hour'], 2, '0', STR_PAD_LEFT);
 					}
 					if (!empty($dateArray['minute']) && isset($options['minute']['interval'])) {
-						$dateArray['minute'] += $this->_adjustValue((int)$dateArray['minute'], $options['minute']);
+						$dateArray['minute'] = (int)$dateArray['minute'] + $this->_adjustValue((int)$dateArray['minute'], $options['minute']);
 						$dateArray['minute'] = str_pad((string)$dateArray['minute'], 2, '0', STR_PAD_LEFT);
 					}
 
@@ -600,7 +600,7 @@ class DateTimeWidget implements WidgetInterface {
 	 * @param int $start Start of the range of numbers to generate
 	 * @param int $end End of the range of numbers to generate
 	 * @param array<string, mixed> $options Options list.
-	 * @return array<string, string>
+	 * @return array<string|int, string>
 	 */
 	protected function _generateNumbers(int $start, int $end, array $options = []): array {
 		$options += [
