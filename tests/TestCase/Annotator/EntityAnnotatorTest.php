@@ -2,7 +2,7 @@
 
 namespace Shim\Test\TestCase\Annotator;
 
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\View\View;
 use IdeHelper\View\Helper\DocBlockHelper;
 use ReflectionClass;
@@ -15,12 +15,12 @@ class EntityAnnotatorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testBuildAnnotations() {
+	public function testBuildAnnotations(): void {
 		/** @var \Shim\Annotator\EntityAnnotator $entityAnnotator */
 		$entityAnnotator = $this->getMockBuilder(EntityAnnotator::class)->disableOriginalConstructor()->setMethods(['annotate'])->getMock();
 		$entityAnnotator->setConfig('class', TestEntity::class);
 
-		$propertyHintMap = ['id' => 'int', 'foo_bar' => '\\' . FrozenTime::class . '|null'];
+		$propertyHintMap = ['id' => 'int', 'foo_bar' => '\\' . DateTime::class . '|null'];
 		$helper = new DocBlockHelper(new View());
 		$helper->virtualFields = [];
 
@@ -29,9 +29,9 @@ class EntityAnnotatorTest extends TestCase {
 		$this->assertCount(6, $result);
 
 		$this->assertSame('int $id', $result['id']->build());
-		$this->assertSame('\\' . FrozenTime::class . '|null $foo_bar', $result['foo_bar']->build());
+		$this->assertSame('\\' . DateTime::class . '|null $foo_bar', $result['foo_bar']->build());
 		$this->assertSame('int getIdOrFail()', $result['getIdOrFail()']->build());
-		$this->assertSame('\\' . FrozenTime::class . ' getFooBarOrFail()', $result['getFooBarOrFail()']->build());
+		$this->assertSame('\\' . DateTime::class . ' getFooBarOrFail()', $result['getFooBarOrFail()']->build());
 	}
 
 	/**
@@ -41,7 +41,7 @@ class EntityAnnotatorTest extends TestCase {
 	 *
 	 * @return mixed Method return.
 	 */
-	protected function invokeMethod(&$object, $methodName, array $parameters = []) {
+	protected function invokeMethod(object &$object, string $methodName, array $parameters = []): mixed {
 		$reflection = new ReflectionClass(get_class($object));
 		$method = $reflection->getMethod($methodName);
 		$method->setAccessible(true);

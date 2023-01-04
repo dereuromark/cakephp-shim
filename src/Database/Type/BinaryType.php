@@ -2,7 +2,7 @@
 
 namespace Shim\Database\Type;
 
-use Cake\Database\DriverInterface;
+use Cake\Database\Driver;
 use Cake\Database\Type\BinaryType as CoreBinaryType;
 use Cake\Utility\Text;
 
@@ -12,18 +12,18 @@ use Cake\Utility\Text;
  * Used to convert binary values including UUIDs between PHP and the database types.
  *
  * Needs:
- * - Type::map('binary', 'Shim\Database\Type\BinaryType'); in bootstrap
+ * - \Cake\Database\TypeFactory::map('binary'), 'Shim\Database\Type\BinaryType'); in bootstrap
  */
 class BinaryType extends CoreBinaryType {
 
 	/**
 	 * Convert binary into resource handles
 	 *
-	 * @param resource|string|null $value The value to convert.
-	 * @param \Cake\Database\DriverInterface $driver The driver instance to convert with.
+	 * @param resource|string $value The value to convert.
+	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
 	 * @return resource|string|null
 	 */
-	public function toPHP($value, DriverInterface $driver) {
+	public function toPHP(mixed $value, Driver $driver): mixed {
 		// Do not convert UUIDs into a resource
 		if (is_string($value) && preg_match(
 			'/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/i',
@@ -40,7 +40,7 @@ class BinaryType extends CoreBinaryType {
 	 *
 	 * @return string A new primary key value.
 	 */
-	public function newId() {
+	public function newId(): string {
 		return Text::uuid();
 	}
 

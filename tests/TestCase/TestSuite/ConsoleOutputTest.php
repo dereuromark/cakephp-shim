@@ -10,7 +10,7 @@ class ConsoleOutputTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testOut() {
+	public function testOut(): void {
 		$output = new ConsoleOutput();
 		$output->write('Foo');
 		$output->write('Bar');

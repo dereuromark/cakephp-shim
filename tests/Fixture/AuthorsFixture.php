@@ -4,30 +4,32 @@ namespace Shim\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
 
-class YearTypesFixture extends TestFixture {
+/**
+ * Short description for class.
+ */
+class AuthorsFixture extends TestFixture {
 
 	/**
-	 * Fields
+	 * fields property
 	 *
 	 * @var array
 	 */
 	public array $fields = [
 		'id' => ['type' => 'integer'],
-		'name' => ['type' => 'string', 'null' => true],
-		'year_of_birth' => ['type' => 'integer', 'null' => true],
+		'name' => ['type' => 'string', 'default' => null],
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
 
 	/**
-	 * Records property
+	 * records property
 	 *
 	 * @var array
 	 */
 	public array $records = [
-		[
-			'name' => 'Some person',
-			'year_of_birth' => 2015,
-		],
+		['name' => 'mariano'],
+		['name' => 'nate'],
+		['name' => 'larry'],
+		['name' => 'garrett'],
 	];
 
 }

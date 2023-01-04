@@ -4,20 +4,15 @@ namespace Shim\Test\TestCase\View\Helper;
 
 use Cake\Http\ServerRequest;
 use Cake\View\View;
+use PHPUnit\Framework\MockObject\MockObject;
 use Shim\TestSuite\TestCase;
 use Shim\View\Helper\CookieHelper;
 
 class CookieHelperTest extends TestCase {
 
-	/**
-	 * @var \Shim\View\Helper\CookieHelper
-	 */
-	protected $Cookie;
+	protected CookieHelper $Cookie;
 
-	/**
-	 * @var \Cake\Http\ServerRequest|\PHPUnit\Framework\MockObject\MockObject
-	 */
-	protected $request;
+	protected ServerRequest|MockObject $request;
 
 	/**
 	 * @return void
@@ -42,7 +37,7 @@ class CookieHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testGetChookies() {
+	public function testGetChookies(): void {
 		$this->request->expects($this->at(0))
 			->method('getCookieParams')
 			->will($this->returnValue(['one' => 1, 'two' => 2]));
@@ -55,7 +50,7 @@ class CookieHelperTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testCheck() {
+	public function testCheck(): void {
 		$this->request->expects($this->at(0))
 			->method('getCookie')
 			->will($this->returnValue(null));
@@ -72,7 +67,7 @@ class CookieHelperTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testRead() {
+	public function testRead(): void {
 		$this->request->expects($this->once())
 			->method('getCookie')
 			->will($this->returnValue('val'));

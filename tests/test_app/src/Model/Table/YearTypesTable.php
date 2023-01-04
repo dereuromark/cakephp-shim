@@ -8,16 +8,15 @@ use Shim\Model\Table\Table;
 class YearTypesTable extends Table {
 
 	/**
-	 * @var array
+	 * @var array<int|string, mixed>|string|null
 	 */
 	protected $order = ['name' => 'ASC'];
 
 	/**
-	 * @param \Cake\Database\Schema\TableSchemaInterface $schema
-	 *
 	 * @return \Cake\Database\Schema\TableSchemaInterface
 	 */
-	protected function _initializeSchema(TableSchemaInterface $schema): TableSchemaInterface {
+	public function getSchema(): TableSchemaInterface {
+		$schema = parent::getSchema();
 		$schema->setColumnType('year_of_birth', 'year');
 
 		return $schema;

@@ -7,7 +7,6 @@ use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\EventInterface;
 use Cake\ORM\Query;
-use Cake\ORM\SaveOptionsBuilder;
 use Cake\ORM\Table as CoreTable;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
@@ -29,19 +28,20 @@ class Table extends CoreTable {
 	protected $order;
 
 	/**
-	 * @var string
+	 * @var string|false
 	 */
 	protected $createdField = 'created';
 
 	/**
-	 * @var string
+	 * @var string|false
+
 	 */
 	protected $modifiedField = 'modified';
 
 	/**
 	 * @var string
 	 */
-	protected $validationDomain = 'default';
+	protected string $validationDomain = 'default';
 
 	/**
 	 * initialize()
@@ -87,7 +87,7 @@ class Table extends CoreTable {
 	 *
 	 * @return void
 	 */
-	protected function _shimRelations() {
+	protected function _shimRelations(): void {
 		if (!empty($this->belongsTo)) {
 			foreach ($this->belongsTo as $k => $v) {
 				if (is_int($k)) {
@@ -135,7 +135,7 @@ class Table extends CoreTable {
 	 * @throws \Exception
 	 * @return array<string, mixed>
 	 */
-	protected function _parseRelation(array $array) {
+	protected function _parseRelation(array $array): array {
 		if (isset($array['unique'])) {
 			if ($array['unique'] === 'keepExisting') {
 				throw new Exception('A HABTM relation "unique" config must be transformed into a valid "saveStrategy" one.');
@@ -167,7 +167,7 @@ class Table extends CoreTable {
 	 * @param string $key
 	 * @return string
 	 */
-	protected function _pluralizeModelName($key) {
+	protected function _pluralizeModelName(string $key): string {
 		$pos = strpos($key, '.');
 		if ($pos !== false) {
 			$key = Inflector::pluralize(substr($key, 0, $pos)) . '.' . substr($key, $pos + 1);
@@ -207,8 +207,8 @@ class Table extends CoreTable {
 						$validator->requirePresence($field, $rule['required']);
 						unset($rules[$key]['required']);
 					}
-					if (isset($rule['allowEmpty'])) {
-						$validator->allowEmpty($field, $rule['allowEmpty']);
+					if (!empty($rule['allowEmpty'])) {
+						$validator->allowEmptyString($field, $rule['allowEmpty']);
 						unset($rules[$key]['allowEmpty']);
 					}
 					if (isset($rule['message'])) {
@@ -246,7 +246,7 @@ class Table extends CoreTable {
 	 * @param array $args The args to translate
 	 * @return array Translated args.
 	 */
-	protected function _translateArgs($args) {
+	protected function _translateArgs(array $args): array {
 		foreach ((array)$args as $k => $arg) {
 			if (is_string($arg)) {
 				$args[$k] = __d($this->validationDomain, $arg);
@@ -297,7 +297,7 @@ class Table extends CoreTable {
 	 * @param array<string, mixed> $options Options for get().
 	 * @return mixed|null The first result from the ResultSet or null if not existent.
 	 */
-	public function record($id, array $options = []) {
+	public function record(mixed $id, array $options = []): mixed {
 		try {
 			return $this->get($id, $options);
 		} catch (RecordNotFoundException $e) {
@@ -314,7 +314,7 @@ class Table extends CoreTable {
 	 * @param array<string, mixed> $options
 	 * @return mixed Field value or null if not available
 	 */
-	public function field($name, array $options = []) {
+	public function field(string $name, array $options = []): mixed {
 		return $this->fieldByConditions($name, [], $options);
 	}
 
@@ -326,7 +326,7 @@ class Table extends CoreTable {
 	 * @param array $customOptions
 	 * @return mixed Field value or null if not available
 	 */
-	public function fieldByConditions($name, array $conditions = [], array $customOptions = []) {
+	public function fieldByConditions(string $name, array $conditions = [], array $customOptions = []): mixed {
 		$options = [];
 		if ($conditions) {
 			$options['conditions'] = $conditions;
@@ -353,7 +353,7 @@ class Table extends CoreTable {
 	 * @param bool $primary
 	 * @return \Cake\ORM\Query
 	 */
-	public function beforeFind(EventInterface $event, Query $query, ArrayObject $options, $primary) {
+	public function beforeFind(EventInterface $event, Query $query, ArrayObject $options, bool $primary): Query {
 		$order = $query->clause('order');
 		if (($order === null || !count($order)) && !empty($this->order)) {
 			$query->order($this->order);
@@ -378,7 +378,7 @@ class Table extends CoreTable {
 	 * @param array<string, mixed> $options
 	 * @return bool True if all save calls where successful
 	 */
-	public function saveAll(array $entities, array $options = []) {
+	public function saveAll(array $entities, array $options = []): bool {
 		$success = true;
 		foreach ($entities as $entity) {
 			$success = $success & (bool)$this->save($entity, $options);
@@ -394,18 +394,11 @@ class Table extends CoreTable {
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity the entity to be saved
-	 * @param \ArrayAccess|array<string, mixed> $options The options to use when saving.
+	 * @param array<string, mixed> $options The options to use when saving.
 	 * @throws \InvalidArgumentException
-	 * @return \Cake\Datasource\EntityInterface|bool
+	 * @return \Cake\Datasource\EntityInterface|false
 	 */
-	public function save(EntityInterface $entity, $options = []) {
-		if ($options instanceof SaveOptionsBuilder) {
-			$options = $options->toArray();
-		}
-		if (!is_array($options)) {
-			$options = (array)$options;
-		}
-
+	public function save(EntityInterface $entity, array $options = []): EntityInterface|false {
 		$options += ['strict' => false];
 
 		$result = parent::save($entity, $options);
@@ -450,7 +443,7 @@ class Table extends CoreTable {
 	 * @param array $conditions
 	 * @return array
 	 */
-	public function autoNullConditionsArray(array $conditions) {
+	public function autoNullConditionsArray(array $conditions): array {
 		foreach ($conditions as $k => $v) {
 			if ($v !== null) {
 				continue;
@@ -477,7 +470,7 @@ class Table extends CoreTable {
 	 * @param array $valueArray
 	 * @return array
 	 */
-	public function arrayConditionArray($field, array $valueArray) {
+	public function arrayConditionArray(string $field, array $valueArray): array {
 		$negated = preg_match('/\s+(?:NOT)$/', $field);
 
 		if (count($valueArray) === 0) {
@@ -507,7 +500,7 @@ class Table extends CoreTable {
 	 * @param array $valueArray
 	 * @return \Cake\ORM\Query
 	 */
-	public function arrayCondition(Query $query, $field, array $valueArray) {
+	public function arrayCondition(Query $query, string $field, array $valueArray): Query {
 		if (count($valueArray) === 0) {
 			$negated = preg_match('/\s+(?:NOT)$/', $field);
 			if ($negated) {
@@ -531,7 +524,7 @@ class Table extends CoreTable {
 	 *
 	 * @return void
 	 */
-	protected function _prefixOrderProperty() {
+	protected function _prefixOrderProperty(): void {
 		if (is_string($this->order)) {
 			$this->order = $this->_prefixAlias($this->order);
 		}
@@ -563,7 +556,7 @@ class Table extends CoreTable {
 	 * @param string $string
 	 * @return string
 	 */
-	protected function _prefixAlias($string) {
+	protected function _prefixAlias(string $string): string {
 		if (strpos($string, '.') === false) {
 			return $this->getAlias() . '.' . $string;
 		}

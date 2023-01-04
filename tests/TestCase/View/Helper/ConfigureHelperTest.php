@@ -13,10 +13,7 @@ use Shim\View\Helper\ConfigureHelper;
  */
 class ConfigureHelperTest extends TestCase {
 
-	/**
-	 * @var \Shim\View\Helper\ConfigureHelper
-	 */
-	protected $_Configure;
+	protected ConfigureHelper $_Configure;
 
 	/**
 	 * @return void
@@ -38,7 +35,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testRead() {
+	public function testRead(): void {
 		Configure::write('Deeply.nested.key', 'value');
 		Configure::write('test', 'info');
 
@@ -52,7 +49,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testCheck() {
+	public function testCheck(): void {
 		Configure::write('test', 'value');
 		Configure::write('Flash.flash', 'value');
 
@@ -65,7 +62,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testConsume() {
+	public function testConsume(): void {
 		Configure::write('Deeply.nested.key', 'value');
 
 		$result = $this->_Configure->consume('Deeply.nested.key');
@@ -78,7 +75,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testReadOrFail() {
+	public function testReadOrFail(): void {
 		Configure::write('Deeply.nested.key', 'value');
 
 		$result = $this->_Configure->readOrFail('Deeply.nested.key');
@@ -88,7 +85,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testReadOrFailFail() {
+	public function testReadOrFailFail(): void {
 		$this->expectException(RuntimeException::class);
 
 		$this->_Configure->readOrFail('Deeply.nested.key');
@@ -97,7 +94,7 @@ class ConfigureHelperTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testVersion() {
+	public function testVersion(): void {
 		$result = $this->_Configure->version();
 		$this->assertNotEmpty($result);
 	}

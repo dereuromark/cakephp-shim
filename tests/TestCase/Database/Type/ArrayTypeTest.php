@@ -3,8 +3,9 @@
 namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Driver;
-use Cake\Database\Type;
+use Cake\Database\TypeFactory;
 use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Shim\Database\Type\ArrayType;
 use stdClass;
 
@@ -16,12 +17,9 @@ class ArrayTypeTest extends TestCase {
 	/**
 	 * @var \Shim\Database\Type\ArrayType
 	 */
-	protected $type;
+	protected ArrayType $type;
 
-	/**
-	 * @var \Cake\Database\Driver|\PHPUnit\Framework\MockObject\MockObject
-	 */
-	protected $driver;
+	protected Driver|MockObject $driver;
 
 	/**
 	 * Setup
@@ -31,9 +29,9 @@ class ArrayTypeTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		Type::map('array', ArrayType::class);
+		TypeFactory::map('array', ArrayType::class);
 
-		$this->type = Type::build('array');
+		$this->type = TypeFactory::build('array');
 		$this->driver = $this->getMockBuilder(Driver::class)->getMock();
 	}
 
@@ -49,7 +47,7 @@ class ArrayTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testMarshal() {
+	public function testMarshal(): void {
 		$result = $this->type->marshal(null);
 		$this->assertNull($result);
 
@@ -68,7 +66,7 @@ class ArrayTypeTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testToPHP() {
+	public function testToPHP(): void {
 		$result = $this->type->toPHP(null, $this->driver);
 		$this->assertNull($result);
 
@@ -85,7 +83,7 @@ class ArrayTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testToDatabase() {
+	public function testToDatabase(): void {
 		$result = $this->type->toDatabase(null, $this->driver);
 		$this->assertNull($result);
 

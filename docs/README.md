@@ -7,7 +7,7 @@ See [Preconditions](Preconditions.md).
 * [Installation](Install.md)
 
 ## Upgrade Guide
-* [Upgrade guide from 3.x to 4.x](Upgrade.md)
+* [Upgrade guide from 4.x to 5.x](Upgrade.md)
 
 ## Main shims
 These will most likely all be ported over to future releases.
@@ -39,7 +39,6 @@ Controller
 Helper
 - [Configure helper](View/Configure.md)
 - [Cookie helper](View/Cookie.md)
-- [Form helper](View/Form.md)
 
 Inflector
 - [Inflector::slug()](Utility/Inflector.md)

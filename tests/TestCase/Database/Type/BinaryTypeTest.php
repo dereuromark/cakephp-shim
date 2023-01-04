@@ -3,8 +3,9 @@
 namespace Shim\Test\TestCase\Database\Type;
 
 use Cake\Database\Driver;
-use Cake\Database\Type;
+use Cake\Database\TypeFactory;
 use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Shim\Database\Type\BinaryType;
 
 /**
@@ -15,12 +16,9 @@ class BinaryTypeTest extends TestCase {
 	/**
 	 * @var \Shim\Database\Type\BinaryType
 	 */
-	protected $type;
+	protected BinaryType $type;
 
-	/**
-	 * @var \Cake\Database\Driver|\PHPUnit\Framework\MockObject\MockObject
-	 */
-	protected $driver;
+	protected Driver|MockObject $driver;
 
 	/**
 	 * Setup
@@ -30,9 +28,9 @@ class BinaryTypeTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		Type::map('binary', BinaryType::class);
+		TypeFactory::map('binary', BinaryType::class);
 
-		$this->type = Type::build('binary');
+		$this->type = TypeFactory::build('binary');
 		$this->driver = $this->getMockBuilder(Driver::class)->getMock();
 	}
 
@@ -50,7 +48,7 @@ class BinaryTypeTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testToPHP() {
+	public function testToPHP(): void {
 		$this->assertNull($this->type->toPHP(null, $this->driver));
 
 		$result = $this->type->toPHP('5945c961-e74d-478f-8afe-da53cf4189e3', $this->driver);
@@ -65,7 +63,7 @@ class BinaryTypeTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testNewId() {
+	public function testNewId(): void {
 		$one = $this->type->newId();
 		$two = $this->type->newId();
 

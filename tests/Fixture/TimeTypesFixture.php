@@ -11,7 +11,7 @@ class TimeTypesFixture extends TestFixture {
 	 *
 	 * @var array
 	 */
-	public $fields = [
+	public array $fields = [
 		'id' => ['type' => 'integer'],
 		'name' => ['type' => 'string', 'null' => true],
 		'closing_time' => ['type' => 'string', 'length' => 8, 'null' => true],
@@ -23,7 +23,7 @@ class TimeTypesFixture extends TestFixture {
 	 *
 	 * @var array
 	 */
-	public $records = [
+	public array $records = [
 		[
 			'name' => 'Some room',
 			'closing_time' => '20:00:00',

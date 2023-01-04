@@ -2,7 +2,7 @@
 [![CI](https://github.com/dereuromark/cakephp-shim/workflows/CI/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-shim/actions?query=workflow%3ACI+branch%3Amaster)
 [![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-shim/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%207.4-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-shim/license.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-shim/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
@@ -10,20 +10,20 @@
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
 It also provides some small app-specific fixes.
 
-## This branch is for shimming 3.x in 4.x
-It provides compatibility wrapper access to 3.x functionality in 4.x.
+## This branch is for shimming 4.x in 5.x
+It provides compatibility wrapper access to 4.x functionality in 5.x.
 
 This is mainly useful when upgrading large applications to the next major framework version.
 Tons of code needs to be adjusted, using this Shim plugin quite a few lines less need to be touched.
 Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working again.
 
-This branch is for use with **CakePHP 4.2+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
+This branch is for use with **CakePHP 5.0+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 ## Installation
 Please see [Install.md](docs/Install.md)
 
 ## Usage
-Please see [Docs](docs/).
+Please see [Docs](docs/README.md).
 
 A full overview of all shimming between versions can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 

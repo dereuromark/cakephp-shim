@@ -9,7 +9,7 @@ class NullablesFixture extends TestFixture {
 	/**
 	 * @var array
 	 */
-	public $fields = [
+	public array $fields = [
 		'id' => ['type' => 'integer'],
 		'optional_id' => ['type' => 'integer', 'null' => true],
 		'required_id' => ['type' => 'integer', 'null' => false],
@@ -28,7 +28,7 @@ class NullablesFixture extends TestFixture {
 	/**
 	 * @var array
 	 */
-	public $records = [
+	public array $records = [
 	];
 
 }

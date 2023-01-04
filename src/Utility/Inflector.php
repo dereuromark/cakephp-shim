@@ -30,11 +30,9 @@ use Cake\Utility\Inflector as CoreInflector;
 class Inflector extends CoreInflector {
 
 	/**
-	 * Default map of accented and special characters to ASCII characters
-	 *
-	 * @var array
-	 */
-	protected static $_transliteration = [
+  * Default map of accented and special characters to ASCII characters
+  */
+	protected static array $_transliteration = [
 		'ä' => 'ae',
 		'æ' => 'ae',
 		'ǽ' => 'ae',
@@ -276,7 +274,7 @@ class Inflector extends CoreInflector {
 	 * @param string $replacement will replace keys in map
 	 * @return string
 	 */
-	public static function slug($string, $replacement = '-') {
+	public static function slug(string $string, string $replacement = '-'): string {
 		$quotedReplacement = preg_quote($replacement, '/');
 
 		$map = [

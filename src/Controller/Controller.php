@@ -5,6 +5,7 @@ namespace Shim\Controller;
 use Cake\Controller\Controller as CoreController;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
+use Cake\Http\Response;
 use Exception;
 
 /**
@@ -46,7 +47,7 @@ class Controller extends CoreController {
 	 *
 	 * @return void
 	 */
-	public function disableCache() {
+	public function disableCache(): void {
 		$this->response = $this->response
 			->withHeader('Pragma', 'no-cache')
 			->withDisabledCache();
@@ -62,7 +63,7 @@ class Controller extends CoreController {
 	 * @throws \Exception
 	 * @return \Cake\Http\Response|null
 	 */
-	public function afterFilter(EventInterface $event) {
+	public function afterFilter(EventInterface $event): ?Response {
 		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && PHP_SAPI !== 'cli') {
 			if (headers_sent($filename, $lineNumber)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $lineNumber);

@@ -18,7 +18,7 @@ trait CastTrait {
 	 *
 	 * @return int|null
 	 */
-	protected function assertInt($integer) {
+	protected function assertInt(mixed $integer): ?int {
 		if ($integer === null || $integer === '') {
 			return null;
 		}
@@ -33,7 +33,7 @@ trait CastTrait {
 	 *
 	 * @return int
 	 */
-	protected function castInt($integer) {
+	protected function castInt(mixed $integer): int {
 		if ($integer === null || $integer === '') {
 			return 0;
 		}
@@ -49,7 +49,7 @@ trait CastTrait {
 	 *
 	 * @return float|null
 	 */
-	protected function assertFloat($float) {
+	protected function assertFloat(mixed $float): ?float {
 		if ($float === null || $float === '') {
 			return null;
 		}
@@ -64,7 +64,7 @@ trait CastTrait {
 	 *
 	 * @return float
 	 */
-	protected function castFloat($float) {
+	protected function castFloat(mixed $float): float {
 		if ($float === null || $float === '') {
 			return 0;
 		}
@@ -80,7 +80,7 @@ trait CastTrait {
 	 *
 	 * @return string|null
 	 */
-	protected function assertString($string) {
+	protected function assertString(mixed $string): ?string {
 		if ($string === null) {
 			return $string;
 		}
@@ -95,7 +95,7 @@ trait CastTrait {
 	 *
 	 * @return string
 	 */
-	protected function castString($string) {
+	protected function castString(mixed $string): string {
 		if ($string === null) {
 			return '';
 		}
@@ -111,7 +111,7 @@ trait CastTrait {
 	 *
 	 * @return bool|null
 	 */
-	protected function assertBool($boolean) {
+	protected function assertBool(mixed $boolean): ?bool {
 		if ($boolean === null || $boolean === '') {
 			return null;
 		}
@@ -126,7 +126,7 @@ trait CastTrait {
 	 *
 	 * @return bool
 	 */
-	protected function castBool($boolean) {
+	protected function castBool(mixed $boolean): bool {
 		if ($boolean === null) {
 			return false;
 		}
@@ -151,7 +151,7 @@ trait CastTrait {
 	 *
 	 * @return array|null
 	 */
-	protected function assertArray($array) {
+	protected function assertArray(mixed $array): ?array {
 		if ($array === null || $array === '') {
 			return null;
 		}
@@ -166,7 +166,7 @@ trait CastTrait {
 	 *
 	 * @return array
 	 */
-	protected function castArray($array) {
+	protected function castArray(mixed $array): array {
 		if ($array === null || $array === '') {
 			return [];
 		}

@@ -9,5 +9,5 @@ parameters:
 		- tests/bootstrap.php
 		- tests/shim.php
 	excludePaths:
-		- %rootDir%/../../../src/TestSuite/*
+		- %rootDir%/../../../src/Filesystem/File.php
 	ignoreErrors:

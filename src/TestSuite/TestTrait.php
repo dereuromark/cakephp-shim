@@ -40,7 +40,7 @@ trait TestTrait {
 	 * @param bool $onlyVeryVerbose If only -vv should be counted.
 	 * @return bool Success
 	 */
-	protected function isVerbose($onlyVeryVerbose = false): bool {
+	protected function isVerbose(bool $onlyVeryVerbose = false): bool {
 		if (empty($_SERVER['argv'])) {
 			return false;
 		}
@@ -64,7 +64,7 @@ trait TestTrait {
 	 * @param mixed $data
 	 * @return void
 	 */
-	protected function debug($data): void {
+	protected function debug(mixed $data): void {
 		if (!$this->isVerbose()) {
 			return;
 		}
@@ -88,7 +88,7 @@ trait TestTrait {
 	 *
 	 * @return mixed Method return.
 	 */
-	protected function invokeMethod(&$object, string $methodName, array $parameters = []) {
+	protected function invokeMethod(object &$object, string $methodName, array $parameters = []): mixed {
 		$reflection = new ReflectionClass(get_class($object));
 		$method = $reflection->getMethod($methodName);
 		$method->setAccessible(true);
@@ -110,7 +110,7 @@ trait TestTrait {
 	 *
 	 * @return mixed Property value.
 	 */
-	protected function invokeProperty(&$object, string $name) {
+	protected function invokeProperty(object &$object, string $name): mixed {
 		$reflection = new ReflectionClass(get_class($object));
 		$property = $reflection->getProperty($name);
 		$property->setAccessible(true);

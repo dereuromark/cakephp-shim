@@ -33,18 +33,16 @@ use RuntimeException;
 class DateTimeWidget implements WidgetInterface {
 
 	/**
-	 * Select box widget.
-	 *
-	 * @var \Cake\View\Widget\SelectBoxWidget
-	 */
-	protected $_select;
+  * Select box widget.
+  */
+	protected SelectBoxWidget $_select;
 
 	/**
 	 * List of inputs that can be rendered
 	 *
 	 * @var array<string>
 	 */
-	protected $_selects = [
+	protected array $_selects = [
 		'year',
 		'month',
 		'day',
@@ -55,11 +53,9 @@ class DateTimeWidget implements WidgetInterface {
 	];
 
 	/**
-	 * Template instance.
-	 *
-	 * @var \Cake\View\StringTemplate
-	 */
-	protected $_templates;
+  * Template instance.
+  */
+	protected StringTemplate $_templates;
 
 	/**
 	 * Constructor

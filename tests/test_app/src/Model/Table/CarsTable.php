@@ -6,15 +6,12 @@ use Shim\Model\Table\Table;
 
 class CarsTable extends Table {
 
-	/**
-	 * @var array
-	 */
-	protected $actsAs = ['Useless'];
+	protected array $actsAs = ['Useless'];
 
 	/**
 	 * @var array
 	 */
-	protected $hasMany = [
+	protected array $hasMany = [
 		'Wheel' => [
 			'className' => 'Wheel',
 		],

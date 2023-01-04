@@ -18,7 +18,7 @@ trait SetTrait {
 	 * @throws \RuntimeException
 	 * @return $this
 	 */
-	public function setOrFail(string $property, $value) {
+	public function setOrFail(string $property, mixed $value) {
 		if ($value === null) {
 			throw new RuntimeException('$' . $property . ' is null, expected non-null value.');
 		}

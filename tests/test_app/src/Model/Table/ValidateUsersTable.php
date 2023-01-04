@@ -7,11 +7,9 @@ use Cake\ORM\Table;
 class ValidateUsersTable extends Table {
 
 	/**
-	 * schema method
-	 *
-	 * @var array
-	 */
-	protected $_schema = [
+  * schema method
+  */
+	protected ?array $__schema = [
 		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
 		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
 		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],

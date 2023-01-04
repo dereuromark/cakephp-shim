@@ -14,7 +14,7 @@ class CarsFixture extends TestFixture {
 	 *
 	 * @var array
 	 */
-	public $fields = [
+	public array $fields = [
 		'id' => ['type' => 'integer'],
 		'model' => ['type' => 'string', 'null' => false, 'length' => 255, 'comment' => '', 'charset' => 'utf8'],
 		'created' => 'datetime',
@@ -27,7 +27,7 @@ class CarsFixture extends TestFixture {
 	 *
 	 * @var array
 	 */
-	public $records = [
+	public array $records = [
 		[
 			'model' => 'Audi',
 			'created' => '2007-03-18 10:55:23',

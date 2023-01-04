@@ -6,30 +6,27 @@ use Shim\Model\Table\Table;
 
 class WheelsTable extends Table {
 
-	/**
-	 * @var string
-	 */
-	protected $displayField = 'position';
+	protected string $displayField = 'position';
 
 	/**
-	 * @var array
+	 * @var array<int|string, mixed>|string|null
 	 */
 	protected $order = ['position' => 'ASC'];
 
 	/**
-	 * @var bool
+	 * @var string|false
 	 */
 	protected $createdField = false;
 
 	/**
-	 * @var bool
+	 * @var string|false
 	 */
 	protected $modifiedField = false;
 
 	/**
 	 * @var array
 	 */
-	protected $validate = [
+	protected array $validate = [
 		'car_id' => [
 			'numeric',
 		],
@@ -53,7 +50,7 @@ class WheelsTable extends Table {
 	/**
 	 * @var array
 	 */
-	protected $belongsTo = [
+	protected array $belongsTo = [
 		'Car' => [
 			'className' => 'Car',
 		],
@@ -64,7 +61,7 @@ class WheelsTable extends Table {
 	 *
 	 * @var array
 	 */
-	protected $hasAndBelongsToMany = [
+	protected array $hasAndBelongsToMany = [
 		'HABTMCar' => [
 			'className' => 'Car',
 		],
@@ -75,7 +72,7 @@ class WheelsTable extends Table {
 	 *
 	 * @var array
 	 */
-	protected $hasOne = [
+	protected array $hasOne = [
 		'BogusCar' => [
 			'className' => 'Car',
 		],

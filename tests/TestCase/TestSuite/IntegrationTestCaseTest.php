@@ -16,13 +16,15 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 
 		Configure::write('App.namespace', 'TestApp');
 
-		Router::connect('/:controller/:action/*');
+		Router::reload();
+		$builder = Router::createRouteBuilder('/');
+		$builder->connect('/{controller}/{action}/*');
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testDebug() {
+	public function testDebug(): void {
 		$backup = $_SERVER['argv'];
 
 		$_SERVER['argv'] = ['foo'];
@@ -41,7 +43,7 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 	 *
 	 * @return void
 	 */
-	public function testBasic() {
+	public function testBasic(): void {
 		$this->disableErrorHandlerMiddleware();
 
 		$this->get(['controller' => 'Items', 'action' => 'index']);

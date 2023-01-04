@@ -11,7 +11,7 @@ class TestCaseTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testAssertWithinRange() {
+	public function testAssertWithinRange(): void {
 		$this->assertWithinRange(21, 22, 1, 'Not within range');
 		$this->assertWithinRange(21.3, 22.2, 1.0, 'Not within range');
 	}
@@ -21,7 +21,7 @@ class TestCaseTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testAssertNotWithinRange() {
+	public function testAssertNotWithinRange(): void {
 		$this->assertNotWithinRange(21, 23, 1, 'Within range');
 		$this->assertNotWithinRange(21.3, 22.2, 0.7, 'Within range');
 	}

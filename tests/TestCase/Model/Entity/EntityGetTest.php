@@ -11,7 +11,7 @@ class EntityGetTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testGetOrFail() {
+	public function testGetOrFail(): void {
 		$entity = new TestEntity();
 		$entity->foo_bar = 'Foo Bar';
 
@@ -26,7 +26,7 @@ class EntityGetTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testGetOrFailMagicInvalid() {
+	public function testGetOrFailMagicInvalid(): void {
 		$entity = new TestEntity();
 
 		$this->expectException(RuntimeException::class);
@@ -37,7 +37,7 @@ class EntityGetTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testGetOrFailInvalid() {
+	public function testGetOrFailInvalid(): void {
 		$entity = new TestEntity();
 
 		$this->expectException(RuntimeException::class);

@@ -7,11 +7,9 @@ use Cake\ORM\Table;
 class ContactsTable extends Table {
 
 	/**
-	 * Default schema
-	 *
-	 * @var array
-	 */
-	protected $_schema = [
+  * Default schema
+  */
+	protected ?array $__schema = [
 		'id' => ['type' => 'integer', 'null' => '', 'default' => '', 'length' => '8'],
 		'name' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],
 		'email' => ['type' => 'string', 'null' => '', 'default' => '', 'length' => '255'],

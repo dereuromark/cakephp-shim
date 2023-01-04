@@ -2,12 +2,13 @@
 
 namespace Shim\Test\TestCase\Database\Type;
 
-use Cake\Database\Type;
 use Cake\Database\Type\TimeType;
+use Cake\Database\TypeFactory;
 use Cake\ORM\TableRegistry;
 use Cake\View\Helper\FormHelper;
 use Cake\View\View;
 use Shim\Database\Type\TimeStringType;
+use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 use TestApp\Model\Table\TimeTypesTable;
 
@@ -16,14 +17,14 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	protected $fixtures = [
+	protected array $fixtures = [
 		'plugin.Shim.TimeTypes',
 	];
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	protected $Table;
+	protected Table $Table;
 
 	/**
 	 * @return void
@@ -31,9 +32,9 @@ class TimeStringTypeTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		Type::map('time', TimeStringType::class);
+		TypeFactory::map('time', TimeStringType::class);
 
-		$this->Table = TableRegistry::get('TimeStringTypes', ['className' => TimeTypesTable::class]);
+		$this->Table = TableRegistry::getTableLocator()->get('TimeStringTypes', ['className' => TimeTypesTable::class]);
 	}
 
 	/**
@@ -43,13 +44,13 @@ class TimeStringTypeTest extends TestCase {
 		parent::tearDown();
 
 		unset($this->Table);
-		Type::map('time', TimeType::class);
+		TypeFactory::map('time', TimeType::class);
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testSave() {
+	public function testSave(): void {
 		$data = [
 			'name' => 'Foo',
 			'closing_time' => '21:10:00',
@@ -64,7 +65,7 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSaveInvalid() {
+	public function testSaveInvalid(): void {
 		$data = [
 			'name' => 'Foo',
 			'closing_time' => '25:10:00',
@@ -79,7 +80,7 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSaveArray() {
+	public function testSaveArray(): void {
 		$data = [
 			'name' => 'Foo',
 			'closing_time' => [
@@ -99,7 +100,7 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testFormControl() {
+	public function testFormControl(): void {
 		$Form = new FormHelper(new View());
 
 		$entity = $this->Table->newEmptyEntity();
@@ -111,7 +112,7 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSaveNormalizeUpperBoundary() {
+	public function testSaveNormalizeUpperBoundary(): void {
 		TimeStringType::$normalizeUpperBoundary = true;
 
 		$data = [

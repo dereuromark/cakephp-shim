@@ -4,15 +4,13 @@ namespace Shim\Test\TestCase\Controller;
 
 use Cake\Core\Configure;
 use Cake\Event\Event;
+use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
 use Shim\Controller\Controller;
 
 class ControllerTest extends TestCase {
 
-	/**
-	 * @var \Shim\Controller\Controller
-	 */
-	protected $Controller;
+	protected Controller $Controller;
 
 	/**
 	 * @return void
@@ -22,7 +20,7 @@ class ControllerTest extends TestCase {
 
 		Configure::write('App.namespace', 'TestApp');
 
-		$this->Controller = new Controller();
+		$this->Controller = new Controller(new ServerRequest());
 		$this->Controller->startupProcess();
 	}
 
@@ -38,7 +36,7 @@ class ControllerTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testDisableCache() {
+	public function testDisableCache(): void {
 		$this->Controller->disableCache();
 
 		$result = $this->Controller->getResponse()->getHeaders();
@@ -49,7 +47,7 @@ class ControllerTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testAfterFilter() {
+	public function testAfterFilter(): void {
 		$event = new Event('afterFilter');
 
 		$this->Controller->afterFilter($event);

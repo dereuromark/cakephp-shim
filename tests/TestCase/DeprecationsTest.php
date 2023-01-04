@@ -29,7 +29,7 @@ class DeprecationsTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testDeprecations() {
+	public function testDeprecations(): void {
 		$result = Deprecations::enabled('newEntity');
 		$this->assertFalse($result);
 
@@ -42,7 +42,7 @@ class DeprecationsTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testDeprecationsGlobal() {
+	public function testDeprecationsGlobal(): void {
 		$result = Deprecations::enabled('newEntity');
 		$this->assertFalse($result);
 

@@ -12,7 +12,7 @@ class ConfigureHelperTaskTest extends TestCase {
 	use TestTrait;
 
 	/**
-	 * @var \IdeHelper\Generator\Task\ConfigureHelperTask
+	 * @var \IdeHelper\Generator\Task\ConfigureHelperTask|\Shim\Generator\Task\ConfigureHelperTask
 	 */
 	protected $task;
 
@@ -28,7 +28,7 @@ class ConfigureHelperTaskTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testCollect() {
+	public function testCollect(): void {
 		$result = $this->task->collect();
 
 		$this->assertCount(6, $result);

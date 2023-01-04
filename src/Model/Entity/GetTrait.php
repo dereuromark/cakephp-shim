@@ -15,9 +15,9 @@ trait GetTrait {
 	/**
 	 * @param string $property
 	 * @throws \RuntimeException
-	 * @return mixed
+	 * @return mixed|null
 	 */
-	public function getOrFail(string $property) {
+	public function getOrFail(string $property): mixed {
 		if (!isset($this->$property)) {
 			throw new RuntimeException('$' . $property . ' is null, expected non-null value.');
 		}
@@ -29,9 +29,9 @@ trait GetTrait {
 	 * @param string $name
 	 * @param array $arguments
 	 * @throws \RuntimeException
-	 * @return mixed
+	 * @return mixed|null
 	 */
-	public function __call(string $name, array $arguments) {
+	public function __call(string $name, array $arguments): mixed {
 		if (!preg_match('/^get([A-Z][A-Za-z0-9]+)OrFail$/', $name, $matches)) {
 			throw new RuntimeException('Method ' . $name . ' cannot be found; get{PropertyName}OrFail() expected.');
 		}

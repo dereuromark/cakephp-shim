@@ -13,15 +13,9 @@ use Cake\Console\ConsoleIo;
  */
 class Command extends CakeCommand {
 
-	/**
-	 * @var \Cake\Console\Arguments
-	 */
-	protected $args;
+	protected ?Arguments $args = null;
 
-	/**
-	 * @var \Cake\Console\ConsoleIo
-	 */
-	protected $io;
+	protected ?ConsoleIo $io = null;
 
 	/**
 	 * @param \Cake\Console\Arguments $args

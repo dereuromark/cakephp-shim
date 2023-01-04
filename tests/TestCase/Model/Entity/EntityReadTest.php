@@ -11,7 +11,7 @@ class EntityReadTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testRead() {
+	public function testRead(): void {
 		$entity = new TestEntity();
 		$entity->foo_bar = 'Foo Bar';
 
@@ -26,7 +26,7 @@ class EntityReadTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testReadDeep() {
+	public function testReadDeep(): void {
 		$entity = new TestEntity();
 
 		$entity->tags = [
@@ -45,7 +45,7 @@ class EntityReadTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testReadDefaultValue() {
+	public function testReadDefaultValue(): void {
 		$entity = new TestEntity();
 		$entity->foo_bar = 'Foo Bar';
 
@@ -60,7 +60,7 @@ class EntityReadTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testReadDeepDefaultValue() {
+	public function testReadDeepDefaultValue(): void {
 		$entity = new TestEntity();
 
 		$entity->tags = [

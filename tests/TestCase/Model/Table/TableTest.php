@@ -5,7 +5,7 @@ namespace Shim\Test\TestCase\Model\Table;
 use Cake\Core\Configure;
 use Cake\Database\ValueBinder;
 use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use InvalidArgumentException;
@@ -17,25 +17,25 @@ class TableTest extends TestCase {
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	protected $Posts;
+	protected Table $Posts;
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	protected $Users;
+	protected Table $Users;
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	protected $Wheels;
+	protected Table $Wheels;
 
 	/**
 	 * @var array
 	 */
-	protected $fixtures = [
-		'core.Users',
-		'core.Posts',
-		'core.Authors',
+	protected array $fixtures = [
+		'plugin.Shim.Users',
+		'plugin.Shim.Posts',
+		'plugin.Shim.Authors',
 		'plugin.Shim.Wheels',
 		'plugin.Shim.Cars',
 		'plugin.Shim.CarsWheels',
@@ -49,9 +49,9 @@ class TableTest extends TestCase {
 
 		Configure::write('App.namespace', 'TestApp');
 
-		$this->Posts = TableRegistry::get('Shim.Posts', ['className' => '\Shim\Model\Table\Table']);
+		$this->Posts = TableRegistry::getTableLocator()->get('Shim.Posts', ['className' => '\Shim\Model\Table\Table']);
 		$this->Posts->belongsTo('Authors');
-		$this->Users = TableRegistry::get('Shim.Users', ['className' => '\Shim\Model\Table\Table']);
+		$this->Users = TableRegistry::getTableLocator()->get('Shim.Users', ['className' => '\Shim\Model\Table\Table']);
 
 		Configure::delete('Shim');
 	}
@@ -68,7 +68,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testInstance() {
+	public function testInstance(): void {
 		$this->assertInstanceOf(Table::class, $this->Posts);
 		$this->assertInstanceOf(Table::class, $this->Users);
 	}
@@ -78,7 +78,7 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testMagicFind() {
+	public function testMagicFind(): void {
 		$res = $this->Posts->findById(2);
 		$this->assertNotEmpty($res->toArray());
 
@@ -91,7 +91,7 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testGet() {
+	public function testGet(): void {
 		$record = $this->Posts->get(2);
 		$this->assertEquals(2, $record['id']);
 
@@ -106,7 +106,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testGetFail() {
+	public function testGetFail(): void {
 		$this->expectException(RecordNotFoundException::class);
 
 		$this->Posts->get(2222);
@@ -117,7 +117,7 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testRecord() {
+	public function testRecord(): void {
 		$record = $this->Posts->record(2);
 		$this->assertEquals(2, $record['id']);
 
@@ -134,7 +134,7 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testRecordFail() {
+	public function testRecordFail(): void {
 		$res = $this->Posts->record(2222);
 		$this->assertNull($res);
 	}
@@ -142,7 +142,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testField() {
+	public function testField(): void {
 		$is = $this->Posts->field('title');
 		$this->assertSame('First Post', $is);
 	}
@@ -150,7 +150,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testFieldByConditions() {
+	public function testFieldByConditions(): void {
 		$is = $this->Posts->fieldByConditions('title', ['title LIKE' => 'S%']);
 		$this->assertSame('Second Post', $is);
 
@@ -163,7 +163,7 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testFieldInvalid() {
+	public function testFieldInvalid(): void {
 		$res = $this->Posts->field('fooooo');
 		$this->assertNull($res);
 	}
@@ -173,7 +173,7 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testSaveAll() {
+	public function testSaveAll(): void {
 		$array = [
 			[
 				'title' => 'Foo',
@@ -205,7 +205,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testAutoNullConditionsArray() {
+	public function testAutoNullConditionsArray(): void {
 		$conditions = [
 			'foo' => 1,
 			'bar' => null,
@@ -224,14 +224,14 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testFindListAutoSelectedFields() {
+	public function testFindListAutoSelectedFields(): void {
 		$this->Users->setDisplayField('nick');
 
 		$query = $this->Users->find('list', ['fields' => ['id', 'created']]);
 		$expected = ['id', 'created'];
 		$this->assertSame($expected, $query->clause('select'));
 		$results = $query->toArray();
-		$this->assertInstanceOf(FrozenTime::class, array_shift($results));
+		$this->assertInstanceOf(DateTime::class, array_shift($results));
 
 		$query = $this->Users->find('list', ['fields' => ['id']]);
 		$expected = ['id'];
@@ -248,7 +248,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testArrayCondition() {
+	public function testArrayCondition(): void {
 		$result = $this->Posts->find()->all();
 		// ID 1, 2, 3
 		$this->assertSame(3, count($result));
@@ -277,7 +277,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testArrayConditionArray() {
+	public function testArrayConditionArray(): void {
 		$result = $this->Posts->find()->all();
 		// ID 1, 2, 3
 		$this->assertSame(3, count($result));
@@ -305,7 +305,7 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testArrayConditionArrayNot() {
+	public function testArrayConditionArrayNot(): void {
 		$result = $this->Posts->find()->all();
 		// ID 1, 2, 3
 		$this->assertSame(3, count($result));
@@ -335,14 +335,14 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testRelationShims() {
-		$this->Wheels = TableRegistry::get('Wheels');
+	public function testRelationShims(): void {
+		$this->Wheels = TableRegistry::getTableLocator()->get('Wheels');
 		$this->assertInstanceOf(Table::class, $this->Wheels);
 
 		$car = $this->Wheels->Cars->find()->first();
 		$this->assertInstanceOf(Entity::class, $car);
 
-		$this->Cars = TableRegistry::get('Cars');
+		$this->Cars = TableRegistry::getTableLocator()->get('Cars');
 		$this->assertInstanceOf(Table::class, $this->Cars);
 
 		$wheels = $this->Cars->Wheels->find()->where(['car_id' => $car['id']]);
@@ -369,8 +369,8 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testBehaviorShims() {
-		$this->Wheels = TableRegistry::get('Cars');
+	public function testBehaviorShims(): void {
+		$this->Wheels = TableRegistry::getTableLocator()->get('Cars');
 		$behaviors = $this->Wheels->behaviors()->loaded();
 		$expected = ['Useless', 'Timestamp'];
 		$this->assertSame($expected, $behaviors);
@@ -381,8 +381,8 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testBehaviorShimDisableTimestamp() {
-		$this->Wheels = TableRegistry::get('Wheels');
+	public function testBehaviorShimDisableTimestamp(): void {
+		$this->Wheels = TableRegistry::getTableLocator()->get('Wheels');
 		$behaviors = $this->Wheels->behaviors()->loaded();
 		$expected = [];
 		$this->assertSame($expected, $behaviors);
@@ -393,8 +393,8 @@ class TableTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function testValidationShims() {
-		$this->Wheels = TableRegistry::get('Wheels');
+	public function testValidationShims(): void {
+		$this->Wheels = TableRegistry::getTableLocator()->get('Wheels');
 
 		$wheel = $this->Wheels->newEntity(['position' => '']);
 		$this->assertNotSame([], $wheel->getErrors());
@@ -402,7 +402,7 @@ class TableTest extends TestCase {
 		$this->assertFalse($result);
 
 		// i18n array validation setup
-		//$this->Wheels = TableRegistry::get('Wheels');
+		//$this->Wheels = TableRegistry::getTableLocator()->get('Wheels');
 		$wheel = $this->Wheels->newEntity(['position' => '12345678901234567890abc']);
 		$expected = [
 			'position' => [
@@ -433,8 +433,8 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSaveStrict() {
-		$this->Wheels = TableRegistry::get('Wheels');
+	public function testSaveStrict(): void {
+		$this->Wheels = TableRegistry::getTableLocator()->get('Wheels');
 
 		$wheel = $this->Wheels->newEntity(['position' => '']);
 		$this->assertNotSame([], $wheel->getErrors());

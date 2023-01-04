@@ -25,7 +25,7 @@ trait ReadTrait {
 	 * @param mixed $default The return value when the path does not exist
 	 * @return mixed|null The value fetched from the entity, or null.
 	 */
-	public function read($path, $default = null) {
+	public function read($path, mixed $default = null): mixed {
 		if (!is_array($path)) {
 			$parts = explode('.', $path);
 		} else {

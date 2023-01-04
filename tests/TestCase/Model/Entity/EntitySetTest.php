@@ -11,7 +11,7 @@ class EntitySetTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSetOrFail() {
+	public function testSetOrFail(): void {
 		$entity = new TestEntity();
 		$entity->setOrFail('foo_bar', 'Foo Bar');
 
@@ -23,7 +23,7 @@ class EntitySetTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSetOrFailMagicInvalid() {
+	public function testSetOrFailMagicInvalid(): void {
 		$entity = new TestEntity();
 
 		$this->expectException(RuntimeException::class);
@@ -34,7 +34,7 @@ class EntitySetTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testGetOrFailInvalid() {
+	public function testGetOrFailInvalid(): void {
 		$entity = new TestEntity();
 
 		$this->expectException(RuntimeException::class);

@@ -13,7 +13,7 @@ class InflectorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSlug() {
+	public function testSlug(): void {
 		$result = Inflector::slug('äöü');
 		$expected = 'aeoeue';
 		$this->assertSame($expected, $result);

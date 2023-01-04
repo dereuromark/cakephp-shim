@@ -22,7 +22,7 @@ class NullableBehavior extends Behavior {
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected $_defaultConfig = [
+	protected array $_defaultConfig = [
 		'on' => 'beforeMarshal', // beforeMarshal/afterSave
 	];
 
@@ -92,7 +92,7 @@ class NullableBehavior extends Behavior {
 	 * @param \Cake\ORM\Table $table
 	 * @return \Cake\Datasource\EntityInterface
 	 */
-	protected function _processEntity(EntityInterface $entity, Table $table) {
+	protected function _processEntity(EntityInterface $entity, Table $table): EntityInterface {
 		$associations = [];
 		/** @var \Cake\ORM\Association $association */
 		foreach ($table->associations() as $association) {

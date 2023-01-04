@@ -1,11 +1,6 @@
-# Migration from 3.x to 4.x
+# Migration from 4.x to 5.x
 
-## Session
-- SessionComponent and SessionHelper now need to be handled through request object.
+## Removed shims of 3.x used in 4.x
+- FormHelper
 
-## Removed shims of 2.x used in 3.x
-- Component to assert action name casing.
-- Primary level `Table::find('first')` support.
-- Primary level `Table::find('count')` support.
-- Partial Set class shim
-- beforeRender() controller shim for request-data as entity
+If you need any of that functionality, you will need to make your own app copy of it.

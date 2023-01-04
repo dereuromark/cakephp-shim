@@ -10,7 +10,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	protected $fixtures = [
+	protected array $fixtures = [
 		'plugin.Shim.Nullables',
 		'plugin.Shim.NullableTenants',
 	];
@@ -26,7 +26,7 @@ class NullableBehaviorTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		$this->Table = TableRegistry::get('Nullables');
+		$this->Table = TableRegistry::getTableLocator()->get('Nullables');
 		$this->Table->addAssociations(['hasOne' => ['NullableTenants' => ['hasMany' => 'Nullables']]]);
 		$this->Table->addBehavior('Shim.Nullable');
 	}
@@ -37,13 +37,13 @@ class NullableBehaviorTest extends TestCase {
 	public function tearDown(): void {
 		parent::tearDown();
 
-		TableRegistry::clear();
+		$this->getTableLocator()->clear();
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testPatch() {
+	public function testPatch(): void {
 		$data = [
 			'optional_id' => '',
 			'required_id' => '',
@@ -74,7 +74,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testPatchAssociation() {
+	public function testPatchAssociation(): void {
 		$data = [
 			'optional_id' => '',
 			'required_id' => '',
@@ -105,7 +105,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testPatchOptionalNotNull() {
+	public function testPatchOptionalNotNull(): void {
 		$data = [
 			'string_optional_notnull' => '',
 			'active_optional_notnull' => '',
@@ -122,7 +122,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSave() {
+	public function testSave(): void {
 		$this->Table->removeBehavior('Nullable');
 		$this->Table->addBehavior('Shim.Nullable', ['on' => 'beforeSave']);
 
@@ -174,7 +174,7 @@ class NullableBehaviorTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSaveAssociation() {
+	public function testSaveAssociation(): void {
 		$this->Table->removeBehavior('Nullable');
 		$this->Table->addBehavior('Shim.Nullable', ['on' => 'beforeSave']);
 

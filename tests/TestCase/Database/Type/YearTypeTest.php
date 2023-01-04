@@ -2,11 +2,12 @@
 
 namespace Shim\Test\TestCase\Database\Type;
 
-use Cake\Database\Type;
+use Cake\Database\TypeFactory;
 use Cake\ORM\TableRegistry;
 use Cake\View\Helper\FormHelper;
 use Cake\View\View;
 use Shim\Database\Type\YearType;
+use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 use TestApp\Model\Table\YearTypesTable;
 
@@ -15,14 +16,14 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @var array
 	 */
-	protected $fixtures = [
+	protected array $fixtures = [
 		'plugin.Shim.YearTypes',
 	];
 
 	/**
 	 * @var \Shim\Model\Table\Table
 	 */
-	protected $Table;
+	protected Table $Table;
 
 	/**
 	 * @return void
@@ -30,9 +31,9 @@ class YearTypeTest extends TestCase {
 	public function setUp(): void {
 		parent::setUp();
 
-		Type::map('year', YearType::class);
+		TypeFactory::map('year', YearType::class);
 
-		$this->Table = TableRegistry::get('YearTypes', ['className' => YearTypesTable::class]);
+		$this->Table = TableRegistry::getTableLocator()->get('YearTypes', ['className' => YearTypesTable::class]);
 	}
 
 	/**
@@ -47,7 +48,7 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testSave() {
+	public function testSave(): void {
 		$data = [
 			'name' => 'Foo',
 			'year_of_birth' => '2015',
@@ -62,7 +63,7 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function _testSaveYearArray() {
+	public function _testSaveYearArray(): void {
 		$data = [
 			'name' => 'Foo',
 			'year_of_birth' => [
@@ -82,7 +83,7 @@ class YearTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testFormControl() {
+	public function testFormControl(): void {
 		$Form = new FormHelper(new View());
 
 		$entity = $this->Table->newEmptyEntity();
