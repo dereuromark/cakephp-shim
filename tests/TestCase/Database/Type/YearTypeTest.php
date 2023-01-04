@@ -20,9 +20,6 @@ class YearTypeTest extends TestCase {
 		'plugin.Shim.YearTypes',
 	];
 
-	/**
-	 * @var \Shim\Model\Table\Table
-	 */
 	protected Table $Table;
 
 	/**

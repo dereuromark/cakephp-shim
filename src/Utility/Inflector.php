@@ -30,8 +30,8 @@ use Cake\Utility\Inflector as CoreInflector;
 class Inflector extends CoreInflector {
 
 	/**
-  * Default map of accented and special characters to ASCII characters
-  */
+	 * Default map of accented and special characters to ASCII characters
+	 */
 	protected static array $_transliteration = [
 		'ä' => 'ae',
 		'æ' => 'ae',

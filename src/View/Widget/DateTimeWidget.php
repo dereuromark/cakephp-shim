@@ -33,8 +33,8 @@ use RuntimeException;
 class DateTimeWidget implements WidgetInterface {
 
 	/**
-  * Select box widget.
-  */
+	 * Select box widget.
+	 */
 	protected SelectBoxWidget $_select;
 
 	/**
@@ -53,8 +53,8 @@ class DateTimeWidget implements WidgetInterface {
 	];
 
 	/**
-  * Template instance.
-  */
+	 * Template instance.
+	 */
 	protected StringTemplate $_templates;
 
 	/**

@@ -16,8 +16,8 @@ use PDO;
 class YearType extends BaseType {
 
 	/**
-  * Date format for DateTime object
-  */
+	 * Date format for DateTime object
+	 */
 	protected string $_format = 'Y';
 
 	/**

@@ -14,14 +14,8 @@ use Shim\TestSuite\TestCase;
 
 class TableTest extends TestCase {
 
-	/**
-	 * @var \Shim\Model\Table\Table
-	 */
 	protected Table $Posts;
 
-	/**
-	 * @var \Shim\Model\Table\Table
-	 */
 	protected Table $Users;
 
 	/**

@@ -16,9 +16,11 @@ use PDO;
 class TimeStringType extends BaseType {
 
 	/**
-  * If 24:00:00 should be normalized to 00:00:00, defaults to false as this could change
-  * meaning in time diffs.
-  */
+	 * If 24:00:00 should be normalized to 00:00:00, defaults to false as this could change
+	 * meaning in time diffs.
+	 *
+	 * @var bool
+	 */
 	public static bool $normalizeUpperBoundary = false;
 
 	/**

@@ -3,6 +3,8 @@
 namespace Tools\Test\TestCase\Model\Behavior;
 
 use Cake\ORM\TableRegistry;
+use Shim\Model\Behavior\NullableBehavior;
+use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 
 class NullableBehaviorTest extends TestCase {
@@ -15,10 +17,7 @@ class NullableBehaviorTest extends TestCase {
 		'plugin.Shim.NullableTenants',
 	];
 
-	/**
-	 * @var \Shim\Model\Table\Table|\Shim\Model\Behavior\NullableBehavior
-	 */
-	protected $Table;
+	protected Table|NullableBehavior $Table;
 
 	/**
 	 * @return void
