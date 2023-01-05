@@ -55,12 +55,12 @@ jobs:
         path: ${{ steps.composercache.outputs.dir }}
         key: ${{ runner.os }}-composer-${{ steps.key-date.outputs.date }}-${{ hashFiles('composer.json') }}-${{ matrix.prefer-lowest }}
 
-    - name: Composer install --no-progress --prefer-dist --optimize-autoloader
+    - name: Composer install
       run: |
         if ${{ matrix.prefer-lowest == 'prefer-lowest' }}; then
-          composer update --prefer-lowest --prefer-stable
+          composer update --prefer-lowest --prefer-stable --no-progress --prefer-dist --optimize-autoloader
         else
-          composer update
+          composer install --no-progress --prefer-dist --optimize-autoloader
         fi
         if ${{ matrix.prefer-lowest == 'prefer-lowest' }}; then composer require --dev dereuromark/composer-prefer-lowest:dev-master; fi
 
