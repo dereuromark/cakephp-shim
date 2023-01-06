@@ -23,9 +23,9 @@ use InvalidArgumentException;
 class Table extends CoreTable {
 
 	/**
-	 * @var array<int|string, mixed>|string|null
+	 * @var array<int|string, mixed>
 	 */
-	protected $order;
+	protected array $order = [];
 
 	/**
 	 * @var string|false
@@ -353,7 +353,7 @@ class Table extends CoreTable {
 	 * @param bool $primary
 	 * @return \Cake\ORM\Query
 	 */
-	public function beforeFind(EventInterface $event, Query $query, ArrayObject $options, bool $primary): Query {
+	public function beforeFind(EventInterface $event, \Cake\ORM\Query\SelectQuery $query, ArrayObject $options, bool $primary): Query {
 		$order = $query->clause('order');
 		if (($order === null || !count($order)) && !empty($this->order)) {
 			$query->order($this->order);

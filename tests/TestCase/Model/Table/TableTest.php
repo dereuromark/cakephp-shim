@@ -23,6 +23,8 @@ class TableTest extends TestCase {
 	 */
 	protected Table $Wheels;
 
+	protected Table $Cars;
+
 	/**
 	 * @var array
 	 */

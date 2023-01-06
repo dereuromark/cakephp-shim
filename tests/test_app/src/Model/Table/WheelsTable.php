@@ -11,7 +11,7 @@ class WheelsTable extends Table {
 	/**
 	 * @var array<int|string, mixed>|string|null
 	 */
-	protected $order = ['position' => 'ASC'];
+	protected array $order = ['position' => 'ASC'];
 
 	/**
 	 * @var string|false

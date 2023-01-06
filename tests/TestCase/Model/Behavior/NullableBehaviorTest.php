@@ -17,7 +17,10 @@ class NullableBehaviorTest extends TestCase {
 		'plugin.Shim.NullableTenants',
 	];
 
-	protected Table|NullableBehavior $Table;
+	/**
+	 * @var \Cake\ORM\Table|\Shim\Model\Behavior\NullableBehavior
+	 */
+	protected $Table;
 
 	/**
 	 * @return void

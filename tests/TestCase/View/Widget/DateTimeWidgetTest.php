@@ -34,6 +34,11 @@ class DateTimeWidgetTest extends TestCase {
 	protected DateTimeWidget $DateTime;
 
 	/**
+	 * @var \Cake\View\StringTemplate
+	 */
+	protected $templates;
+
+	/**
 	 * @return void
 	 */
 	public function setUp(): void {
@@ -49,8 +54,8 @@ class DateTimeWidgetTest extends TestCase {
 		];
 		$this->templates = new StringTemplate($templates);
 		$this->context = $this->getMockBuilder(ContextInterface::class)->getMock();
-		$this->selectBox = new SelectBoxWidget($this->templates);
-		$this->DateTime = new DateTimeWidget($this->templates, $this->selectBox);
+		$selectBox = new SelectBoxWidget($this->templates);
+		$this->DateTime = new DateTimeWidget($this->templates, $selectBox);
 	}
 
 	/**

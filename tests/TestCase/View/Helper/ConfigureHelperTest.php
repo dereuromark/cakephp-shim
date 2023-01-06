@@ -20,15 +20,15 @@ class ConfigureHelperTest extends TestCase {
 	 */
 	public function setUp(): void {
 		parent::setUp();
-		$this->_View = new View();
-		$this->_Configure = new ConfigureHelper($this->_View);
+		$View = new View();
+		$this->_Configure = new ConfigureHelper($View);
 	}
 
 	/**
 	 * @return void
 	 */
 	public function tearDown(): void {
-		unset($this->_View, $this->_Configure);
+		unset($this->_Configure);
 		parent::tearDown();
 	}
 

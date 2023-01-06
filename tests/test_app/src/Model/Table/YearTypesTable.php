@@ -10,7 +10,7 @@ class YearTypesTable extends Table {
 	/**
 	 * @var array<int|string, mixed>|string|null
 	 */
-	protected $order = ['name' => 'ASC'];
+	protected array $order = ['name' => 'ASC'];
 
 	/**
 	 * @return \Cake\Database\Schema\TableSchemaInterface

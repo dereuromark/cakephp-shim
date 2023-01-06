@@ -22,7 +22,7 @@ class EntityAnnotatorTest extends TestCase {
 
 		$propertyHintMap = ['id' => 'int', 'foo_bar' => '\\' . DateTime::class . '|null'];
 		$helper = new DocBlockHelper(new View());
-		$helper->virtualFields = [];
+		$helper->setVirtualFields([]);
 
 		/** @var array<\IdeHelper\Annotation\AbstractAnnotation> $result */
 		$result = $this->invokeMethod($entityAnnotator, 'buildAnnotations', [$propertyHintMap, $helper]);

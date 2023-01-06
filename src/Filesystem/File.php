@@ -532,7 +532,7 @@ class File {
 	/**
 	 * Returns the current folder.
 	 *
-	 * @return \Cake\Filesystem\Folder Current folder
+	 * @return \Shim\Filesystem\Folder Current folder
 	 */
 	public function folder(): Folder {
 		return $this->Folder;
