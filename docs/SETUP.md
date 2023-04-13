@@ -5,14 +5,14 @@ Installing the Plugin is pretty much as with every other CakePHP Plugin.
 
 Install using Packagist/Composer:
 ```
-composer require dereuromark/cakephp-shim:0.1.*
+composer require dereuromark/cakephp-shim:0.7.*
 ```
 
 or manually via
 
 ```
 "require": {
-	"dereuromark/cakephp-shim": "0.1.*"
+	"dereuromark/cakephp-shim": "0.7.*"
 }
 ```
 and
