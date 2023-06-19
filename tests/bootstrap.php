@@ -1,7 +1,10 @@
 <?php
-/**
- * @license http://www.opensource.org/licenses/mit-license.php MIT License
- */
+
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Datasource\ConnectionManager;
+use Shim\Plugin as ShimPlugin;
 
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
@@ -31,7 +34,7 @@ define('CAKE', CORE_PATH . APP_DIR . DS);
 require dirname(__DIR__) . '/vendor/autoload.php';
 require CORE_PATH . 'config/bootstrap.php';
 
-Cake\Core\Configure::write('App', [
+Configure::write('App', [
 	'encoding' => 'UTF-8',
 	'namespace' => 'App',
 	'paths' => [
@@ -40,7 +43,7 @@ Cake\Core\Configure::write('App', [
 	'fullBaseUrl' => 'http://localhost',
 ]);
 
-Cake\Core\Configure::write('debug', true);
+Configure::write('debug', true);
 
 require ROOT . DS . 'config/bootstrap.php';
 
@@ -64,14 +67,14 @@ $cache = [
 	],
 ];
 
-Cake\Cache\Cache::setConfig($cache);
+Cache::setConfig($cache);
 
 //needed?
-Cake\Core\Plugin::getCollection()->add(new Shim\Plugin());
+Plugin::getCollection()->add(new ShimPlugin());
 
 // Ensure default test connection is defined
 if (getenv('DB_DSN')) {
-	Cake\Datasource\ConnectionManager::setConfig('test', [
+	ConnectionManager::setConfig('test', [
 		'className' => 'Cake\Database\Connection',
 		'url' => getenv('DB_DSN'),
 		'timezone' => 'UTC',
@@ -87,7 +90,7 @@ if (!getenv('DB_CLASS')) {
 	putenv('DB_DSN=sqlite:///:memory:');
 }
 
-Cake\Datasource\ConnectionManager::setConfig('test', [
+ConnectionManager::setConfig('test', [
 	'className' => 'Cake\Database\Connection',
 	'driver' => getenv('DB_CLASS'),
 	'dsn' => getenv('DB_DSN'),
