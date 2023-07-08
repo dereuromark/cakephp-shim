@@ -6,7 +6,7 @@ use ArrayObject;
 use Cake\Datasource\EntityInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Event\EventInterface;
-use Cake\ORM\Query;
+use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table as CoreTable;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
@@ -257,37 +257,6 @@ class Table extends CoreTable {
 	}
 
 	/**
-	 * Overwrite findList() to make it work as in 2.x when only providing
-	 * 1-2 fields to select (no keyField/valueField).
-	 *
-	 * @param \Cake\ORM\Query $query The query to find with
-	 * @param array<string, mixed> $options The options for the find
-	 * @return \Cake\ORM\Query The query builder
-	 */
-	public function findList(Query $query, array $options): Query {
-		if (!isset($options['keyField']) && !isset($options['valueField'])) {
-			$select = $query->clause('select');
-			if ($select && count($select) <= 2) {
-				$keyField = array_shift($select);
-				$valueField = array_shift($select) ?: $keyField;
-				if (!is_string($keyField) || !is_string($valueField)) {
-					return parent::findList($query, $options);
-				}
-				[$model, $keyField] = pluginSplit($keyField);
-				if (!$model || $model === $this->getAlias()) {
-					$options['keyField'] = $keyField;
-				}
-				[$model, $valueField] = pluginSplit($valueField);
-				if (!$model || $model === $this->getAlias()) {
-					$options['valueField'] = $valueField;
-				}
-			}
-		}
-
-		return parent::findList($query, $options);
-	}
-
-	/**
 	 * Shortcut method to find a specific entry via primary key.
 	 * Wraps Table::get() for an exception free response.
 	 *
@@ -348,12 +317,17 @@ class Table extends CoreTable {
 	 * If you don't want that, don't call parent when overwriting it in extending classes.
 	 *
 	 * @param \Cake\Event\EventInterface $event
-	 * @param \Cake\ORM\Query $query
+	 * @param \Cake\ORM\Query\SelectQuery $query
 	 * @param \ArrayObject $options
 	 * @param bool $primary
-	 * @return \Cake\ORM\Query
+	 * @return \Cake\ORM\Query\SelectQuery
 	 */
-	public function beforeFind(EventInterface $event, \Cake\ORM\Query\SelectQuery $query, ArrayObject $options, bool $primary): Query {
+	public function beforeFind(
+		EventInterface $event,
+		SelectQuery $query,
+		ArrayObject $options,
+		bool $primary,
+	): SelectQuery {
 		$order = $query->clause('order');
 		if (($order === null || !count($order)) && !empty($this->order)) {
 			$query->order($this->order);
@@ -495,12 +469,12 @@ class Table extends CoreTable {
 	 * Especially with NOT involved accidental or injected selection of too many records can easily happen.
 	 * Always check the input and maybe add a !empty() protection clause.
 	 *
-	 * @param \Cake\ORM\Query $query
+	 * @param \Cake\ORM\Query\SelectQuery $query
 	 * @param string $field
 	 * @param array $valueArray
-	 * @return \Cake\ORM\Query
+	 * @return \Cake\ORM\Query\SelectQuery
 	 */
-	public function arrayCondition(Query $query, string $field, array $valueArray): Query {
+	public function arrayCondition(SelectQuery $query, string $field, array $valueArray): SelectQuery {
 		if (count($valueArray) === 0) {
 			$negated = preg_match('/\s+(?:NOT)$/', $field);
 			if ($negated) {
@@ -525,26 +499,21 @@ class Table extends CoreTable {
 	 * @return void
 	 */
 	protected function _prefixOrderProperty(): void {
-		if (is_string($this->order)) {
-			$this->order = $this->_prefixAlias($this->order);
-		}
-		if (is_array($this->order)) {
-			foreach ($this->order as $key => $value) {
-				if (is_numeric($key)) {
-					/**
-					 * @var string $key
-					 * @var string $value
-					 */
-					$this->order[$key] = $this->_prefixAlias($value);
-				} else {
-					/**
-					 * @var string $key
-					 */
-					$newKey = $this->_prefixAlias($key);
-					$this->order[$newKey] = $value;
-					if ($newKey !== $key) {
-						unset($this->order[$key]);
-					}
+		foreach ($this->order as $key => $value) {
+			if (is_numeric($key)) {
+				/**
+				 * @var string $key
+				 * @var string $value
+				 */
+				$this->order[$key] = $this->_prefixAlias($value);
+			} else {
+				/**
+				 * @var string $key
+				 */
+				$newKey = $this->_prefixAlias($key);
+				$this->order[$newKey] = $value;
+				if ($newKey !== $key) {
+					unset($this->order[$key]);
 				}
 			}
 		}

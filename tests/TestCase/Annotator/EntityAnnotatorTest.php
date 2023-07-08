@@ -17,7 +17,7 @@ class EntityAnnotatorTest extends TestCase {
 	 */
 	public function testBuildAnnotations(): void {
 		/** @var \Shim\Annotator\EntityAnnotator $entityAnnotator */
-		$entityAnnotator = $this->getMockBuilder(EntityAnnotator::class)->disableOriginalConstructor()->setMethods(['annotate'])->getMock();
+		$entityAnnotator = $this->getMockBuilder(EntityAnnotator::class)->disableOriginalConstructor()->onlyMethods(['annotate'])->getMock();
 		$entityAnnotator->setConfig('class', TestEntity::class);
 
 		$propertyHintMap = ['id' => 'int', 'foo_bar' => '\\' . DateTime::class . '|null'];

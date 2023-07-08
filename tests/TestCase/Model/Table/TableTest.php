@@ -5,7 +5,6 @@ namespace Shim\Test\TestCase\Model\Table;
 use Cake\Core\Configure;
 use Cake\Database\ValueBinder;
 use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\I18n\DateTime;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use InvalidArgumentException;
@@ -213,32 +212,6 @@ class TableTest extends TestCase {
 			'bar IS' => null,
 		];
 		$this->assertEquals($expected, $result);
-	}
-
-	/**
-	 * Test that find('list') also works as it used to in 2.x.
-	 *
-	 * @return void
-	 */
-	public function testFindListAutoSelectedFields(): void {
-		$this->Users->setDisplayField('nick');
-
-		$query = $this->Users->find('list', ['fields' => ['id', 'created']]);
-		$expected = ['id', 'created'];
-		$this->assertSame($expected, $query->clause('select'));
-		$results = $query->toArray();
-		$this->assertInstanceOf(DateTime::class, array_shift($results));
-
-		$query = $this->Users->find('list', ['fields' => ['id']]);
-		$expected = ['id'];
-		$this->assertSame($expected, $query->clause('select'));
-		$expected = [
-			1 => 1,
-			2 => 2,
-			3 => 3,
-			4 => 4,
-		];
-		$this->assertSame($expected, $query->toArray());
 	}
 
 	/**

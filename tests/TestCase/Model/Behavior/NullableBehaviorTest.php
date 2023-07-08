@@ -3,8 +3,6 @@
 namespace Tools\Test\TestCase\Model\Behavior;
 
 use Cake\ORM\TableRegistry;
-use Shim\Model\Behavior\NullableBehavior;
-use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 
 class NullableBehaviorTest extends TestCase {

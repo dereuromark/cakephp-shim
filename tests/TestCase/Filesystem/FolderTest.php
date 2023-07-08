@@ -155,7 +155,7 @@ class FolderTest extends TestCase {
 	 *
 	 * @return array
 	 */
-	public function inPathInvalidPathArgumentDataProvider(): array {
+	public static function inPathInvalidPathArgumentDataProvider(): array {
 		return [
 			[''],
 			['relative/path/'],
