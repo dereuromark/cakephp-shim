@@ -24,7 +24,7 @@
 	"require-dev": {
 		"fig-r/psr2r-sniffer": "dev-next",
 		"dereuromark/cakephp-ide-helper": "dev-cake5",
-		"phpunit/phpunit": "^9.5.16"
+		"phpunit/phpunit": "^10.1"
 	},
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"

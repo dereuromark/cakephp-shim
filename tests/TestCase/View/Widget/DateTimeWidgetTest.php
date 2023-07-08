@@ -36,7 +36,7 @@ class DateTimeWidgetTest extends TestCase {
 	/**
 	 * @var \Cake\View\StringTemplate
 	 */
-	protected $templates;
+	protected StringTemplate $templates;
 
 	/**
 	 * @return void
