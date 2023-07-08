@@ -499,26 +499,21 @@ class Table extends CoreTable {
 	 * @return void
 	 */
 	protected function _prefixOrderProperty(): void {
-		if (is_string($this->order)) {
-			$this->order = $this->_prefixAlias($this->order);
-		}
-		if (is_array($this->order)) {
-			foreach ($this->order as $key => $value) {
-				if (is_numeric($key)) {
-					/**
-					 * @var string $key
-					 * @var string $value
-					 */
-					$this->order[$key] = $this->_prefixAlias($value);
-				} else {
-					/**
-					 * @var string $key
-					 */
-					$newKey = $this->_prefixAlias($key);
-					$this->order[$newKey] = $value;
-					if ($newKey !== $key) {
-						unset($this->order[$key]);
-					}
+		foreach ($this->order as $key => $value) {
+			if (is_numeric($key)) {
+				/**
+				 * @var string $key
+				 * @var string $value
+				 */
+				$this->order[$key] = $this->_prefixAlias($value);
+			} else {
+				/**
+				 * @var string $key
+				 */
+				$newKey = $this->_prefixAlias($key);
+				$this->order[$newKey] = $value;
+				if ($newKey !== $key) {
+					unset($this->order[$key]);
 				}
 			}
 		}
