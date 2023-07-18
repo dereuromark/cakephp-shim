@@ -1,7 +1,10 @@
 <?php
-/**
- * @license http://www.opensource.org/licenses/mit-license.php MIT License
- */
+
+use Cake\Cache\Cache;
+use Cake\Core\Configure;
+use Cake\Core\Plugin;
+use Cake\Datasource\ConnectionManager;
+use Shim\Plugin as ShimPlugin;
 
 use Cake\Cache\Cache;
 use Cake\Core\Configure;
