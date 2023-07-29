@@ -17,8 +17,8 @@ trait ModifiedTrait {
 	public function isModified(string $name): bool {
 		$value = $this->get($name);
 		if (
-			array_key_exists($name, $this->_original)
-			&& $this->_original[$name] !== $value
+			!array_key_exists($name, $this->_original)
+			|| $this->_original[$name] !== $value
 		) {
 			return true;
 		}

@@ -11,17 +11,18 @@ class EntityModifiedTest extends TestCase {
 	 * @return void
 	 */
 	public function testGetModifiedFields(): void {
-		$entity = new TestEntity(['foo' => 'foo', 'bar' => 'bar'], ['markClean' => true, 'markNew' => false]);
+		$entity = new TestEntity(['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'], ['markClean' => true, 'markNew' => false]);
 
 		$entity->set('foo', 'foo');
+		$entity->set('bar', 'baaaaaar');
 		$entity->set('foo_bar', 'foo bar');
 
 		$result = $entity->getDirty();
-		$expected = ['foo', 'foo_bar'];
+		$expected = ['foo', 'bar', 'foo_bar'];
 		$this->assertSame($expected, $result);
 
 		$result = $entity->getModifiedFields();
-		$expected = ['foo_bar'];
+		$expected = ['bar', 'foo_bar'];
 		$this->assertSame($expected, $result);
 	}
 
