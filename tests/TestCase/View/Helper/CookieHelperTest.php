@@ -43,7 +43,7 @@ class CookieHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function testGetChookies() {
-		$this->request->expects($this->at(0))
+		$this->request->expects($this->once())
 			->method('getCookieParams')
 			->will($this->returnValue(['one' => 1, 'two' => 2]));
 
@@ -51,19 +51,22 @@ class CookieHelperTest extends TestCase {
 	}
 
 	/**
-	 * CookieHelperTest::testCheck()
-	 *
 	 * @return void
 	 */
-	public function testCheck() {
-		$this->request->expects($this->at(0))
+	public function testCheckFalse() {
+		$this->request->expects($this->once())
 			->method('getCookie')
 			->will($this->returnValue(null));
-		$this->request->expects($this->at(1))
+		$this->assertFalse($this->Cookie->check('Foo.key'));
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testCheckTrue() {
+		$this->request->expects($this->once())
 			->method('getCookie')
 			->will($this->returnValue('val'));
-
-		$this->assertFalse($this->Cookie->check('Foo.key'));
 		$this->assertTrue($this->Cookie->check('Foo.key'));
 	}
 
