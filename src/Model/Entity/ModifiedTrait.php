@@ -15,6 +15,10 @@ trait ModifiedTrait {
 	 * @return bool
 	 */
 	public function isModified(string $name): bool {
+		if (!$this->isDirty($name)) {
+			return false;
+		}
+
 		$value = $this->get($name);
 		if (
 			!array_key_exists($name, $this->_original)
