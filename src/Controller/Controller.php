@@ -11,6 +11,9 @@ use Exception;
 /**
  * DRY Controller stuff
  *
+ * Note: Make sure to use attribute #[\AllowDynamicProperties] on your classes
+ * that use this to avoid this blowing up in PHP 8.2+.
+ *
  * @property array|null $components
  * @property array|null $helpers
  */

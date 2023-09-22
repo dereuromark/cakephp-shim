@@ -12,26 +12,29 @@ See [Preconditions](Preconditions.md).
 ## Main shims
 These will most likely all be ported over to future releases.
 
-Controller
-- [Asserting/Casting](Controller/CastTrait.md)
-- [Component shims](Controller/Component.md)
-
-Model
-- [Table shim](Model/Table.md)
-- [Entity Get/Fail](Model/Entity.md)
-- [Nullable behavior](Model/Nullable.md)
-
 Database
 - [UUID type](Database/Uuid.md)
 - [Time type](Database/Time.md)
 - [Year type](Database/Year.md)
 - [Array type](Database/Array.md)
 
+Datasource
+- [LegacyModelAwareTrait](Datasource/LegacyModelAwareTrait.md)
+
+Model
+- [Table shim](Model/Table.md)
+- [Entity Get/Fail](Model/Entity.md)
+- [Nullable behavior](Model/Nullable.md)
+
+Controller
+- [Asserting/Casting](Controller/CastTrait.md)
+- [Component shims](Controller/Component.md)
+
 TestSuite
 - [Testing](TestSuite/Testing.md)
 
 ## BC shims
-The following shims are only in place for 3.x => 4.x and can possibly be removed in the future.
+The following shims are only in place for 3.x => 4.x => 5.x and can possibly be removed in the future.
 
 Controller
 - [Controller shims](Controller/Controller.md)
