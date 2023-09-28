@@ -28,10 +28,12 @@ Please see [Docs](docs/README.md).
 A full overview of all shimming between versions can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 
 ## New shims
-- Controller setup for components and helpers
-- FormHelper BC for datetime ([details](https://github.com/dereuromark/cakephp-shim/pull/46)).
+- LegacyModelAwareTrait for loadModel() shimming
+- former Cake\Filesystem\File and Cake\Filesystem\Folder classes
+- ModifiedTrait for entities and detecting actually changed fields (not just touched with same value)
 
-## Existing shims from 3.x
+## Existing shims from 4.x
+- Controller setup for components and helpers
 - Nullable behavior for better data consistency.
 - `Table::field()` support and `fieldByConditions()` alias to migrate to.
 - Still supports model properties `$primaryKey`, `$displayField`, `$order`, `$validate`, `$actsAs` and all
@@ -40,5 +42,6 @@ manually adjust all those.
 - Auto-adds Timestamp behavior if `created` or `modified` field exists in table.
 
 ## Helpful links
-When planning to upgrade, you should look into [upgrade app for 3.x/4.x](https://github.com/dereuromark/upgrade) as well as the [rector tool](https://github.com/rectorphp/rector).
+When planning to upgrade, you should look into official [upgrade docs](https://book.cakephp.org/5/en/appendices/5-0-upgrade-guide.html) as well as the linked upgrade tool.
 They both contain tons of more ideas on how to get code aligned with the current direction of the framework to reduce friction in the long run.
+Also see my blog post [dereuromark.de/2023/09/28/cakephp-5-upgrade-guide/](https://www.dereuromark.de/2023/09/28/cakephp-5-upgrade-guide/).
