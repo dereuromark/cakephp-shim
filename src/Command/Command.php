@@ -13,9 +13,9 @@ use Cake\Console\ConsoleIo;
  */
 class Command extends CakeCommand {
 
-	protected ?Arguments $args = null;
+	protected Arguments $args;
 
-	protected ?ConsoleIo $io = null;
+	protected ConsoleIo $io;
 
 	/**
 	 * @param \Cake\Console\Arguments $args
