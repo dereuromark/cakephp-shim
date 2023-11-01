@@ -26,6 +26,7 @@ class NumericPaginator extends CoreNumericPaginator {
 
 		$query = parent::getQuery($object, $query, $data);
 		if ($contain) {
+			/** @var \Cake\ORM\Query\SelectQuery $query */
 			$query->contain($contain);
 		}
 

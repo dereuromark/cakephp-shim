@@ -20,8 +20,9 @@ Database
 
 Datasource
 - [LegacyModelAwareTrait](Datasource/LegacyModelAwareTrait.md)
+- [NumericPaginator](Datasource/NumericPaginator.md)
 
-Model
+- Model
 - [Table shim](Model/Table.md)
 - [Entity Get/Fail](Model/Entity.md)
 - [Nullable behavior](Model/Nullable.md)
