@@ -1,5 +1,5 @@
 # Shim plugin for CakePHP
-[![CI](https://github.com/dereuromark/cakephp-shim/workflows/CI/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-shim/actions?query=workflow%3ACI+branch%3Amaster)
+[![CI](https://github.com/dereuromark/cakephp-shim/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-shim/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-shim/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg)](https://php.net/)
