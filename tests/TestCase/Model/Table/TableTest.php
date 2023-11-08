@@ -342,10 +342,10 @@ class TableTest extends TestCase {
 		$car = $this->Wheels->Cars->find()->first();
 		$this->assertInstanceOf(Entity::class, $car);
 
-		$this->Cars = TableRegistry::get('Cars');
-		$this->assertInstanceOf(Table::class, $this->Cars);
+		$Cars = TableRegistry::get('Cars');
+		$this->assertInstanceOf(Table::class, $Cars);
 
-		$wheels = $this->Cars->Wheels->find()->where(['car_id' => $car['id']]);
+		$wheels = $Cars->Wheels->find()->where(['car_id' => $car['id']]);
 		$wheels->execute();
 
 		$order = $wheels->clause('order');

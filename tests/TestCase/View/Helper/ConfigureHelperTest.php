@@ -19,6 +19,11 @@ class ConfigureHelperTest extends TestCase {
 	protected $_Configure;
 
 	/**
+	 * @var \Cake\View\View
+	 */
+	protected $_View;
+
+	/**
 	 * @return void
 	 */
 	public function setUp(): void {

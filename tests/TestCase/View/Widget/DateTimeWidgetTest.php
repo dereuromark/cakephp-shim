@@ -39,6 +39,16 @@ class DateTimeWidgetTest extends TestCase {
 	protected $DateTime;
 
 	/**
+	 * @var \Cake\View\StringTemplate
+	 */
+	protected $templates;
+
+	/**
+	 * @var \Cake\View\Widget\SelectBoxWidget
+	 */
+	protected $selectBox;
+
+	/**
 	 * @return void
 	 */
 	public function setUp(): void {

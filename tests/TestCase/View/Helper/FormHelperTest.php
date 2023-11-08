@@ -52,6 +52,21 @@ class FormHelperTest extends TestCase {
 	protected $article = [];
 
 	/**
+	 * @var \Shim\View\Helper\FormHelper
+	 */
+	protected $Form;
+
+	/**
+	 * @var array<string, string>
+	 */
+	protected $dateRegex;
+
+	/**
+	 * @var \Cake\View\View
+	 */
+	protected $View;
+
+	/**
 	 * @return void
 	 */
 	public function setUp(): void {
@@ -135,15 +150,10 @@ class FormHelperTest extends TestCase {
 			'id' => 'prueba',
 			'required' => null,
 			'templateVars' => [],
+			'aria-required' => null,
+			'aria-invalid' => null,
+			'aria-describedby' => null,
 		];
-		$version = Configure::version();
-		if (version_compare($version, '4.3.0') >= 0) {
-			$array += [
-				'aria-required' => null,
-				'aria-invalid' => null,
-				'aria-describedby' => null,
-			];
-		}
 
 		$this->Form->expects($this->once())->method('datetime')
 			->with('prueba', $array)
@@ -188,15 +198,10 @@ class FormHelperTest extends TestCase {
 			'id' => 'prefix-prueba',
 			'required' => null,
 			'templateVars' => [],
+			'aria-required' => null,
+			'aria-invalid' => null,
+			'aria-describedby' => null,
 		];
-		$version = Configure::version();
-		if (version_compare($version, '4.3.0') >= 0) {
-			$array += [
-				'aria-required' => null,
-				'aria-invalid' => null,
-				'aria-describedby' => null,
-			];
-		}
 
 		$this->Form->expects($this->once())->method('datetime')
 			->with('prueba', $array)
@@ -1300,10 +1305,10 @@ class FormHelperTest extends TestCase {
 		$result = $this->Form->control('title', ['label' => false]);
 
 		$version = Configure::version();
-		if (version_compare($version, '4.3.0') >= 0) {
-			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"/></div>';
+		if (version_compare($version, '4.5.0') >= 0) {
+			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"></div>';
 		} else {
-			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title"/></div>';
+			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"\></div>';
 		}
 		$this->assertSame($expected, $result);
 	}
