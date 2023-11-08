@@ -1308,7 +1308,7 @@ class FormHelperTest extends TestCase {
 		if (version_compare($version, '4.5.0') >= 0) {
 			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"></div>';
 		} else {
-			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"\></div>';
+			$expected = '<div class="input text required"><input type="text" name="title" required="required" data-validity-message="This field cannot be left empty" oninvalid="this.setCustomValidity(&#039;&#039;); if (!this.value) this.setCustomValidity(this.dataset.validityMessage)" oninput="this.setCustomValidity(&#039;&#039;)" id="title" aria-required="true"/></div>';
 		}
 		$this->assertSame($expected, $result);
 	}
