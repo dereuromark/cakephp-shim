@@ -20,6 +20,7 @@ class NumericPaginator extends CoreNumericPaginator {
     protected function getDefaults(string $alias, array $settings): array
     {
         $this->_defaultConfig['contain'] = null;
+        $this->_defaultConfig['conditions'] = null;
         $this->_defaultConfig['fields'] = null;
 
         return parent::getDefaults($alias, $settings);
@@ -50,6 +51,14 @@ class NumericPaginator extends CoreNumericPaginator {
         unset($data['options']['fields']);
         unset($data['defaults']['fields']);
 
+        $conditions = null;
+        if (!empty($data['options']['conditions'])) {
+            $conditions = $data['options']['conditions'];
+        }
+
+        unset($data['options']['conditions']);
+        unset($data['defaults']['conditions']);
+
         $query = parent::getQuery($object, $query, $data);
 		if ($contain) {
 			/** @var \Cake\ORM\Query\SelectQuery $query */
@@ -59,6 +68,11 @@ class NumericPaginator extends CoreNumericPaginator {
         if ($fields) {
             /** @var \Cake\ORM\Query\SelectQuery $query */
             $query->select($fields);
+        }
+
+        if ($conditions) {
+            /** @var \Cake\ORM\Query\SelectQuery $query */
+            $query->where($conditions);
         }
 
 		return $query;
