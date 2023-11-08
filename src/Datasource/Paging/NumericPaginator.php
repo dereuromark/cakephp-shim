@@ -8,6 +8,23 @@ use Cake\Datasource\RepositoryInterface;
 
 class NumericPaginator extends CoreNumericPaginator {
 
+    /**
+     * Get the settings for a $model. If there are no settings for a specific
+     * repository, the general settings will be used.
+     *
+     * @param string $alias Model name to get settings for.
+     * @param array<string, mixed> $settings The settings which is used for combining.
+     * @return array<string, mixed> An array of pagination settings for a model,
+     *   or the general settings.
+     */
+    protected function getDefaults(string $alias, array $settings): array
+    {
+        $this->_defaultConfig['contain'] = null;
+        $this->_defaultConfig['fields'] = null;
+
+        return parent::getDefaults($alias, $settings);
+    }
+
 	/**
 	 * Get query for fetching paginated results.
 	 *
@@ -23,12 +40,26 @@ class NumericPaginator extends CoreNumericPaginator {
 		}
 
 		unset($data['options']['contain']);
+        unset($data['defaults']['contain']);
 
-		$query = parent::getQuery($object, $query, $data);
+        $fields = null;
+        if (!empty($data['options']['fields'])) {
+            $fields = $data['options']['fields'];
+        }
+
+        unset($data['options']['fields']);
+        unset($data['defaults']['fields']);
+
+        $query = parent::getQuery($object, $query, $data);
 		if ($contain) {
 			/** @var \Cake\ORM\Query\SelectQuery $query */
 			$query->contain($contain);
 		}
+
+        if ($fields) {
+            /** @var \Cake\ORM\Query\SelectQuery $query */
+            $query->select($fields);
+        }
 
 		return $query;
 	}
