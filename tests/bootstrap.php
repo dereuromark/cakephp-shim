@@ -70,10 +70,10 @@ $cache = [
 Cache::setConfig($cache);
 
 // Ensure default test connection is defined
-if (getenv('DB_DSN')) {
+if (getenv('DB_URL')) {
 	ConnectionManager::setConfig('test', [
 		'className' => 'Cake\Database\Connection',
-		'url' => getenv('DB_DSN'),
+		'url' => getenv('DB_URL'),
 		'timezone' => 'UTC',
 		'quoteIdentifiers' => true,
 		'cacheMetadata' => true,
@@ -82,15 +82,14 @@ if (getenv('DB_DSN')) {
 	return;
 }
 
-if (!getenv('DB_CLASS')) {
-	putenv('DB_CLASS=Cake\Database\Driver\Sqlite');
-	putenv('DB_DSN=sqlite:///:memory:');
+if (!getenv('DB_URL')) {
+	putenv('DB_URL=sqlite:///:memory:');
 }
 
 ConnectionManager::setConfig('test', [
 	'className' => 'Cake\Database\Connection',
 	'driver' => getenv('DB_CLASS'),
-	'dsn' => getenv('DB_DSN'),
+	'dsn' => getenv('DB_URL'),
 	'timezone' => 'UTC',
 	'quoteIdentifiers' => true,
 	'cacheMetadata' => true,
