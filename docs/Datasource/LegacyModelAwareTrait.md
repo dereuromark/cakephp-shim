@@ -32,3 +32,46 @@ As shown above, it is important to set the `#[\AllowDynamicProperties]` to avoid
 
 Also, the docblock annotation with the actual class is helpful to get full IDE support and auto-complete etc.
 This should already be the case usually for your existing code - provided via [IdeHelper plugin](https://github.com/dereuromark/cakephp-ide-helper).
+
+## Setting a custom model class
+
+When setting a custom model class to a controller, the traits cannot be added to this same
+controller for inheritance collision.
+So it would have to be a parent controller, usually the `AppController` itself.
+
+```php
+use Cake\Controller\Controller;
+use Cake\Datasource\ModelAwareTrait;
+use Shim\Datasource\LegacyModelAwareTrait;
+
+/**
+ * @property \Data\Model\Table\CountriesTable $Countries
+ */
+#[\AllowDynamicProperties]
+class AppController extends Controller {
+
+    use ModelAwareTrait;
+    use LegacyModelAwareTrait;
+
+}
+```
+and
+```php
+use App\Controller\AppController;
+
+/**
+ * @property \Data\Model\Table\CountriesTable $Countries
+ */
+class SomeController extends AppController {
+
+    /**
+     * @var string|null
+     */
+    protected ?string $modelClass = 'Data.Countries';
+
+	public function someAction() {
+        $countries = $this->Countries->find()->...;
+    }
+
+}
+```
