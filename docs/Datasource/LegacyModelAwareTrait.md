@@ -36,7 +36,7 @@ This should already be the case usually for your existing code - provided via [I
 ## Setting a custom model class
 
 When setting a custom model class to a controller, the traits cannot be added to this same
-controller for inheritance collision.
+controller for inheritance collision if you are using `$modelClass` property.
 So it would have to be a parent controller, usually the `AppController` itself.
 
 ```php
@@ -74,4 +74,23 @@ class SomeController extends AppController {
     }
 
 }
+```
+
+In cases where you cannot use the parent class, e.g. directly in some Command or custom class, you can use the
+`$defaultModel` property instead:
+```php
+    /**
+     * @var string|null
+     */
+    protected ?string $defaultModel = 'Packages';
+```
+It will overwrite any set other property for `$this->loadModel()` calls.
+
+## Autoloading models as before
+If you want to completely retain 4.x behavior of autoloading the models, you need to add this snippet
+to your (App)Controller::initialize() method, where you added the traits:
+```php
+    if ($this->modelClass) {
+        $this->loadModel();
+    }
 ```

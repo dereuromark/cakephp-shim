@@ -45,8 +45,8 @@ trait LegacyModelAwareTrait {
 	 * @return \Cake\Datasource\RepositoryInterface The model instance created.
 	 */
 	public function loadModel(?string $modelClass = null, ?string $modelType = null): RepositoryInterface {
-		$modelClass ??= $this->modelClass;
-		if (empty($modelClass)) {
+		$modelClass ??= ($this->defaultModel ?? $this->modelClass);
+		if (!$modelClass) {
 			throw new UnexpectedValueException('Default modelClass is empty');
 		}
 		$modelType ??= $this->getModelType();
