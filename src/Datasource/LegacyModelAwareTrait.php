@@ -7,6 +7,7 @@ use Cake\Datasource\Exception\MissingModelException;
 use Cake\Datasource\FactoryLocator;
 use Cake\Datasource\Locator\LocatorInterface;
 use Cake\Datasource\RepositoryInterface;
+use RuntimeException;
 use UnexpectedValueException;
 use function Cake\Core\pluginSplit;
 
@@ -45,12 +46,7 @@ trait LegacyModelAwareTrait {
 	 * @return \Cake\Datasource\RepositoryInterface The model instance created.
 	 */
 	public function loadModel(?string $modelClass = null, ?string $modelType = null): RepositoryInterface {
-		$defaultModel = $this->modelClass;
-		if (isset($this->defaultModel)) {
-			$defaultModel = $this->defaultModel;
-		}
-
-		$modelClass ??= $defaultModel;
+		$modelClass ??= $this->detectDefaultModelClass();
 		if (!$modelClass) {
 			throw new UnexpectedValueException('Default modelClass is empty');
 		}
@@ -83,6 +79,24 @@ trait LegacyModelAwareTrait {
 		}
 
 		throw new MissingModelException([$modelClass, $modelType]);
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function detectDefaultModelClass(): string {
+		$defaultModel = $this->modelClass;
+		if (isset($this->defaultTable)) {
+			$defaultModel = $this->defaultTable;
+		} elseif (isset($this->defaultModel)) {
+			$defaultModel = $this->defaultModel;
+		}
+
+		if ($defaultModel === null) {
+			throw new RuntimeException('Cannot detect default model, please specify `$defaultTable` or `$modelClass`.');
+		}
+
+		return $defaultModel;
 	}
 
 }
