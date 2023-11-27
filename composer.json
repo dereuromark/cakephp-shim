@@ -1,15 +1,14 @@
 {
 	"name": "dereuromark/cakephp-shim",
-	"type": "cakephp-plugin",
 	"description": "A CakePHP plugin to shim applications between major framework versions.",
+	"license": "MIT",
+	"type": "cakephp-plugin",
 	"keywords": [
 		"cakephp",
 		"plugin",
 		"shim",
 		"helpers"
 	],
-	"homepage": "https://github.com/dereuromark/cakephp-shim",
-	"license": "MIT",
 	"authors": [
 		{
 			"name": "Mark Scherer",
@@ -17,18 +16,21 @@
 			"role": "Maintainer"
 		}
 	],
+	"homepage": "https://github.com/dereuromark/cakephp-shim",
+	"support": {
+		"source": "https://github.com/dereuromark/cakephp-shim"
+	},
 	"require": {
 		"php": ">=8.1",
 		"cakephp/cakephp": "^5.0.0"
 	},
 	"require-dev": {
-		"fig-r/psr2r-sniffer": "dev-next",
 		"dereuromark/cakephp-ide-helper": "^2.0.0",
+		"fig-r/psr2r-sniffer": "dev-next",
 		"phpunit/phpunit": "^10.1"
 	},
-	"support": {
-		"source": "https://github.com/dereuromark/cakephp-shim"
-	},
+	"minimum-stability": "stable",
+	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"Shim\\": "src/",
@@ -37,24 +39,22 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Shim\\Test\\": "tests/",
 			"Cake\\Test\\": "vendor/cakephp/cakephp/tests/",
+			"Shim\\Test\\": "tests/",
 			"TestApp\\": "tests/test_app/src/"
 		}
-	},
-	"prefer-stable": true,
-	"scripts": {
-		"test": "phpunit",
-		"test-coverage": "phpunit --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml",
-		"stan": "phpstan analyse",
-		"stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^1.0.0 && mv composer.backup composer.json",
-		"cs-check": "phpcs --extensions=php",
-		"cs-fix": "phpcbf --extensions=php"
 	},
 	"config": {
 		"allow-plugins": {
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	},
-	"minimum-stability": "stable"
+	"scripts": {
+		"cs-check": "phpcs --extensions=php",
+		"cs-fix": "phpcbf --extensions=php",
+		"stan": "phpstan analyse",
+		"stan-setup": "cp composer.json composer.backup && composer require --dev phpstan/phpstan:^1.0.0 && mv composer.backup composer.json",
+		"test": "phpunit",
+		"test-coverage": "phpunit --log-junit tmp/coverage/unitreport.xml --coverage-html tmp/coverage --coverage-clover tmp/coverage/coverage.xml"
+	}
 }
