@@ -62,11 +62,6 @@ trait RedirectOutOfBoundsTrait {
 			if ($lastPage !== $currentPage) {
 				$url = Router::url(['?' => ['page' => $lastPage] + $this->request->getQuery()]);
 
-				// To please PHPCS and tests, cannot be reached in production.
-				if (PHP_SAPI === 'cli') {
-					throw new NotFoundException('Redirect to ' . $url . ' for non-CLI.', null, $exception);
-				}
-
 				throw new RedirectException($url);
 			}
 
