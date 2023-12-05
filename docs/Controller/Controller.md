@@ -1,4 +1,22 @@
 # Controller shims
+```
+use Shim\Controller\Controller;
+
+class AppController extends Controller {
+}
+```
+
+## Paginator className
+Usually a custom Paginator has to be set in each controller separately.
+The Shim.Controller, if extended, allows a more global configuration.
+
+In your config set `Paginator.className` for what Paginator should be used across all controllers:
+```
+'Paginator' => [
+    'className' => \My\Special\CustomPaginator::class,
+],
+```
+Your custom paginator should still extend `Cake\Datasource\Paging\PaginatorInterface`, of course.
 
 ## BC shims
 
