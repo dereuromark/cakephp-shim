@@ -13,6 +13,9 @@ The following command can enable the plugin:
 bin/cake plugin load Shim
 ```
 
+Note: For most cases, the `loadPlugin()` part here isn't necessary. The elements of this plugin can be used directly where needed.
+If nothing is used, nothing will be loaded out of the box. This makes this plugin quite safe to have around and only pick what you need.
+
 ## Testing MySQL
 
 By default it will usually use SQLite DB (out of the box available).
