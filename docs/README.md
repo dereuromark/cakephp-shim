@@ -29,7 +29,8 @@ Datasource
 
 Controller
 - [Asserting/Casting](Controller/CastTrait.md)
-- [Component shims](Controller/Component.md)
+- [Pagination RedirectOutOfBounds](Controller/RedirectOutOfBoundsTrait.md)
+- [Controller shims](Controller/Controller.md)
 
 TestSuite
 - [Testing](TestSuite/Testing.md)

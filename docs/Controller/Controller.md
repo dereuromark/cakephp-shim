@@ -5,9 +5,9 @@
 ### Component and Helper setup
 Using the Shim Controller as base controller you can continue to use the existing setup:
 ```php
-protected $components = ['MyComponent'];
+protected array $components = ['MyComponent'];
 
-protected $helpers = ['MyHelper'];
+protected array $helpers = ['MyHelper'];
 ````
 No deprecation notice will be thrown here then.
 

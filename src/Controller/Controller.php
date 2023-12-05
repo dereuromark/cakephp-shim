@@ -4,6 +4,9 @@ namespace Shim\Controller;
 
 use Cake\Controller\Controller as CoreController;
 use Cake\Core\Configure;
+use Cake\Datasource\Paging\PaginatedInterface;
+use Cake\Datasource\QueryInterface;
+use Cake\Datasource\RepositoryInterface;
 use Cake\Event\EventInterface;
 use Cake\Http\Response;
 use Exception;
@@ -78,6 +81,31 @@ class Controller extends CoreController {
 		}
 
 		return null;
+	}
+
+	/**
+	 * Handles pagination of records in Table objects.
+	 *
+	 * Will load the referenced Table object, and have the paginator
+	 * paginate the query using the request date and settings defined in `$this->paginate`.
+	 *
+	 * This method will also make the PaginatorHelper available in the view.
+	 *
+	 * @link https://book.cakephp.org/5/en/controllers.html#paginating-a-model
+	 * @param \Cake\Datasource\RepositoryInterface|\Cake\Datasource\QueryInterface|string|null $object Table to paginate
+	 * (e.g: Table instance, 'TableName' or a Query object)
+	 * @param array<string, mixed> $settings The settings/configuration used for pagination. See {@link \Cake\Controller\Controller::$paginate}.
+	 * @throws \Cake\Http\Exception\NotFoundException When a page out of bounds is requested.
+	 * @return \Cake\Datasource\Paging\PaginatedInterface
+	 */
+	public function paginate(
+		RepositoryInterface|QueryInterface|string|null $object = null,
+		array $settings = [],
+	): PaginatedInterface {
+		$defaults = (array)Configure::read('Paginator');
+		$settings += $this->paginate + $defaults;
+
+		return parent::paginate($object, $settings);
 	}
 
 }
