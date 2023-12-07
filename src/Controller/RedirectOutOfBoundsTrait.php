@@ -3,6 +3,7 @@
 namespace Shim\Controller;
 
 use Cake\Core\App;
+use Cake\Core\Configure;
 use Cake\Datasource\Paging\Exception\PageOutOfBoundsException;
 use Cake\Datasource\Paging\NumericPaginator;
 use Cake\Datasource\Paging\PaginatedInterface;
@@ -39,6 +40,9 @@ trait RedirectOutOfBoundsTrait {
 		if (!is_object($object)) {
 			$object = $this->fetchTable($object);
 		}
+
+		$defaults = (array)Configure::read('Paginator');
+		$settings += $this->paginate + $defaults;
 
 		/** @var class-string<\Cake\Datasource\Paging\PaginatorInterface> $paginator */
 		$paginator = App::className(
