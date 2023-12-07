@@ -59,7 +59,7 @@ trait RedirectOutOfBoundsTrait {
 			$params = $exception->getAttributes()['pagingParams'] ?? [];
 			$currentPage = $params['requestedPage'] > 1 ? $params['requestedPage'] : null;
 			$lastPage = $params['pageCount'] > 1 ? $params['pageCount'] : null;
-			if ($lastPage !== $currentPage) {
+			if ($lastPage !== $currentPage && !$this->request->getParam('_ext')) {
 				$url = Router::url(['?' => ['page' => $lastPage] + $this->request->getQuery()]);
 
 				throw new RedirectException($url);
