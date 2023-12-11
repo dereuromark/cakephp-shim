@@ -31,6 +31,9 @@ class EntityAnnotator extends IdeHelperEntityAnnotator {
 		if (method_exists($class, 'setOrFail')) {
 			$methodTypes[] = 'set';
 		}
+		if (method_exists($class, 'require')) {
+			$methodTypes[] = 'require';
+		}
 		if (!$methodTypes) {
 			return $map;
 		}

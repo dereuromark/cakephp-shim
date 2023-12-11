@@ -26,6 +26,24 @@ echo $entity->read('tags.2.name', $default);
 This means, you are OK with part of the path being empty/null.
 If you want the opposite, making sure all required fields in the path are present, check the next part about getOrFail().
 
+## Entity require()
+You want to make sure certain fields are definitely set (not null)?
+Then use `require()` to assert this prior to using the values:
+
+```php
+use Shim\Model\Entity\RequireTrait;
+
+class MyEntity extends Entity {
+
+    use RequireTrait;
+```
+
+Then you can use it like this:
+```php
+$entity->require('fieldname');
+$this->doSomething($entity->fieldname);
+```
+
 ## Entity get...OrFail()/set...OrFail()
 You want to use "asserted return/param values" or "safe chaining" in your entities?
 Then you want to ensure you are not getting null values returned where you expect actual values.

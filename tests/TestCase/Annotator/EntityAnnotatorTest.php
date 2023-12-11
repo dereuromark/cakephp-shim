@@ -26,7 +26,7 @@ class EntityAnnotatorTest extends TestCase {
 
 		/** @var array<\IdeHelper\Annotation\AbstractAnnotation> $result */
 		$result = $this->invokeMethod($entityAnnotator, 'buildAnnotations', [$propertyHintMap, $helper]);
-		$this->assertCount(6, $result);
+		$this->assertCount(8, $result);
 
 		$this->assertSame('int $id', $result['id']->build());
 		$this->assertSame('\\' . DateTime::class . '|null $foo_bar', $result['foo_bar']->build());
