@@ -32,6 +32,8 @@ A full overview of all shimming between versions can be found in the [Wiki](http
 - former Cake\Filesystem\File and Cake\Filesystem\Folder classes
 - ModifiedTrait for entities and detecting actually changed fields (not just touched with same value)
 
+Note: AuthComponent lives on in 5.x via [TinyAuth plugin](https://github.com/dereuromark/cakephp-tinyauth) if needed.
+
 ## Existing shims from 4.x
 - Controller setup for components and helpers
 - Nullable behavior for better data consistency.
