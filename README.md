@@ -3,7 +3,7 @@
 [![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-shim/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.1-8892BF.svg)](https://php.net/)
-[![License](https://poser.pugx.org/dereuromark/cakephp-shim/license.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
+[![License](https://poser.pugx.org/dereuromark/cakephp-shim/license.svg)](LICENSE)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-shim/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
@@ -31,6 +31,8 @@ A full overview of all shimming between versions can be found in the [Wiki](http
 - LegacyModelAwareTrait for loadModel() shimming
 - former Cake\Filesystem\File and Cake\Filesystem\Folder classes
 - ModifiedTrait for entities and detecting actually changed fields (not just touched with same value)
+
+Note: AuthComponent lives on in 5.x via [TinyAuth plugin](https://github.com/dereuromark/cakephp-tinyauth) if needed.
 
 ## Existing shims from 4.x
 - Controller setup for components and helpers

@@ -19,7 +19,6 @@
 			<property name="enableMixedTypeHint" value="true"/>
 			<property name="enableUnionTypeHint" value="false"/>
 			<property name="enableIntersectionTypeHint" value="false"/>
-			<property name="enableNeverTypeHint" value="false"/>
 		</properties>
 	</rule>
 	<rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
