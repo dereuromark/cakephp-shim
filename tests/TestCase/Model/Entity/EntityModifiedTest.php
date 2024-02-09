@@ -20,6 +20,11 @@ class EntityModifiedTest extends TestCase {
 		$result = $entity->getDirty();
 		$expected = ['foo', 'bar', 'foo_bar'];
 		$this->assertEquals($expected, $result);
+		
+		$result  = $entity->isDirty('foo');
+		$this->assertTrue($result);
+		$result  = $entity->isModified('foo');
+		$this->assertFalse($result);
 
 		$result = $entity->getModifiedFields();
 		$expected = ['bar', 'foo_bar'];

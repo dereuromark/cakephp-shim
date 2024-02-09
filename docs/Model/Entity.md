@@ -72,3 +72,34 @@ If you use the above and want to use the magic methods, make sure to let the [Id
     ],
 ```
 This replaces the default one with the Shim version.
+
+## Modified vs dirty
+
+By default, patching as well as manual assigment on the entity often results in more dirty fields than
+actually modified ones.
+The value might still be the very same, but it is marked as dirty and most likely will be part of the DB
+update call.
+
+In some cases it can be useful to know what actually changed, e.g. for auditing and logging purposes.
+Here the `ModifiedTrait` comes into play.
+```php
+$data = ['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'];
+$entity = new TestEntity(, ['markClean' => true, 'markNew' => false]);
+
+$entity->set('foo', 'foo');
+$entity->set('bar', 'baaaaaar');
+$entity->set('foo_bar', 'foo bar');
+
+$result = $entity->getDirty();
+$expected = ['foo', 'bar', 'foo_bar'];
+$this->assertEquals($expected, $result);
+
+$result  = $entity->isDirty('foo');
+$this->assertTrue($result);
+$result  = $entity->isModified('foo');
+$this->assertFalse($result);
+
+$result = $entity->getModifiedFields();
+$expected = ['bar', 'foo_bar'];
+$this->assertEquals($expected, $result);
+```
