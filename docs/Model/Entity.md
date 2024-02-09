@@ -61,3 +61,14 @@ This replaces the native one and adds support for these get methods on top.
 Also PHPStan now can help you in more detail, e.g.
 
 > Parameter #1 $value of method App\Model\Entity\User::setActiveOrFail() expects bool, null given.
+
+## Annotations
+If you use the above and want to use the magic methods, make sure to let the [IdeHelper](https://github.com/dereuromark/cakephp-ide-helper) add the annotations on top for them:
+```php
+    'IdeHelper' => [
+        'annotators' => [
+            \IdeHelper\Annotator\EntityAnnotator::class => \Shim\Annotator\EntityAnnotator::class,
+        ],
+    ],
+```
+This replaces the default one with the Shim version.
