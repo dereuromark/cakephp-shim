@@ -37,6 +37,8 @@ trait ModifiedTrait {
 	/**
 	 * Returns all fields that actually changed their value, despite dirty state (touched).
 	 *
+	 * @param bool $nonStrictComparison
+	 *
 	 * @return array<string>
 	 */
 	public function getModifiedFields(bool $nonStrictComparison = false): array {
