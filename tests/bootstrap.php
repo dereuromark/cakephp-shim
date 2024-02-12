@@ -81,6 +81,9 @@ ConnectionManager::setConfig('test', [
 	'cacheMetadata' => true,
 ]);
 
+// Fixate now to avoid one-second-leap-issues
+Cake\Chronos\Chronos::setTestNow(Cake\Chronos\Chronos::now());
+
 if (env('FIXTURE_SCHEMA_METADATA')) {
 	$loader = new SchemaLoader();
 	$loader->loadInternalFile(env('FIXTURE_SCHEMA_METADATA'));
