@@ -7,8 +7,6 @@ use Cake\Database\Type\BaseType;
 
 /**
  * Do not convert array/string input on marshal(). Useful for Array handling behaviors.
- *
- * @see Tools.Jsonable behavior
  */
 class ArrayType extends BaseType {
 
