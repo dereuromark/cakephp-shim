@@ -22,7 +22,7 @@
 		"cakephp/cakephp": "^4.3"
 	},
 	"require-dev": {
-		"fig-r/psr2r-sniffer": "dev-master",
+		"fig-r/psr2r-sniffer": "^1.5.1",
 		"dereuromark/cakephp-ide-helper": "^1.9.0",
 		"phpunit/phpunit": "^9.5"
 	},
