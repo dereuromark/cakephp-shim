@@ -1,6 +1,6 @@
 <?php
 
-namespace Tools\Test\TestCase\Model\Behavior;
+namespace Shim\Test\TestCase\Model\Behavior;
 
 use Cake\ORM\TableRegistry;
 use Shim\TestSuite\TestCase;
