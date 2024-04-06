@@ -20,6 +20,18 @@ trait TestTrait {
 	}
 
 	/**
+	 * Checks if debug flag is set.
+	 *
+	 * Flag is set via `--debug`.
+	 * Allows additional stuff like non-mocking when enabling debug.
+	 *
+	 * @return bool Success
+	 */
+	protected function isDebug(): bool {
+		return !empty($_SERVER['argv']) && in_array('--debug', $_SERVER['argv'], true);
+	}
+
+	/**
 	 * Checks if verbose flag is set.
 	 *
 	 * Flags are `-v` and `-vv`.

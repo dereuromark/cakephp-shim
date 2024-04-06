@@ -11,7 +11,9 @@ use Cake\TestSuite\TestCase;
 abstract class IntegrationTestCase extends TestCase {
 
 	use IntegrationTestTrait;
-	use TestTrait;
+	use TestTrait {
+		IntegrationTestTrait::isDebug insteadof TestTrait;
+	}
 
 	/**
 	 * Globally disabling error handler middleware to see the actual errors instead of cloaking.
