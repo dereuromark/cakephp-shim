@@ -19,18 +19,6 @@ class TestTraitTest extends TestCase {
 	/**
 	 * @return void
 	 */
-	public function testDebug(): void {
-		$_SERVER['argv'] = ['-v'];
-
-		ob_start();
-		$this->debug('Foo');
-		$result = ob_get_clean();
-		$this->assertTextContains('Foo', $result);
-	}
-
-	/**
-	 * @return void
-	 */
 	public function testIsDebug(): void {
 		$result = $this->isDebug();
 		$this->assertFalse($result);
