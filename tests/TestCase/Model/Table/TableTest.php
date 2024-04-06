@@ -25,7 +25,7 @@ class TableTest extends TestCase {
 	protected Table $Cars;
 
 	/**
-	 * @var array
+	 * @var array<string>
 	 */
 	protected array $fixtures = [
 		'plugin.Shim.Users',

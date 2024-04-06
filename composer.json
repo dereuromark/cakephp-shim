@@ -22,7 +22,7 @@
 	},
 	"require": {
 		"php": ">=8.1",
-		"cakephp/cakephp": "^5.0.0"
+		"cakephp/cakephp": "^5.0.7"
 	},
 	"require-dev": {
 		"dereuromark/cakephp-ide-helper": "^2.0.0",
