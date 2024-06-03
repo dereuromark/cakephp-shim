@@ -16,9 +16,6 @@ manually adjust all those.
 
 Also:
 - `Table::field()` support and `fieldByConditions()` alias to migrate to.
-- `Table::saveField()` support.
-- `Table::saveArray()` support.
-- `Table::existsById()` support for migrating from 2.x
 
 It auto-adds Timestamp behavior if `created` or `modified` field exists in table.
 To customize use `$this->createdField` or `$this->modifiedField` in your `initialize()` method
