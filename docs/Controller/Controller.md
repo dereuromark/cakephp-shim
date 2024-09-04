@@ -76,6 +76,7 @@ public function paginate(
             	$object = $object->find();
             }
             $object->$asKey($settings[$key]);
+            unset($settings[$key]);
         }
     }
 
