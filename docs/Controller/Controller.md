@@ -70,8 +70,11 @@ public function paginate(
         'conditions' => 'where',
         'contain' => 'contain',
     ];
-    foreacH ($blacklist as $key => $asKey) {
+    foreach ($blacklist as $key => $asKey) {
         if (!empty($settings[$key])) {
+            if ($object instanceof RepositoryInterface) {
+            	$object = $object->find();
+            }
             $object->$asKey($settings[$key]);
         }
     }
