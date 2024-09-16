@@ -3,7 +3,6 @@
 namespace Shim\Test\TestCase\TestSuite;
 
 use Cake\Core\Configure;
-use Cake\Routing\Router;
 use Shim\TestSuite\IntegrationTestCase;
 
 class IntegrationTestCaseTest extends IntegrationTestCase {
@@ -15,10 +14,6 @@ class IntegrationTestCaseTest extends IntegrationTestCase {
 		parent::setUp();
 
 		Configure::write('App.namespace', 'TestApp');
-
-		Router::reload();
-		$builder = Router::createRouteBuilder('/');
-		$builder->connect('/{controller}/{action}/*');
 	}
 
 	/**
