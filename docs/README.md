@@ -32,6 +32,9 @@ Controller
 - [Pagination RedirectOutOfBounds](Controller/RedirectOutOfBoundsTrait.md)
 - [Controller shims](Controller/Controller.md)
 
+Component
+- [RequestHandler](Component/RequestHandler.md)
+
 TestSuite
 - [Testing](TestSuite/Testing.md)
 

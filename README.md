@@ -28,6 +28,7 @@ Please see [Docs](docs/README.md).
 A full overview of all shimming between versions can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 
 ## New shims
+- RequestHandler component for continued easier View class switching across the app
 - LegacyModelAwareTrait for loadModel() shimming
 - former Cake\Filesystem\File and Cake\Filesystem\Folder classes
 - ModifiedTrait for entities and detecting actually changed fields (not just touched with same value)
