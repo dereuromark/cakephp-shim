@@ -1,5 +1,7 @@
 # RequestHandler component
 
+This component was dropped in v5. If you come from v4 and upgrade your app, this can be a 1:1 replacement to allow using the same code as before until further refactoring is possible.
+
 Load e.g. using
 ```php
 $options = ['viewClassMap' => ['rss' => 'Feed.Rss'], 'enableBeforeRedirect' => false];
