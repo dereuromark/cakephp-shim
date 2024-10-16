@@ -3,7 +3,7 @@
 Load e.g. using
 ```php
 $options = ['viewClassMap' => ['rss' => 'Feed.Rss'], 'enableBeforeRedirect' => false];
-$this->loadComponent('RequestHandler', $options);
+$this->loadComponent('Shim.RequestHandler', $options);
 ```
 
 ## Auto AJAX Layout switching
