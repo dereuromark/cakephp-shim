@@ -19,6 +19,8 @@ Especially the ORM layer, which would need heavy refactoring, requires a lot les
 
 This branch is for use with **CakePHP 5.0+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
+"0-dependency plugin": Apart from core this plugin has no other dependencies!
+
 ## Installation
 Please see [Install.md](docs/Install.md)
 
