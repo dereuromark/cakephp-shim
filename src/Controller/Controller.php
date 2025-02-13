@@ -36,13 +36,13 @@ class Controller extends CoreController {
 				}
 				$this->loadComponent($component, $config);
 			}
-			$this->components = null;
+			$this->components = [];
 		}
 
 		if (!empty($this->helpers)) {
 			$this->viewBuilder()->setHelpers($this->helpers);
 
-			$this->helpers = null;
+			$this->helpers = [];
 		}
 
 		parent::initialize();
