@@ -5,9 +5,10 @@ If you are looking into non-entity approaches, consider [DTOs](https://github.co
 
 ## Entity read()
 You want to read nested properties of your entity, but you do not want tons of !empty() checks?
+```php
+if ($entity->tags && !empty($entity->tags[2]->name)) {} else {}
 ```
-if (!empty($entity->tags && !empty($entity->tags[2]->name)) {} else {}
-```
+With modern PHP `?->` can already overcome some of it, but in some cases the read() approach is still better.
 
 Add the trait first:
 ```php
@@ -24,7 +25,37 @@ echo $entity->read('tags.2.name', $default);
 ```
 
 This means, you are OK with part of the path being empty/null.
-If you want the opposite, making sure all required fields in the path are present, check the next part about getOrFail().
+If you want the opposite, making sure all required fields in the path are present, check the next part(s).
+
+## Entity require()
+```php
+// in some service method at the beginning
+public function buildPdf(Product $product): string {
+    $product->require('supplier.company.state.country');
+
+    //Render template
+}
+```
+This allows you to define your required contains (relations) on the entity and otherwise results in a speaking and clear message.
+
+It avoids the usual kind of hidden and not speaking
+
+> warning: 2 :: Attempt to read property "sku" on null
+
+> deprecated: 8192 :: strlen(): Passing null to parameter #1 ($string) of type string is deprecated
+
+> warning: 2 :: foreach() argument must be of type array|object, null given
+
+etc then inside the business logic or rendering when certain relations are expected but not present.
+
+Add the trait and you are all set:
+```php
+use Shim\Model\Entity\RequireTrait;
+
+class MyEntity extends Entity {
+
+    use RequireTrait;
+```
 
 ## Entity get...OrFail()/set...OrFail()
 You want to use "asserted return/param values" or "safe chaining" in your entities?
