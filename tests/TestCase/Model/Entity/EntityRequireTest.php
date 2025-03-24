@@ -23,6 +23,28 @@ class EntityRequireTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testReadAssoc(): void {
+		$entity = new TestEntity();
+
+		$entity->tag = new Entity([
+			'name' => 'foo',
+			'country' => new Entity([
+				'name' => 'country',
+			]),
+		]);
+
+		$entity->require('tag.name');
+		$entity->require('tag.country');
+		$entity->require('tag.country.name');
+
+		$this->expectException(RuntimeException::class);
+
+		$entity->require('tag.country.name_not_exists');
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testReadDeep(): void {
 		$entity = new TestEntity();
 
@@ -35,8 +57,33 @@ class EntityRequireTest extends TestCase {
 		$entity->require('tags.2.name');
 
 		$this->expectException(RuntimeException::class);
+		$this->expectExceptionMessage(
+			'Require assertion failed for entity `' . TestEntity::class . '` and element `name_not_exists`: `tags.2.name_not_exists`',
+		);
 
 		$entity->require('tags.2.name_not_exists');
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testReadPathElementInException(): void {
+		$entity = new TestEntity();
+
+		$entity->tag = new Entity([
+			'name' => 'foo',
+			'state' => new Entity([
+				'name' => 'state',
+				'country_id' => null,
+			]),
+		]);
+
+		$this->expectException(RuntimeException::class);
+		$this->expectExceptionMessage(
+			'Require assertion failed for entity `' . TestEntity::class . '` and element `country`: `tag.state.country.name_not_exists`',
+		);
+
+		$entity->require('tag.state.country.name_not_exists');
 	}
 
 }

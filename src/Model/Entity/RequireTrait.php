@@ -2,6 +2,8 @@
 
 namespace Shim\Model\Entity;
 
+use ArrayAccess;
+use Cake\Datasource\EntityInterface;
 use RuntimeException;
 
 /**
@@ -32,13 +34,10 @@ trait RequireTrait {
 			$parts = $path;
 		}
 
-		$result = $this->read($path);
-
-		/*
 		$data = null;
 		$failed = null;
 		foreach ($parts as $key) {
-			if (!isset($this->$key)) {
+			if ($data === null && $this->$key === null) {
 				$failed = $key;
 
 				break;
@@ -55,24 +54,20 @@ trait RequireTrait {
 
 			if ((is_array($data) || $data instanceof ArrayAccess) && isset($data[$key])) {
 				$data = $data[$key];
-			} else {
-				$failed = $key;
 
-				break;
+				continue;
 			}
+
+			$failed = $key;
+
+			break;
 		}
 
 		if ($failed === null) {
 			return;
 		}
-		*/
 
-		if ($result !== null) {
-			return;
-		}
-
-		//throw new RuntimeException('Require assertion failed for entity `' . static::class . '` and element `' . $failed . '`: ' . implode(', ', $parts));
-		throw new RuntimeException('Require assertion failed for entity `' . static::class . '`: ' . implode(', ', $parts));
+		throw new RuntimeException('Require assertion failed for entity `' . static::class . '` and element `' . $failed . '`: `' . implode('.', $parts) . '`');
 	}
 
 }
