@@ -10,15 +10,10 @@ use PDO;
  * Experimental year type (MySQL)
  *
  * Needs:
- * - \Cake\Database\TypeFactory::map('year'), 'Shim\Database\Type\YearType'); in bootstrap
+ * - \Cake\Database\TypeFactory::map('year', 'Shim\Database\Type\YearType'); in bootstrap
  * - Manual FormHelper $this->Form->control('published', ['type' => 'year']);
  */
 class YearType extends BaseType {
-
-	/**
-	 * Date format for DateTime object
-	 */
-	protected string $_format = 'Y';
 
 	/**
 	 * Converts year data into the database format.
