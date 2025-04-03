@@ -113,7 +113,11 @@ update call.
 
 In some cases it can be useful to know what actually changed, e.g. for auditing and logging purposes.
 Here the `ModifiedTrait` comes into play.
+
+NOTE: Since CakePHP 5.2 isDirty() is now handling this the same, so this is only needed prior to that version.
+
 ```php
+// CakePHP 5.1 or 5.0
 $data = ['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'];
 $entity = new TestEntity(, ['markClean' => true, 'markNew' => false]);
 
@@ -127,7 +131,7 @@ $this->assertEquals($expected, $result);
 
 $result  = $entity->isDirty('foo');
 $this->assertTrue($result);
-$result  = $entity->isModified('foo');
+$result  = $entity->isModifiedValue('foo');
 $this->assertFalse($result);
 
 $result = $entity->getModifiedFields();

@@ -3,7 +3,7 @@
 namespace Shim\Model\Entity;
 
 /**
- * Trait to get actually changed entity properties.
+ * Trait to get actually changed entity properties. Only needed for < CakePHP 5.2.
  */
 trait ModifiedTrait {
 
@@ -15,7 +15,7 @@ trait ModifiedTrait {
 	 *
 	 * @return bool
 	 */
-	public function isModified(string $name, bool $nonStrictComparison = false): bool {
+	public function isModifiedValue(string $name, bool $nonStrictComparison = false): bool {
 		if (!$this->isDirty($name)) {
 			return false;
 		}
@@ -46,7 +46,7 @@ trait ModifiedTrait {
 
 		$touched = $this->getDirty();
 		foreach ($touched as $field) {
-			if (!$this->isModified($field, $nonStrictComparison)) {
+			if (!$this->isModifiedValue($field, $nonStrictComparison)) {
 				continue;
 			}
 
