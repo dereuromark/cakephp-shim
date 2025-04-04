@@ -19,7 +19,7 @@ class NumberHelper extends CakeNumberHelper {
 	 * - `locale` - The locale name to use for formatting the number, e.g. fr_FR
 	 * - `before` - The string to place before whole numbers, e.g. '['
 	 * - `after` - The string to place after decimal numbers, e.g. ']'
-	 * - `escape` - Whether to escape html in resulting string
+	 * - `escape` - Whether to escape HTML in resulting string
 	 * - `default` - The default value in case passed value is null
 	 *
 	 * @param string|float|int|null $number A floating point number.
@@ -53,7 +53,7 @@ class NumberHelper extends CakeNumberHelper {
 	 * - `pattern` - An ICU number pattern to use for formatting the number. e.g #,##0.00
 	 * - `useIntlCode` - Whether to replace the currency symbol with the international
 	 *   currency code.
-	 * - `escape` - Whether to escape html in resulting string
+	 * - `escape` - Whether to escape HTML in resulting string
 	 * - `default` - The default value in case passed value is null
 	 *
 	 * @param string|float|null $number Value to format.
