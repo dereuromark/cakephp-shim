@@ -16,7 +16,8 @@ use Cake\Routing\Router;
 use Cake\Utility\Inflector;
 
 /**
- * Community features
+ * Ported slimmed down version of the former CakePHP core component.
+ * Aims to be a drop-in replacement to shim the functionality for a while longer if needed.
  *
  * @method \App\Controller\AppController getController()
  */
