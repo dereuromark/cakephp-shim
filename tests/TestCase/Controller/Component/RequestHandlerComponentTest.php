@@ -364,10 +364,10 @@ class RequestHandlerComponentTest extends TestCase {
 	/**
 	 * Tests that the default extensions are using the default view.
 	 *
-	 * @dataProvider defaultExtensionsProvider
 	 * @param string $extension Extension to test.
 	 * @return void
 	 */
+	#[\PHPUnit\Framework\Attributes\DataProvider('defaultExtensionsProvider')]
 	public function testDefaultExtensions(string $extension): void {
 		Router::extensions([$extension], false);
 
@@ -387,10 +387,10 @@ class RequestHandlerComponentTest extends TestCase {
 	/**
 	 * Tests that the default extensions can be overwritten by the accept header.
 	 *
-	 * @dataProvider defaultExtensionsProvider
 	 * @param string $extension Extension to test.
 	 * @return void
 	 */
+	#[\PHPUnit\Framework\Attributes\DataProvider('defaultExtensionsProvider')]
 	public function testDefaultExtensionsOverwrittenByAcceptHeader(string $extension): void {
 		Router::extensions([$extension], false);
 

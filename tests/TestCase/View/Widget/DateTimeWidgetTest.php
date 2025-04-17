@@ -77,10 +77,10 @@ class DateTimeWidgetTest extends TestCase {
 	/**
 	 * test rendering selected values.
 	 *
-	 * @dataProvider invalidSelectedValuesProvider
 	 * @param mixed $selected
 	 * @return void
 	 */
+	#[\PHPUnit\Framework\Attributes\DataProvider('invalidSelectedValuesProvider')]
 	public function testRenderSelectedInvalid(mixed $selected): void {
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
 		$now = new DateTime();
@@ -159,10 +159,10 @@ class DateTimeWidgetTest extends TestCase {
 	/**
 	 * test rendering selected values.
 	 *
-	 * @dataProvider selectedValuesProvider
 	 * @param mixed $selected
 	 * @return void
 	 */
+	#[\PHPUnit\Framework\Attributes\DataProvider('selectedValuesProvider')]
 	public function testRenderSelected(mixed $selected): void {
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
 		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);

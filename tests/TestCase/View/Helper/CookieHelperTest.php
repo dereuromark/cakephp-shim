@@ -40,7 +40,7 @@ class CookieHelperTest extends TestCase {
 	public function testGetCookies(): void {
 		$this->request->expects($this->once())
 			->method('getCookieParams')
-			->will($this->returnValue(['one' => 1, 'two' => 2]));
+			->willReturn(['one' => 1, 'two' => 2]);
 
 		$this->assertSame(['one', 'two'], $this->Cookie->getCookies());
 	}
@@ -51,7 +51,7 @@ class CookieHelperTest extends TestCase {
 	public function testCheckFalse(): void {
 		$this->request->expects($this->once())
 			->method('getCookie')
-			->will($this->returnValue(null));
+			->willReturn(null);
 		$this->assertFalse($this->Cookie->check('Foo.key'));
 	}
 
@@ -61,7 +61,7 @@ class CookieHelperTest extends TestCase {
 	public function testCheckTrue(): void {
 		$this->request->expects($this->once())
 			->method('getCookie')
-			->will($this->returnValue('val'));
+			->willReturn('val');
 		$this->assertTrue($this->Cookie->check('Foo.key'));
 	}
 
@@ -73,7 +73,7 @@ class CookieHelperTest extends TestCase {
 	public function testRead(): void {
 		$this->request->expects($this->once())
 			->method('getCookie')
-			->will($this->returnValue('val'));
+			->willReturn('val');
 
 		$output = $this->Cookie->read('Foo.key');
 		$this->assertTextEquals('val', $output);

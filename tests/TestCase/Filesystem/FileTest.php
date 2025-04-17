@@ -135,14 +135,13 @@ class FileTest extends TestCase {
 	/**
 	 * Test _basename method
 	 *
-	 * @dataProvider baseNameValueProvider
 	 *
 	 * @param string $path
 	 * @param string|null $suffix
 	 * @param bool $isRoot
-	 *
 	 * @return void
 	 */
+	#[\PHPUnit\Framework\Attributes\DataProvider('baseNameValueProvider')]
 	public function testBasename(string $path, ?string $suffix, bool $isRoot): void {
 		if (!$isRoot) {
 			$path = TMP . 'tests/permissions' . $path;

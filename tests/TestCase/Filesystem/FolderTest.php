@@ -164,10 +164,10 @@ class FolderTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider inPathInvalidPathArgumentDataProvider
 	 * @param string $path
 	 * @return void
 	 */
+	#[\PHPUnit\Framework\Attributes\DataProvider('inPathInvalidPathArgumentDataProvider')]
 	public function testInPathInvalidPathArgument(string $path): void {
 		$this->expectException(InvalidArgumentException::class);
 		$this->expectExceptionMessage('The $path argument is expected to be an absolute path.');
