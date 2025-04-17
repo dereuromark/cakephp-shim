@@ -357,7 +357,7 @@ class RequestHandlerComponentTest extends TestCase {
 	/**
 	 * @return array
 	 */
-	public function defaultExtensionsProvider(): array {
+	public static function defaultExtensionsProvider(): array {
 		return [['html'], ['htm']];
 	}
 
