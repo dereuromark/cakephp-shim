@@ -27,7 +27,7 @@
 	"require-dev": {
 		"dereuromark/cakephp-ide-helper": "^2.0.0",
 		"fig-r/psr2r-sniffer": "dev-master",
-		"phpunit/phpunit": "^10.1"
+		"phpunit/phpunit": "^10.1 || ^11.5"
 	},
 	"minimum-stability": "stable",
 	"prefer-stable": true,
