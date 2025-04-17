@@ -10,10 +10,11 @@ use TestApp\Model\Entity\TestEntity;
 class EntityRequireTest extends TestCase {
 
 	/**
-	 * @doesNotPerformAssertions
 	 * @return void
 	 */
 	public function testRead(): void {
+		$this->expectNotToPerformAssertions();
+
 		$entity = new TestEntity();
 		$entity->foo_bar = 'Foo Bar';
 
