@@ -19,6 +19,8 @@ use InvalidArgumentException;
  * @property array|null $hasMany
  * @property array|null $hasAndBelongsToMany
  * @property array|null $validate
+ *
+ * @template TBehaviors of array<string, \Cake\ORM\Behavior> = array{}
  */
 class Table extends CoreTable {
 
