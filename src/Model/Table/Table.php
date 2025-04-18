@@ -332,7 +332,7 @@ class Table extends CoreTable {
 	): void {
 		$order = $query->clause('order');
 		if (($order === null || !count($order)) && !empty($this->order)) {
-			$query->order($this->order);
+			$query->orderBy($this->order);
 		}
 	}
 
