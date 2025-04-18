@@ -322,20 +322,18 @@ class Table extends CoreTable {
 	 * @param \Cake\ORM\Query\SelectQuery $query
 	 * @param \ArrayObject $options
 	 * @param bool $primary
-	 * @return \Cake\ORM\Query\SelectQuery
+	 * @return void
 	 */
 	public function beforeFind(
 		EventInterface $event,
 		SelectQuery $query,
 		ArrayObject $options,
 		bool $primary,
-	): SelectQuery {
+	): void {
 		$order = $query->clause('order');
 		if (($order === null || !count($order)) && !empty($this->order)) {
 			$query->order($this->order);
 		}
-
-		return $query;
 	}
 
 	/**
