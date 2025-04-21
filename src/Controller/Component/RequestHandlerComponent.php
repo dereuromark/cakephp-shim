@@ -261,7 +261,7 @@ class RequestHandlerComponent extends Component {
 	 *   The mapped value of CONTENT_TYPE will be returned. If an array is supplied the first type
 	 *   in the request content type will be returned.
 	 */
-	public function requestedWith($type = null): mixed {
+	public function requestedWith(array|string|null $type = null): mixed {
 		$controller = $this->getController();
 		$request = $controller->getRequest();
 
@@ -286,10 +286,6 @@ class RequestHandlerComponent extends Component {
 		[$contentType] = explode(';', $request->contentType() ?? '');
 		if ($type === null) {
 			return $controller->getResponse()->mapType($contentType);
-		}
-
-		if (!is_string($type)) {
-			return null;
 		}
 
 		return $type === $controller->getResponse()->mapType($contentType);

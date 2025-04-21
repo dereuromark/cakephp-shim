@@ -502,7 +502,7 @@ class Table extends CoreTable {
 		foreach ($this->order as $key => $value) {
 			if (is_numeric($key)) {
 				/**
-				 * @var string $key
+				 * @var numeric-string $key
 				 * @var string $value
 				 */
 				$this->order[$key] = $this->_prefixAlias($value);
