@@ -270,7 +270,7 @@ class Table extends CoreTable {
 	 */
 	public function record(mixed $id, array $options = []): mixed {
 		try {
-			return $this->get($id, $options);
+			return $this->get($id, ...$options);
 		} catch (RecordNotFoundException $e) {
 		}
 
@@ -305,7 +305,7 @@ class Table extends CoreTable {
 		$options += $customOptions;
 
 		/** @var \Cake\Datasource\EntityInterface|null $result */
-		$result = $this->find('all', $options)->first();
+		$result = $this->find('all', ...$options)->first();
 		if (!$result) {
 			return null;
 		}
