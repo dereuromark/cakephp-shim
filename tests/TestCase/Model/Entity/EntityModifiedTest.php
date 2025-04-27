@@ -13,7 +13,7 @@ class EntityModifiedTest extends TestCase {
 	 * @return void
 	 */
 	public function testGetModifiedFields(): void {
-		$this->skipIf(version_compare(Configure::version(), '5.2.0', '>='));
+		$this->skipIf(version_compare(Configure::version(), '5.2.0', '>='), 'Not needed anymore.');
 
 		$entity = new TestEntity(['foo' => 'foo', 'bar' => 'bar', 'baz' => 'baz'], ['markClean' => true, 'markNew' => false]);
 
@@ -65,7 +65,7 @@ class EntityModifiedTest extends TestCase {
 	 * @return void
 	 */
 	public function testGetModifiedFieldsNonStrict(): void {
-		$this->skipIf(version_compare(Configure::version(), '5.2.0', '>='));
+		$this->skipIf(version_compare(Configure::version(), '5.2.0', '>='), 'Not needed anymore.');
 
 		$entity = new TestEntity(['foo' => new Time(), 'bar' => 'bar', 'baz' => 'baz'], ['markClean' => true, 'markNew' => false]);
 
