@@ -67,9 +67,9 @@ class Controller extends CoreController {
 	 *
 	 * @param \Cake\Event\EventInterface $event An Event instance
 	 * @throws \Exception
-	 * @return \Cake\Http\Response|null
+	 * @return void
 	 */
-	public function afterFilter(EventInterface $event): ?Response {
+	public function afterFilter(EventInterface $event): void {
 		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && PHP_SAPI !== 'cli') {
 			if (headers_sent($filename, $lineNumber)) {
 				$message = sprintf('Headers already sent in %s on line %s', $filename, $lineNumber);
@@ -79,8 +79,6 @@ class Controller extends CoreController {
 				trigger_error($message);
 			}
 		}
-
-		return null;
 	}
 
 	/**
