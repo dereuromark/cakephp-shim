@@ -8,7 +8,6 @@ use Cake\Datasource\Paging\PaginatedInterface;
 use Cake\Datasource\QueryInterface;
 use Cake\Datasource\RepositoryInterface;
 use Cake\Event\EventInterface;
-use Cake\Http\Response;
 use Exception;
 
 /**
