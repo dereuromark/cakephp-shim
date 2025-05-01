@@ -53,14 +53,14 @@ $cache = [
 	],
 	'_cake_translations_' => [
 		'className' => 'File',
-		'prefix' => 'crud_myapp_cake_translations_',
+		'prefix' => 'myapp_cake_translations_',
 		'path' => CACHE . 'persistent/',
 		'serialize' => true,
 		'duration' => '+10 seconds',
 	],
 	'_cake_model_' => [
 		'className' => 'File',
-		'prefix' => 'crud_my_app_cake_model_',
+		'prefix' => 'myapp_cake_model_',
 		'path' => CACHE . 'models/',
 		'serialize' => 'File',
 		'duration' => '+10 seconds',
