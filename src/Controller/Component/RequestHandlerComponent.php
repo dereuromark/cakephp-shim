@@ -198,6 +198,7 @@ class RequestHandlerComponent extends Component {
 		if ($this->_config['checkHttpCache'] && $response->isNotModified($request)) {
 			$response = $response->withNotModified();
 			$event->stopPropagation();
+			$event->setResult($response);
 		}
 
 		$controller->setResponse($response);

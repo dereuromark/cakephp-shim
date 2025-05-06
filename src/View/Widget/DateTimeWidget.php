@@ -1,41 +1,48 @@
 <?php
 declare(strict_types = 1);
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link https://cakephp.org CakePHP(tm) Project
- * @since 3.0.0
- * @license https://opensource.org/licenses/mit-license.php MIT License
- */
 
 namespace Shim\View\Widget;
 
+use Cake\Core\Configure;
 use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
+use Cake\View\Widget\BasicWidget;
 use Cake\View\Widget\SelectBoxWidget;
-use Cake\View\Widget\WidgetInterface;
 use DateTime;
+use DateTimeZone;
 use Exception;
 use RuntimeException;
 
 /**
  * Input widget class for generating a date time input widget.
  *
- * This class is intended as an internal implementation detail
- * of Cake\View\Helper\FormHelper and is not intended for direct use.
+ * This class is building dropdowns that can be enhanced using a JS calendar.
  */
-class DateTimeWidget implements WidgetInterface {
+class DateTimeWidget extends BasicWidget {
 
 	/**
 	 * Select box widget.
 	 */
 	protected SelectBoxWidget $_select;
+
+	/**
+	 * @var array<string, mixed>
+	 */
+	protected array $defaults = [
+		'name' => '',
+		'empty' => false,
+		'disabled' => null,
+		'val' => null,
+		'year' => [],
+		'month' => [],
+		'day' => [],
+		'hour' => [],
+		'minute' => [],
+		'second' => [],
+		'meridian' => null,
+		'templateVars' => [],
+		'timezone' => null,
+	];
 
 	/**
 	 * List of inputs that can be rendered
@@ -190,20 +197,10 @@ class DateTimeWidget implements WidgetInterface {
 	 * @return array<string, mixed> Normalized data.
 	 */
 	protected function _normalizeData(array $data): array {
-		$data += [
-			'name' => '',
-			'empty' => false,
-			'disabled' => null,
-			'val' => null,
-			'year' => [],
-			'month' => [],
-			'day' => [],
-			'hour' => [],
-			'minute' => [],
-			'second' => [],
-			'meridian' => null,
-			'templateVars' => [],
-		];
+		$data += $this->defaults;
+		if ($data['timezone'] === null) {
+			$data['timezone'] = Configure::read('App.defaultOutputTimezone');
+		}
 
 		$timeFormat = $data['hour']['format'] ?? null;
 		if ($timeFormat === 12 && !isset($data['meridian'])) {
@@ -246,11 +243,11 @@ class DateTimeWidget implements WidgetInterface {
 		}
 		try {
 			if (is_string($value) && !is_numeric($value)) {
-				$date = new DateTime($value);
+				$dateTime = new DateTime($value);
 			} elseif (is_bool($value)) {
-				$date = new DateTime();
+				$dateTime = new DateTime();
 			} elseif (is_int($value) || is_numeric($value)) {
-				$date = new DateTime('@' . $value);
+				$dateTime = new DateTime('@' . $value);
 			} elseif (is_array($value)) {
 				$dateArray = [
 					'year' => '', 'month' => '', 'day' => '',
@@ -286,28 +283,37 @@ class DateTimeWidget implements WidgetInterface {
 					return $dateArray;
 				}
 
-				$date = new DateTime();
+				$dateTime = new DateTime();
 			} else {
 				/** @var \DateTime $value */
-				$date = clone $value;
+				$dateTime = clone $value;
 			}
 		} catch (Exception $e) {
-			$date = new DateTime();
+			$dateTime = new DateTime();
 		}
 
 		if (isset($options['minute']['interval'])) {
-			$change = $this->_adjustValue((int)$date->format('i'), $options['minute']);
-			$date->modify($change > 0 ? "+$change minutes" : "$change minutes");
+			$change = $this->_adjustValue((int)$dateTime->format('i'), $options['minute']);
+			$dateTime->modify($change > 0 ? "+$change minutes" : "$change minutes");
+		}
+
+		if (isset($options['timezone'])) {
+			$timezone = $options['timezone'];
+			if (!$timezone instanceof DateTimeZone) {
+				$timezone = new DateTimeZone($timezone);
+			}
+
+			$dateTime = $dateTime->setTimezone($timezone);
 		}
 
 		return [
-			'year' => $date->format('Y'),
-			'month' => $date->format('m'),
-			'day' => $date->format('d'),
-			'hour' => $date->format('H'),
-			'minute' => $date->format('i'),
-			'second' => $date->format('s'),
-			'meridian' => $date->format('a'),
+			'year' => $dateTime->format('Y'),
+			'month' => $dateTime->format('m'),
+			'day' => $dateTime->format('d'),
+			'hour' => $dateTime->format('H'),
+			'minute' => $dateTime->format('i'),
+			'second' => $dateTime->format('s'),
+			'meridian' => $dateTime->format('a'),
 		];
 	}
 
@@ -325,11 +331,11 @@ class DateTimeWidget implements WidgetInterface {
 			case 'up':
 				$changeValue = ceil($changeValue);
 
-	            break;
+				break;
 			case 'down':
 				$changeValue = floor($changeValue);
 
-	            break;
+				break;
 			default:
 				$changeValue = round($changeValue);
 		}
