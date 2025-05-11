@@ -230,7 +230,7 @@ class DateTimeWidget extends BasicWidget {
 	/**
 	 * Deconstructs the passed date value into all time units
 	 *
-	 * @param \DateTime|array|string|int|bool|null $value Value to deconstruct.
+	 * @param \DateTimeInterface|\Cake\Chronos\ChronosDate|array|string|int|bool|null $value Value to deconstruct.
 	 * @param array<string, mixed> $options Options for conversion.
 	 * @return array<string, string>
 	 */
@@ -286,19 +286,19 @@ class DateTimeWidget extends BasicWidget {
 
 				$dateTime = new DateTime();
 			} else {
-				/** @var \DateTime $value */
+				/** @var \DateTimeInterface|\Cake\Chronos\ChronosDate $value */
 				$dateTime = clone $value;
 			}
 		} catch (Exception $e) {
 			$dateTime = new DateTime();
 		}
 
-		if (isset($options['minute']['interval'])) {
+		if (isset($options['minute']['interval']) && $dateTime instanceof DateTime) {
 			$change = $this->_adjustValue((int)$dateTime->format('i'), $options['minute']);
-			$dateTime->modify($change > 0 ? "+$change minutes" : "$change minutes");
+			$dateTime = $dateTime->modify($change > 0 ? "+$change minutes" : "$change minutes");
 		}
 
-		if (isset($options['timezone']) && $dateTime instanceof DateTimeInterface) {
+		if (isset($options['timezone']) && $dateTime instanceof DateTime) {
 			$timezone = $options['timezone'];
 			if (!$timezone instanceof DateTimeZone) {
 				$timezone = new DateTimeZone($timezone);

@@ -67,7 +67,7 @@ class NullableBehavior extends Behavior {
 		}
 
 		foreach ($data as $key => $value) {
-			if (array_key_exists($key, $associations) && is_iterable($data[$key])) {
+			if (array_key_exists($key, $associations)) {
 				$data[$key] = $data[$key] === null ? null : $this->_processArray($data[$key], $table->getAssociation($associations[$key])->getTarget());
 
 				continue;
