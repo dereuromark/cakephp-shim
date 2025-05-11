@@ -654,4 +654,39 @@ class DateTimeWidget extends BasicWidget {
 		return $fields;
 	}
 
+	/**
+	 * @param array<string, mixed> $dateTime
+	 * @return string|null
+	 */
+	public static function constructDate(array $dateTime): ?string {
+		$dateTime += [
+			'year' => null, 'month' => null, 'day' => null,
+			'hour' => 0, 'minute' => 0, 'second' => 0,
+		];
+		if (
+			!is_numeric($dateTime['year']) || !is_numeric($dateTime['month']) || !is_numeric($dateTime['day']) ||
+			!is_numeric($dateTime['hour']) || !is_numeric($dateTime['minute']) || !is_numeric($dateTime['second'])
+		) {
+			return null;
+		}
+
+		if (isset($dateTime['meridian']) && (int)$dateTime['hour'] === 12) {
+			$dateTime['hour'] = 0;
+		}
+		if (isset($dateTime['meridian'])) {
+			$dateTime['hour'] = strtolower($dateTime['meridian']) === 'am' ? $dateTime['hour'] : $dateTime['hour'] + 12;
+		}
+		$format = sprintf(
+			'%d-%02d-%02d %02d:%02d:%02d',
+			$dateTime['year'],
+			$dateTime['month'],
+			$dateTime['day'],
+			$dateTime['hour'],
+			$dateTime['minute'],
+			$dateTime['second'],
+		);
+
+		return $format;
+	}
+
 }

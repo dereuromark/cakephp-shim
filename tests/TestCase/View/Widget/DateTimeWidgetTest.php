@@ -1272,4 +1272,15 @@ class DateTimeWidgetTest extends TestCase {
 		$this->assertEquals($expected, $result);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testConstructDate(): void {
+		$result = DateTimeWidget::constructDate(['year' => '2025', 'month' => '12', 'day' => '01']);
+		$this->assertSame('2025-12-01 00:00:00', $result);
+
+		$result = DateTimeWidget::constructDate(['year' => 2025, 'month' => 2, 'day' => 1]);
+		$this->assertSame('2025-02-01 00:00:00', $result);
+	}
+
 }
