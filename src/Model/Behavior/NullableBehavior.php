@@ -8,6 +8,7 @@ use Cake\Event\EventInterface;
 use Cake\ORM\Behavior;
 use Cake\ORM\Table;
 use Cake\Utility\Hash;
+use RuntimeException;
 
 /**
  * A behavior to assert data consistency regarding empty values.
@@ -68,7 +69,12 @@ class NullableBehavior extends Behavior {
 
 		foreach ($data as $key => $value) {
 			if (array_key_exists($key, $associations)) {
-				$data[$key] = $data[$key] === null ? null : $this->_processArray($data[$key], $table->getAssociation($associations[$key])->getTarget());
+				$nested = $data[$key];
+				if ($nested !== null && !is_array($data[$key]) && !$data[$key] instanceof ArrayObject) {
+					throw new RuntimeException(gettype($data[$key]) . ' detected for ' . $key . ' assoc, expected array|ArrayObject');
+				}
+
+				$data[$key] = $nested === null ? null : $this->_processArray($nested, $table->getAssociation($associations[$key])->getTarget());
 
 				continue;
 			}
