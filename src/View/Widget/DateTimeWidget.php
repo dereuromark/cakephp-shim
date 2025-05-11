@@ -9,6 +9,7 @@ use Cake\View\StringTemplate;
 use Cake\View\Widget\BasicWidget;
 use Cake\View\Widget\SelectBoxWidget;
 use DateTime;
+use DateTimeInterface;
 use DateTimeZone;
 use Exception;
 use RuntimeException;
@@ -297,7 +298,7 @@ class DateTimeWidget extends BasicWidget {
 			$dateTime->modify($change > 0 ? "+$change minutes" : "$change minutes");
 		}
 
-		if (isset($options['timezone'])) {
+		if (isset($options['timezone']) && $dateTime instanceof DateTimeInterface) {
 			$timezone = $options['timezone'];
 			if (!$timezone instanceof DateTimeZone) {
 				$timezone = new DateTimeZone($timezone);
