@@ -295,7 +295,11 @@ class DateTimeWidget extends BasicWidget {
 
 		if (isset($options['minute']['interval']) && $dateTime instanceof DateTime) {
 			$change = $this->_adjustValue((int)$dateTime->format('i'), $options['minute']);
+			/** @var \Cake\I18n\DateTime|false $dateTime */
 			$dateTime = $dateTime->modify($change > 0 ? "+$change minutes" : "$change minutes");
+			if ($dateTime === false) {
+				throw new RuntimeException('Cannot modify dateTime');
+			}
 		}
 
 		if (isset($options['timezone']) && $dateTime instanceof DateTime) {
