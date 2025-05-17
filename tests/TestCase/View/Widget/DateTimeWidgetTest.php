@@ -16,11 +16,11 @@ declare(strict_types = 1);
 
 namespace Shim\Test\TestCase\View\Widget;
 
+use Cake\I18n\DateTime;
 use Cake\TestSuite\TestCase;
 use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
 use Cake\View\Widget\SelectBoxWidget;
-use DateTime;
 use PHPUnit\Framework\MockObject\MockObject;
 use Shim\View\Widget\DateTimeWidget;
 
