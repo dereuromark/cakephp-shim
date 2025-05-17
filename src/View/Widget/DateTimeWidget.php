@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace Shim\View\Widget;
 
+use Cake\Chronos\Chronos;
 use Cake\Core\Configure;
 use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
@@ -292,16 +293,13 @@ class DateTimeWidget extends BasicWidget {
 			$dateTime = new DateTime();
 		}
 
-		if (isset($options['minute']['interval']) && $dateTime instanceof DateTime) {
+		if (isset($options['minute']['interval']) && $dateTime instanceof Chronos) {
+			/** @var \Cake\I18n\DateTime $dateTime */
 			$change = $this->_adjustValue((int)$dateTime->format('i'), $options['minute']);
-			/** @var \Cake\I18n\DateTime|false $dateTime */
 			$dateTime = $dateTime->modify($change > 0 ? "+$change minutes" : "$change minutes");
-			if ($dateTime === false) {
-				throw new RuntimeException('Cannot modify dateTime');
-			}
 		}
 
-		if (isset($options['timezone']) && $dateTime instanceof DateTime) {
+		if (isset($options['timezone']) && $dateTime instanceof Chronos) {
 			$timezone = $options['timezone'];
 			if (!$timezone instanceof DateTimeZone) {
 				$timezone = new DateTimeZone($timezone);
