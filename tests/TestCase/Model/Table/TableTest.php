@@ -413,4 +413,18 @@ class TableTest extends TestCase {
 		$this->Wheels->save($wheel, ['strict' => true]);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testFindList(): void {
+		$result = $this->Posts->find('list', fields: ['title', 'body'])->toArray();
+		$expected = [
+			'First Post' => 'First Post Body',
+			'Second Post' => 'Second Post Body',
+			'Third Post' => 'Third Post Body',
+
+		];
+		$this->assertEquals($expected, $result);
+	}
+
 }
