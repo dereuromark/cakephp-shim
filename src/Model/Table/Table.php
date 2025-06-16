@@ -327,6 +327,8 @@ class Table extends CoreTable {
 		if ($keyField === null && $valueField === null && count($fields) === 2) {
 			$keyField = array_shift($fields);
 			$valueField = array_shift($fields);
+		} elseif ($keyField === null && $valueField === null && count($fields) === 1) {
+			$valueField = array_shift($fields);
 		}
 
 		return parent::findList($query, $keyField, $valueField, $groupField, $valueSeparator);

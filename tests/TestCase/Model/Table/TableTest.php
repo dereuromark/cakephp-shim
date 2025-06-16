@@ -422,7 +422,19 @@ class TableTest extends TestCase {
 			'First Post' => 'First Post Body',
 			'Second Post' => 'Second Post Body',
 			'Third Post' => 'Third Post Body',
+		];
+		$this->assertEquals($expected, $result);
+	}
 
+	/**
+	 * @return void
+	 */
+	public function testFindListSingleField(): void {
+		$result = $this->Posts->find('list', fields: ['id'])->toArray();
+		$expected = [
+			1 => 1,
+			2 => 2,
+			3 => 3,
 		];
 		$this->assertEquals($expected, $result);
 	}
