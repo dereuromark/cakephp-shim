@@ -413,4 +413,62 @@ class TableTest extends TestCase {
 		$this->Wheels->save($wheel, ['strict' => true]);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testFindList(): void {
+		$result = $this->Posts->find('list', fields: ['title', 'body'])->toArray();
+		$expected = [
+			'First Post' => 'First Post Body',
+			'Second Post' => 'Second Post Body',
+			'Third Post' => 'Third Post Body',
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFindListSingleField(): void {
+		$result = $this->Posts->find('list', fields: ['id'])->toArray();
+		$expected = [
+			1 => 'Y',
+			2 => 'Y',
+			3 => 'Y',
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFindListWithPrefixedFields(): void {
+		$query = $this->Posts->find()
+			->select(['Posts.id', 'Posts.published']);
+
+		$result = $query->find('list')->toArray();
+		$expected = [
+			1 => 1,
+			2 => 2,
+			3 => 3,
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFindListWithPrefixedRelatedFields(): void {
+		$query = $this->Posts->find()
+			->contain(['Authors'])
+			->select(['Authors.id', 'Authors.name']);
+
+		$result = $query->find('list')->toArray();
+		$expected = [
+			1 => 'mariano',
+			3 => 'larry',
+		];
+		$this->assertEquals($expected, $result);
+	}
+
 }

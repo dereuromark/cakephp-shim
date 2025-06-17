@@ -10,6 +10,7 @@ use Cake\ORM\Query\SelectQuery;
 use Cake\ORM\Table as CoreTable;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
+use Closure;
 use Exception;
 use InvalidArgumentException;
 
@@ -311,6 +312,48 @@ class Table extends CoreTable {
 		}
 
 		return $result->get($name);
+	}
+
+	/**
+	 * @param \Cake\ORM\Query\SelectQuery $query
+	 * @param \Closure|array|string|null $keyField
+	 * @param \Closure|array|string|null $valueField
+	 * @param \Closure|array|string|null $groupField
+	 * @param string $valueSeparator
+	 * @return \Cake\ORM\Query\SelectQuery
+	 */
+	public function findList(SelectQuery $query, array|string|Closure|null $keyField = null, array|string|Closure|null $valueField = null, array|string|Closure|null $groupField = null, string $valueSeparator = ' '): SelectQuery {
+		$fields = $query->clause('select');
+
+		if ($keyField === null && $valueField === null && count($fields) === 2) {
+			$keyField = array_shift($fields);
+			$valueField = array_shift($fields);
+			if (str_contains($keyField, '.')) {
+				$dotPos = (int)strpos($keyField, '.');
+				if (substr($keyField, 0, $dotPos) === $this->getAlias()) {
+					$keyField = substr($keyField, $dotPos + 1);
+				} else {
+					$modelAlias = substr($keyField, 0, $dotPos);
+					$property = $this->{$modelAlias}->getProperty();
+					$keyField = $property . '.' . substr($keyField, $dotPos + 1);
+				}
+			}
+			if (str_contains($valueField, '.')) {
+				$dotPos = (int)strpos($valueField, '.');
+				if (substr($valueField, 0, $dotPos) === $this->getAlias()) {
+					$valueField = substr($valueField, $dotPos + 1);
+				} else {
+					$modelAlias = substr($valueField, 0, $dotPos);
+					$property = $this->{$modelAlias}->getProperty();
+					$valueField = $property . '.' . substr($valueField, $dotPos + 1);
+				}
+			}
+
+		} elseif ($keyField === null && $valueField === null && count($fields) === 1) {
+			$valueField = array_shift($fields);
+		}
+
+		return parent::findList($query, $keyField, $valueField, $groupField, $valueSeparator);
 	}
 
 	/**
