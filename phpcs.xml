@@ -8,6 +8,7 @@
     <file>tests/</file>
 
 	<exclude-pattern>/tests/test_app/templates/</exclude-pattern>
+	<exclude-pattern>/tests/test_files/</exclude-pattern>
 
 	<rule ref="PSR2R"/>
 
