@@ -328,7 +328,9 @@ class Table extends CoreTable {
 		if ($keyField === null && $valueField === null && count($fields) === 2) {
 			$keyField = array_shift($fields);
 			$valueField = array_shift($fields);
-			if (str_contains($keyField, '.')) {
+			if (substr_count($keyField, '.') > 1) {
+				$keyField = null;
+			} elseif (str_contains($keyField, '.')) {
 				$dotPos = (int)strpos($keyField, '.');
 				if (substr($keyField, 0, $dotPos) === $this->getAlias()) {
 					$keyField = substr($keyField, $dotPos + 1);
@@ -338,7 +340,9 @@ class Table extends CoreTable {
 					$keyField = $property . '.' . substr($keyField, $dotPos + 1);
 				}
 			}
-			if (str_contains($valueField, '.')) {
+			if (substr_count($valueField, '.') > 1) {
+				$valueField = null;
+			} elseif (str_contains($valueField, '.')) {
 				$dotPos = (int)strpos($valueField, '.');
 				if (substr($valueField, 0, $dotPos) === $this->getAlias()) {
 					$valueField = substr($valueField, $dotPos + 1);
@@ -350,7 +354,23 @@ class Table extends CoreTable {
 			}
 
 		} elseif ($keyField === null && $valueField === null && count($fields) === 1) {
-			$valueField = array_shift($fields);
+			$field = array_shift($fields);
+			if (substr_count($field, '.') > 1) {
+				$field = null;
+			} elseif (str_contains($field, '.')) {
+				$dotPos = (int)strpos($field, '.');
+				if (substr($field, 0, $dotPos) === $this->getAlias()) {
+					$field = substr($field, $dotPos + 1);
+				} else {
+					$modelAlias = substr($field, 0, $dotPos);
+					$property = $this->{$modelAlias}->getProperty();
+					$field = $property . '.' . substr($field, $dotPos + 1);
+				}
+			}
+			if ($field !== null) {
+				$keyField = $field;
+				$valueField = $field;
+			}
 		}
 
 		return parent::findList($query, $keyField, $valueField, $groupField, $valueSeparator);

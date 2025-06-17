@@ -432,9 +432,9 @@ class TableTest extends TestCase {
 	public function testFindListSingleField(): void {
 		$result = $this->Posts->find('list', fields: ['id'])->toArray();
 		$expected = [
-			1 => 'Y',
-			2 => 'Y',
-			3 => 'Y',
+			1 => 1,
+			2 => 2,
+			3 => 3,
 		];
 		$this->assertEquals($expected, $result);
 	}
@@ -448,9 +448,9 @@ class TableTest extends TestCase {
 
 		$result = $query->find('list')->toArray();
 		$expected = [
-			1 => 1,
-			2 => 2,
-			3 => 3,
+			1 => 'Y',
+			2 => 'Y',
+			3 => 'Y',
 		];
 		$this->assertEquals($expected, $result);
 	}
@@ -467,6 +467,22 @@ class TableTest extends TestCase {
 		$expected = [
 			1 => 'mariano',
 			3 => 'larry',
+		];
+		$this->assertEquals($expected, $result);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testFindSingleListWithPrefixedRelatedFields(): void {
+		$query = $this->Posts->find()
+			->contain(['Authors'])
+			->select(['Authors.name']);
+
+		$result = $query->find('list')->toArray();
+		$expected = [
+			'mariano' => 'mariano',
+			'larry' => 'larry',
 		];
 		$this->assertEquals($expected, $result);
 	}
