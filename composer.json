@@ -26,7 +26,6 @@
 	},
 	"require-dev": {
 		"dereuromark/cakephp-ide-helper": "^2.0.0",
-		"nikic/php-parser": "^5.5.0",
 		"fig-r/psr2r-sniffer": "dev-master",
 		"phpunit/phpunit": "^10.5 || ^11.5 || ^12.1"
 	},
