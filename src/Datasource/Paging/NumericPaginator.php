@@ -21,6 +21,7 @@ class NumericPaginator extends CoreNumericPaginator {
 		$this->_defaultConfig['contain'] = null;
 		$this->_defaultConfig['conditions'] = null;
 		$this->_defaultConfig['fields'] = null;
+		$this->_defaultConfig['join'] = null;
 
 		return parent::getDefaults($alias, $settings);
 	}
@@ -41,6 +42,14 @@ class NumericPaginator extends CoreNumericPaginator {
 
 		unset($data['options']['contain']);
 		unset($data['defaults']['contain']);
+
+		$join = null;
+		if (!empty($data['options']['join'])) {
+			$join = $data['options']['join'];
+		}
+
+		unset($data['options']['join']);
+		unset($data['defaults']['join']);
 
 		$fields = null;
 		if (!empty($data['options']['fields'])) {
@@ -72,6 +81,11 @@ class NumericPaginator extends CoreNumericPaginator {
 		if ($conditions) {
 			/** @var \Cake\ORM\Query\SelectQuery $query */
 			$query->where($conditions);
+		}
+
+		if ($join) {
+			/** @var \Cake\ORM\Query\SelectQuery $query */
+			$query->join($join);
 		}
 
 		return $query;
