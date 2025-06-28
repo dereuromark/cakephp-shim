@@ -22,6 +22,7 @@ class NumericPaginator extends CoreNumericPaginator {
 		$this->_defaultConfig['conditions'] = null;
 		$this->_defaultConfig['fields'] = null;
 		$this->_defaultConfig['join'] = null;
+		$this->_defaultConfig['group'] = null;
 
 		return parent::getDefaults($alias, $settings);
 	}
@@ -39,7 +40,6 @@ class NumericPaginator extends CoreNumericPaginator {
 		if (!empty($data['options']['contain'])) {
 			$contain = $data['options']['contain'];
 		}
-
 		unset($data['options']['contain']);
 		unset($data['defaults']['contain']);
 
@@ -47,7 +47,6 @@ class NumericPaginator extends CoreNumericPaginator {
 		if (!empty($data['options']['join'])) {
 			$join = $data['options']['join'];
 		}
-
 		unset($data['options']['join']);
 		unset($data['defaults']['join']);
 
@@ -55,7 +54,6 @@ class NumericPaginator extends CoreNumericPaginator {
 		if (!empty($data['options']['fields'])) {
 			$fields = $data['options']['fields'];
 		}
-
 		unset($data['options']['fields']);
 		unset($data['defaults']['fields']);
 
@@ -63,9 +61,15 @@ class NumericPaginator extends CoreNumericPaginator {
 		if (!empty($data['options']['conditions'])) {
 			$conditions = $data['options']['conditions'];
 		}
-
 		unset($data['options']['conditions']);
 		unset($data['defaults']['conditions']);
+
+		$group = null;
+		if (!empty($data['options']['group'])) {
+			$group = $data['options']['group'];
+		}
+		unset($data['options']['group']);
+		unset($data['defaults']['group']);
 
 		$query = parent::getQuery($object, $query, $data);
 		if ($contain) {
@@ -86,6 +90,11 @@ class NumericPaginator extends CoreNumericPaginator {
 		if ($join) {
 			/** @var \Cake\ORM\Query\SelectQuery $query */
 			$query->join($join);
+		}
+
+		if ($group) {
+			/** @var \Cake\ORM\Query\SelectQuery $query */
+			$query->groupBy($group);
 		}
 
 		return $query;
