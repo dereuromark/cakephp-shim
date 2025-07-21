@@ -176,7 +176,7 @@ class DateTimeWidget extends BasicWidget {
 			}
 			if (isset($data['class']) && !empty($data[$select]['class'])) {
 				/** @var array<string, array<string>> $classes */
-				$classes = $this->_templates->addClass($data[$select]['class'], $data['class']);
+				$classes = $this->_templates->addClass($data[$select]['class'], (array)$data['class']);
 				$data[$select]['class'] = $classes['class'];
 			} elseif (isset($data['class'])) {
 				$data[$select]['class'] = $data['class'];
