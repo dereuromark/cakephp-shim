@@ -237,8 +237,12 @@ class DateTimeWidget extends BasicWidget {
 	protected function _deconstructDate($value, array $options): array {
 		if ($value === '' || $value === null) {
 			return [
-				'year' => '', 'month' => '', 'day' => '',
-				'hour' => '', 'minute' => '', 'second' => '',
+				'year' => '',
+				'month' => '',
+				'day' => '',
+				'hour' => '',
+				'minute' => '',
+				'second' => '',
 				'meridian' => '',
 			];
 		}
@@ -251,8 +255,12 @@ class DateTimeWidget extends BasicWidget {
 				$dateTime = new DateTime('@' . $value);
 			} elseif (is_array($value)) {
 				$dateArray = [
-					'year' => '', 'month' => '', 'day' => '',
-					'hour' => '', 'minute' => '', 'second' => '',
+					'year' => '',
+					'month' => '',
+					'day' => '',
+					'hour' => '',
+					'minute' => '',
+					'second' => '',
 					'meridian' => '',
 				];
 				$validDate = false;
@@ -661,8 +669,12 @@ class DateTimeWidget extends BasicWidget {
 	 */
 	public static function constructDate(array $dateTime): ?string {
 		$dateTime += [
-			'year' => null, 'month' => null, 'day' => null,
-			'hour' => 0, 'minute' => 0, 'second' => 0,
+			'year' => null,
+			'month' => null,
+			'day' => null,
+			'hour' => 0,
+			'minute' => 0,
+			'second' => 0,
 		];
 		if (
 			!is_numeric($dateTime['year']) || !is_numeric($dateTime['month']) || !is_numeric($dateTime['day']) ||

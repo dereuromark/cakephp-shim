@@ -68,9 +68,11 @@ class DateTimeWidgetTest extends TestCase {
 			'false' => [false],
 			'true' => [true],
 			'string' => ['Bag of poop'],
-			'array' => [[
-				'derp' => 'hurt',
-			]],
+			'array' => [
+				[
+					'derp' => 'hurt',
+				],
+			],
 		];
 	}
 
@@ -149,10 +151,16 @@ class DateTimeWidgetTest extends TestCase {
 			'string' => [$date->format('Y-m-d H:i:s')],
 			'int string' => [$date->format('U')],
 			'int' => [$date->getTimestamp()],
-			'array' => [[
-				'year' => '2014', 'month' => '01', 'day' => '20',
-				'hour' => '12', 'minute' => '30', 'second' => '45',
-			]],
+			'array' => [
+				[
+					'year' => '2014',
+					'month' => '01',
+					'day' => '20',
+					'hour' => '12',
+					'minute' => '30',
+					'second' => '45',
+				],
+			],
 		];
 	}
 
@@ -182,8 +190,12 @@ class DateTimeWidgetTest extends TestCase {
 	 */
 	public function testRenderInvalidDate(): void {
 		$selected = [
-			'year' => '2014', 'month' => '02', 'day' => '31',
-			'hour' => '12', 'minute' => '30', 'second' => '45',
+			'year' => '2014',
+			'month' => '02',
+			'day' => '31',
+			'hour' => '12',
+			'minute' => '30',
+			'second' => '45',
 		];
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
 		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);
@@ -205,8 +217,11 @@ class DateTimeWidgetTest extends TestCase {
 	 */
 	public function testRenderSelectedNoSeconds(): void {
 		$selected = [
-			'year' => '2014', 'month' => '01', 'day' => '20',
-			'hour' => '12', 'minute' => '30',
+			'year' => '2014',
+			'month' => '01',
+			'day' => '20',
+			'hour' => '12',
+			'minute' => '30',
 		];
 		$result = $this->DateTime->render(['name' => 'created', 'val' => $selected], $this->context);
 		$this->assertStringContainsString('name="created[year]"', $result);
@@ -230,8 +245,12 @@ class DateTimeWidgetTest extends TestCase {
 	 */
 	public function testRenderSelectedMeridian(): void {
 		$selected = [
-			'year' => '2014', 'month' => '01', 'day' => '20',
-			'hour' => '7', 'minute' => '30', 'meridian' => 'pm',
+			'year' => '2014',
+			'month' => '01',
+			'day' => '20',
+			'hour' => '7',
+			'minute' => '30',
+			'meridian' => 'pm',
 		];
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
 		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);

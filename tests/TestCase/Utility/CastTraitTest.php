@@ -14,7 +14,7 @@ class CastTraitTest extends TestCase {
 	 */
 	public function testAssertString(): void {
 		$result = $this->assertString(null);
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertString('');
 		$this->assertSame('', $result);
@@ -48,10 +48,10 @@ class CastTraitTest extends TestCase {
 	 */
 	public function testAssertInt(): void {
 		$result = $this->assertInt(null);
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertInt('');
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertInt(-3);
 		$this->assertSame(-3, $result);
@@ -88,10 +88,10 @@ class CastTraitTest extends TestCase {
 	 */
 	public function testAssertFloat(): void {
 		$result = $this->assertFloat(null);
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertFloat('');
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertFloat(-3);
 		$this->assertSame(-3.0, $result);
@@ -128,16 +128,16 @@ class CastTraitTest extends TestCase {
 	 */
 	public function testAssertBool(): void {
 		$result = $this->assertBool(null);
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertBool('');
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertBool(false);
-		$this->assertSame(false, $result);
+		$this->assertFalse($result);
 
 		$result = $this->assertBool('true');
-		$this->assertSame(true, $result);
+		$this->assertTrue($result);
 	}
 
 	/**
@@ -145,22 +145,22 @@ class CastTraitTest extends TestCase {
 	 */
 	public function testCastBool(): void {
 		$result = $this->castBool(null);
-		$this->assertSame(false, $result);
+		$this->assertFalse($result);
 
 		$result = $this->castBool('');
-		$this->assertSame(false, $result);
+		$this->assertFalse($result);
 
 		$result = $this->castBool(false);
-		$this->assertSame(false, $result);
+		$this->assertFalse($result);
 
 		$result = $this->castBool(true);
-		$this->assertSame(true, $result);
+		$this->assertTrue($result);
 
 		$result = $this->castBool('true');
-		$this->assertSame(true, $result);
+		$this->assertTrue($result);
 
 		$result = $this->castBool('false');
-		$this->assertSame(false, $result);
+		$this->assertFalse($result);
 	}
 
 	/**
@@ -168,10 +168,10 @@ class CastTraitTest extends TestCase {
 	 */
 	public function testAssertArray(): void {
 		$result = $this->assertArray(null);
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertArray('');
-		$this->assertSame(null, $result);
+		$this->assertNull($result);
 
 		$result = $this->assertArray([]);
 		$this->assertSame([], $result);
