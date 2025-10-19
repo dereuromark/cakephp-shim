@@ -99,4 +99,4 @@ This can usually be one by replacing the core folder (or composer config) and a 
 Read the migration guides of the official documentation on that one.
 You can also leverage the [Upgrade plugin](https://github.com/dereuromark/cakephp-upgrade) to automate some if it.
 
-Also see [these tips](https://github.com/dereuromark/cakephp-upgrade/wiki/Tips-Upgrading-to-CakePHP-2.x).
+Also see [these tips](https://github.com/dereuromark/cakephp-upgrade/wiki/Tips-Upgrading-to-CakePHP-2.x-3.x).
