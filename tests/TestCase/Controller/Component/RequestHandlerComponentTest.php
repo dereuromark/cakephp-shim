@@ -478,8 +478,8 @@ class RequestHandlerComponentTest extends TestCase {
 		$this->Controller->setRequest($this->Controller->getRequest()->withParam('_ext', 'csv'));
 		$event = new Event('Controller.startup', $this->Controller);
 		$this->RequestHandler->startup($event);
-		$this->Controller->getEventManager()->on('Controller.beforeRender', function () {
-			return $this->Controller->getResponse();
+		$this->Controller->getEventManager()->on('Controller.beforeRender', function (EventInterface $event): void {
+			$event->setResult($this->Controller->getResponse());
 		});
 		$this->Controller->render();
 		$this->assertSame('/csv', $this->Controller->viewBuilder()->getTemplatePath());
@@ -564,8 +564,8 @@ class RequestHandlerComponentTest extends TestCase {
 	 * @return void
 	 */
 	public function testRenderAsCalledTwice(): void {
-		$this->Controller->getEventManager()->on('Controller.beforeRender', function (EventInterface $e) {
-			return $e->getSubject()->getResponse();
+		$this->Controller->getEventManager()->on('Controller.beforeRender', function (EventInterface $e): void {
+			$e->setResult($e->getSubject()->getResponse());
 		});
 		$this->Controller->render();
 
