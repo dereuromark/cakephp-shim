@@ -387,12 +387,12 @@ class RequestHandlerComponent extends Component {
 		}
 
 		$viewClass = null;
-		if ($builder->getClassName() === null) {
+		if ($builder->getClass() === null) {
 			$viewClass = App::className($view, 'View', 'View');
 		}
 
 		if ($viewClass) {
-			$builder->setClassName($viewClass);
+			$builder->setClass($viewClass);
 		} else {
 			if (!$this->_renderType) {
 				$builder->setTemplatePath((string)$builder->getTemplatePath() . DIRECTORY_SEPARATOR . $type);
