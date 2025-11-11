@@ -387,12 +387,26 @@ class RequestHandlerComponent extends Component {
 		}
 
 		$viewClass = null;
-		if ($builder->getClass() === null) {
-			$viewClass = App::className($view, 'View', 'View');
+		if (method_exists($builder, 'getClass')) {
+			if ($builder->getClass() === null) {
+				$viewClass = App::className($view, 'View', 'View');
+			}
+		} else {
+			// @codeCoverageIgnoreStart
+			if ($builder->getClassName() === null) {
+				$viewClass = App::className($view, 'View', 'View');
+			}
+			// @codeCoverageIgnoreEnd
 		}
 
 		if ($viewClass) {
-			$builder->setClass($viewClass);
+			if (method_exists($builder, 'setClass')) {
+				$builder->setClass($viewClass);
+			} else {
+				// @codeCoverageIgnoreStart
+				$builder->setClassName($viewClass);
+				// @codeCoverageIgnoreEnd
+			}
 		} else {
 			if (!$this->_renderType) {
 				$builder->setTemplatePath((string)$builder->getTemplatePath() . DIRECTORY_SEPARATOR . $type);
