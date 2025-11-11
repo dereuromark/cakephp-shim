@@ -209,4 +209,81 @@ class NullableBehaviorTest extends TestCase {
 		$this->assertSame($expected, $result);
 	}
 
+	/**
+	 * Test nullable enum-like string fields (simulating enum behavior).
+	 *
+	 * When forms submit nullable enum fields:
+	 * - Without NullableBehavior: empty string ('') would be sent to DB, causing error for enum columns
+	 * - With NullableBehavior: empty string is converted to null, which DB accepts
+	 *
+	 * @return void
+	 */
+	public function testPatchNullableEnumField(): void {
+		$data = [
+			'status_optional' => '',
+			'status_required' => '',
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$expected = [
+			'status_optional' => null,
+			'status_required' => '',
+		];
+		$this->assertSame($expected, $entity->toArray());
+	}
+
+	/**
+	 * Test that nullable enum fields with actual values are preserved.
+	 *
+	 * @return void
+	 */
+	public function testPatchNullableEnumFieldWithValue(): void {
+		$data = [
+			'status_optional' => 'active',
+			'status_required' => 'pending',
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$expected = [
+			'status_optional' => 'active',
+			'status_required' => 'pending',
+		];
+		$this->assertSame($expected, $entity->toArray());
+	}
+
+	/**
+	 * Test saving nullable enum fields with beforeSave mode.
+	 *
+	 * This simulates the complete form-to-database flow where:
+	 * 1. Form submits empty string for unselected nullable enum
+	 * 2. Behavior converts to null before save
+	 * 3. Database accepts null for nullable enum column
+	 *
+	 * @return void
+	 */
+	public function testSaveNullableEnumField(): void {
+		$this->Table->removeBehavior('Nullable');
+		$this->Table->addBehavior('Shim.Nullable', ['on' => 'beforeSave']);
+
+		$data = [
+			'required_id' => '1',
+			'string_required' => 'test',
+			'active_required' => '1',
+			'datetime_required' => '2019-01-01 00:01:02',
+			'status_optional' => '',
+			'status_required' => 'pending',
+		];
+		$entity = $this->Table->newEntity($data);
+
+		$this->Table->saveOrFail($entity);
+
+		$expected = [
+			'status_optional' => null,
+			'status_required' => 'pending',
+		];
+		$result = $entity->toArray();
+		$this->assertSame($expected['status_optional'], $result['status_optional']);
+		$this->assertSame($expected['status_required'], $result['status_required']);
+	}
+
 }

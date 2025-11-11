@@ -21,6 +21,8 @@ class NullablesFixture extends TestFixture {
 		'active_optional_notnull' => ['type' => 'boolean', 'null' => true, 'default' => 0],
 		'datetime_optional' => ['type' => 'datetime', 'null' => true],
 		'datetime_required' => ['type' => 'datetime', 'null' => false],
+		'status_optional' => ['type' => 'string', 'length' => 20, 'null' => true],
+		'status_required' => ['type' => 'string', 'length' => 20, 'null' => false, 'default' => 'pending'],
 		'nullable_tenant_id' => ['type' => 'integer', 'null' => true],
 		'_constraints' => ['primary' => ['type' => 'primary', 'columns' => ['id']]],
 	];
