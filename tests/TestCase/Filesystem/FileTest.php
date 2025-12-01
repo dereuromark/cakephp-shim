@@ -18,6 +18,7 @@ declare(strict_types=1);
 namespace Shim\Test\TestCase\Filesystem;
 
 use Cake\TestSuite\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Shim\Filesystem\File;
 use Shim\Filesystem\Folder;
 use SplFileInfo;
@@ -141,7 +142,7 @@ class FileTest extends TestCase {
 	 * @param bool $isRoot
 	 * @return void
 	 */
-	#[\PHPUnit\Framework\Attributes\DataProvider('baseNameValueProvider')]
+	#[DataProvider('baseNameValueProvider')]
 	public function testBasename(string $path, ?string $suffix, bool $isRoot): void {
 		if (!$isRoot) {
 			$path = TMP . 'tests/permissions' . $path;

@@ -1,6 +1,7 @@
 <?php
 
 use Cake\Cache\Cache;
+use Cake\Chronos\Chronos;
 use Cake\Core\Configure;
 use Cake\Datasource\ConnectionManager;
 use Cake\TestSuite\Fixture\SchemaLoader;
@@ -83,7 +84,7 @@ ConnectionManager::setConfig('test', [
 ]);
 
 // Fixate now to avoid one-second-leap-issues
-Cake\Chronos\Chronos::setTestNow(Cake\Chronos\Chronos::now());
+Chronos::setTestNow(Chronos::now());
 
 if (env('FIXTURE_SCHEMA_METADATA')) {
 	$loader = new SchemaLoader();

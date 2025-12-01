@@ -9,12 +9,14 @@ use Cake\Event\EventInterface;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Http\Response;
 use Cake\Http\ServerRequest;
+use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
 use Cake\TestSuite\TestCase;
 use Cake\View\AjaxView;
 use Cake\View\JsonView;
 use Cake\View\View;
 use Cake\View\XmlView;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Shim\Controller\Component\RequestHandlerComponent;
 use TestApp\Controller\Component\RequestHandlerExtComponent;
 use TestApp\Controller\RequestHandlerTestController;
@@ -27,17 +29,17 @@ class RequestHandlerComponentTest extends TestCase {
 	/**
 	 * @var \TestApp\Controller\RequestHandlerTestController
 	 */
-	protected \TestApp\Controller\RequestHandlerTestController $Controller;
+	protected RequestHandlerTestController $Controller;
 
 	/**
 	 * @var \TestApp\Controller\Component\RequestHandlerExtComponent
 	 */
-	protected \TestApp\Controller\Component\RequestHandlerExtComponent $RequestHandler;
+	protected RequestHandlerExtComponent $RequestHandler;
 
 	/**
 	 * @var \Cake\Http\ServerRequest
 	 */
-	protected \Cake\Http\ServerRequest $request;
+	protected ServerRequest $request;
 
 	/**
 	 * Backup of $_SERVER
@@ -49,7 +51,7 @@ class RequestHandlerComponentTest extends TestCase {
 	/**
 	 * @var \Cake\Routing\RouteBuilder
 	 */
-	protected \Cake\Routing\RouteBuilder $builder;
+	protected RouteBuilder $builder;
 
 	/**
 	 * setUp method
@@ -367,7 +369,7 @@ class RequestHandlerComponentTest extends TestCase {
 	 * @param string $extension Extension to test.
 	 * @return void
 	 */
-	#[\PHPUnit\Framework\Attributes\DataProvider('defaultExtensionsProvider')]
+	#[DataProvider('defaultExtensionsProvider')]
 	public function testDefaultExtensions(string $extension): void {
 		Router::extensions([$extension], false);
 
@@ -390,7 +392,7 @@ class RequestHandlerComponentTest extends TestCase {
 	 * @param string $extension Extension to test.
 	 * @return void
 	 */
-	#[\PHPUnit\Framework\Attributes\DataProvider('defaultExtensionsProvider')]
+	#[DataProvider('defaultExtensionsProvider')]
 	public function testDefaultExtensionsOverwrittenByAcceptHeader(string $extension): void {
 		Router::extensions([$extension], false);
 

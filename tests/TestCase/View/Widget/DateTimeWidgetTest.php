@@ -21,6 +21,7 @@ use Cake\TestSuite\TestCase;
 use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
 use Cake\View\Widget\SelectBoxWidget;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use Shim\View\Widget\DateTimeWidget;
 
@@ -82,7 +83,7 @@ class DateTimeWidgetTest extends TestCase {
 	 * @param mixed $selected
 	 * @return void
 	 */
-	#[\PHPUnit\Framework\Attributes\DataProvider('invalidSelectedValuesProvider')]
+	#[DataProvider('invalidSelectedValuesProvider')]
 	public function testRenderSelectedInvalid(mixed $selected): void {
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
 		$now = new DateTime();
@@ -170,7 +171,7 @@ class DateTimeWidgetTest extends TestCase {
 	 * @param mixed $selected
 	 * @return void
 	 */
-	#[\PHPUnit\Framework\Attributes\DataProvider('selectedValuesProvider')]
+	#[DataProvider('selectedValuesProvider')]
 	public function testRenderSelected(mixed $selected): void {
 		$result = $this->DateTime->render(['val' => $selected], $this->context);
 		$this->assertStringContainsString('<option value="2014" selected="selected">2014</option>', $result);

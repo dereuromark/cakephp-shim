@@ -22,6 +22,7 @@ namespace Shim\Test\TestCase\Filesystem;
 use Cake\TestSuite\TestCase;
 use Exception;
 use InvalidArgumentException;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Shim\Filesystem\File;
 use Shim\Filesystem\Folder;
 
@@ -167,7 +168,7 @@ class FolderTest extends TestCase {
 	 * @param string $path
 	 * @return void
 	 */
-	#[\PHPUnit\Framework\Attributes\DataProvider('inPathInvalidPathArgumentDataProvider')]
+	#[DataProvider('inPathInvalidPathArgumentDataProvider')]
 	public function testInPathInvalidPathArgument(string $path): void {
 		$this->expectException(InvalidArgumentException::class);
 		$this->expectExceptionMessage('The $path argument is expected to be an absolute path.');
