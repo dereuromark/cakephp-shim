@@ -22,6 +22,7 @@ use function Cake\Core\pluginSplit;
  * attribute #[\AllowDynamicProperties] on your classes that use this to avoid this blowing
  * up in PHP 8.2+.
  *
+ * @deprecated 3.9.0 Use fetchTable() instead of loadModel(). This trait will be removed in a future major version.
  * @mixin \Cake\Datasource\ModelAwareTrait
  */
 trait LegacyModelAwareTrait {
@@ -37,6 +38,7 @@ trait LegacyModelAwareTrait {
 	 * If a repository provider does not return an object a MissingModelException will
 	 * be thrown.
 	 *
+	 * @deprecated 3.9.0 Use fetchTable() instead.
 	 * @param string|null $modelClass Name of model class to load. Defaults to $this->modelClass.
 	 *  The name can be an alias like `'Post'` or FQCN like `App\Model\Table\PostsTable::class`.
 	 * @param string|null $modelType The type of repository to load. Defaults to the getModelType() value.
