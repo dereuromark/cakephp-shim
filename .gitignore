@@ -5,3 +5,4 @@ vendor/
 tmp/
 composer.lock
 .idea/
+.phpcs.cache
