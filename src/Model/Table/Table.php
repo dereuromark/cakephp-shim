@@ -22,6 +22,8 @@ use InvalidArgumentException;
  * @property array|null $validate
  *
  * @template TBehaviors of array<string, \Cake\ORM\Behavior> = array{}
+ * @template TEntity of \Cake\Datasource\EntityInterface = \Cake\Datasource\EntityInterface
+ * @extends \Cake\ORM\Table<TBehaviors, TEntity>
  */
 class Table extends CoreTable {
 

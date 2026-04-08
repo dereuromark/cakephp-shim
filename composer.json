@@ -23,9 +23,15 @@
 	"support": {
 		"source": "https://github.com/dereuromark/cakephp-shim"
 	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/cakephp/cakephp.git"
+		}
+	],
 	"require": {
 		"php": ">=8.2",
-		"cakephp/cakephp": "^5.1.1"
+		"cakephp/cakephp": "dev-copilot/table-entity-generics-clean as 5.3.3"
 	},
 	"require-dev": {
 		"dereuromark/cakephp-ide-helper": "^2.0.0",
