@@ -5,8 +5,6 @@ namespace Shim\Model\Table;
 
 use BadMethodCallException;
 use Cake\ORM\Behavior;
-use ReflectionException;
-use ReflectionMethod;
 
 /**
  * Restores the pre-5.3 behavior of proxying method calls to behaviors.
@@ -29,22 +27,22 @@ use ReflectionMethod;
 trait BehaviorMethodProxyTrait {
 
 	/**
-     * Cache of behavior method mappings.
-     *
-     * Structure: ['methodname' => ['BehaviorName', 'actualMethodName']]
-     *
-     * @var array<string, array{0: string, 1: string}>
-     */
+	 * Cache of behavior method mappings.
+	 *
+	 * Structure: ['methodname' => ['BehaviorName', 'actualMethodName']]
+	 *
+	 * @var array<string, array{0: string, 1: string}>
+	 */
 	protected array $_behaviorMethodCache = [];
 
 	/**
-     * Proxies method calls to behaviors without deprecation warnings.
-     *
-     * @param string $method Method name.
-     * @param array $args Arguments.
-     * @throws \BadMethodCallException When method is not found.
-     * @return mixed
-     */
+	 * Proxies method calls to behaviors without deprecation warnings.
+	 *
+	 * @param string $method Method name.
+	 * @param array $args Arguments.
+	 * @throws \BadMethodCallException When method is not found.
+	 * @return mixed
+	 */
 	public function __call(string $method, array $args): mixed {
 		$lowercaseMethod = strtolower($method);
 
@@ -67,9 +65,8 @@ trait BehaviorMethodProxyTrait {
 				continue;
 			}
 
-			$callable = $this->_findBehaviorMethod($behavior, $method);
-			if ($callable !== null) {
-				[$actualMethod] = $callable;
+			$actualMethod = $this->_findBehaviorMethod($behavior, $method);
+			if ($actualMethod !== null) {
 				// Cache for future calls
 				$this->_behaviorMethodCache[$lowercaseMethod] = [$name, $actualMethod];
 
@@ -88,53 +85,43 @@ trait BehaviorMethodProxyTrait {
 	}
 
 	/**
-     * Find a callable method on a behavior.
-     *
-     * Returns null if the method doesn't exist or is not callable.
-     * Excludes finder methods (those are handled separately by the ORM).
-     *
-     * @param \Cake\ORM\Behavior $behavior The behavior to check.
-     * @param string $method The method name to find.
-     * @return array{0: string}|null Array with actual method name, or null if not found.
-     */
-	protected function _findBehaviorMethod(Behavior $behavior, string $method): ?array {
+	 * Find a callable method on a behavior using implementedMethods().
+	 *
+	 * This respects the behavior's configuration including method aliasing.
+	 * For example, if a behavior defines `['aliasedMethod' => 'actualMethod']`,
+	 * calling `$table->aliasedMethod()` will correctly invoke `$behavior->actualMethod()`.
+	 *
+	 * @param \Cake\ORM\Behavior $behavior The behavior to check.
+	 * @param string $method The method name (or alias) to find.
+	 * @return string|null The actual method name to call, or null if not found.
+	 */
+	protected function _findBehaviorMethod(Behavior $behavior, string $method): ?string {
 		// Skip finder methods - those are handled by BehaviorRegistry::callFinder()
+		// via Table::find() and should not be proxied through __call()
 		if (str_starts_with(strtolower($method), 'find')) {
 			return null;
 		}
 
-		if (!method_exists($behavior, $method)) {
-			return null;
+		$implementedMethods = $behavior->implementedMethods();
+		$lowercaseMethod = strtolower($method);
+
+		foreach ($implementedMethods as $alias => $actualMethod) {
+			if (strtolower($alias) === $lowercaseMethod) {
+				return $actualMethod;
+			}
 		}
 
-		try {
-			$reflection = new ReflectionMethod($behavior, $method);
-		} catch (ReflectionException) {
-			return null;
-		}
-
-		// Must be public and not static
-		if (!$reflection->isPublic() || $reflection->isStatic()) {
-			return null;
-		}
-
-		// Skip methods defined on the base Behavior class
-		$declaringClass = $reflection->getDeclaringClass()->getName();
-		if ($declaringClass === Behavior::class) {
-			return null;
-		}
-
-		return [$method];
+		return null;
 	}
 
 	/**
-     * Clear the behavior method cache.
-     *
-     * Call this if you dynamically add/remove behaviors and want to
-     * ensure the cache is fresh.
-     *
-     * @return void
-     */
+	 * Clear the behavior method cache.
+	 *
+	 * Call this if you dynamically add/remove behaviors and want to
+	 * ensure the cache is fresh.
+	 *
+	 * @return void
+	 */
 	public function clearBehaviorMethodCache(): void {
 		$this->_behaviorMethodCache = [];
 	}

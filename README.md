@@ -36,6 +36,7 @@ A full overview of all shimming between versions can be found in the [Wiki](http
 - LegacyModelAwareTrait for loadModel() shimming
 - former Cake\Filesystem\File and Cake\Filesystem\Folder classes
 - ModifiedTrait for entities and detecting actually changed fields (not just touched with same value)
+- BehaviorMethodProxyTrait for calling behavior methods directly on the table instance (deprecated in 5.3)
 
 Note: AuthComponent lives on in 5.x via [TinyAuth plugin](https://github.com/dereuromark/cakephp-tinyauth) if needed.
 

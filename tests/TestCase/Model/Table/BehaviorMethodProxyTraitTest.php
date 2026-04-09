@@ -161,16 +161,21 @@ class BehaviorMethodProxyTraitTest extends TestCase {
 	}
 
 	/**
-	 * Test that static methods are not proxied.
+	 * Test that static methods ARE proxied (matching original CakePHP behavior).
+	 *
+	 * Note: CakePHP's implementedMethods() includes static methods,
+	 * so they are proxied just like instance methods.
 	 *
 	 * @return void
 	 */
-	public function testStaticMethodsNotProxied(): void {
+	public function testStaticMethodsAreProxied(): void {
 		$this->Table->addBehavior('ProxyTest');
 
-		$this->expectException(BadMethodCallException::class);
+		// Static methods are included in implementedMethods() by CakePHP
+		// and can be called as instance methods (PHP allows this)
+		$result = $this->Table->staticMethod();
 
-		$this->Table->staticMethod();
+		$this->assertSame('static', $result);
 	}
 
 	/**
@@ -212,6 +217,35 @@ class BehaviorMethodProxyTraitTest extends TestCase {
 		$result2 = $this->Table->ProxyableMethod('test');
 
 		$this->assertSame($result1, $result2);
+	}
+
+	/**
+	 * Test that method aliasing via implementedMethods() works.
+	 *
+	 * @return void
+	 */
+	public function testMethodAliasing(): void {
+		$this->Table->addBehavior('AliasedMethod');
+
+		// Call via alias - should invoke actualMethod()
+		$result = $this->Table->aliasedMethod('test');
+
+		$this->assertSame('aliased:test', $result);
+	}
+
+	/**
+	 * Test that multiple aliases to the same method work.
+	 *
+	 * @return void
+	 */
+	public function testMultipleAliasesToSameMethod(): void {
+		$this->Table->addBehavior('AliasedMethod');
+
+		$result1 = $this->Table->aliasedMethod('one');
+		$result2 = $this->Table->anotherAlias('two');
+
+		$this->assertSame('aliased:one', $result1);
+		$this->assertSame('aliased:two', $result2);
 	}
 
 }

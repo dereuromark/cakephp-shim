@@ -54,3 +54,80 @@ $articles->connection()->transactional(function () use ($articles, $entities) {
 }
 ```
 Note: Use `saveManyOrFail()` if you want to throw exception instead.
+
+## BehaviorMethodProxyTrait (5.3+ shim)
+
+In CakePHP 5.3, calling behavior methods directly on the table instance was deprecated.
+This trait restores that functionality without deprecation warnings.
+
+### Usage
+
+Add the trait to your `AppTable` or any specific table class:
+
+```php
+use Shim\Model\Table\BehaviorMethodProxyTrait;
+
+class AppTable extends Table
+{
+    use BehaviorMethodProxyTrait;
+}
+```
+
+Now you can call behavior methods directly on the table:
+
+```php
+// Instead of:
+$this->Articles->getBehavior('Sluggable')->generateSlug($entity);
+
+// You can use:
+$this->Articles->generateSlug($entity);
+```
+
+### Features
+
+- **Method caching**: Method lookups are cached for performance
+- **Method aliasing**: Respects `implementedMethods()` configuration including aliases
+- **Dynamic finders**: `findBy*` and `findAllBy*` patterns still work
+- **Runtime switching**: Clear cache when swapping behaviors dynamically
+
+### Polymorphic Behavior Dispatch
+
+This is particularly useful when you have behaviors that implement the same method:
+
+```php
+// Different behaviors with same method signature
+class TeacherBehavior extends Behavior
+{
+    public function createLabel(Entity $person): string
+    {
+        return 'Teacher: ' . $person->name;
+    }
+}
+
+class StudentBehavior extends Behavior
+{
+    public function createLabel(Entity $person): string
+    {
+        return 'Student: ' . $person->name;
+    }
+}
+
+// In your code - dispatches to whichever behavior is loaded
+$this->Persons->addBehavior('Teacher'); // or 'Student'
+$label = $this->Persons->createLabel($person);
+```
+
+### Runtime Behavior Switching
+
+When dynamically adding/removing behaviors, clear the method cache:
+
+```php
+$this->Table->removeBehavior('TeacherProxy');
+$this->Table->clearBehaviorMethodCache();
+$this->Table->addBehavior('StudentProxy');
+
+// Now calls StudentProxy's method
+$this->Table->createLabel($person);
+```
+
+See also: [cakephp/cakephp#19326](https://github.com/cakephp/cakephp/issues/19326)
