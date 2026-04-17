@@ -13,7 +13,6 @@ class CommandTest extends TestCase {
 	 * @return void
 	 */
 	public function testCommand(): void {
-
 		$command = new Command();
 
 		$args = new Arguments([], [], []);
