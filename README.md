@@ -6,7 +6,7 @@
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-shim/license.svg)](LICENSE)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-shim/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
-[![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-yellow.svg)](https://github.com/php-fig-rectified/fig-rectified-standards)
+[![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-purple.svg?style=flat-square)](https://github.com/php-fig-rectified/fig-rectified-standards)
 
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
 It also provides some small app-specific fixes.
