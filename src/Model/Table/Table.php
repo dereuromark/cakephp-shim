@@ -420,10 +420,12 @@ class Table extends CoreTable {
 	public function saveAll(array $entities, array $options = []): bool {
 		$success = true;
 		foreach ($entities as $entity) {
-			$success = $success & (bool)$this->save($entity, $options);
+			if ($this->save($entity, $options) === false) {
+				$success = false;
+			}
 		}
 
-		return (bool)$success;
+		return $success;
 	}
 
 	/**

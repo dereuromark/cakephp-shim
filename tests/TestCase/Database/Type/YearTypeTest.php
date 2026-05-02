@@ -2,6 +2,7 @@
 
 namespace Shim\Test\TestCase\Database\Type;
 
+use Cake\Database\Driver;
 use Cake\Database\TypeFactory;
 use Cake\ORM\TableRegistry;
 use Cake\View\Helper\FormHelper;
@@ -55,6 +56,24 @@ class YearTypeTest extends TestCase {
 
 		$record = $this->Table->get($entity->id);
 		$this->assertSame(2015, $record->year_of_birth);
+	}
+
+	/**
+	 * Regression: `toDatabase()` and `marshal()` must return `int` (not the
+	 * unmodified numeric string). Without the cast the declared `?int` return
+	 * type is violated under strict_types.
+	 *
+	 * @return void
+	 */
+	public function testToDatabaseAndMarshalReturnInt(): void {
+		$type = new YearType('year');
+		$driver = $this->getMockBuilder(Driver::class)->disableOriginalConstructor()->getMock();
+
+		$this->assertSame(2024, $type->toDatabase('2024', $driver));
+		$this->assertSame(2024, $type->marshal('2024'));
+		$this->assertSame(2024, $type->marshal(['year' => '2024']));
+		$this->assertNull($type->toDatabase(null, $driver));
+		$this->assertNull($type->marshal(''));
 	}
 
 	/**

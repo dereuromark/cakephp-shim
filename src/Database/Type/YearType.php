@@ -30,7 +30,7 @@ class YearType extends BaseType {
 			return null;
 		}
 
-		return $value;
+		return (int)$value;
 	}
 
 	/**
@@ -62,7 +62,7 @@ class YearType extends BaseType {
 			return null;
 		}
 
-		return $value;
+		return (int)$value;
 	}
 
 	/**
