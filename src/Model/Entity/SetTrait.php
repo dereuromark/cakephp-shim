@@ -44,7 +44,7 @@ trait SetTrait {
 
 		$property = Inflector::underscore($matches[1]);
 
-		$this->setOrFail($property, $arguments[1]);
+		$this->setOrFail($property, $arguments[0]);
 
 		return $this;
 	}
