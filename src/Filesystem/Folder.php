@@ -289,7 +289,7 @@ class Folder {
 	 * @return bool true if windows path, false otherwise
 	 */
 	public static function isWindowsPath(string $path): bool {
-		return preg_match('/^[A-Z]:\\\\/i', $path) || substr($path, 0, 2) === '\\\\';
+		return (bool)preg_match('/^[A-Z]:\\\\/i', $path) || str_starts_with($path, '\\\\');
 	}
 
 	/**
@@ -304,8 +304,8 @@ class Folder {
 		}
 
 		return $path[0] === '/' ||
-			preg_match('/^[A-Z]:\\\\/i', $path) ||
-			substr($path, 0, 2) === '\\\\' ||
+			(bool)preg_match('/^[A-Z]:\\\\/i', $path) ||
+			str_starts_with($path, '\\\\') ||
 			static::isRegisteredStreamWrapper($path);
 	}
 
@@ -316,7 +316,7 @@ class Folder {
 	 * @return bool True if path is registered stream wrapper.
 	 */
 	public static function isRegisteredStreamWrapper(string $path): bool {
-		return preg_match('/^[^:\/]+?(?=:\/\/)/', $path, $matches) &&
+		return (bool)preg_match('/^[^:\/]+?(?=:\/\/)/', $path, $matches) &&
 			in_array($matches[0], stream_get_wrappers(), true);
 	}
 

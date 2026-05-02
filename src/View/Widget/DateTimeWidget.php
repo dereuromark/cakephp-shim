@@ -278,9 +278,7 @@ class DateTimeWidget extends BasicWidget {
 						$dateArray['second'] = '0';
 					}
 					if (!empty($value['meridian'])) {
-						/** @var string $meridian */
-						$meridian = $dateArray['meridian'];
-						$isAm = strtolower($meridian) === 'am';
+						$isAm = strtolower((string)$value['meridian']) === 'am';
 						$dateArray['hour'] = $isAm ? (int)$dateArray['hour'] : (int)$dateArray['hour'] + 12;
 						$dateArray['hour'] = str_pad((string)$dateArray['hour'], 2, '0', STR_PAD_LEFT);
 					}
