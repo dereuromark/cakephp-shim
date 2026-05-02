@@ -82,13 +82,13 @@ trait TestTrait {
 	 *   $user->cryptPassword('passwordToCrypt');
 	 * (assuming the method was directly publicly accessible
 	 *
-	 * @param object &$object Instantiated object that we will run method on.
+	 * @param object $object Instantiated object that we will run method on.
 	 * @param string $methodName Method name to call.
 	 * @param array $parameters Array of parameters to pass into method.
 	 *
 	 * @return mixed Method return.
 	 */
-	protected function invokeMethod(object &$object, string $methodName, array $parameters = []): mixed {
+	protected function invokeMethod(object $object, string $methodName, array $parameters = []): mixed {
 		$reflection = new ReflectionClass(get_class($object));
 		$method = $reflection->getMethod($methodName);
 
@@ -104,12 +104,12 @@ trait TestTrait {
 	 *   $object->_foo
 	 * (assuming the property was directly publicly accessible)
 	 *
-	 * @param object &$object Instantiated object that we want the property off.
+	 * @param object $object Instantiated object that we want the property off.
 	 * @param string $name Property name to fetch.
 	 *
 	 * @return mixed Property value.
 	 */
-	protected function invokeProperty(object &$object, string $name): mixed {
+	protected function invokeProperty(object $object, string $name): mixed {
 		$reflection = new ReflectionClass(get_class($object));
 		if (!$reflection->hasProperty($name)) {
 			return null;

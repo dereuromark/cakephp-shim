@@ -274,10 +274,9 @@ class Table extends CoreTable {
 	public function record(mixed $id, array $options = []): mixed {
 		try {
 			return $this->get($id, ...$options);
-		} catch (RecordNotFoundException $e) {
+		} catch (RecordNotFoundException) {
+			return null;
 		}
-
-		return null;
 	}
 
 	/**
@@ -457,14 +456,11 @@ class Table extends CoreTable {
 	 * - 'strict': Throw exception instead of returning false. Defaults to false.
 	 *
 	 * @param \Cake\Datasource\EntityInterface $entity The entity to remove.
-	 * @param \ArrayAccess|array<string, mixed> $options The options for the delete.
+	 * @param array<string, mixed> $options The options for the delete.
 	 * @throws \InvalidArgumentException
 	 * @return bool success
 	 */
-	public function delete(EntityInterface $entity, $options = []): bool {
-		if (!is_array($options)) {
-			throw new InvalidArgumentException('Invalid options input.');
-		}
+	public function delete(EntityInterface $entity, array $options = []): bool {
 		$options += ['strict' => false];
 
 		$result = parent::delete($entity, $options);

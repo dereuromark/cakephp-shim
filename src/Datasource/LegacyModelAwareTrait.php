@@ -68,7 +68,13 @@ trait LegacyModelAwareTrait {
 			$modelClass = $alias;
 		}
 
-		$factory = $this->_modelFactories[$modelType] ?? FactoryLocator::get($modelType);
+		// `_modelFactories` was the public-ish array on `ModelAwareTrait` in 4.x.
+		// The trait was removed in 5.x, so the property only exists on consumers
+		// that explicitly redeclare it. Guard the lookup to avoid an undeclared
+		// dynamic-property warning under PHP 8.2+ when the consumer hasn't.
+		$factory = (property_exists($this, '_modelFactories') && isset($this->_modelFactories[$modelType]))
+			? $this->_modelFactories[$modelType]
+			: FactoryLocator::get($modelType);
 		if ($factory instanceof LocatorInterface) {
 			$instance = $factory->get($modelClass, $options);
 		} else {

@@ -223,7 +223,6 @@ class RequestHandlerComponent extends Component {
 	 *
 	 * Returns true if the client accepts XML.
 	 *
-	 * @deprecated 4.4.0 Use ContentTypeNegotiation::prefersChoice() or Controller::getViewClasses() instead.
 	 * @param array<string>|string|null $type Can be null (or no parameter), a string type name, or an
 	 *   array of types
 	 * @return array|string|bool|null If null or no parameter is passed, returns an array of content
@@ -300,7 +299,6 @@ class RequestHandlerComponent extends Component {
 	 * if provided, and secondarily by the list of content-types provided in
 	 * HTTP_ACCEPT.
 	 *
-	 * @deprecated 4.4.0 Use Controller::getViewClasses() instead.
 	 * @param array<string>|string|null $type An optional array of 'friendly' content-type names, i.e.
 	 *   'html', 'xml', 'js', etc.
 	 * @return string|bool|null If $type is null or not provided, the first content-type in the
