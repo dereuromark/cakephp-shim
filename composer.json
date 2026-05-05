@@ -28,6 +28,7 @@
 		"cakephp/cakephp": "^5.1.1"
 	},
 	"require-dev": {
+		"brick/varexporter": "^0.7.0",
 		"dereuromark/cakephp-ide-helper": "^2.0.0",
 		"fig-r/psr2r-sniffer": "dev-master",
 		"phpunit/phpunit": "^11.5 || ^12.1 || ^13.0"
