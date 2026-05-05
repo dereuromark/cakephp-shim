@@ -6,14 +6,6 @@ namespace Shim\Cache\Engine;
 
 use Brick\VarExporter\VarExporter;
 use Cake\Cache\CacheEngine;
-use Cake\Cache\Event\CacheAfterDeleteEvent;
-use Cake\Cache\Event\CacheAfterGetEvent;
-use Cake\Cache\Event\CacheAfterSetEvent;
-use Cake\Cache\Event\CacheBeforeDeleteEvent;
-use Cake\Cache\Event\CacheBeforeGetEvent;
-use Cake\Cache\Event\CacheBeforeSetEvent;
-use Cake\Cache\Event\CacheClearedEvent;
-use Cake\Cache\Event\CacheGroupClearEvent;
 use Cake\Event\Event;
 use DateInterval;
 use LogicException;
@@ -29,6 +21,46 @@ use Throwable;
  * @extends \Cake\Cache\CacheEngine<\Shim\Cache\Engine\PhpEngine>
  */
 class PhpEngine extends CacheEngine {
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_BEFORE_SET = 'Cache.beforeSet';
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_AFTER_SET = 'Cache.afterSet';
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_BEFORE_GET = 'Cache.beforeGet';
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_AFTER_GET = 'Cache.afterGet';
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_BEFORE_DELETE = 'Cache.beforeDelete';
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_AFTER_DELETE = 'Cache.afterDelete';
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_CLEARED = 'Cache.cleared';
+
+	/**
+	 * @var string
+	 */
+	protected const EVENT_CLEARED_GROUP = 'Cache.clearedGroup';
 
 	/**
 	 * The default config used unless overridden by runtime configuration
@@ -101,10 +133,8 @@ class PhpEngine extends CacheEngine {
 		$duration = $this->duration($ttl);
 		$key = $this->_key($key);
 
-		$this->_eventClass = CacheBeforeSetEvent::class;
-		$this->_dispatchEventCompat(CacheBeforeSetEvent::NAME, ['key' => $key, 'value' => $value, 'ttl' => $duration]);
+		$this->_dispatchEventCompat(static::EVENT_BEFORE_SET, ['key' => $key, 'value' => $value, 'ttl' => $duration]);
 
-		$this->_eventClass = CacheAfterSetEvent::class;
 		$path = $this->_path($key);
 
 		try {
@@ -116,7 +146,7 @@ class PhpEngine extends CacheEngine {
 				$e->getMessage(),
 			));
 
-			$this->_dispatchEventCompat(CacheAfterSetEvent::NAME, [
+			$this->_dispatchEventCompat(static::EVENT_AFTER_SET, [
 				'key' => $key,
 				'value' => $value,
 				'success' => false,
@@ -135,7 +165,7 @@ class PhpEngine extends CacheEngine {
 
 		$success = $this->_writeFile($path, $contents);
 
-		$this->_dispatchEventCompat(CacheAfterSetEvent::NAME, [
+		$this->_dispatchEventCompat(static::EVENT_AFTER_SET, [
 			'key' => $key,
 			'value' => $value,
 			'success' => $success,
@@ -153,19 +183,17 @@ class PhpEngine extends CacheEngine {
 	public function get(string $key, mixed $default = null): mixed {
 		$key = $this->_key($key);
 
-		$this->_eventClass = CacheBeforeGetEvent::class;
-		$this->_dispatchEventCompat(CacheBeforeGetEvent::NAME, ['key' => $key, 'default' => $default]);
+		$this->_dispatchEventCompat(static::EVENT_BEFORE_GET, ['key' => $key, 'default' => $default]);
 
-		$this->_eventClass = CacheAfterGetEvent::class;
 		if (!$this->_init) {
-			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(static::EVENT_AFTER_GET, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
 
 		$path = $this->_path($key);
 		if (!is_file($path)) {
-			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(static::EVENT_AFTER_GET, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
@@ -180,7 +208,7 @@ class PhpEngine extends CacheEngine {
 			));
 			$this->_deleteFile($path);
 
-			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(static::EVENT_AFTER_GET, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
@@ -188,12 +216,12 @@ class PhpEngine extends CacheEngine {
 		if ($value === null) {
 			$this->_deleteFile($path);
 
-			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(static::EVENT_AFTER_GET, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
 
-		$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => $value, 'success' => true]);
+		$this->_dispatchEventCompat(static::EVENT_AFTER_GET, ['key' => $key, 'value' => $value, 'success' => true]);
 
 		return $value;
 	}
@@ -205,19 +233,17 @@ class PhpEngine extends CacheEngine {
 	public function delete(string $key): bool {
 		$key = $this->_key($key);
 
-		$this->_eventClass = CacheBeforeDeleteEvent::class;
-		$this->_dispatchEventCompat(CacheBeforeDeleteEvent::NAME, ['key' => $key]);
+		$this->_dispatchEventCompat(static::EVENT_BEFORE_DELETE, ['key' => $key]);
 
-		$this->_eventClass = CacheAfterDeleteEvent::class;
 		if (!$this->_init) {
-			$this->_dispatchEventCompat(CacheAfterDeleteEvent::NAME, ['key' => $key, 'success' => false]);
+			$this->_dispatchEventCompat(static::EVENT_AFTER_DELETE, ['key' => $key, 'success' => false]);
 
 			return false;
 		}
 
 		$success = $this->_deleteFile($this->_path($key));
 
-		$this->_dispatchEventCompat(CacheAfterDeleteEvent::NAME, ['key' => $key, 'success' => $success]);
+		$this->_dispatchEventCompat(static::EVENT_AFTER_DELETE, ['key' => $key, 'success' => $success]);
 
 		return $success;
 	}
@@ -231,9 +257,7 @@ class PhpEngine extends CacheEngine {
 		}
 
 		$this->_clearDirectory($this->_config['path']);
-
-		$this->_eventClass = CacheClearedEvent::class;
-		$this->_dispatchEventCompat(CacheClearedEvent::NAME);
+		$this->_dispatchEventCompat(static::EVENT_CLEARED);
 
 		return true;
 	}
@@ -265,9 +289,7 @@ class PhpEngine extends CacheEngine {
 		if (is_dir($path)) {
 			$this->_clearDirectory($path);
 		}
-
-		$this->_eventClass = CacheGroupClearEvent::class;
-		$this->_dispatchEventCompat(CacheGroupClearEvent::NAME, ['group' => $group]);
+		$this->_dispatchEventCompat(static::EVENT_CLEARED_GROUP, ['group' => $group]);
 
 		return true;
 	}
