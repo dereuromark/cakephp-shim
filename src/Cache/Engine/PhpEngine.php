@@ -14,6 +14,7 @@ use Cake\Cache\Event\CacheBeforeGetEvent;
 use Cake\Cache\Event\CacheBeforeSetEvent;
 use Cake\Cache\Event\CacheClearedEvent;
 use Cake\Cache\Event\CacheGroupClearEvent;
+use Cake\Event\Event;
 use DateInterval;
 use LogicException;
 use SplFileInfo;
@@ -101,7 +102,7 @@ class PhpEngine extends CacheEngine {
 		$key = $this->_key($key);
 
 		$this->_eventClass = CacheBeforeSetEvent::class;
-		$this->dispatchEvent(CacheBeforeSetEvent::NAME, ['key' => $key, 'value' => $value, 'ttl' => $duration]);
+		$this->_dispatchEventCompat(CacheBeforeSetEvent::NAME, ['key' => $key, 'value' => $value, 'ttl' => $duration]);
 
 		$this->_eventClass = CacheAfterSetEvent::class;
 		$path = $this->_path($key);
@@ -115,7 +116,7 @@ class PhpEngine extends CacheEngine {
 				$e->getMessage(),
 			));
 
-			$this->dispatchEvent(CacheAfterSetEvent::NAME, [
+			$this->_dispatchEventCompat(CacheAfterSetEvent::NAME, [
 				'key' => $key,
 				'value' => $value,
 				'success' => false,
@@ -134,7 +135,7 @@ class PhpEngine extends CacheEngine {
 
 		$success = $this->_writeFile($path, $contents);
 
-		$this->dispatchEvent(CacheAfterSetEvent::NAME, [
+		$this->_dispatchEventCompat(CacheAfterSetEvent::NAME, [
 			'key' => $key,
 			'value' => $value,
 			'success' => $success,
@@ -153,18 +154,18 @@ class PhpEngine extends CacheEngine {
 		$key = $this->_key($key);
 
 		$this->_eventClass = CacheBeforeGetEvent::class;
-		$this->dispatchEvent(CacheBeforeGetEvent::NAME, ['key' => $key, 'default' => $default]);
+		$this->_dispatchEventCompat(CacheBeforeGetEvent::NAME, ['key' => $key, 'default' => $default]);
 
 		$this->_eventClass = CacheAfterGetEvent::class;
 		if (!$this->_init) {
-			$this->dispatchEvent(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
 
 		$path = $this->_path($key);
 		if (!is_file($path)) {
-			$this->dispatchEvent(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
@@ -179,7 +180,7 @@ class PhpEngine extends CacheEngine {
 			));
 			$this->_deleteFile($path);
 
-			$this->dispatchEvent(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
@@ -187,12 +188,12 @@ class PhpEngine extends CacheEngine {
 		if ($value === null) {
 			$this->_deleteFile($path);
 
-			$this->dispatchEvent(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
+			$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => null, 'success' => false]);
 
 			return $default;
 		}
 
-		$this->dispatchEvent(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => $value, 'success' => true]);
+		$this->_dispatchEventCompat(CacheAfterGetEvent::NAME, ['key' => $key, 'value' => $value, 'success' => true]);
 
 		return $value;
 	}
@@ -205,18 +206,18 @@ class PhpEngine extends CacheEngine {
 		$key = $this->_key($key);
 
 		$this->_eventClass = CacheBeforeDeleteEvent::class;
-		$this->dispatchEvent(CacheBeforeDeleteEvent::NAME, ['key' => $key]);
+		$this->_dispatchEventCompat(CacheBeforeDeleteEvent::NAME, ['key' => $key]);
 
 		$this->_eventClass = CacheAfterDeleteEvent::class;
 		if (!$this->_init) {
-			$this->dispatchEvent(CacheAfterDeleteEvent::NAME, ['key' => $key, 'success' => false]);
+			$this->_dispatchEventCompat(CacheAfterDeleteEvent::NAME, ['key' => $key, 'success' => false]);
 
 			return false;
 		}
 
 		$success = $this->_deleteFile($this->_path($key));
 
-		$this->dispatchEvent(CacheAfterDeleteEvent::NAME, ['key' => $key, 'success' => $success]);
+		$this->_dispatchEventCompat(CacheAfterDeleteEvent::NAME, ['key' => $key, 'success' => $success]);
 
 		return $success;
 	}
@@ -232,7 +233,7 @@ class PhpEngine extends CacheEngine {
 		$this->_clearDirectory($this->_config['path']);
 
 		$this->_eventClass = CacheClearedEvent::class;
-		$this->dispatchEvent(CacheClearedEvent::NAME);
+		$this->_dispatchEventCompat(CacheClearedEvent::NAME);
 
 		return true;
 	}
@@ -266,7 +267,7 @@ class PhpEngine extends CacheEngine {
 		}
 
 		$this->_eventClass = CacheGroupClearEvent::class;
-		$this->dispatchEvent(CacheGroupClearEvent::NAME, ['group' => $group]);
+		$this->_dispatchEventCompat(CacheGroupClearEvent::NAME, ['group' => $group]);
 
 		return true;
 	}
@@ -406,6 +407,23 @@ class PhpEngine extends CacheEngine {
 		}
 
 		return $success;
+	}
+
+	/**
+	 * Dispatch cache events across CakePHP 5.x minors.
+	 *
+	 * @param string $name Event name.
+	 * @param array<string, mixed> $data Event data.
+	 * @return void
+	 */
+	protected function _dispatchEventCompat(string $name, array $data = []): void {
+		if (is_callable([$this, 'dispatchEvent'])) {
+			$this->dispatchEvent($name, $data);
+
+			return;
+		}
+
+		$this->getEventManager()->dispatch(new Event($name, $this, $data));
 	}
 
 	/**
