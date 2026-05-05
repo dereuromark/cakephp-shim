@@ -32,3 +32,23 @@ Cache::setConfig('php_cache', [
 This engine is best suited for mostly static caches such as metadata, routes, configuration, or attribute discovery.
 
 It is not suited for atomic `increment()` / `decrement()` operations.
+
+## Benchmark
+
+A small local benchmark script is available to compare CakePHP `File` and shimmed `PhpEngine` caches across several payload types:
+
+```bash
+php tests/benchmark/cache_engine_benchmark.php
+```
+
+Optional arguments:
+
+```bash
+php tests/benchmark/cache_engine_benchmark.php --writes=200 --reads=1000
+```
+
+For a more realistic `PhpEngine` read comparison in CLI, enable OPcache for the run:
+
+```bash
+php -d opcache.enable_cli=1 tests/benchmark/cache_engine_benchmark.php
+```
