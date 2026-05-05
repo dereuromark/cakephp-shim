@@ -116,7 +116,10 @@ class PhpEngine extends CacheEngine {
 			));
 
 			$this->dispatchEvent(CacheAfterSetEvent::NAME, [
-				'key' => $key, 'value' => $value, 'success' => false, 'ttl' => $duration,
+				'key' => $key,
+				'value' => $value,
+				'success' => false,
+				'ttl' => $duration,
 			]);
 
 			return false;
@@ -132,7 +135,10 @@ class PhpEngine extends CacheEngine {
 		$success = $this->_writeFile($path, $contents);
 
 		$this->dispatchEvent(CacheAfterSetEvent::NAME, [
-			'key' => $key, 'value' => $value, 'success' => $success, 'ttl' => $duration,
+			'key' => $key,
+			'value' => $value,
+			'success' => $success,
+			'ttl' => $duration,
 		]);
 
 		return $success;
@@ -362,6 +368,7 @@ class PhpEngine extends CacheEngine {
 				// phpcs:disable
 				@rmdir($fullPath);
 				// phpcs:enable
+
 				continue;
 			}
 

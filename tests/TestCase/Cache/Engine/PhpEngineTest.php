@@ -51,6 +51,7 @@ class PhpEngineTest extends TestCase {
 		foreach ($files as $file) {
 			if (is_file($file)) {
 				unlink($file);
+
 				continue;
 			}
 
@@ -167,6 +168,7 @@ class PhpEngineTest extends TestCase {
 			foreach ($entries as $entry) {
 				if (is_dir($entry)) {
 					$this->_deleteDir($entry);
+
 					continue;
 				}
 

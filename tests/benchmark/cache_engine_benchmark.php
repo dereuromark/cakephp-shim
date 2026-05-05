@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
+use Brick\VarExporter\VarExporter;
 use Cake\Cache\Cache;
 use Shim\Cache\Engine\PhpEngine;
 
 require dirname(__DIR__) . '/bootstrap.php';
 
-if (!class_exists(\Brick\VarExporter\VarExporter::class)) {
+if (!class_exists(VarExporter::class)) {
 	fwrite(STDERR, "Missing dependency: brick/varexporter\n");
 	fwrite(STDERR, "Install it with: composer require brick/varexporter\n");
 	exit(1);
@@ -291,6 +292,7 @@ function ensureDir(string $path): void {
 function cleanDir(string $path): void {
 	if (!is_dir($path)) {
 		mkdir($path, 0777, true);
+
 		return;
 	}
 
@@ -303,6 +305,7 @@ function cleanDir(string $path): void {
 		if (is_dir($item)) {
 			cleanDir($item . DS);
 			rmdir($item);
+
 			continue;
 		}
 
