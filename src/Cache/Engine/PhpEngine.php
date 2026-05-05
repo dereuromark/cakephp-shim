@@ -417,12 +417,6 @@ class PhpEngine extends CacheEngine {
 	 * @return void
 	 */
 	protected function _dispatchEventCompat(string $name, array $data = []): void {
-		if (is_callable([$this, 'dispatchEvent'])) {
-			$this->dispatchEvent($name, $data);
-
-			return;
-		}
-
 		$this->getEventManager()->dispatch(new Event($name, $this, $data));
 	}
 
