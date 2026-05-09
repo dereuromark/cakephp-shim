@@ -15,15 +15,14 @@ use Exception;
 use InvalidArgumentException;
 
 /**
+ * @template TBehaviors of array<string, \Cake\ORM\Behavior> = array{}
+ * @template TEntity of \Cake\Datasource\EntityInterface = \Cake\Datasource\EntityInterface
+ * @extends \Cake\ORM\Table<TBehaviors, TEntity>
  * @property array|null $belongsTo
  * @property array|null $hasOne
  * @property array|null $hasMany
  * @property array|null $hasAndBelongsToMany
  * @property array|null $validate
- *
- * @template TBehaviors of array<string, \Cake\ORM\Behavior> = array{}
- * @template TEntity of \Cake\Datasource\EntityInterface = \Cake\Datasource\EntityInterface
- * @extends \Cake\ORM\Table<TBehaviors, TEntity>
  */
 class Table extends CoreTable {
 
