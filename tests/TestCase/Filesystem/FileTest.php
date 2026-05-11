@@ -278,6 +278,35 @@ class FileTest extends TestCase {
 	}
 
 	/**
+	 * The lock+iterative-read path has historically silently trimmed the result. The
+	 * new $trim parameter lets callers opt out so binary content (and trailing newline
+	 * in source files) round-trip exactly. BC default keeps trimming enabled.
+	 *
+	 * @return void
+	 */
+	public function testReadCanPreserveTrailingBytesWhenLocked(): void {
+		$tmp = tempnam(sys_get_temp_dir(), 'shim-read-');
+		// Trailing whitespace + newline that the legacy code would have stripped.
+		file_put_contents($tmp, "first\nsecond\n\n");
+
+		try {
+			$file = new File($tmp);
+			$file->lock = true;
+
+			$trimmed = $file->read();
+			$file = new File($tmp);
+			$file->lock = true;
+			$untrimmed = $file->read(false, 'rb', false, false);
+			$file->lock = null;
+
+			$this->assertSame("first\nsecond", $trimmed);
+			$this->assertSame("first\nsecond\n\n", $untrimmed);
+		} finally {
+			@unlink($tmp);
+		}
+	}
+
+	/**
 	 * testOffset method
 	 * @return void
 	 */
