@@ -434,11 +434,17 @@ class PhpEngine extends CacheEngine {
 	/**
 	 * Dispatch cache events across CakePHP 5.x minors.
 	 *
+	 * CakePHP 5.1 has no event dispatcher on `CacheEngine`; the trait was added
+	 * in 5.2. On 5.1 we silently skip dispatching to keep this engine usable.
+	 *
 	 * @param string $name Event name.
 	 * @param array<string, mixed> $data Event data.
 	 * @return void
 	 */
 	protected function _dispatchEventCompat(string $name, array $data = []): void {
+		if (!method_exists($this, 'getEventManager')) {
+			return;
+		}
 		$this->getEventManager()->dispatch(new Event($name, $this, $data));
 	}
 

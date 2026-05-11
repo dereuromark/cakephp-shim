@@ -12,3 +12,6 @@ parameters:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics
 		- identifier: trait.unused
+		-
+			message: '#Call to function method_exists\(\) with \$this\(Shim\\Cache\\Engine\\PhpEngine\) and ''getEventManager'' will always evaluate to true\.#'
+			path: src/Cache/Engine/PhpEngine.php
