@@ -272,8 +272,35 @@ class Table extends CoreTable {
 	 * @return mixed|null The first result from the ResultSet or null if not existent.
 	 */
 	public function record(mixed $id, array $options = []): mixed {
+		// `Table::get()` in CakePHP 5 takes named parameters after `$primaryKey` —
+		// $finder, $cache, $cacheKey, plus ...$args that are forwarded into the
+		// finder. Splatting an arbitrary `$options` array directly produces a
+		// TypeError ('Unknown named parameter') for any key that is not one of
+		// those four. Map the legacy 4.x-style option keys (contain/conditions/
+		// fields/order) into the $finder array so the call shape works.
 		try {
-			return $this->get($id, ...$options);
+			$getKeys = ['finder', 'cache', 'cacheKey'];
+			$getArgs = [];
+			$finder = [];
+			foreach ($options as $key => $value) {
+				if (in_array($key, $getKeys, true)) {
+					$getArgs[$key] = $value;
+				} else {
+					$finder[$key] = $value;
+				}
+			}
+			if ($finder) {
+				$current = $getArgs['finder'] ?? [];
+				if (is_string($current)) {
+					// The user passed `finder => 'someFinder'` plus extra options —
+					// switch to the array form so the extras can ride along.
+					$getArgs['finder'] = ['type' => $current] + $finder;
+				} else {
+					$getArgs['finder'] = $current + $finder;
+				}
+			}
+
+			return $this->get($id, ...$getArgs);
 		} catch (RecordNotFoundException) {
 			return null;
 		}
@@ -394,10 +421,24 @@ class Table extends CoreTable {
 		ArrayObject $options,
 		bool $primary,
 	): void {
-		$order = $query->clause('order');
-		if (($order === null || !count($order)) && !empty($this->order)) {
-			$query->orderBy($this->order);
+		if (empty($this->order)) {
+			return;
 		}
+
+		// Distinguish "caller did nothing" from "caller deliberately opted out".
+		// `clause('order')` returns null when `orderBy()` was never called, and a
+		// (possibly empty) OrderByExpression when it was. The previous check
+		// treated both as "apply default", which clobbered explicit
+		// `->orderBy([])` opt-outs. An explicit `'noDefaultOrder' => true` option
+		// is also honored as a forward-compatible way to disable the shim default.
+		if (!empty($options['noDefaultOrder'])) {
+			return;
+		}
+		if ($query->clause('order') !== null) {
+			return;
+		}
+
+		$query->orderBy($this->order);
 	}
 
 	/**

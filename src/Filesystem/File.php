@@ -140,12 +140,20 @@ class File {
 	/**
 	 * Return the contents of this file as a string.
 	 *
+	 * Inherits a historical quirk from the 4.x cake `File` class: when the lock+iterative
+	 * read path is taken (lock !== null and $bytes === false), the returned content is
+	 * trimmed. That silently strips trailing newlines and leading/trailing whitespace
+	 * from binary content. Pass `$trim => false` to preserve raw bytes. The
+	 * `file_get_contents()` fast path (no lock, no byte limit) never trimmed and
+	 * keeps that behavior.
+	 *
 	 * @param string|bool|false $bytes where to start
 	 * @param string $mode A `fread` compatible mode.
 	 * @param bool $force If true then the file will be re-opened even if its already opened, otherwise it won't
+	 * @param bool $trim Whether to trim() the result of the iterative-read path (BC default true).
 	 * @return string|false String on success, false on failure
 	 */
-	public function read($bytes = false, string $mode = 'rb', bool $force = false) {
+	public function read($bytes = false, string $mode = 'rb', bool $force = false, bool $trim = true) {
 		if ($bytes === false && $this->lock === null) {
 			return file_get_contents($this->path);
 		}
@@ -171,7 +179,7 @@ class File {
 			$this->close();
 		}
 
-		return trim($data);
+		return $trim ? trim($data) : $data;
 	}
 
 	/**

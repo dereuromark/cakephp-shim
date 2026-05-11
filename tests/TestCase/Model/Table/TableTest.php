@@ -135,6 +135,31 @@ class TableTest extends TestCase {
 	}
 
 	/**
+	 * The shim Table::beforeFind() applies $this->order as the default ORDER BY only
+	 * when the caller didn't set anything. The `noDefaultOrder` option opt-out lets
+	 * callers explicitly request "no ORDER BY" for queries where the default would
+	 * be wasted work (covering aggregations or window-function contexts).
+	 *
+	 * @return void
+	 */
+	public function testNoDefaultOrderOption(): void {
+		// Reach into the protected $order via reflection so we don't need a
+		// dedicated test fixture table.
+		$ref = new \ReflectionProperty(\Shim\Model\Table\Table::class, 'order');
+		$ref->setValue($this->Posts, ['Posts.id' => 'DESC']);
+
+		// beforeFind only fires when the query is executed/compiled. Compile via
+		// sql() so we can inspect the resulting clause.
+		$defaultQuery = $this->Posts->find();
+		$defaultQuery->sql();
+		$this->assertNotNull($defaultQuery->clause('order'));
+
+		$optedOut = $this->Posts->find('all', noDefaultOrder: true);
+		$optedOut->sql();
+		$this->assertNull($optedOut->clause('order'));
+	}
+
+	/**
 	 * @return void
 	 */
 	public function testField(): void {
