@@ -8,6 +8,7 @@ use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\ORM\Entity;
 use Cake\ORM\TableRegistry;
 use InvalidArgumentException;
+use ReflectionProperty;
 use Shim\Model\Table\Table;
 use Shim\TestSuite\TestCase;
 
@@ -145,7 +146,7 @@ class TableTest extends TestCase {
 	public function testNoDefaultOrderOption(): void {
 		// Reach into the protected $order via reflection so we don't need a
 		// dedicated test fixture table.
-		$ref = new \ReflectionProperty(\Shim\Model\Table\Table::class, 'order');
+		$ref = new ReflectionProperty(Table::class, 'order');
 		$ref->setValue($this->Posts, ['Posts.id' => 'DESC']);
 
 		// beforeFind only fires when the query is executed/compiled. Compile via
