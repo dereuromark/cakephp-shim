@@ -22,11 +22,19 @@ This branch is for use with **CakePHP 5.1+**. For details see [version map](http
 
 "0-dependency plugin": Apart from core this plugin has no other dependencies!
 
-## Installation
-Please see [Install.md](docs/Install.md)
+## Documentation
 
-## Usage
-Please see [Docs](docs/README.md).
+Full documentation lives at **[dereuromark.github.io/cakephp-shim](https://dereuromark.github.io/cakephp-shim/)**.
+
+A few good entry points:
+
+* [Overview](https://dereuromark.github.io/cakephp-shim/guide/)
+* [Installation](https://dereuromark.github.io/cakephp-shim/guide/installation)
+* [Upgrade Guide](https://dereuromark.github.io/cakephp-shim/guide/upgrade)
+* [Database types](https://dereuromark.github.io/cakephp-shim/database/uuid)
+* [Model and ORM shims](https://dereuromark.github.io/cakephp-shim/model/table)
+
+The Markdown sources live in the [docs](docs/) directory of this repository.
 
 A full overview of all shimming between versions can be found in the [Wiki](https://github.com/dereuromark/cakephp-shim/wiki).
 

@@ -19,9 +19,11 @@
 			"role": "Maintainer"
 		}
 	],
-	"homepage": "https://github.com/dereuromark/cakephp-shim",
+	"homepage": "https://dereuromark.github.io/cakephp-shim/",
 	"support": {
-		"source": "https://github.com/dereuromark/cakephp-shim"
+		"issues": "https://github.com/dereuromark/cakephp-shim/issues",
+		"source": "https://github.com/dereuromark/cakephp-shim",
+		"docs": "https://dereuromark.github.io/cakephp-shim/"
 	},
 	"require": {
 		"php": ">=8.2",
