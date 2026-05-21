@@ -6,3 +6,6 @@ tmp/
 composer.lock
 .idea/
 .phpcs.cache
+/docs/node_modules/
+/docs/.vitepress/cache/
+/docs/.vitepress/dist/
