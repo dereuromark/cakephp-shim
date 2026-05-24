@@ -21,7 +21,8 @@ trait ModifiedTrait {
 		}
 
 		$value = $this->get($name);
-        return !in_array($name, $this->_originalFields, true) ||
+
+		return !in_array($name, $this->_originalFields, true) ||
 			(
 				array_key_exists($name, $this->_original) &&
 				($nonStrictComparison && $this->_original[$name] != $value || !$nonStrictComparison && $this->_original[$name] !== $value)

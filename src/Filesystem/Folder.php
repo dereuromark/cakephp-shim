@@ -19,6 +19,7 @@ namespace Shim\Filesystem;
 
 use DirectoryIterator;
 use Exception;
+use FilesystemIterator;
 use InvalidArgumentException;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
@@ -429,7 +430,7 @@ class Folder {
 
 			foreach ($paths as $type) {
 				foreach ($type as $fullpath) {
-					$check = explode(DIRECTORY_SEPARATOR, (string) $fullpath);
+					$check = explode(DIRECTORY_SEPARATOR, (string)$fullpath);
 					$count = count($check);
 
 					if (in_array($check[$count - 1], $exceptions, true)) {
@@ -515,7 +516,7 @@ class Folder {
 		try {
 			$directory = new RecursiveDirectoryIterator(
 				$path,
-				RecursiveDirectoryIterator::KEY_AS_PATHNAME | RecursiveDirectoryIterator::CURRENT_AS_SELF | \FilesystemIterator::SKIP_DOTS,
+				RecursiveDirectoryIterator::KEY_AS_PATHNAME | RecursiveDirectoryIterator::CURRENT_AS_SELF | FilesystemIterator::SKIP_DOTS,
 			);
 			$iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::SELF_FIRST);
 		} catch (Exception) {
@@ -606,17 +607,18 @@ class Folder {
 		$nextPathname = substr($pathname, 0, (int)strrpos($pathname, DIRECTORY_SEPARATOR));
 
 		if ($this->create($nextPathname, $mode) && !file_exists($pathname)) {
-            $old = umask(0);
-            if (mkdir($pathname, $mode, true)) {
+			$old = umask(0);
+			if (mkdir($pathname, $mode, true)) {
 					$this->_messages[] = sprintf('%s created', $pathname);
 					umask($old);
 
 					return true;
-				}
-            $this->_errors[] = sprintf('%s NOT created', $pathname);
-            umask($old);
-            return false;
-        }
+			}
+			$this->_errors[] = sprintf('%s NOT created', $pathname);
+			umask($old);
+
+			return false;
+		}
 
 		return false;
 	}
@@ -674,7 +676,7 @@ class Folder {
 		if (is_dir($path)) {
 			$directory = $iterator = null;
 			try {
-				$directory = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::CURRENT_AS_SELF | \FilesystemIterator::SKIP_DOTS);
+				$directory = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::CURRENT_AS_SELF | FilesystemIterator::SKIP_DOTS);
 				$iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::CHILD_FIRST);
 			} catch (Exception) {
 				unset($directory, $iterator);

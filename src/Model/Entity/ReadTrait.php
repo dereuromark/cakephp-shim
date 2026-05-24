@@ -2,7 +2,6 @@
 
 namespace Shim\Model\Entity;
 
-use ArrayAccess;
 use Cake\Datasource\EntityInterface;
 
 /**

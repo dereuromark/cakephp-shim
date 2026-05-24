@@ -63,7 +63,7 @@ trait LegacyModelAwareTrait {
 			$alias = substr(
 				$modelClass,
 				strrpos($modelClass, '\\') + 1,
-				-strlen((string) $modelType),
+				-strlen((string)$modelType),
 			);
 			$modelClass = $alias;
 		}

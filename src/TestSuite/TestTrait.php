@@ -47,7 +47,8 @@ trait TestTrait {
 		if (!$onlyVeryVerbose && in_array('-v', $_SERVER['argv'], true)) {
 			return true;
 		}
-        return in_array('-vv', $_SERVER['argv'], true);
+
+		return in_array('-vv', $_SERVER['argv'], true);
 	}
 
 	/**

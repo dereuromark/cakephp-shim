@@ -336,10 +336,10 @@ class DateTimeWidget extends BasicWidget {
 		$options += ['interval' => 1, 'round' => null];
 		$changeValue = $value * (1 / $options['interval']);
 		$changeValue = match ($options['round']) {
-            'up' => ceil($changeValue),
-            'down' => floor($changeValue),
-            default => round($changeValue),
-        };
+			'up' => ceil($changeValue),
+			'down' => floor($changeValue),
+			default => round($changeValue),
+		};
 
 		return (int)($changeValue * $options['interval']) - $value;
 	}
@@ -678,7 +678,7 @@ class DateTimeWidget extends BasicWidget {
 			$dateTime['hour'] = 0;
 		}
 		if (isset($dateTime['meridian'])) {
-			$dateTime['hour'] = strtolower((string) $dateTime['meridian']) === 'am' ? $dateTime['hour'] : $dateTime['hour'] + 12;
+			$dateTime['hour'] = strtolower((string)$dateTime['meridian']) === 'am' ? $dateTime['hour'] : $dateTime['hour'] + 12;
 		}
 
 		return sprintf(

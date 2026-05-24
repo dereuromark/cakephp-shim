@@ -93,8 +93,8 @@ class File {
 		}
 		$this->pwd();
 		if ($create && !$this->exists() && $this->safe($path)) {
-            $this->create();
-        }
+			$this->create();
+		}
 	}
 
 	/**
@@ -111,7 +111,8 @@ class File {
 	 */
 	public function create(): bool {
 		$dir = $this->Folder->pwd();
-        return is_dir($dir) && is_writable($dir) && !$this->exists() && touch($this->path);
+
+		return is_dir($dir) && is_writable($dir) && !$this->exists() && touch($this->path);
 	}
 
 	/**
@@ -296,7 +297,7 @@ class File {
 	 */
 	public function info(): array {
 		if (!$this->info) {
-			$this->info = pathinfo((string) $this->path);
+			$this->info = pathinfo((string)$this->path);
 		}
 
 		$this->info['filename'] ??= $this->name();

@@ -38,10 +38,10 @@ class EntityAnnotator extends IdeHelperEntityAnnotator {
 		foreach ($methodTypes as $methodType) {
 			foreach ($propertyHintMap as $field => $type) {
 				if ($methodType === 'set') {
-					if (str_contains((string) $type, '|null')) {
+					if (str_contains((string)$type, '|null')) {
 						$type = str_replace('|null', '', $type);
 					}
-					if (preg_match('/^(\w+)[<\[]/', (string) $type, $matches)) {
+					if (preg_match('/^(\w+)[<\[]/', (string)$type, $matches)) {
 						$type = $matches[1];
 					}
 
@@ -49,7 +49,7 @@ class EntityAnnotator extends IdeHelperEntityAnnotator {
 					$type = '$this';
 				} else {
 					$method = $methodType . Inflector::camelize($field) . 'OrFail()';
-					if (str_contains((string) $type, '|null')) {
+					if (str_contains((string)$type, '|null')) {
 						$type = str_replace('|null', '', $type);
 					}
 				}

@@ -353,43 +353,43 @@ class Table extends CoreTable {
 		if ($keyField === null && $valueField === null && count($fields) === 2) {
 			$keyField = array_shift($fields);
 			$valueField = array_shift($fields);
-			if (substr_count((string) $keyField, '.') > 1) {
+			if (substr_count((string)$keyField, '.') > 1) {
 				$keyField = null;
-			} elseif (str_contains((string) $keyField, '.')) {
-				$dotPos = (int)strpos((string) $keyField, '.');
-				if (substr((string) $keyField, 0, $dotPos) === $this->getAlias()) {
-					$keyField = substr((string) $keyField, $dotPos + 1);
+			} elseif (str_contains((string)$keyField, '.')) {
+				$dotPos = (int)strpos((string)$keyField, '.');
+				if (substr((string)$keyField, 0, $dotPos) === $this->getAlias()) {
+					$keyField = substr((string)$keyField, $dotPos + 1);
 				} else {
-					$modelAlias = substr((string) $keyField, 0, $dotPos);
+					$modelAlias = substr((string)$keyField, 0, $dotPos);
 					$property = $this->{$modelAlias}->getProperty();
-					$keyField = $property . '.' . substr((string) $keyField, $dotPos + 1);
+					$keyField = $property . '.' . substr((string)$keyField, $dotPos + 1);
 				}
 			}
-			if (substr_count((string) $valueField, '.') > 1) {
+			if (substr_count((string)$valueField, '.') > 1) {
 				$valueField = null;
-			} elseif (str_contains((string) $valueField, '.')) {
-				$dotPos = (int)strpos((string) $valueField, '.');
-				if (substr((string) $valueField, 0, $dotPos) === $this->getAlias()) {
-					$valueField = substr((string) $valueField, $dotPos + 1);
+			} elseif (str_contains((string)$valueField, '.')) {
+				$dotPos = (int)strpos((string)$valueField, '.');
+				if (substr((string)$valueField, 0, $dotPos) === $this->getAlias()) {
+					$valueField = substr((string)$valueField, $dotPos + 1);
 				} else {
-					$modelAlias = substr((string) $valueField, 0, $dotPos);
+					$modelAlias = substr((string)$valueField, 0, $dotPos);
 					$property = $this->{$modelAlias}->getProperty();
-					$valueField = $property . '.' . substr((string) $valueField, $dotPos + 1);
+					$valueField = $property . '.' . substr((string)$valueField, $dotPos + 1);
 				}
 			}
 
 		} elseif ($keyField === null && $valueField === null && count($fields) === 1) {
 			$field = array_shift($fields);
-			if (substr_count((string) $field, '.') > 1) {
+			if (substr_count((string)$field, '.') > 1) {
 				$field = null;
-			} elseif (str_contains((string) $field, '.')) {
-				$dotPos = (int)strpos((string) $field, '.');
-				if (substr((string) $field, 0, $dotPos) === $this->getAlias()) {
-					$field = substr((string) $field, $dotPos + 1);
+			} elseif (str_contains((string)$field, '.')) {
+				$dotPos = (int)strpos((string)$field, '.');
+				if (substr((string)$field, 0, $dotPos) === $this->getAlias()) {
+					$field = substr((string)$field, $dotPos + 1);
 				} else {
-					$modelAlias = substr((string) $field, 0, $dotPos);
+					$modelAlias = substr((string)$field, 0, $dotPos);
 					$property = $this->{$modelAlias}->getProperty();
-					$field = $property . '.' . substr((string) $field, $dotPos + 1);
+					$field = $property . '.' . substr((string)$field, $dotPos + 1);
 				}
 			}
 			if ($field !== null) {
