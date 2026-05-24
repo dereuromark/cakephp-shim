@@ -58,20 +58,20 @@ class Table extends CoreTable {
 	 */
 	public function initialize(array $config): void {
 		// Shims
-		if (property_exists($this, 'useTable') && $this->useTable !== null) {
+		if (isset($this->useTable)) {
 			$this->setTable($this->useTable);
 		}
-		if (property_exists($this, 'primaryKey') && $this->primaryKey !== null) {
+		if (isset($this->primaryKey)) {
 			$this->setPrimaryKey($this->primaryKey);
 		}
-		if (property_exists($this, 'displayField') && $this->displayField !== null) {
+		if (isset($this->displayField)) {
 			$this->setDisplayField($this->displayField);
 		}
 		$this->_shimRelations();
 
 		$this->_prefixOrderProperty();
 
-		if (property_exists($this, 'actsAs') && $this->actsAs !== null) {
+		if (isset($this->actsAs)) {
 			foreach ($this->actsAs as $name => $options) {
 				if (is_numeric($name)) {
 					$name = $options;

@@ -45,7 +45,6 @@ class FolderTest extends TestCase {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		parent::tearDown();
 		$cleaner = function ($dir) use (&$cleaner): void {
 			$files = array_diff(scandir($dir), ['.', '..']);
 			foreach ($files as $file) {
