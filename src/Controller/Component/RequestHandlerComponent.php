@@ -378,11 +378,7 @@ class RequestHandlerComponent extends Component {
 		$options += $defaults;
 
 		$builder = $controller->viewBuilder();
-		if (array_key_exists($type, $viewClassMap)) {
-			$view = $viewClassMap[$type];
-		} else {
-			$view = Inflector::classify($type);
-		}
+		$view = array_key_exists($type, $viewClassMap) ? $viewClassMap[$type] : Inflector::classify($type);
 
 		$viewClass = null;
 		if ($builder->getClassName() === null) {
@@ -393,7 +389,7 @@ class RequestHandlerComponent extends Component {
 			$builder->setClassName($viewClass);
 		} else {
 			if (!$this->_renderType) {
-				$builder->setTemplatePath((string)$builder->getTemplatePath() . DIRECTORY_SEPARATOR . $type);
+				$builder->setTemplatePath($builder->getTemplatePath() . DIRECTORY_SEPARATOR . $type);
 			} else {
 				$builder->setTemplatePath(preg_replace(
 					"/([\/\\\\]{$this->_renderType})$/",
@@ -431,7 +427,7 @@ class RequestHandlerComponent extends Component {
 		$controller = $this->getController();
 		$response = $controller->getResponse();
 
-		if (strpos($type, '/') === false) {
+		if (!str_contains($type, '/')) {
 			$cType = $response->getMimeType($type);
 		}
 		if (is_array($cType)) {
@@ -469,7 +465,7 @@ class RequestHandlerComponent extends Component {
 	 */
 	public function mapAlias($alias) {
 		if (is_array($alias)) {
-			return array_map([$this, 'mapAlias'], $alias);
+			return array_map($this->mapAlias(...), $alias);
 		}
 
 		$type = $this->getController()->getResponse()->getMimeType($alias);

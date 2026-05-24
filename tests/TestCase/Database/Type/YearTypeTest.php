@@ -27,8 +27,6 @@ class YearTypeTest extends TestCase {
 	 * @return void
 	 */
 	public function setUp(): void {
-		parent::setUp();
-
 		TypeFactory::map('year', YearType::class);
 
 		$this->Table = TableRegistry::getTableLocator()->get('YearTypes', ['className' => YearTypesTable::class]);
@@ -38,8 +36,6 @@ class YearTypeTest extends TestCase {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		parent::tearDown();
-
 		unset($this->Table);
 	}
 

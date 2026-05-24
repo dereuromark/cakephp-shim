@@ -21,8 +21,6 @@ class LegacyModelAwareClassAnnotatorTaskTest extends TestCase {
 	 * @return void
 	 */
 	protected function setUp(): void {
-		parent::setUp();
-
 		$this->skipIf(version_compare(PHP_VERSION, '8.3.0', '<'));
 
 		$this->out = new ConsoleOutput();

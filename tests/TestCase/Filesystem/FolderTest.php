@@ -1171,18 +1171,7 @@ class FolderTest extends TestCase {
 		touch($fileOneA);
 		touch($fileTwoB);
 
-		return compact(
-			'path',
-			'folderOne',
-			'folderOneA',
-			'folderTwo',
-			'folderTwoB',
-			'folderThree',
-			'fileOne',
-			'fileOneA',
-			'fileTwo',
-			'fileTwoB',
-		);
+		return ['path' => $path, 'folderOne' => $folderOne, 'folderOneA' => $folderOneA, 'folderTwo' => $folderTwo, 'folderTwoB' => $folderTwoB, 'folderThree' => $folderThree, 'fileOne' => $fileOne, 'fileOneA' => $fileOneA, 'fileTwo' => $fileTwo, 'fileTwoB' => $fileTwoB];
 	}
 
 	/**

@@ -15,8 +15,6 @@ class NumberHelperTest extends TestCase {
 	 * @return void
 	 */
 	public function setUp(): void {
-		parent::setUp();
-
 		$request = new ServerRequest();
 		$this->Number = new NumberHelper(new View($request));
 	}
@@ -26,8 +24,6 @@ class NumberHelperTest extends TestCase {
 	 */
 	public function tearDown(): void {
 		unset($this->Table);
-
-		parent::tearDown();
 	}
 
 	/**

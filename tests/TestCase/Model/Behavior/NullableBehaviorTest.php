@@ -24,8 +24,6 @@ class NullableBehaviorTest extends TestCase {
 	 * @return void
 	 */
 	public function setUp(): void {
-		parent::setUp();
-
 		$this->Table = TableRegistry::getTableLocator()->get('Nullables');
 		$this->Table->addAssociations(['hasOne' => ['NullableTenants' => ['hasMany' => 'Nullables']]]);
 		$this->Table->addBehavior('Shim.Nullable');
@@ -35,8 +33,6 @@ class NullableBehaviorTest extends TestCase {
 	 * @return void
 	 */
 	public function tearDown(): void {
-		parent::tearDown();
-
 		$this->getTableLocator()->clear();
 	}
 

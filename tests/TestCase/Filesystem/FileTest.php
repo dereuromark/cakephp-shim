@@ -545,7 +545,7 @@ class FileTest extends TestCase {
 			$r = $TmpFile->append($fragment);
 			$this->assertTrue($r);
 			$this->assertFileExists($tmpFile);
-			$data = $data . $fragment;
+			$data .= $fragment;
 			$this->assertStringEqualsFile($tmpFile, $data);
 			$newSize = $TmpFile->size();
 			$this->assertTrue($newSize > $size);

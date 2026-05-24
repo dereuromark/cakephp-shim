@@ -92,7 +92,9 @@ class File {
 			$this->name = ltrim($splInfo->getFilename(), '/\\');
 		}
 		$this->pwd();
-		$create && !$this->exists() && $this->safe($path) && $this->create();
+		if ($create && !$this->exists() && $this->safe($path)) {
+            $this->create();
+        }
 	}
 
 	/**
@@ -109,12 +111,7 @@ class File {
 	 */
 	public function create(): bool {
 		$dir = $this->Folder->pwd();
-
-		if (is_dir($dir) && is_writable($dir) && !$this->exists() && touch($this->path)) {
-			return true;
-		}
-
-		return false;
+        return is_dir($dir) && is_writable($dir) && !$this->exists() && touch($this->path);
 	}
 
 	/**
@@ -195,7 +192,7 @@ class File {
 			if (is_resource($this->handle)) {
 				return ftell($this->handle);
 			}
-		} elseif ($this->open() === true) {
+		} elseif ($this->open()) {
 			return fseek($this->handle, $offset, $seek) === 0;
 		}
 
@@ -213,7 +210,7 @@ class File {
 	 */
 	public static function prepare(string $data, bool $forceWindows = false): string {
 		$lineBreak = "\n";
-		if (DIRECTORY_SEPARATOR === '\\' || $forceWindows === true) {
+		if (DIRECTORY_SEPARATOR === '\\' || $forceWindows) {
 			$lineBreak = "\r\n";
 		}
 
@@ -230,7 +227,7 @@ class File {
 	 */
 	public function write(string $data, string $mode = 'w', bool $force = false): bool {
 		$success = false;
-		if ($this->open($mode, $force) === true) {
+		if ($this->open($mode, $force)) {
 			if ($this->lock !== null && flock($this->handle, LOCK_EX) === false) {
 				return false;
 			}
@@ -299,12 +296,12 @@ class File {
 	 */
 	public function info(): array {
 		if (!$this->info) {
-			$this->info = pathinfo($this->path);
+			$this->info = pathinfo((string) $this->path);
 		}
 
-		$this->info['filename'] = $this->info['filename'] ?? $this->name();
-		$this->info['filesize'] = $this->info['filesize'] ?? $this->size();
-		$this->info['mime'] = $this->info['mime'] ?? $this->mime();
+		$this->info['filename'] ??= $this->name();
+		$this->info['filesize'] ??= $this->size();
+		$this->info['mime'] ??= $this->mime();
 
 		return $this->info;
 	}

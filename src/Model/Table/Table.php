@@ -58,20 +58,20 @@ class Table extends CoreTable {
 	 */
 	public function initialize(array $config): void {
 		// Shims
-		if (isset($this->useTable)) {
+		if (property_exists($this, 'useTable') && $this->useTable !== null) {
 			$this->setTable($this->useTable);
 		}
-		if (isset($this->primaryKey)) {
+		if (property_exists($this, 'primaryKey') && $this->primaryKey !== null) {
 			$this->setPrimaryKey($this->primaryKey);
 		}
-		if (isset($this->displayField)) {
+		if (property_exists($this, 'displayField') && $this->displayField !== null) {
 			$this->setDisplayField($this->displayField);
 		}
 		$this->_shimRelations();
 
 		$this->_prefixOrderProperty();
 
-		if (isset($this->actsAs)) {
+		if (property_exists($this, 'actsAs') && $this->actsAs !== null) {
 			foreach ($this->actsAs as $name => $options) {
 				if (is_numeric($name)) {
 					$name = $options;
@@ -162,9 +162,7 @@ class Table extends CoreTable {
 			$array['conditions'] = $conditions;
 		}
 
-		$array = array_filter($array);
-
-		return $array;
+		return array_filter($array);
 	}
 
 	/**
@@ -355,43 +353,43 @@ class Table extends CoreTable {
 		if ($keyField === null && $valueField === null && count($fields) === 2) {
 			$keyField = array_shift($fields);
 			$valueField = array_shift($fields);
-			if (substr_count($keyField, '.') > 1) {
+			if (substr_count((string) $keyField, '.') > 1) {
 				$keyField = null;
-			} elseif (str_contains($keyField, '.')) {
-				$dotPos = (int)strpos($keyField, '.');
-				if (substr($keyField, 0, $dotPos) === $this->getAlias()) {
-					$keyField = substr($keyField, $dotPos + 1);
+			} elseif (str_contains((string) $keyField, '.')) {
+				$dotPos = (int)strpos((string) $keyField, '.');
+				if (substr((string) $keyField, 0, $dotPos) === $this->getAlias()) {
+					$keyField = substr((string) $keyField, $dotPos + 1);
 				} else {
-					$modelAlias = substr($keyField, 0, $dotPos);
+					$modelAlias = substr((string) $keyField, 0, $dotPos);
 					$property = $this->{$modelAlias}->getProperty();
-					$keyField = $property . '.' . substr($keyField, $dotPos + 1);
+					$keyField = $property . '.' . substr((string) $keyField, $dotPos + 1);
 				}
 			}
-			if (substr_count($valueField, '.') > 1) {
+			if (substr_count((string) $valueField, '.') > 1) {
 				$valueField = null;
-			} elseif (str_contains($valueField, '.')) {
-				$dotPos = (int)strpos($valueField, '.');
-				if (substr($valueField, 0, $dotPos) === $this->getAlias()) {
-					$valueField = substr($valueField, $dotPos + 1);
+			} elseif (str_contains((string) $valueField, '.')) {
+				$dotPos = (int)strpos((string) $valueField, '.');
+				if (substr((string) $valueField, 0, $dotPos) === $this->getAlias()) {
+					$valueField = substr((string) $valueField, $dotPos + 1);
 				} else {
-					$modelAlias = substr($valueField, 0, $dotPos);
+					$modelAlias = substr((string) $valueField, 0, $dotPos);
 					$property = $this->{$modelAlias}->getProperty();
-					$valueField = $property . '.' . substr($valueField, $dotPos + 1);
+					$valueField = $property . '.' . substr((string) $valueField, $dotPos + 1);
 				}
 			}
 
 		} elseif ($keyField === null && $valueField === null && count($fields) === 1) {
 			$field = array_shift($fields);
-			if (substr_count($field, '.') > 1) {
+			if (substr_count((string) $field, '.') > 1) {
 				$field = null;
-			} elseif (str_contains($field, '.')) {
-				$dotPos = (int)strpos($field, '.');
-				if (substr($field, 0, $dotPos) === $this->getAlias()) {
-					$field = substr($field, $dotPos + 1);
+			} elseif (str_contains((string) $field, '.')) {
+				$dotPos = (int)strpos((string) $field, '.');
+				if (substr((string) $field, 0, $dotPos) === $this->getAlias()) {
+					$field = substr((string) $field, $dotPos + 1);
 				} else {
-					$modelAlias = substr($field, 0, $dotPos);
+					$modelAlias = substr((string) $field, 0, $dotPos);
 					$property = $this->{$modelAlias}->getProperty();
-					$field = $property . '.' . substr($field, $dotPos + 1);
+					$field = $property . '.' . substr((string) $field, $dotPos + 1);
 				}
 			}
 			if ($field !== null) {
@@ -629,7 +627,7 @@ class Table extends CoreTable {
 	 * @return string
 	 */
 	protected function _prefixAlias(string $string): string {
-		if (strpos($string, '.') === false) {
+		if (!str_contains($string, '.')) {
 			return $this->getAlias() . '.' . $string;
 		}
 

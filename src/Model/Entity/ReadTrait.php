@@ -26,15 +26,11 @@ trait ReadTrait {
 	 * @return mixed|null The value fetched from the entity, or null.
 	 */
 	public function read($path, mixed $default = null): mixed {
-		if (!is_array($path)) {
-			$parts = explode('.', $path);
-		} else {
-			$parts = $path;
-		}
+		$parts = is_array($path) ? $path : explode('.', $path);
 
 		$data = null;
 		foreach ($parts as $key) {
-			if ($data === null && !isset($this->$key)) {
+			if (!isset($this->$key)) {
 				return $default;
 			}
 			if ($data === null) {
@@ -47,7 +43,7 @@ trait ReadTrait {
 				$data = $data->toArray();
 			}
 
-			if ((is_array($data) || $data instanceof ArrayAccess) && isset($data[$key])) {
+			if (isset($data[$key])) {
 				$data = $data[$key];
 			} else {
 				return $default;
