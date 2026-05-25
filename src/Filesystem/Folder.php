@@ -609,10 +609,10 @@ class Folder {
 		if ($this->create($nextPathname, $mode) && !file_exists($pathname)) {
 			$old = umask(0);
 			if (mkdir($pathname, $mode, true)) {
-					$this->_messages[] = sprintf('%s created', $pathname);
-					umask($old);
+				$this->_messages[] = sprintf('%s created', $pathname);
+				umask($old);
 
-					return true;
+				return true;
 			}
 			$this->_errors[] = sprintf('%s NOT created', $pathname);
 			umask($old);
