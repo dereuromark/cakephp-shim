@@ -2,6 +2,7 @@
 
 namespace Shim\Model\Entity;
 
+use ArrayAccess;
 use Cake\Datasource\EntityInterface;
 
 /**
@@ -29,7 +30,7 @@ trait ReadTrait {
 
 		$data = null;
 		foreach ($parts as $key) {
-			if (!isset($this->$key)) {
+			if ($data === null && !isset($this->$key)) {
 				return $default;
 			}
 			if ($data === null) {
@@ -42,7 +43,7 @@ trait ReadTrait {
 				$data = $data->toArray();
 			}
 
-			if (isset($data[$key])) {
+			if ((is_array($data) || $data instanceof ArrayAccess) && isset($data[$key])) {
 				$data = $data[$key];
 			} else {
 				return $default;
