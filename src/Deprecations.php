@@ -31,9 +31,7 @@ class Deprecations {
 			return $specificOn;
 		}
 
-		$globalOn = Configure::read('Shim.deprecations') === true;
-
-		return $globalOn;
+		return Configure::read('Shim.deprecations') === true;
 	}
 
 	/**

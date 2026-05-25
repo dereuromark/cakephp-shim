@@ -28,11 +28,7 @@ trait RequireTrait {
 	 * @return void
 	 */
 	public function require($path): void {
-		if (!is_array($path)) {
-			$parts = explode('.', $path);
-		} else {
-			$parts = $path;
-		}
+		$parts = is_array($path) ? $path : explode('.', $path);
 
 		$data = null;
 		$failed = null;

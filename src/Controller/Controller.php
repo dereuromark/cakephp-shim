@@ -69,14 +69,12 @@ class Controller extends CoreController {
 	 * @return void
 	 */
 	public function afterFilter(EventInterface $event): void {
-		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && PHP_SAPI !== 'cli') {
-			if (headers_sent($filename, $lineNumber)) {
-				$message = sprintf('Headers already sent in %s on line %s', $filename, $lineNumber);
-				if (Configure::read('debug')) {
+		if (Configure::read('Shim.monitorHeaders') && $this->name !== 'Error' && PHP_SAPI !== 'cli' && headers_sent($filename, $lineNumber)) {
+			$message = sprintf('Headers already sent in %s on line %s', $filename, $lineNumber);
+			if (Configure::read('debug')) {
 					throw new Exception($message);
-				}
-				trigger_error($message);
 			}
+			trigger_error($message);
 		}
 	}
 

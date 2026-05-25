@@ -264,7 +264,7 @@ class DateTimeWidget extends BasicWidget {
 					'meridian' => '',
 				];
 				$validDate = false;
-				foreach ($dateArray as $key => $dateValue) {
+				foreach (array_keys($dateArray) as $key) {
 					$exists = isset($value[$key]);
 					if ($exists) {
 						$validDate = true;
@@ -295,7 +295,7 @@ class DateTimeWidget extends BasicWidget {
 				/** @var \DateTimeInterface|\Cake\Chronos\ChronosDate $value */
 				$dateTime = clone $value;
 			}
-		} catch (Exception $e) {
+		} catch (Exception) {
 			$dateTime = new DateTime();
 		}
 
@@ -335,18 +335,11 @@ class DateTimeWidget extends BasicWidget {
 	protected function _adjustValue(int $value, array $options): int {
 		$options += ['interval' => 1, 'round' => null];
 		$changeValue = $value * (1 / $options['interval']);
-		switch ($options['round']) {
-			case 'up':
-				$changeValue = ceil($changeValue);
-
-				break;
-			case 'down':
-				$changeValue = floor($changeValue);
-
-				break;
-			default:
-				$changeValue = round($changeValue);
-		}
+		$changeValue = match ($options['round']) {
+			'up' => ceil($changeValue),
+			'down' => floor($changeValue),
+			default => round($changeValue),
+		};
 
 		return (int)($changeValue * $options['interval']) - $value;
 	}
@@ -685,9 +678,10 @@ class DateTimeWidget extends BasicWidget {
 			$dateTime['hour'] = 0;
 		}
 		if (isset($dateTime['meridian'])) {
-			$dateTime['hour'] = strtolower($dateTime['meridian']) === 'am' ? $dateTime['hour'] : $dateTime['hour'] + 12;
+			$dateTime['hour'] = strtolower((string)$dateTime['meridian']) === 'am' ? $dateTime['hour'] : $dateTime['hour'] + 12;
 		}
-		$format = sprintf(
+
+		return sprintf(
 			'%d-%02d-%02d %02d:%02d:%02d',
 			$dateTime['year'],
 			$dateTime['month'],
@@ -696,8 +690,6 @@ class DateTimeWidget extends BasicWidget {
 			$dateTime['minute'],
 			$dateTime['second'],
 		);
-
-		return $format;
 	}
 
 }

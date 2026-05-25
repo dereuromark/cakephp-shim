@@ -35,9 +35,6 @@ class TimeStringType extends BaseType {
 		if ($value !== null) {
 			$value = $this->normalize($value);
 		}
-		if ($value === null) {
-			return null;
-		}
 
 		return $value;
 	}
@@ -50,10 +47,6 @@ class TimeStringType extends BaseType {
 	 * @return string|null
 	 */
 	public function toPHP(mixed $value, Driver $driver): mixed {
-		if ($value === null) {
-			return null;
-		}
-
 		return $value;
 	}
 
@@ -67,9 +60,6 @@ class TimeStringType extends BaseType {
 		}
 		if ($value !== null) {
 			$value = $this->normalize($value);
-		}
-		if ($value === null) {
-			return null;
 		}
 
 		return $value;
@@ -104,7 +94,7 @@ class TimeStringType extends BaseType {
 	 * @return string|null
 	 */
 	protected function normalize(string $value): ?string {
-		if (!preg_match('#^(([0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]|24:00:00)$#', $value)) {
+		if (!preg_match('#^(([0-1]\d|2[0-3]):[0-5]\d:[0-5]\d|24:00:00)$#', $value)) {
 			return null;
 		}
 		if (static::$normalizeUpperBoundary && $value === '24:00:00') {

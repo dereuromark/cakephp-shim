@@ -34,7 +34,7 @@ class LegacyModelAwareClassAnnotatorTask extends ModelAwareClassAnnotatorTask {
 
 		try {
 			return (new ReflectionClass($className))->hasMethod('loadModel');
-		} catch (Throwable $exception) {
+		} catch (Throwable) {
 			return false;
 		}
 	}

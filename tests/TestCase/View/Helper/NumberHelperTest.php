@@ -26,7 +26,6 @@ class NumberHelperTest extends TestCase {
 	 */
 	public function tearDown(): void {
 		unset($this->Table);
-
 		parent::tearDown();
 	}
 

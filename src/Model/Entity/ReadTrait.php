@@ -26,11 +26,7 @@ trait ReadTrait {
 	 * @return mixed|null The value fetched from the entity, or null.
 	 */
 	public function read($path, mixed $default = null): mixed {
-		if (!is_array($path)) {
-			$parts = explode('.', $path);
-		} else {
-			$parts = $path;
-		}
+		$parts = is_array($path) ? $path : explode('.', $path);
 
 		$data = null;
 		foreach ($parts as $key) {
