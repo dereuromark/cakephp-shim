@@ -41,6 +41,8 @@ class TableTest extends TestCase {
 	 * @return void
 	 */
 	public function setUp(): void {
+		parent::setUp();
+
 		Configure::write('App.namespace', 'TestApp');
 
 		$this->Posts = TableRegistry::getTableLocator()->get('Shim.Posts', ['className' => '\Shim\Model\Table\Table']);
@@ -55,6 +57,8 @@ class TableTest extends TestCase {
 	 */
 	public function tearDown(): void {
 		Configure::delete('Shim');
+
+		parent::tearDown();
 	}
 
 	/**
