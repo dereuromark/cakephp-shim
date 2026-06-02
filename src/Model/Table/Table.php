@@ -347,7 +347,7 @@ class Table extends CoreTable {
 	 * @param string $valueSeparator
 	 * @return \Cake\ORM\Query\SelectQuery
 	 */
-	public function findList(SelectQuery $query, array|string|Closure|null $keyField = null, array|string|Closure|null $valueField = null, array|string|Closure|null $groupField = null, string $valueSeparator = ' '): SelectQuery {
+	public function findList(SelectQuery $query, Closure|array|string|null $keyField = null, Closure|array|string|null $valueField = null, Closure|array|string|null $groupField = null, string $valueSeparator = ' '): SelectQuery {
 		$fields = $query->clause('select');
 
 		if ($keyField === null && $valueField === null && count($fields) === 2) {
