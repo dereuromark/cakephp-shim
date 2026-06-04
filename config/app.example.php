@@ -35,4 +35,15 @@ return [
 		// Helps catch stray output/whitespace in controllers. Default: not set (disabled).
 		'monitorHeaders' => false,
 	],
+
+	// This key is owned by dereuromark/cakephp-ide-helper (see that plugin's
+	// config/app.example.php for the full set of options). Shim's EntityAnnotator
+	// honors it too: when enabled (true, or 'detailed' for fully detailed types),
+	// generated entity setter methods keep the iterable value type of array/json
+	// fields, e.g. setTagsOrFail(array<\App\Model\Entity\Tag> $value) instead of a
+	// bare setTagsOrFail(array $value). Without it the value type collapses to the
+	// base type. Default: false.
+	'IdeHelper' => [
+		'genericsInParam' => false,
+	],
 ];
