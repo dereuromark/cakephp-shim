@@ -64,7 +64,7 @@ class Controller extends CoreController {
 	 * This, if desired, adds a check if your controller actions are cleanly built and no headers
 	 * or output is being sent prior to the response class, which should be the only one doing this.
 	 *
-	 * @param \Cake\Event\EventInterface $event An Event instance
+	 * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event An Event instance
 	 * @throws \Exception
 	 * @return void
 	 */
