@@ -2,6 +2,7 @@
 
 namespace Shim\Annotator;
 
+use Cake\Core\Configure;
 use Cake\Utility\Inflector;
 use IdeHelper\Annotation\MethodAnnotation;
 use IdeHelper\Annotator\EntityAnnotator as IdeHelperEntityAnnotator;
@@ -41,7 +42,11 @@ class EntityAnnotator extends IdeHelperEntityAnnotator {
 					if (str_contains((string)$type, '|null')) {
 						$type = str_replace('|null', '', $type);
 					}
-					if (preg_match('/^(\w+)[<\[]/', (string)$type, $matches)) {
+					// With `IdeHelper.genericsInParam` the property hint already carries the
+					// value type (e.g. `array<\App\Model\Entity\User>`); keep it so the setter
+					// param stays PHPStan-clean (no `missingType.iterableValue`). Without the
+					// opt-in, collapse generics to the base type for backwards compatibility.
+					if (!Configure::read('IdeHelper.genericsInParam') && preg_match('/^(\w+)[<\[]/', (string)$type, $matches)) {
 						$type = $matches[1];
 					}
 
