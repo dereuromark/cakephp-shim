@@ -28,9 +28,9 @@ Full documentation lives at **[dereuromark.github.io/cakephp-shim](https://dereu
 
 A few good entry points:
 
-* [Getting started](https://dereuromark.github.io/cakephp-shim/guide/getting-started)
 * [Overview](https://dereuromark.github.io/cakephp-shim/guide/)
 * [Installation](https://dereuromark.github.io/cakephp-shim/guide/installation)
+* [Getting started](https://dereuromark.github.io/cakephp-shim/guide/getting-started)
 * [Upgrade Guide](https://dereuromark.github.io/cakephp-shim/guide/upgrade)
 * [Database types](https://dereuromark.github.io/cakephp-shim/database/uuid)
 * [Model and ORM shims](https://dereuromark.github.io/cakephp-shim/model/table)

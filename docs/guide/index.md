@@ -55,8 +55,8 @@ They exist to keep an in-flight upgrade running, not to be a permanent crutch.
 
 ## Next steps
 
-- [Getting started](/guide/getting-started): use your first trait or helper.
 - [Installation](/guide/installation), install the plugin via Composer.
+- [Getting started](/guide/getting-started): use your first trait or helper.
 - [Preconditions](/guide/preconditions), what to have in place before upgrading.
 - [Upgrade Guide](/guide/upgrade), migrating from 4.x to 5.x.
 
