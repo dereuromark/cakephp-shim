@@ -1,5 +1,8 @@
 # Installation
 
+This branch uses unreleased CakePHP 6 packages. Set `"minimum-stability": "dev"`
+and `"prefer-stable": true` in your application's `composer.json` before installing.
+
 ## Install
 
 Installing the plugin is the same as for any other CakePHP plugin.
