@@ -1,6 +1,6 @@
 # Shim plugin for CakePHP
-[![CI](https://github.com/dereuromark/cakephp-shim/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/dereuromark/cakephp-shim/actions/workflows/ci.yml?query=branch%3Amaster)
-[![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
+[![CI](https://github.com/dereuromark/cakephp-shim/actions/workflows/ci.yml/badge.svg?branch=cake6)](https://github.com/dereuromark/cakephp-shim/actions/workflows/ci.yml?query=branch%3Acake6)
+[![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/cake6/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
 [![PHPStan](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat)](https://phpstan.org/)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-shim/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.5-8892BF.svg)](https://php.net/)
@@ -24,10 +24,6 @@ This branch is for use with **CakePHP 6.x** (PHP 8.5+). For details see [version
 
 "0-dependency plugin": Apart from core this plugin has no other dependencies!
 
-
-Development dependencies use the CakePHP 6 migrations on upstream `dev-master`
-branches once merged. Local sibling packages were used to verify the migrations
-together before publication.
 
 CakePHP 6 reserves the controller `$components` property for its registry.
 Legacy component arrays now use `$legacyComponents`. Console test output is
