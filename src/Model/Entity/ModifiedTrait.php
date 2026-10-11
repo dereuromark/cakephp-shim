@@ -3,7 +3,7 @@
 namespace Shim\Model\Entity;
 
 /**
- * Trait to get actually changed entity properties. Only needed for < CakePHP 5.2.
+ * Trait to get actually changed entity properties. Compares dirty fields with their original values.
  */
 trait ModifiedTrait {
 

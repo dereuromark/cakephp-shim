@@ -22,9 +22,9 @@ class YearType extends BaseType {
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
 	 * @return int|null
 	 */
-	public function toDatabase($value, Driver $driver): ?int {
+	public function toDatabase(mixed $value, Driver $driver): ?int {
 		if (is_array($value)) {
-			$value = $value['year'];
+			$value = $value['year'] ?? null;
 		}
 		if ($value === null || !(int)$value) {
 			return null;
@@ -40,7 +40,7 @@ class YearType extends BaseType {
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
 	 * @return int|null
 	 */
-	public function toPHP($value, Driver $driver): ?int {
+	public function toPHP(mixed $value, Driver $driver): ?int {
 		if ($value === null || !(int)$value) {
 			return null;
 		}
@@ -54,9 +54,9 @@ class YearType extends BaseType {
 	 * @param array|string|int|null $value
 	 * @return int|null
 	 */
-	public function marshal($value): ?int {
+	public function marshal(mixed $value): ?int {
 		if (is_array($value)) {
-			$value = $value['year'];
+			$value = $value['year'] ?? null;
 		}
 		if ($value === null || !(int)$value) {
 			return null;

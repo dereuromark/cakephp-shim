@@ -22,7 +22,7 @@ use Cake\View\Form\ContextInterface;
 use Cake\View\StringTemplate;
 use Cake\View\Widget\SelectBoxWidget;
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Stub;
 use Shim\View\Widget\DateTimeWidget;
 
 /**
@@ -30,7 +30,7 @@ use Shim\View\Widget\DateTimeWidget;
  */
 class DateTimeWidgetTest extends TestCase {
 
-	protected ContextInterface|MockObject $context;
+	protected ContextInterface|Stub $context;
 
 	protected DateTimeWidget $DateTime;
 

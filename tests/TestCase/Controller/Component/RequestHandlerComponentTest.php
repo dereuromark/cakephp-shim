@@ -99,11 +99,7 @@ class RequestHandlerComponentTest extends TestCase {
 		$config = [
 			'viewClassMap' => ['json' => 'MyPlugin.MyJson'],
 		];
-		/** @var \Cake\Controller\Controller|\PHPUnit\Framework\MockObject\MockObject $controller */
-		$controller = $this->getStubBuilder(Controller::class)
-			->onlyMethods(['redirect'])
-			->disableOriginalConstructor()
-			->getStub();
+		$controller = new Controller(new ServerRequest());
 		$collection = new ComponentRegistry($controller);
 		$requestHandler = new RequestHandlerComponent($collection, $config);
 		$this->assertEquals(['json' => 'MyPlugin.MyJson'], $requestHandler->getConfig('viewClassMap'));

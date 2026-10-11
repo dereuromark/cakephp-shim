@@ -96,6 +96,14 @@ class TimeStringTypeTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testMarshalIntegerParts(): void {
+		$type = new TimeStringType('time');
+		$this->assertSame('01:12:20', $type->marshal(['hour' => 1, 'minute' => 12, 'second' => 20]));
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testFormControl(): void {
 		$Form = new FormHelper(new View());
 

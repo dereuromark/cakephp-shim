@@ -12,7 +12,7 @@ use Cake\Utility\Text;
  * Used to convert binary values including UUIDs between PHP and the database types.
  *
  * Needs:
- * - \Cake\Database\TypeFactory::map('binary'), 'Shim\Database\Type\BinaryType'); in bootstrap
+ * - \Cake\Database\TypeFactory::map('binary', 'Shim\Database\Type\BinaryType'); in bootstrap
  */
 class BinaryType extends CoreBinaryType {
 

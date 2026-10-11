@@ -20,11 +20,13 @@ cases the `read()` approach is still better.
 Add the trait first:
 
 ```php
+use Cake\ORM\Entity;
 use Shim\Model\Entity\ReadTrait;
 
 class MyEntity extends Entity {
 
     use ReadTrait;
+}
 ```
 
 Then you can use it like this:
@@ -34,7 +36,7 @@ echo $entity->read('tags.2.name', $default);
 ```
 
 This means you are OK with part of the path being empty/null. If you want the
-opposite — making sure all required fields in the path are present — check the
+opposite, making sure all required fields in the path are present, check the
 next part.
 
 ## Entity require()
@@ -65,11 +67,13 @@ relations are expected but not present.
 Add the trait and you are all set:
 
 ```php
+use Cake\ORM\Entity;
 use Shim\Model\Entity\RequireTrait;
 
 class MyEntity extends Entity {
 
     use RequireTrait;
+}
 ```
 
 ## Entity get...OrFail() / set...OrFail()
@@ -81,11 +85,13 @@ you expect actual values.
 Add the trait first:
 
 ```php
+use Cake\ORM\Entity;
 use Shim\Model\Entity\GetSetTrait;
 
 class MyEntity extends Entity {
 
     use GetSetTrait;
+}
 ```
 
 You can also use the `GetTrait`/`SetTrait` separately if you don't need both
@@ -134,8 +140,10 @@ In some cases it can be useful to know what actually changed, for example for
 auditing and logging purposes. Here the `ModifiedTrait` comes into play.
 
 ::: info Version note
-Since CakePHP 5.2, `isDirty()` now handles this the same way, so this trait is
-only needed prior to that version.
+Since CakePHP 5.2, assigning an unchanged value no longer marks a clean field
+dirty. `ModifiedTrait` remains useful when comparing a dirty field with its
+original value, including a field changed and then restored. Its optional
+non-strict comparison uses PHP value equality for objects.
 :::
 
 ```php

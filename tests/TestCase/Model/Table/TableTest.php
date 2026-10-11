@@ -2,6 +2,8 @@
 
 namespace Shim\Test\TestCase\Model\Table;
 
+use Cake\Cache\Cache;
+use Cake\Cache\Engine\ArrayEngine;
 use Cake\Core\Configure;
 use Cake\Database\ValueBinder;
 use Cake\Datasource\Exception\RecordNotFoundException;
@@ -123,6 +125,34 @@ class TableTest extends TestCase {
 		$record = $this->Posts->record(2, ['fields' => ['id', 'title', 'body', 'author_id', 'Authors.id'], 'contain' => ['Authors']]);
 		$this->assertEquals(5, count($record->toArray()));
 		$this->assertEquals(3, $record->author['id']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRecordFinderOptions(): void {
+		$record = $this->Posts->record(2, ['finder' => 'all', 'fields' => ['id', 'title']]);
+		$this->assertSame(['id' => 2, 'title' => 'Second Post'], $record->toArray());
+
+		$record = $this->Posts->record(2, ['finder' => ['fields' => ['id', 'title']], 'fields' => ['id']]);
+		$this->assertSame(['id' => 2, 'title' => 'Second Post'], $record->toArray());
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRecordCacheKeyAlias(): void {
+		Cache::setConfig('record-test', ['className' => ArrayEngine::class]);
+		try {
+			$record = $this->Posts->record(2, ['cache' => 'record-test', 'key' => 'legacy-record']);
+			$this->assertSame($record->toArray(), Cache::read('legacy-record', 'record-test')->first()->toArray());
+
+			$record = $this->Posts->record(2, ['cache' => 'record-test', 'key' => 'ignored-record', 'cacheKey' => 'explicit-record']);
+			$this->assertSame($record->toArray(), Cache::read('explicit-record', 'record-test')->first()->toArray());
+			$this->assertNull(Cache::read('ignored-record', 'record-test'));
+		} finally {
+			Cache::drop('record-test');
+		}
 	}
 
 	/**

@@ -283,6 +283,10 @@ class Table extends CoreTable {
 				$options = $finder + $options;
 				$finder = $name;
 			}
+			if (isset($options['key']) && !isset($options['cacheKey'])) {
+				$options['cacheKey'] = $options['key'];
+			}
+			unset($options['key']);
 
 			return $this->get($id, $finder, ...$options);
 		} catch (RecordNotFoundException) {
@@ -431,15 +435,15 @@ class Table extends CoreTable {
 	 * Wrap it to be transaction safe for all save calls:
 	 *
 	 *  // In a controller.
-	 *  $articles->connection()->transactional(function () use ($articles, $entities) {
-	 *      $articles->saveAll($entities, ['atomic' => false]);
-	 *  }
+	 *  $articles->getConnection()->transactional(function () use ($articles, $entities) {
+	 *      return $articles->saveAll($entities, ['atomic' => false]);
+	 *  });
 	 *
-	 * Use saveMany() if you want to get early exception instead of combined boolean result.
+	 * Use saveManyOrFail() to throw on a failed save and roll back the transaction.
 	 *
 	 * @param array<\Cake\Datasource\EntityInterface> $entities
 	 * @param array<string, mixed> $options
-	 * @return bool True if all save calls where successful
+	 * @return bool True if all save calls were successful
 	 */
 	public function saveAll(array $entities, array $options = []): bool {
 		$success = true;

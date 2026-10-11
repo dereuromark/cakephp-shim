@@ -20,7 +20,6 @@ declare(strict_types=1);
 namespace Shim\Test\TestCase\Filesystem;
 
 use Cake\TestSuite\TestCase;
-use Exception;
 use InvalidArgumentException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Shim\Filesystem\File;
@@ -235,21 +234,21 @@ class FolderTest extends TestCase {
 		mkdir($path, 0777, true);
 		chmod($path, 0444);
 
+		$warnings = [];
+		set_error_handler(static function (int $severity, string $message) use (&$warnings): bool {
+			$warnings[] = $message;
+
+			return true;
+		}, E_WARNING);
 		try {
 			$Folder = new Folder($path);
-			set_error_handler(static fn (int $severity, string $message): bool => str_contains($message, 'mkdir()'));
-			try {
-				$result = $Folder->create($path . DS . 'two/three');
-			} finally {
-				restore_error_handler();
-			}
-			$this->assertFalse($result);
-		} catch (Exception $e) {
-			$this->assertInstanceOf('PHPUnit\Framework\Error\Error', $e);
+			$this->assertFalse($Folder->create($path . DS . 'two/three'));
+			$this->assertNotEmpty($warnings);
+		} finally {
+			restore_error_handler();
+			chmod($path, 0777);
+			rmdir($path);
 		}
-
-		chmod($path, 0777);
-		rmdir($path);
 	}
 
 	/**

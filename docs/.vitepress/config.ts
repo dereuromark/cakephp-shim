@@ -7,6 +7,7 @@ function mainSidebar() {
       items: [
         { text: 'Overview', link: '/guide/' },
         { text: 'Installation', link: '/guide/installation' },
+        { text: 'Getting started', link: '/guide/getting-started' },
         { text: 'Preconditions', link: '/guide/preconditions' },
         { text: 'Upgrade Guide', link: '/guide/upgrade' },
       ],

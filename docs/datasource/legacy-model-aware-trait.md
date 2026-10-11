@@ -22,7 +22,7 @@ class SomeController extends AppController {
     public function someAction() {
         $this->loadModel('Data.Countries');
 
-        $countries = $this->Countries->find()->...;
+        $countries = $this->Countries->find()->all();
     }
 
 }
@@ -80,14 +80,14 @@ class SomeController extends AppController {
     protected ?string $modelClass = 'Data.Countries';
 
     public function someAction() {
-        $countries = $this->Countries->find()->...;
+        $countries = $this->Countries->find()->all();
     }
 
 }
 ```
 
-In cases where you cannot use the parent class — for example directly in some
-command or custom class — you can use the `$defaultModel` property instead:
+In cases where you cannot use the parent class, for example directly in some
+command or custom class, you can use the `$defaultModel` property instead:
 
 ```php
     /**
@@ -108,4 +108,14 @@ added the traits:
     if ($this->modelClass) {
         $this->loadModel();
     }
+```
+
+## Replacing the shim
+
+For new code, fetch the table into a local variable. This avoids dynamic
+properties and does not need either trait:
+
+```php
+$countries = $this->fetchTable('Data.Countries');
+$results = $countries->find()->all();
 ```

@@ -6,32 +6,32 @@ wrappers.
 
 This is mainly useful when **upgrading large applications** to the next major
 framework version. A lot of code usually needs to be adjusted; with this plugin
-fewer lines need to be touched. Especially the ORM layer — which would otherwise
-require heavy refactoring — needs far fewer changes to get things working again.
+fewer lines need to be touched. Especially the ORM layer, which would otherwise
+require heavy refactoring, needs far fewer changes to get things working again.
 
 ::: tip Zero-dependency plugin
 Apart from the framework core, this plugin has **no other dependencies**. It is
-safe to have around: nothing is loaded out of the box, so you only pick what you
-need.
+used one piece at a time. Classes and plugin aliases work without registration.
+Loading Shim additionally runs its bootstrap.
 :::
 
 ::: info CakePHP version
-This documentation is for the branch that shims **4.x in 5.x** and targets
-**CakePHP 6.x** (PHP 8.5+). For older releases, see the
+This development branch supports applications migrating to **CakePHP 6**.
+For CakePHP 5 applications, use the stable 3.x releases. See the
 [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 :::
 
 ## How it works
 
-The plugin is built so that nothing happens unless you opt in. For most cases you
-do not even need to load the plugin — the individual elements (database types,
+Choose the functionality you need. For most cases you
+do not even need to load the plugin. The individual elements (database types,
 traits, behaviors, helpers) can be used directly where needed.
 
 There are two broad categories of shims:
 
-- **Main shims** — convenience functionality that will most likely be ported
-  forward into future releases. Safe to adopt long term.
-- **BC shims** — backwards-compatibility helpers that only exist to ease the
+- **Main shims**: convenience functionality that will most likely be ported
+  forward into future releases. Review their API when moving to a new major version.
+- **BC shims**: backwards-compatibility helpers that only exist to ease the
   3.x → 4.x → 5.x transition. These are intended to be removed again once your
   upgrade is complete.
 
@@ -55,9 +55,10 @@ They exist to keep an in-flight upgrade running, not to be a permanent crutch.
 
 ## Next steps
 
-- [Installation](/guide/installation) — install the plugin via Composer.
-- [Preconditions](/guide/preconditions) — what to have in place before upgrading.
-- [Upgrade Guide](/guide/upgrade) — migrating from 4.x to 5.x.
+- [Installation](/guide/installation): install the plugin via Composer.
+- [Getting started](/guide/getting-started): use your first trait or helper.
+- [Preconditions](/guide/preconditions): what to have in place before upgrading.
+- [Upgrade Guide](/guide/upgrade): migrating from 4.x to 5.x.
 
 ## Helpful links
 

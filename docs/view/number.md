@@ -27,5 +27,5 @@ and
 ```php
 echo $this->Number->currency($entity->value);
 // or
-echo $this->Number->currency($entity->value, ['default' => '-']);
+echo $this->Number->currency($entity->value, null, ['default' => '-']);
 ```

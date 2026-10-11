@@ -70,6 +70,8 @@ class YearTypeTest extends TestCase {
 		$this->assertSame(2024, $type->marshal(['year' => '2024']));
 		$this->assertNull($type->toDatabase(null, $driver));
 		$this->assertNull($type->marshal(''));
+		$this->assertNull($type->marshal([]));
+		$this->assertNull($type->toDatabase([], $driver));
 	}
 
 	/**

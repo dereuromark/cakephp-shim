@@ -1,13 +1,13 @@
 # Installation
 
-## How to include
+## Install
 
 Installing the plugin is the same as for any other CakePHP plugin.
 
 Install via Composer:
 
 ```bash
-composer require dereuromark/cakephp-shim
+composer require dereuromark/cakephp-shim:dev-cake6
 ```
 
 The following command can enable the plugin:
@@ -17,15 +17,22 @@ bin/cake plugin load Shim
 ```
 
 ::: tip Loading is usually optional
-For most cases the `plugin load` step is **not** necessary. The elements of this
+Classes, traits, and plugin aliases such as `Shim.Nullable` or `Shim.Number`
+work through Composer autoloading without the `plugin load` step.
+Loading runs its bootstrap, which enables `Shim.deprecations` and defines legacy
+time constants when they are missing. The elements of this
 plugin can be used directly where needed. If nothing is used, nothing is loaded
-out of the box — which makes the plugin quite safe to have around so you can pick
+out of the box, so you can pick
 only what you need.
 :::
 
+See [Getting started](/guide/getting-started) for a complete example.
+
 ## Testing with MySQL/Postgres
 
-By default the test suite uses SQLite, which is available out of the box.
+These commands run the plugin repository test suite, not your application tests.
+Install its development dependencies with `composer install` first. The default
+suite uses SQLite and requires `pdo_sqlite`.
 
 To run all tests including the MySQL ones, set:
 

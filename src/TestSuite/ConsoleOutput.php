@@ -5,18 +5,7 @@ namespace Shim\TestSuite;
 use Cake\Console\ConsoleOutput as CakeConsoleOutput;
 
 /**
- * Use for testing as
- *
- *  use Shim\TestSuite\ConsoleOutput;
- *
- *  $stdOut = new ConsoleOutput();
- *  $stdErr = new ConsoleOutput();
- *  $io = new ConsoleIo($stdOut, $stdErr);
- *  $this->Shell = $this->getMock(
- *    'App\Shell\FooBarShell',
- *    ['in', '_stop'],
- *    [$io]
- *  );
+ * Captures console writes for assertions in command tests.
  *
  * @license MIT
  * @author Mark Scherer

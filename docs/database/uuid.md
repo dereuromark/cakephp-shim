@@ -1,23 +1,14 @@
 # UUID Type
 
-## BinaryUuidType
+## Legacy BINARY(36) columns
 
-### UUID as `BINARY(36)`
-
-Currently CakePHP mainly supports and promotes `CHAR(36)`. The `BINARY` types are
-much more
-[performant](http://iops.io/blog/storing-billions-uuid-fields-mysql-innodb/),
-though.
+This shim supports existing `BINARY(36)` columns containing textual UUIDs. Use the core `binaryuuid` type for new `BINARY(16)` columns.
 
 The clean way is to mark those columns as type `uuid` manually:
 
 ```php
-// In your Table class
-protected function _initializeSchema(Table $table) {
-    $table->columnType('id', 'uuid');
-    // ...
-    return $table;
-}
+// In your Table::initialize(), after parent::initialize($config).
+$this->getSchema()->setColumnType('id', 'uuid');
 ```
 
 But if you have many UUID columns for primary and foreign keys, you might want a
@@ -26,18 +17,14 @@ you can use the Shim plugin's custom type class:
 
 ```php
 // In your bootstrap
-use Cake\Database\Type;
+use Cake\Database\TypeFactory;
 
-Type::map('binary', 'Shim\Database\Type\BinaryType');
+TypeFactory::map('binary', 'Shim\Database\Type\BinaryType');
 ```
 
-::: tip `BINARY(16)` is even faster
-`BINARY(16)` would be even more performant, but then you would need to manually
-`hex()` and `unhex()` directly in the database. At this point that cannot be
-supported here.
-:::
-
-### `BINARY(16)`
+## `BINARY(16)`
 
 For this, please see `Cake\Database\Type\BinaryUuidType` that is now shipped by
-default with the framework core.
+default with the framework core. It handles conversion between textual UUIDs
+and 16-byte database values. Set the column type to `binaryuuid`; no Shim type
+registration is needed.
