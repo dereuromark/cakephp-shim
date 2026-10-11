@@ -11,6 +11,8 @@
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
 It also provides some small app-specific fixes.
 
+The published documentation covers the stable CakePHP 5 release. For this development branch, read the [branch documentation](docs/guide/index.md).
+
 ## This branch is for shimming legacy APIs in CakePHP 6
 It provides compatibility wrappers for applications upgrading to CakePHP 6.
 
