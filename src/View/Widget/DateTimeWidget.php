@@ -61,11 +61,6 @@ class DateTimeWidget extends BasicWidget {
 	];
 
 	/**
-	 * Template instance.
-	 */
-	protected StringTemplate $_templates;
-
-	/**
 	 * Constructor
 	 *
 	 * @param \Cake\View\StringTemplate $templates Templates list.
@@ -73,7 +68,7 @@ class DateTimeWidget extends BasicWidget {
 	 */
 	public function __construct(StringTemplate $templates, SelectBoxWidget $selectBox) {
 		$this->_select = $selectBox;
-		$this->_templates = $templates;
+		parent::__construct($templates);
 	}
 
 	/**
@@ -176,7 +171,7 @@ class DateTimeWidget extends BasicWidget {
 			}
 			if (isset($data['class']) && !empty($data[$select]['class'])) {
 				/** @var array<string, array<string>> $classes */
-				$classes = $this->_templates->addClass($data[$select]['class'], (array)$data['class']);
+				$classes = $this->templates->addClass($data[$select]['class'], (array)$data['class']);
 				$data[$select]['class'] = $classes['class'];
 			} elseif (isset($data['class'])) {
 				$data[$select]['class'] = $data['class'];
@@ -186,9 +181,9 @@ class DateTimeWidget extends BasicWidget {
 			unset($data[$select]);
 		}
 		unset($data['name'], $data['empty'], $data['disabled'], $data['val']);
-		$templateOptions['attrs'] = $this->_templates->formatAttributes($data);
+		$templateOptions['attrs'] = $this->templates->formatAttributes($data);
 
-		return $this->_templates->format('dateWidget', $templateOptions);
+		return $this->templates->format('dateWidget', $templateOptions);
 	}
 
 	/**

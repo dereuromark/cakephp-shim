@@ -35,6 +35,9 @@ trait ReadTrait {
 					return $default;
 				}
 				$data = $data->get($key);
+				if ($data === null) {
+					return $default;
+				}
 			} elseif ((is_array($data) || $data instanceof ArrayAccess) && isset($data[$key])) {
 				$data = $data[$key];
 			} else {

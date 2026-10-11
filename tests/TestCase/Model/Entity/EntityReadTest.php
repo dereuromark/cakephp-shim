@@ -76,4 +76,20 @@ class EntityReadTest extends TestCase {
 		$this->assertFalse($result);
 	}
 
+	/**
+	 * @return void
+	 */
+	public function testNullFieldsUseDefault(): void {
+		$entity = new TestEntity([
+			'name' => null,
+			'child' => new Entity(['name' => null]),
+			'values' => ['name' => null],
+		]);
+
+		$this->assertSame('fallback', $entity->read('name', 'fallback'));
+		$this->assertSame('fallback', $entity->read('child.name', 'fallback'));
+		$this->assertSame('fallback', $entity->read('values.name', 'fallback'));
+		$this->assertNull($entity->read('child.name'));
+	}
+
 }

@@ -1,6 +1,6 @@
 # Getting started
 
-Shim lets you add individual helpers or traits to a CakePHP 5 application. For a
+Shim lets you add individual helpers or traits to a CakePHP 6 application. For a
 new application, start with a convenience trait. Use legacy shims only for code
 you are migrating.
 

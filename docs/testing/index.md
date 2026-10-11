@@ -66,6 +66,5 @@ $this->assertSame('Finished' . PHP_EOL, $out->output());
 $this->assertSame('', $err->output());
 ```
 
-Pass `ConsoleIo` to your command's `execute()` method when testing a command
-directly. For application command integration tests, use CakePHP's
-`ConsoleIntegrationTestTrait` and its output assertions.
+CakePHP 6 commands use parameterless `execute()` methods. Test commands with
+CakePHP's `ConsoleIntegrationTestTrait` and its output assertions.
