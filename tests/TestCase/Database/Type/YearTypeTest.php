@@ -63,7 +63,7 @@ class YearTypeTest extends TestCase {
 	 */
 	public function testToDatabaseAndMarshalReturnInt(): void {
 		$type = new YearType('year');
-		$driver = $this->getMockBuilder(Driver::class)->disableOriginalConstructor()->getMock();
+		$driver = $this->createStub(Driver::class);
 
 		$this->assertSame(2024, $type->toDatabase('2024', $driver));
 		$this->assertSame(2024, $type->marshal('2024'));

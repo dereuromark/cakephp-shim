@@ -36,7 +36,7 @@ Using the Shim controller as your base controller, you can continue to use the
 existing setup:
 
 ```php
-protected array $components = ['MyComponent'];
+protected array $legacyComponents = ['MyComponent'];
 
 protected array $helpers = ['MyHelper'];
 ```

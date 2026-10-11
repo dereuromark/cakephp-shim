@@ -54,7 +54,7 @@ class DateTimeWidgetTest extends TestCase {
 			'dateWidget' => '{{year}}{{month}}{{day}}{{hour}}{{minute}}{{second}}{{meridian}}',
 		];
 		$this->templates = new StringTemplate($templates);
-		$this->context = $this->getMockBuilder(ContextInterface::class)->getMock();
+		$this->context = $this->createStub(ContextInterface::class);
 		$selectBox = new SelectBoxWidget($this->templates);
 		$this->DateTime = new DateTimeWidget($this->templates, $selectBox);
 	}

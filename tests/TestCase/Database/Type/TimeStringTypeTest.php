@@ -102,7 +102,7 @@ class TimeStringTypeTest extends TestCase {
 		$entity = $this->Table->newEmptyEntity();
 		$Form->create($entity);
 		$x = $Form->control('closing_time', ['type' => 'time']);
-		$this->assertTextContains('<div class="input time"><label for="closing-time">Closing Time</label><input type="time" name="closing_time"', $x);
+		$this->assertTextContains('<div class="input"><label for="closing-time">Closing Time</label><input type="time" name="closing_time"', $x);
 	}
 
 	/**

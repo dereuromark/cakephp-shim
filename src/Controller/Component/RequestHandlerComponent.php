@@ -49,7 +49,7 @@ class RequestHandlerComponent extends Component {
 	 *
 	 * @var array<string, mixed>
 	 */
-	protected array $_defaultConfig = [
+	protected array $defaultConfig = [
 		'checkHttpCache' => true,
 		'viewClassMap' => [],
 	];
@@ -195,7 +195,7 @@ class RequestHandlerComponent extends Component {
 		}
 
 		$request = $controller->getRequest();
-		if ($this->_config['checkHttpCache'] && $response->isNotModified($request)) {
+		if ($this->config['checkHttpCache'] && $response->isNotModified($request)) {
 			$response = $response->withNotModified();
 			$event->stopPropagation();
 			$event->setResult($response);

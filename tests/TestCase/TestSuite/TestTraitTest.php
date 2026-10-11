@@ -80,8 +80,8 @@ class TestTraitTest extends TestCase {
 		$class = UuidItemsTable::class;
 		/** @var \TestApp\Model\Table\UuidItemsTable $object */
 		$object = new $class();
-		/** @uses \TestApp\Model\Table\UuidItemsTable::_newId() $result */
-		$result = $this->invokeMethod($object, '_newId', [['id']]);
+		/** @uses \TestApp\Model\Table\UuidItemsTable::newId() $result */
+		$result = $this->invokeMethod($object, 'newId', [['id']]);
 
 		$this->assertNotNull($result);
 	}
@@ -94,7 +94,7 @@ class TestTraitTest extends TestCase {
 		/** @var \TestApp\Model\Table\WheelsTable $object */
 		$object = new $class();
 		$object->setTable('foo');
-		$result = $this->invokeProperty($object, '_table');
+		$result = $this->invokeProperty($object, 'table');
 
 		$this->assertSame('foo', $result);
 	}

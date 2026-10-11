@@ -18,7 +18,7 @@ class EntityAnnotatorTest extends TestCase {
 	 */
 	public function testBuildAnnotations(): void {
 		/** @var \Shim\Annotator\EntityAnnotator $entityAnnotator */
-		$entityAnnotator = $this->getMockBuilder(EntityAnnotator::class)->disableOriginalConstructor()->onlyMethods(['annotate'])->getMock();
+		$entityAnnotator = $this->getStubBuilder(EntityAnnotator::class)->disableOriginalConstructor()->onlyMethods(['annotate'])->getStub();
 		$entityAnnotator->setConfig('class', TestEntity::class);
 
 		$propertyHintMap = ['id' => 'int', 'foo_bar' => '\\' . DateTime::class . '|null'];
@@ -45,7 +45,7 @@ class EntityAnnotatorTest extends TestCase {
 		Configure::write('IdeHelper.genericsInParam', true);
 
 		/** @var \Shim\Annotator\EntityAnnotator $entityAnnotator */
-		$entityAnnotator = $this->getMockBuilder(EntityAnnotator::class)->disableOriginalConstructor()->onlyMethods(['annotate'])->getMock();
+		$entityAnnotator = $this->getStubBuilder(EntityAnnotator::class)->disableOriginalConstructor()->onlyMethods(['annotate'])->getStub();
 		$entityAnnotator->setConfig('class', TestEntity::class);
 
 		$propertyHintMap = ['tags' => 'array<\\' . DateTime::class . '>'];
@@ -70,7 +70,7 @@ class EntityAnnotatorTest extends TestCase {
 		Configure::delete('IdeHelper.genericsInParam');
 
 		/** @var \Shim\Annotator\EntityAnnotator $entityAnnotator */
-		$entityAnnotator = $this->getMockBuilder(EntityAnnotator::class)->disableOriginalConstructor()->onlyMethods(['annotate'])->getMock();
+		$entityAnnotator = $this->getStubBuilder(EntityAnnotator::class)->disableOriginalConstructor()->onlyMethods(['annotate'])->getStub();
 		$entityAnnotator->setConfig('class', TestEntity::class);
 
 		$propertyHintMap = ['tags' => 'array<\\' . DateTime::class . '>'];

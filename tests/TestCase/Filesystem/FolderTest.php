@@ -237,7 +237,12 @@ class FolderTest extends TestCase {
 
 		try {
 			$Folder = new Folder($path);
-			$result = $Folder->create($path . DS . 'two/three');
+			set_error_handler(static fn (int $severity, string $message): bool => str_contains($message, 'mkdir()'));
+			try {
+				$result = $Folder->create($path . DS . 'two/three');
+			} finally {
+				restore_error_handler();
+			}
 			$this->assertFalse($result);
 		} catch (Exception $e) {
 			$this->assertInstanceOf('PHPUnit\Framework\Error\Error', $e);

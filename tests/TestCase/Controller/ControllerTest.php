@@ -6,6 +6,7 @@ use Cake\Core\Configure;
 use Cake\Event\Event;
 use Cake\Http\ServerRequest;
 use Cake\TestSuite\TestCase;
+use Shim\Controller\Component\RequestHandlerComponent;
 use Shim\Controller\Controller;
 
 class ControllerTest extends TestCase {
@@ -53,6 +54,23 @@ class ControllerTest extends TestCase {
 		$this->Controller->afterFilter($event);
 		$headers = $this->Controller->getResponse()->getHeaders();
 		$this->assertNotEmpty($headers['Content-Type']);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testLegacyComponents(): void {
+		$controller = new class (new ServerRequest()) extends Controller {
+
+			protected array $legacyComponents = [
+				'Flash',
+				RequestHandlerComponent::class => ['checkHttpCache' => false],
+			];
+
+		};
+
+		$this->assertTrue($controller->components()->has('Flash'));
+		$this->assertFalse($controller->components()->get(RequestHandlerComponent::class)->getConfig('checkHttpCache'));
 	}
 
 }

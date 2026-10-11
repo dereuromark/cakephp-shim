@@ -3,7 +3,7 @@
 [![Coverage](https://codecov.io/gh/dereuromark/cakephp-shim/branch/master/graph/badge.svg)](https://codecov.io/gh/dereuromark/cakephp-shim)
 [![PHPStan](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat)](https://phpstan.org/)
 [![Latest Stable Version](https://poser.pugx.org/dereuromark/cakephp-shim/v/stable.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
-[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.2-8892BF.svg)](https://php.net/)
+[![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.5-8892BF.svg)](https://php.net/)
 [![License](https://poser.pugx.org/dereuromark/cakephp-shim/license.svg)](LICENSE)
 [![Total Downloads](https://poser.pugx.org/dereuromark/cakephp-shim/d/total.svg)](https://packagist.org/packages/dereuromark/cakephp-shim)
 [![Coding Standards](https://img.shields.io/badge/cs-PSR--2--R-purple.svg?style=flat-square)](https://github.com/php-fig-rectified/fig-rectified-standards)
@@ -11,16 +11,25 @@
 Shim plugin to "shim" functionality up and down for CakePHP major versions.
 It also provides some small app-specific fixes.
 
-## This branch is for shimming 4.x in 5.x
-It provides compatibility wrapper access to 4.x functionality in 5.x.
+## This branch is for shimming legacy APIs in CakePHP 6
+It provides compatibility wrappers for applications upgrading to CakePHP 6.
 
 This is mainly useful when upgrading large applications to the next major framework version.
 Tons of code needs to be adjusted, using this Shim plugin quite a few lines less need to be touched.
 Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working again.
 
-This branch is for use with **CakePHP 5.1+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
+This branch is for use with **CakePHP 6.x** (PHP 8.5+). For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 "0-dependency plugin": Apart from core this plugin has no other dependencies!
+
+
+Development dependencies use the CakePHP 6 migrations on upstream `dev-master`
+branches once merged. Local sibling packages were used to verify the migrations
+together before publication.
+
+CakePHP 6 reserves the controller `$components` property for its registry.
+Legacy component arrays now use `$legacyComponents`. Console test output is
+stored in `$messages`, and command subclasses use parameterless `execute()`.
 
 ## Documentation
 

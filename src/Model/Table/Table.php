@@ -209,8 +209,12 @@ class Table extends CoreTable {
 						$validator->requirePresence($field, $rule['required']);
 						unset($rules[$key]['required']);
 					}
-					if (!empty($rule['allowEmpty'])) {
-						$validator->allowEmptyString($field, $rule['allowEmpty']);
+					if (isset($rule['allowEmpty'])) {
+						if ($rule['allowEmpty']) {
+							$validator->allowEmptyString($field);
+						} else {
+							$validator->notEmptyString($field);
+						}
 						unset($rules[$key]['allowEmpty']);
 					}
 					if (isset($rule['message'])) {
@@ -269,35 +273,17 @@ class Table extends CoreTable {
 	 * @return mixed|null The first result from the ResultSet or null if not existent.
 	 */
 	public function record(mixed $id, array $options = []): mixed {
-		// `Table::get()` in CakePHP 5 takes named parameters after `$primaryKey` —
-		// $finder, $cache, $cacheKey, plus ...$args that are forwarded into the
-		// finder. Splatting an arbitrary `$options` array directly produces a
-		// TypeError ('Unknown named parameter') for any key that is not one of
-		// those four. Map the legacy 4.x-style option keys (contain/conditions/
-		// fields/order) into the $finder array so the call shape works.
 		try {
-			$getKeys = ['finder', 'cache', 'cacheKey'];
-			$getArgs = [];
-			$finder = [];
-			foreach ($options as $key => $value) {
-				if (in_array($key, $getKeys, true)) {
-					$getArgs[$key] = $value;
-				} else {
-					$finder[$key] = $value;
-				}
-			}
-			if ($finder) {
-				$current = $getArgs['finder'] ?? [];
-				if (is_string($current)) {
-					// The user passed `finder => 'someFinder'` plus extra options —
-					// switch to the array form so the extras can ride along.
-					$getArgs['finder'] = ['type' => $current] + $finder;
-				} else {
-					$getArgs['finder'] = $current + $finder;
-				}
+			$finder = $options['finder'] ?? 'all';
+			unset($options['finder']);
+			if (is_array($finder)) {
+				$name = $finder['type'] ?? 'all';
+				unset($finder['type']);
+				$options = $finder + $options;
+				$finder = $name;
 			}
 
-			return $this->get($id, ...$getArgs);
+			return $this->get($id, $finder, ...$options);
 		} catch (RecordNotFoundException) {
 			return null;
 		}

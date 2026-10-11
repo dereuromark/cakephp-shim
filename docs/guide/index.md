@@ -17,7 +17,7 @@ need.
 
 ::: info CakePHP version
 This documentation is for the branch that shims **4.x in 5.x** and targets
-**CakePHP 5.1+**. For older releases, see the
+**CakePHP 6.x** (PHP 8.5+). For older releases, see the
 [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 :::
 

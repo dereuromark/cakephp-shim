@@ -23,7 +23,7 @@ class NullableBehavior extends Behavior {
 	/**
 	 * @var array<string, mixed>
 	 */
-	protected array $_defaultConfig = [
+	protected array $defaultConfig = [
 		'on' => 'beforeMarshal', // beforeMarshal/afterSave
 	];
 
@@ -34,11 +34,11 @@ class NullableBehavior extends Behavior {
 	 * @return void
 	 */
 	public function beforeMarshal(EventInterface $event, ArrayObject $data, ArrayObject $options): void {
-		if ($this->_config['on'] !== 'beforeMarshal') {
+		if ($this->config['on'] !== 'beforeMarshal') {
 			return;
 		}
 
-		$this->_processArray($data, $this->_table);
+		$this->_processArray($data, $this->table);
 	}
 
 	/**
@@ -48,11 +48,11 @@ class NullableBehavior extends Behavior {
 	 * @return void
 	 */
 	public function beforeSave(EventInterface $event, EntityInterface $entity, ArrayObject $options): void {
-		if ($this->_config['on'] !== 'beforeSave') {
+		if ($this->config['on'] !== 'beforeSave') {
 			return;
 		}
 
-		$this->_processEntity($entity, $this->_table);
+		$this->_processEntity($entity, $this->table);
 	}
 
 	/**

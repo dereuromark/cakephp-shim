@@ -9,6 +9,7 @@ use Cake\Datasource\QueryInterface;
 use Cake\Datasource\RepositoryInterface;
 use Cake\Event\EventInterface;
 use Exception;
+use InvalidArgumentException;
 
 /**
  * DRY Controller stuff
@@ -16,10 +17,15 @@ use Exception;
  * Note: Make sure to use attribute #[\AllowDynamicProperties] on your classes
  * that use this to avoid this blowing up in PHP 8.2+.
  *
- * @property array|null $components
+ * @property array|null $legacyComponents
  * @property array|null $helpers
  */
 class Controller extends CoreController {
+
+	/**
+	 * @var array<int|string, string|array<string, mixed>>
+	 */
+	protected array $legacyComponents = [];
 
 	/**
 	 * Shim components and helpers as class property array.
@@ -27,15 +33,18 @@ class Controller extends CoreController {
 	 * @return void
 	 */
 	public function initialize(): void {
-		if (!empty($this->components)) {
-			foreach ($this->components as $component => $config) {
+		if (!empty($this->legacyComponents)) {
+			foreach ($this->legacyComponents as $component => $config) {
 				if (!is_string($component)) {
 					$component = $config;
 					$config = [];
 				}
+				if (!is_string($component) || !is_array($config)) {
+					throw new InvalidArgumentException('Invalid legacy component configuration.');
+				}
 				$this->loadComponent($component, $config);
 			}
-			$this->components = [];
+			$this->legacyComponents = [];
 		}
 
 		if (!empty($this->helpers)) {
@@ -64,7 +73,7 @@ class Controller extends CoreController {
 	 * This, if desired, adds a check if your controller actions are cleanly built and no headers
 	 * or output is being sent prior to the response class, which should be the only one doing this.
 	 *
-	 * @param \Cake\Event\EventInterface<\Cake\Controller\Controller> $event An Event instance
+	 * @param \Cake\Event\EventInterface $event An Event instance
 	 * @throws \Exception
 	 * @return void
 	 */

@@ -6,7 +6,7 @@ use Shim\Model\Table\Table;
 
 class WheelsTable extends Table {
 
-	protected string $displayField = 'position';
+	protected array|string|null $displayField = 'position';
 
 	/**
 	 * @var array<int|string, mixed>|string|null
