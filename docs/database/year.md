@@ -13,9 +13,9 @@ Setup:
 - Map the type in your bootstrap:
 
   ```php
-  use Cake\Database\Type;
+  use Cake\Database\TypeFactory;
 
-  Type::map('year', 'Shim\Database\Type\YearType');
+  TypeFactory::map('year', 'Shim\Database\Type\YearType');
   ```
 
 - Use it in a manual `FormHelper` control:

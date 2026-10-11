@@ -1,163 +1,71 @@
 # TestSuite
 
-Useful additions to your test suite that let you test even faster.
+Shim provides test base classes, captured console output, and a utility trait.
+Use the PHPUnit version allowed by the repository's Composer requirements.
 
 ## TestTrait
 
-This trait adds the following methods to your test suite.
+Add `Shim\TestSuite\TestTrait` to a test class, or extend
+`Shim\TestSuite\TestCase` or `Shim\TestSuite\IntegrationTestCase`.
 
-### invokeMethod()
+- `invokeMethod($object, $name, $arguments)` invokes a protected or private method.
+- `invokeProperty($object, $name)` reads a protected or private property; it returns
+  `null` when the property does not exist.
+- `osFix($string)` normalizes line endings to `\n`.
+- `isDebug()` detects `--debug` in the process arguments.
+- `isVerbose()` detects `-v` or `-vv`; `isVerbose(true)` detects only `-vv`.
+- `debug($value)` prints through CakePHP's `debug()` only in verbose mode.
 
-If you need to call a protected or private method directly:
-
-```php
-$object = new Object();
-$arguments = ['first', 'second'];
-$this->invokeMethod($object, 'mySecretMethod', $arguments);
-```
-
-### invokeProperty()
-
-If you need to make a protected or private property visible or accessible in your
-test:
+Current PHPUnit versions do not accept `-v` or `-vv`. To use Shim's verbose
+helpers, set the flag in a specific test and restore the process arguments:
 
 ```php
-$object = new Object();
-$this->invokeProperty($object, '_foo');
-```
-
-### osFix()
-
-In case you need to normalize certain OS-specific files to `\n` before comparing
-them as strings.
-
-### isVerbose()
-
-```bash
-phpunit -v
-phpunit -vv
-```
-
-This can be useful to conditionally output more debug information.
-
-### isDebug()
-
-With this method you can apply additional testing code if a `--debug` flag has
-been set.
-
-```bash
-phpunit --debug
-```
-
-As an example, you can by default mock out some API call, but with the debug flag
-set, use the real API connection (for local testing). This way you can quickly
-confirm that the API connection is not only still working in simulated (mocked)
-form, but also that it's still the real deal:
-
-```php
-$this->Api = new ApiClass();
-
-if (!$this->isDebug()) {
-    $this->Api = $this->getMock('ApiClass');
-    $this->Api->expects(...)->...;
+$originalArgv = $_SERVER['argv'];
+try {
+    $_SERVER['argv'][] = '-v';
+    $this->debug($result);
+} finally {
+    $_SERVER['argv'] = $originalArgv;
 }
 ```
 
-### debug()
-
-This is very useful when debugging certain tests while writing them.
-
-```php
-$result = $this->get($id);
-$this->debug($result);
-
-$this->assertSomething(...);
-```
-
-Here the debug statement is harmless by default. Only when you run PHPUnit with
-`-v` or `-vv` is additional debug output printed to the screen.
-
-By default this trait is attached to `IntegrationTestCase`, `TestCase`, and
-`ConsoleOutput`.
-
-::: tip
-This verbose debug feature is best used in combination with
-`--filter testMethodToTest`, as otherwise there might be too much output on the
-screen. Filter down to the actual method you are currently working on:
+For normal PHPUnit diagnostics, use supported options:
 
 ```bash
-php phpunit.phar --filter testFooBar /path/to/SomeTest.php -vv
+vendor/bin/phpunit --filter testExample --debug
 ```
-:::
+
+`--debug` enables `isDebug()`, but does not enable Shim's verbose output.
 
 ## IntegrationTestCase
 
-See the trait features above.
-
-### Disable ErrorHandlerMiddleware
-
-You can globally set:
+To let exceptions reach your test rather than render an error response, set:
 
 ```php
-    protected $disableErrorHandlerMiddleware = true;
+protected bool $disableErrorHandlerMiddleware = true;
 ```
 
-This is a quick way to disable all error handler middlewares on this integration
-test case. A useful default for all controllers/actions that are not expected to
-provide an error result (2xx/3xx).
-
-## TestCase
-
-See the trait features above.
+This applies when the application middleware queue is built. Use it for requests
+where you want exceptions to fail the test.
 
 ## ConsoleOutput
 
-By default, this class captures the output to stderr or stdout internally in an
-array.
+`Shim\TestSuite\ConsoleOutput` captures writes. Create separate instances for
+standard output and error output:
 
 ```php
-namespace App\Test\TestCase\Shell;
-
-use App\Shell\FooBarShell;
 use Cake\Console\ConsoleIo;
 use Shim\TestSuite\ConsoleOutput;
-use Shim\TestSuite\TestCase;
 
-class FooBarShellTest extends TestCase {
+$out = new ConsoleOutput();
+$err = new ConsoleOutput();
+$io = new ConsoleIo($out, $err);
+$io->out('Finished');
 
-    /**
-     * @return void
-     */
-    public function setUp(): void {
-        parent::setUp();
-
-        $this->out = new ConsoleOutput();
-        $this->err = new ConsoleOutput();
-        $io = new ConsoleIo($this->out, $this->err);
-
-        $this->Shell = $this->getMock(
-            'App\Shell\FooBarShell',
-            ['in', '_stop'],
-            [$io]
-        );
-    }
+$this->assertSame('Finished' . PHP_EOL, $out->output());
+$this->assertSame('', $err->output());
 ```
 
-Note that we mock the `in` and `_stop` methods to allow handling those by mocking
-them out in the test cases.
-
-You can afterwards check on the output:
-
-```php
-$this->Shell->runCommand(['baz']);
-
-$output = $this->err->output();
-$this->assertEmpty($output);
-
-$output = $this->out->output();
-$expected = 'FooBars';
-$this->assertStringContainsString($expected, $output);
-```
-
-By using `-v` or `-vv` you can directly see any stderr or stdout output on the
-screen. Otherwise it will not be displayed automatically.
+Pass `ConsoleIo` to your command's `execute()` method when testing a command
+directly. For application command integration tests, use CakePHP's
+`ConsoleIntegrationTestTrait` and its output assertions.

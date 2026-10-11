@@ -23,6 +23,7 @@ use Shim\Utility\CastTrait;
 class TriggerController extends AppController {
 
     use CastTrait;
+}
 ```
 
 The following two type families are available to help keep your controller code
@@ -65,7 +66,7 @@ public function myAction() {
 Why doesn't the `CastTrait` ship with a second `$default` argument like the core
 does in some places?
 
-There are many different "ways" you want your default value to kick in — for
+There are many different "ways" you want your default value to kick in, for
 example on `null`, or maybe on any empty value (`''`, `false`, ...).
 
 For that reason PHP offers two different operators to use in ternary form:

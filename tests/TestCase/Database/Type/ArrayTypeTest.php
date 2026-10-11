@@ -32,7 +32,7 @@ class ArrayTypeTest extends TestCase {
 		TypeFactory::map('array', ArrayType::class);
 
 		$this->type = TypeFactory::build('array');
-		$this->driver = $this->getMockBuilder(Driver::class)->getMock();
+		$this->driver = $this->createStub(Driver::class);
 	}
 
 	/**

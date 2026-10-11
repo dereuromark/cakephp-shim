@@ -269,35 +269,20 @@ class Table extends CoreTable {
 	 * @return mixed|null The first result from the ResultSet or null if not existent.
 	 */
 	public function record(mixed $id, array $options = []): mixed {
-		// `Table::get()` in CakePHP 5 takes named parameters after `$primaryKey` —
-		// $finder, $cache, $cacheKey, plus ...$args that are forwarded into the
-		// finder. Splatting an arbitrary `$options` array directly produces a
-		// TypeError ('Unknown named parameter') for any key that is not one of
-		// those four. Map the legacy 4.x-style option keys (contain/conditions/
-		// fields/order) into the $finder array so the call shape works.
 		try {
-			$getKeys = ['finder', 'cache', 'cacheKey'];
-			$getArgs = [];
-			$finder = [];
-			foreach ($options as $key => $value) {
-				if (in_array($key, $getKeys, true)) {
-					$getArgs[$key] = $value;
-				} else {
-					$finder[$key] = $value;
-				}
+			$finder = $options['finder'] ?? 'all';
+			unset($options['finder']);
+			if (is_array($finder)) {
+				$options = $finder + $options;
+				$finder = $options['finder'] ?? 'all';
+				unset($options['finder']);
 			}
-			if ($finder) {
-				$current = $getArgs['finder'] ?? [];
-				if (is_string($current)) {
-					// The user passed `finder => 'someFinder'` plus extra options —
-					// switch to the array form so the extras can ride along.
-					$getArgs['finder'] = ['type' => $current] + $finder;
-				} else {
-					$getArgs['finder'] = $current + $finder;
-				}
+			if (isset($options['key']) && !isset($options['cacheKey'])) {
+				$options['cacheKey'] = $options['key'];
 			}
+			unset($options['key']);
 
-			return $this->get($id, ...$getArgs);
+			return $this->get($id, $finder, ...$options);
 		} catch (RecordNotFoundException) {
 			return null;
 		}
@@ -444,15 +429,15 @@ class Table extends CoreTable {
 	 * Wrap it to be transaction safe for all save calls:
 	 *
 	 *  // In a controller.
-	 *  $articles->connection()->transactional(function () use ($articles, $entities) {
-	 *      $articles->saveAll($entities, ['atomic' => false]);
-	 *  }
+	 *  $articles->getConnection()->transactional(function () use ($articles, $entities) {
+	 *      return $articles->saveAll($entities, ['atomic' => false]);
+	 *  });
 	 *
-	 * Use saveMany() if you want to get early exception instead of combined boolean result.
+	 * Use saveManyOrFail() to throw on a failed save and roll back the transaction.
 	 *
 	 * @param array<\Cake\Datasource\EntityInterface> $entities
 	 * @param array<string, mixed> $options
-	 * @return bool True if all save calls where successful
+	 * @return bool True if all save calls were successful
 	 */
 	public function saveAll(array $entities, array $options = []): bool {
 		$success = true;
