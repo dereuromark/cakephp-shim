@@ -1,9 +1,5 @@
 # Installation
 
-## Requirements
-
-Use PHP 8.2 or newer and CakePHP 5.1.1 or newer within the 5.x series.
-
 ## Install
 
 Installing the plugin is the same as for any other CakePHP plugin.

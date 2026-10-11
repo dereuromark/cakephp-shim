@@ -16,8 +16,8 @@ Loading Shim additionally runs its bootstrap.
 :::
 
 ::: info CakePHP version
-This documentation is for the branch that shims **4.x in 5.x** and targets
-**CakePHP 5.1.1+**. For older releases, see the
+This documentation is for the branch that shims **4.x in 5.x** for applications running
+**CakePHP 5**. For older releases, see the
 [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 :::
 

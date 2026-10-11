@@ -18,7 +18,7 @@ This is mainly useful when upgrading large applications to the next major framew
 Tons of code needs to be adjusted, using this Shim plugin quite a few lines less need to be touched.
 Especially the ORM layer, which would need heavy refactoring, requires a lot less changes to get things working again.
 
-This branch is for use with **CakePHP 5.1.1+**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
+This branch supports **CakePHP 5**. For details see [version map](https://github.com/dereuromark/cakephp-shim/wiki#cakephp-version-map).
 
 "0-dependency plugin": Apart from core this plugin has no other dependencies!
 

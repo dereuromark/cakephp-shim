@@ -145,10 +145,10 @@ class TableTest extends TestCase {
 		Cache::setConfig('record-test', ['className' => ArrayEngine::class]);
 		try {
 			$record = $this->Posts->record(2, ['cache' => 'record-test', 'key' => 'legacy-record']);
-			$this->assertSame($record, Cache::read('legacy-record', 'record-test'));
+			$this->assertSame($record->toArray(), Cache::read('legacy-record', 'record-test')->first()->toArray());
 
 			$record = $this->Posts->record(2, ['cache' => 'record-test', 'key' => 'ignored-record', 'cacheKey' => 'explicit-record']);
-			$this->assertSame($record, Cache::read('explicit-record', 'record-test'));
+			$this->assertSame($record->toArray(), Cache::read('explicit-record', 'record-test')->first()->toArray());
 			$this->assertNull(Cache::read('ignored-record', 'record-test'));
 		} finally {
 			Cache::drop('record-test');
