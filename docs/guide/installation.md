@@ -1,5 +1,8 @@
 # Installation
 
+This branch uses unreleased CakePHP 6 packages. Set `"minimum-stability": "dev"`
+and `"prefer-stable": true` in your application's `composer.json` before installing.
+
 ## Install
 
 Installing the plugin is the same as for any other CakePHP plugin.
@@ -7,7 +10,7 @@ Installing the plugin is the same as for any other CakePHP plugin.
 Install via Composer:
 
 ```bash
-composer require dereuromark/cakephp-shim
+composer require dereuromark/cakephp-shim:dev-cake6
 ```
 
 The following command can enable the plugin:

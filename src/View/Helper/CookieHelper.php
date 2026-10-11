@@ -13,10 +13,10 @@ class CookieHelper extends Helper {
 	/**
 	 * Return all cookie names available.
 	 *
-	 * @return array<string>
+	 * @return array<int|string>
 	 */
 	public function getCookies(): array {
-		$cookies = $this->_View->getRequest()->getCookieParams();
+		$cookies = $this->getView()->getRequest()->getCookieParams();
 		if (!$cookies) {
 			return [];
 		}
@@ -38,7 +38,7 @@ class CookieHelper extends Helper {
 			throw new InvalidArgumentException('key required');
 		}
 
-		return $this->_View->getRequest()->getCookie($key, $default);
+		return $this->getView()->getRequest()->getCookie($key, $default);
 	}
 
 	/**
@@ -50,7 +50,7 @@ class CookieHelper extends Helper {
 	 * @return bool
 	 */
 	public function check(string $key): bool {
-		return $this->_View->getRequest()->getCookie($key) !== null;
+		return $this->getView()->getRequest()->getCookie($key) !== null;
 	}
 
 	/**

@@ -19,17 +19,17 @@ class ConsoleOutput extends CakeConsoleOutput {
 	 *
 	 * @var array<string>
 	 */
-	public array $output = [];
+	public array $messages = [];
 
 	/**
-	 * Overwrite _write to output the message to debug instead of CLI.
+	 * Override writeStream to output the message to debug instead of CLI.
 	 *
 	 * @param string $message
 	 * @return int
 	 */
-	protected function _write(string $message): int {
+	protected function writeStream(string $message): int {
 		$this->debug($message);
-		$this->output[] = $message;
+		$this->messages[] = $message;
 
 		return 0;
 	}
@@ -40,7 +40,7 @@ class ConsoleOutput extends CakeConsoleOutput {
 	 * @return string
 	 */
 	public function output(): string {
-		return implode('', $this->output);
+		return implode('', $this->messages);
 	}
 
 }

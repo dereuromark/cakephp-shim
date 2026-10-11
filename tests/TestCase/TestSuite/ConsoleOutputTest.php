@@ -19,7 +19,7 @@ class ConsoleOutputTest extends TestCase {
 		$this->assertTextContains('Foo', $result);
 		$this->assertTextContains('Bar', $result);
 
-		$array = $output->output;
+		$array = $output->messages;
 		$this->assertSame('Foo' . PHP_EOL, $array[0]);
 		$this->assertSame('Bar' . PHP_EOL, $array[1]);
 	}

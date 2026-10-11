@@ -28,22 +28,17 @@ trait ReadTrait {
 	public function read($path, mixed $default = null): mixed {
 		$parts = is_array($path) ? $path : explode('.', $path);
 
-		$data = null;
+		$data = $this;
 		foreach ($parts as $key) {
-			if ($data === null && !isset($this->$key)) {
-				return $default;
-			}
-			if ($data === null) {
-				$data = $this->$key;
-
-				continue;
-			}
-
 			if ($data instanceof EntityInterface) {
-				$data = $data->toArray();
-			}
-
-			if ((is_array($data) || $data instanceof ArrayAccess) && isset($data[$key])) {
+				if (!$data->has($key)) {
+					return $default;
+				}
+				$data = $data->get($key);
+				if ($data === null) {
+					return $default;
+				}
+			} elseif ((is_array($data) || $data instanceof ArrayAccess) && isset($data[$key])) {
 				$data = $data[$key];
 			} else {
 				return $default;

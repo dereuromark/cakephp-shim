@@ -458,6 +458,24 @@ class TableTest extends TestCase {
 	/**
 	 * @return void
 	 */
+	public function testValidationShimTableProvider(): void {
+		$this->Wheels = TableRegistry::getTableLocator()->get('Wheels');
+		$validation = new ReflectionProperty($this->Wheels, 'validate');
+		$rules = $validation->getValue($this->Wheels);
+		$rules['position']['unique'] = ['rule' => 'isUnique'];
+		$validation->setValue($this->Wheels, $rules);
+
+		$wheel = $this->Wheels->newEntity(['position' => 'unique position']);
+		$this->Wheels->saveOrFail($wheel);
+
+		$duplicate = $this->Wheels->newEntity(['position' => 'unique position']);
+		$this->assertArrayHasKey('unique', $duplicate->getError('position'));
+		$this->assertFalse($this->Wheels->save($duplicate));
+	}
+
+	/**
+	 * @return void
+	 */
 	public function testSaveStrict(): void {
 		$this->Wheels = TableRegistry::getTableLocator()->get('Wheels');
 

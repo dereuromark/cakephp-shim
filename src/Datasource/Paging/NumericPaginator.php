@@ -18,11 +18,11 @@ class NumericPaginator extends CoreNumericPaginator {
 	 *   or the general settings.
 	 */
 	protected function getDefaults(string $alias, array $settings): array {
-		$this->_defaultConfig['contain'] = null;
-		$this->_defaultConfig['conditions'] = null;
-		$this->_defaultConfig['fields'] = null;
-		$this->_defaultConfig['join'] = null;
-		$this->_defaultConfig['group'] = null;
+		$this->defaultConfig['contain'] = null;
+		$this->defaultConfig['conditions'] = null;
+		$this->defaultConfig['fields'] = null;
+		$this->defaultConfig['join'] = null;
+		$this->defaultConfig['group'] = null;
 
 		return parent::getDefaults($alias, $settings);
 	}

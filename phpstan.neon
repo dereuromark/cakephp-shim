@@ -7,7 +7,7 @@ parameters:
 		- tests/bootstrap.php
 		- tests/shim.php
 	excludePaths:
-		- %rootDir%/../../../src/Filesystem/File.php
+		- src/Filesystem/File.php
 	ignoreErrors:
 		- identifier: missingType.iterableValue
 		- identifier: missingType.generics

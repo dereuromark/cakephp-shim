@@ -185,6 +185,7 @@ class Table extends CoreTable {
 	 * @return \Cake\Validation\Validator
 	 */
 	public function validationDefault(Validator $validator): Validator {
+		$validator->setProvider('table', $this);
 		if (!empty($this->validate)) {
 			foreach ($this->validate as $field => $rules) {
 				if (is_int($field)) {
@@ -209,8 +210,12 @@ class Table extends CoreTable {
 						$validator->requirePresence($field, $rule['required']);
 						unset($rules[$key]['required']);
 					}
-					if (!empty($rule['allowEmpty'])) {
-						$validator->allowEmptyString($field, $rule['allowEmpty']);
+					if (isset($rule['allowEmpty'])) {
+						if ($rule['allowEmpty']) {
+							$validator->allowEmptyString($field);
+						} else {
+							$validator->notEmptyString($field);
+						}
 						unset($rules[$key]['allowEmpty']);
 					}
 					if (isset($rule['message'])) {
@@ -273,9 +278,10 @@ class Table extends CoreTable {
 			$finder = $options['finder'] ?? 'all';
 			unset($options['finder']);
 			if (is_array($finder)) {
+				$name = $finder['type'] ?? 'all';
+				unset($finder['type']);
 				$options = $finder + $options;
-				$finder = $options['finder'] ?? 'all';
-				unset($options['finder']);
+				$finder = $name;
 			}
 			if (isset($options['key']) && !isset($options['cacheKey'])) {
 				$options['cacheKey'] = $options['key'];
