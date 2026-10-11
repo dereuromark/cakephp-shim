@@ -126,6 +126,17 @@ class TableTest extends TestCase {
 	}
 
 	/**
+	 * @return void
+	 */
+	public function testRecordFinderOptions(): void {
+		$record = $this->Posts->record(2, ['finder' => 'all', 'fields' => ['id', 'title']]);
+		$this->assertSame(['id' => 2, 'title' => 'Second Post'], $record->toArray());
+
+		$record = $this->Posts->record(2, ['finder' => ['fields' => ['id', 'title']], 'fields' => ['id']]);
+		$this->assertSame(['id' => 2, 'title' => 'Second Post'], $record->toArray());
+	}
+
+	/**
 	 * ShimModelTest::testRecordFail()
 	 *
 	 * @return void

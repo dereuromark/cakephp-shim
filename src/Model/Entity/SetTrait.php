@@ -6,7 +6,7 @@ use Cake\Utility\Inflector;
 use RuntimeException;
 
 /**
- * Trait to read entity properties in a way that the return value is ensured (not nullable).
+ * Trait to assign non-null entity values.
  *
  * - set{PropertyName}OrFail($value) must have a non-null value or throws exception otherwise
  */

@@ -4,7 +4,7 @@
 
 By using the Shim plugin `Table` class you can instantly re-use some 2.x
 behaviors. This is super useful when upgrading a very large codebase and you
-first need to get it running again — and afterwards want to start refactoring.
+first need to get it running again, and afterwards want to start refactoring.
 
 By default it will look if it can re-use the following (if not, nothing bad
 happens):
@@ -21,14 +21,15 @@ Also:
 
 - `Table::field()` support and a `fieldByConditions()` alias to migrate to.
 
-It auto-adds the `Timestamp` behavior if a `created` or `modified` field exists in
-the table. To customize, use `$this->createdField` or `$this->modifiedField` in
-your `initialize()` method *before* calling `parent::initialize()`. To
-deactivate, simply set the two fields to `false`.
+It automatically attaches the core `Timestamp` behavior, which updates
+`created` and `modified` columns when present. To disable automatic attachment,
+set both `$this->createdField` and `$this->modifiedField` to `false` before
+calling `parent::initialize()`. For custom timestamp columns, add `Timestamp`
+yourself with its `events` configuration before calling the parent.
 
 ## IN / NOT IN
 
-These were quite handy in 2.x: any `'field' => $scalarOrArray` would be
+These were quite handy in 2.x: any `'field' => $values` would be
 automatically converted. This was removed in 3.x and you manually have to decide
 if you need to add `IN`/`NOT IN`. When upgrading from 2.x, the following snippets
 can help ease migration (especially if the counterpart has been applied to 2.x
@@ -36,17 +37,16 @@ already):
 
 ```php
 // In Table class
-$query = $this->...();
+$query = $this->find();
 
 // This modifies the query right away
-$query->where($this->arrayCondition($query, 'field', $scalarOrArray));
+$query->where($this->arrayCondition($query, 'field', $values));
 
 // You can also use the 2.x array shim, which returns an array
-$query->where($this->arrayConditionArray('field', $scalarOrArray));
+$query->where($this->arrayConditionArray('field', $values));
 ```
 
-It also makes the statement more correct in general: `NOT IN []` would
-technically mean to find nothing, but the 2.x API so far used `IS NULL`, which
+It also makes the statement more correct in general: `IN []` matches nothing, while `NOT IN []` matches every row, but the 2.x API so far used `IS NULL`, which
 could falsely match nullish records. The main reason this is also useful for 3.x
 is the
 [hidden time-bomb](https://github.com/dereuromark/cakephp-upgrade/wiki/Upgrading-Notes-for-CakePHP-3.x#query-conditions)
@@ -56,25 +56,21 @@ in the ORM when an array can become empty and an exception is thrown.
 This shimmed functionality, and `NOT` clauses with deleting records, can be
 dangerous and in some cases lead to accidental truncation of tables if not
 carefully applied. In most cases you would not want the sudden empty-array
-exception, though — so either add manual non-empty checks or use this
+exception, though, so either add manual non-empty checks or use this
 functionality only when you are sure it is safe.
 :::
 
-## saveMany() and transactions
+## Saving multiple entities
 
-`Table::saveMany()` wraps saving multiple entities. Optionally, you can wrap them
-to be transaction safe together:
+Core `saveMany()` is transactional by default and returns `false` if a save fails.
+Use `saveManyOrFail()` to throw an exception on failure:
 
 ```php
-// In a controller.
-$articles->connection()->transactional(function () use ($articles, $entities) {
-    $articles->saveMany($entities, ['atomic' => false]);
-});
+$articles->saveManyOrFail($entities);
 ```
 
-::: tip
-Use `saveManyOrFail()` if you want to throw an exception instead.
-:::
+Shim's legacy `saveAll()` saves each entity separately and returns a combined
+boolean result. Use core `saveMany()` for new code.
 
 ## Extending the Table class
 

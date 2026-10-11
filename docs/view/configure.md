@@ -28,6 +28,6 @@ $this->Configure->readOrFail($name);
 
 ::: tip
 The aliasing approach has the disadvantage that you cannot use another class with
-that name. In general, it is usually best to move this logic out of the template —
+that name. In general, it is usually best to move this logic out of the template,
 at least in some later cleanup step.
 :::

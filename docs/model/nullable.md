@@ -1,53 +1,24 @@
 # Nullable Behavior
 
-The framework core in some places treats the incoming value too literally,
-without introspecting the schema. The schema could say `NOT NULL`, meaning you do
-not have to provide a string value. But if you do that, you easily end up with two
-empty values: `null` and `''` (empty string).
-
-You should attach the following behavior for better data consistency:
+The behavior replaces an empty string with the schema default only when the
+column allows `NULL`. A nullable column with a `NULL` default becomes `null`;
+a nullable column with a non-null default receives that default. Non-nullable
+columns, unknown fields, and non-empty values are unchanged.
 
 ```php
-// In your Table
+// In your Table::initialize().
 $this->addBehavior('Shim.Nullable');
 ```
 
-This makes sure empty strings posted will respect the nullable type of the table
-schema. Your queries then only have to check for one type, instead of this code
-smell:
+For a nullable column with a `NULL` default, queries can check `IS NULL` after
+normalization:
 
 ```php
-// check for empty
-->where(['OR' => ['field_name IS' => null, 'field_name' => '']])
-
-// check for non-empty
-->where(['field_name IS NOT' => null, 'field_name !=' => ''])
+$query->where(['field_name IS' => null]);
 ```
 
-Now it can always be this for `DEFAULT NOT NULL` database fields:
-
-```php
-// check for empty
-->where(['field_name' => ''])
-
-// check for non-empty
-->where(['field_name !=' => ''])
-```
-
-And this for `DEFAULT NULL` database fields:
-
-```php
-// check for empty
-->where(['field_name IS' => null])
-
-// check for non-empty
-->where(['field_name IS NOT' => null])
-```
-
-::: info
-See [this ticket](https://github.com/cakephp/cakephp/issues/9678) for details and
-the hope that this one day makes it into the core.
-:::
+The behavior does not rewrite existing records. Clean up historical empty strings
+separately if you need a consistent database value.
 
 ## Callback options
 
@@ -55,7 +26,7 @@ You can define the time this should happen.
 
 ::: warning Default callback affects validation
 Be careful with the default setting (`beforeMarshal`), as this can affect
-validation rules. Some rules use the empty-string existence to validate fields —
+validation rules. Some rules use the empty-string existence to validate fields,
 through `isset()` checks. Those checks might not work as expected if the input is
 already back to `null`. There you would then need `array_key_exists()`.
 :::

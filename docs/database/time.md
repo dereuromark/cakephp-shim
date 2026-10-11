@@ -6,8 +6,9 @@ The `TimeStringType` can be used to represent a specific string field for
 `HH:MM:SS` times. It keeps the string type, but makes sure the format is
 normalized and valid.
 
-Besides string input, it can also accept the framework dropdown select values
-from a default time control:
+Besides strings, it accepts arrays from legacy dropdown controls. CakePHP 5
+uses an HTML time input by default, so submit a full `HH:MM:SS` string; a value
+without seconds is rejected by this type.
 
 ```php
 $data = [
@@ -25,21 +26,17 @@ $entity = $this->Table->newEntity($data);
 To set it up for a specific field:
 
 ```php
-// In your Table class
-protected function _initializeSchema(Table $table) {
-    $table->columnType('closing_time', 'time');
-    // ...
-    return $table;
-}
+// In your Table::initialize(), after parent::initialize($config).
+$this->getSchema()->setColumnType('closing_time', 'time');
 ```
 
 Then make sure you mapped the type to a class in your config:
 
 ```php
 // In your bootstrap
-use Cake\Database\Type;
+use Cake\Database\TypeFactory;
 
-Type::map('time', 'Shim\Database\Type\TimeStringType');
+TypeFactory::map('time', 'Shim\Database\Type\TimeStringType');
 ```
 
 If you want to disable `24:00:00` as the valid upper boundary (and transform it
@@ -50,21 +47,9 @@ to `00:00:00` instead):
 \Shim\Database\Type\TimeStringType::$normalizeUpperBoundary = true;
 ```
 
-## What about objects?
+## Invalid values
 
-We could also think about a value object representing time. This way you could
-offer a bit more functionality:
-
-- `format()` with, for example, only `HH:MM` etc. — but most of this can already
-  be done on the presentation layer via a helper.
-- `diff()` in `HH:MM:SS` or `\DateInterval`.
-- `isSame()`/`isBefore()`/`isAfter()` methods.
-- `fromDateTime()` and similar to extract the time part.
-
-Even custom localized formatting like `AM/PM` could be added, but this should
-really be kept in the presentation layer to keep such logic out of the value
-object itself.
-
-::: tip
-Feel free to add a `TimeObjectType` class for this use case.
-:::
+Invalid strings become `null`. Missing array parts default to `00`. Add validation
+if an invalid or missing time must prevent a save. Mapping `time` changes all
+columns using that type; use a separate type name and assign it to selected
+columns when you need the core time type elsewhere.

@@ -24,7 +24,7 @@ across all controllers:
 ],
 ```
 
-Your custom paginator should still extend
+Your custom paginator must implement
 `Cake\Datasource\Paging\PaginatorInterface`, of course. See also the
 [NumericPaginator](/datasource/numeric-paginator) shim.
 
@@ -55,7 +55,7 @@ shims it for older (IE) versions to work there as well.
 
 ### Response headers
 
-Using `Configure::write('Shim.monitorHeaders')` you can monitor whether all
+Using `Configure::write('Shim.monitorHeaders', true)` you can monitor whether all
 headers are properly set via the `Response` class and not, for some reason, sent
 prior to that.
 
@@ -66,6 +66,15 @@ be cumbersome. You can also use this method as an override in your AppController
 shim it for now:
 
 ```php
+use Cake\Core\App;
+use Cake\Core\Configure;
+use Cake\Datasource\Paging\Exception\PageOutOfBoundsException;
+use Cake\Datasource\Paging\PaginatedInterface;
+use Cake\Datasource\QueryInterface;
+use Cake\Datasource\RepositoryInterface;
+use Cake\Http\Exception\NotFoundException;
+use Shim\Datasource\Paging\NumericPaginator;
+
 public function paginate(
     RepositoryInterface|QueryInterface|string|null $object = null,
     array $settings = [],
@@ -115,19 +124,7 @@ public function paginate(
 }
 ```
 
-## Component base class
+## Component access to the controller
 
-You can extend the Shim plugin `Component` class to have the controller available
-inside by default:
-
-```php
-namespace App\Controller\Component;
-
-use Shim\Controller\Component\Component;
-
-/**
- * App\Controller\Component\MyComponent class
- */
-class MyComponent extends Component {
-}
-```
+Use the core component base class. There is no `Shim\Controller\Component\Component`.
+Call `$this->getController()` inside a component when you need its controller.

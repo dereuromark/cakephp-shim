@@ -10,7 +10,7 @@ use PDO;
  * Experimental time type (as string)
  *
  * Needs:
- * - \Cake\Database\TypeFactory::map('time'), 'Shim\Database\Type\TimeStringType'); in bootstrap
+ * - \Cake\Database\TypeFactory::map('time', 'Shim\Database\Type\TimeStringType'); in bootstrap
  * - Manual FormHelper $this->Form->control('closing_time', ['type' => 'time']);
  */
 class TimeStringType extends BaseType {
@@ -40,7 +40,7 @@ class TimeStringType extends BaseType {
 	}
 
 	/**
-	 * Convert binary into resource handles
+	 * Return the stored time string.
 	 *
 	 * @param string|null $value The value to convert.
 	 * @param \Cake\Database\Driver $driver The driver instance to convert with.
@@ -82,9 +82,9 @@ class TimeStringType extends BaseType {
 	 * @return string|null
 	 */
 	protected function fromArray(array $value): ?string {
-		$hours = isset($value['hour']) ? str_pad($value['hour'], 2, '0', STR_PAD_LEFT) : '00';
-		$minutes = isset($value['minute']) ? str_pad($value['minute'], 2, '0', STR_PAD_LEFT) : '00';
-		$seconds = isset($value['second']) ? str_pad($value['second'], 2, '0', STR_PAD_LEFT) : '00';
+		$hours = isset($value['hour']) ? str_pad((string)$value['hour'], 2, '0', STR_PAD_LEFT) : '00';
+		$minutes = isset($value['minute']) ? str_pad((string)$value['minute'], 2, '0', STR_PAD_LEFT) : '00';
+		$seconds = isset($value['second']) ? str_pad((string)$value['second'], 2, '0', STR_PAD_LEFT) : '00';
 
 		return $hours . ':' . $minutes . ':' . $seconds;
 	}

@@ -31,7 +31,7 @@ class BinaryTypeTest extends TestCase {
 		TypeFactory::map('binary', BinaryType::class);
 
 		$this->type = TypeFactory::build('binary');
-		$this->driver = $this->getMockBuilder(Driver::class)->getMock();
+		$this->driver = $this->createStub(Driver::class);
 	}
 
 	/**
