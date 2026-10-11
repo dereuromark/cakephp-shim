@@ -2,6 +2,8 @@
 
 namespace Shim\Test\TestCase\Model\Table;
 
+use Cake\Cache\Cache;
+use Cake\Cache\Engine\ArrayEngine;
 use Cake\Core\Configure;
 use Cake\Database\ValueBinder;
 use Cake\Datasource\Exception\RecordNotFoundException;
@@ -134,6 +136,23 @@ class TableTest extends TestCase {
 
 		$record = $this->Posts->record(2, ['finder' => ['fields' => ['id', 'title']], 'fields' => ['id']]);
 		$this->assertSame(['id' => 2, 'title' => 'Second Post'], $record->toArray());
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testRecordCacheKeyAlias(): void {
+		Cache::setConfig('record-test', ['className' => ArrayEngine::class]);
+		try {
+			$record = $this->Posts->record(2, ['cache' => 'record-test', 'key' => 'legacy-record']);
+			$this->assertSame($record, Cache::read('legacy-record', 'record-test'));
+
+			$record = $this->Posts->record(2, ['cache' => 'record-test', 'key' => 'ignored-record', 'cacheKey' => 'explicit-record']);
+			$this->assertSame($record, Cache::read('explicit-record', 'record-test'));
+			$this->assertNull(Cache::read('ignored-record', 'record-test'));
+		} finally {
+			Cache::drop('record-test');
+		}
 	}
 
 	/**

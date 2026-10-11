@@ -24,14 +24,14 @@ This documentation is for the branch that shims **4.x in 5.x** and targets
 ## How it works
 
 Choose the functionality you need. For most cases you
-do not even need to load the plugin, the individual elements (database types,
+do not even need to load the plugin. The individual elements (database types,
 traits, behaviors, helpers) can be used directly where needed.
 
 There are two broad categories of shims:
 
-- **Main shims**, convenience functionality that will most likely be ported
+- **Main shims**: convenience functionality that will most likely be ported
   forward into future releases. Review their API when moving to a new major version.
-- **BC shims**, backwards-compatibility helpers that only exist to ease the
+- **BC shims**: backwards-compatibility helpers that only exist to ease the
   3.x → 4.x → 5.x transition. These are intended to be removed again once your
   upgrade is complete.
 
@@ -55,10 +55,10 @@ They exist to keep an in-flight upgrade running, not to be a permanent crutch.
 
 ## Next steps
 
-- [Installation](/guide/installation), install the plugin via Composer.
+- [Installation](/guide/installation): install the plugin via Composer.
 - [Getting started](/guide/getting-started): use your first trait or helper.
-- [Preconditions](/guide/preconditions), what to have in place before upgrading.
-- [Upgrade Guide](/guide/upgrade), migrating from 4.x to 5.x.
+- [Preconditions](/guide/preconditions): what to have in place before upgrading.
+- [Upgrade Guide](/guide/upgrade): migrating from 4.x to 5.x.
 
 ## Helpful links
 

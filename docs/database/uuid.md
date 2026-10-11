@@ -2,8 +2,6 @@
 
 ## Legacy BINARY(36) columns
 
-### UUID as `BINARY(36)`
-
 This shim supports existing `BINARY(36)` columns containing textual UUIDs. Use the core `binaryuuid` type for new `BINARY(16)` columns.
 
 The clean way is to mark those columns as type `uuid` manually:
@@ -24,7 +22,7 @@ use Cake\Database\TypeFactory;
 TypeFactory::map('binary', 'Shim\Database\Type\BinaryType');
 ```
 
-### `BINARY(16)`
+## `BINARY(16)`
 
 For this, please see `Cake\Database\Type\BinaryUuidType` that is now shipped by
 default with the framework core. It handles conversion between textual UUIDs

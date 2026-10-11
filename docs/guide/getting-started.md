@@ -4,13 +4,8 @@ Shim lets you add individual helpers or traits to a CakePHP 5 application. For a
 new application, start with a convenience trait. Use legacy shims only for code
 you are migrating.
 
-## Install
-
-From an existing CakePHP application running PHP 8.2+ and CakePHP 5.1.1+:
-
-```bash
-composer require dereuromark/cakephp-shim
-```
+Follow [Installation](/guide/installation) first, then choose a trait or helper
+below. No database changes are needed for these examples.
 
 ## Read an optional nested value
 
@@ -42,7 +37,7 @@ No plugin loading or database changes are needed for this trait. When reading
 associated records, fetch the association with `contain()` first. The trait does
 not load it for you. See [Entity](/model/entity) for required-value checks.
 
-## Enable a plugin helper
+## Use a plugin helper
 
 The helper works without loading the plugin. If you also want its bootstrap
 configuration and legacy time constants, load it:

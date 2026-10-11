@@ -430,7 +430,7 @@ class Table extends CoreTable {
 	 *
 	 *  // In a controller.
 	 *  $articles->getConnection()->transactional(function () use ($articles, $entities) {
-	 *      $articles->saveAll($entities, ['atomic' => false]);
+	 *      return $articles->saveAll($entities, ['atomic' => false]);
 	 *  });
 	 *
 	 * Use saveManyOrFail() to throw on a failed save and roll back the transaction.

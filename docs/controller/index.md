@@ -65,6 +65,8 @@ If you have a large app with many controllers in the old style, rewriting them c
 be cumbersome. You can also use this method as an override in your AppController to
 shim it for now:
 
+At the top of your controller file:
+
 ```php
 use Cake\Core\App;
 use Cake\Core\Configure;
@@ -74,7 +76,11 @@ use Cake\Datasource\QueryInterface;
 use Cake\Datasource\RepositoryInterface;
 use Cake\Http\Exception\NotFoundException;
 use Shim\Datasource\Paging\NumericPaginator;
+```
 
+Inside your controller class:
+
+```php
 public function paginate(
     RepositoryInterface|QueryInterface|string|null $object = null,
     array $settings = [],
