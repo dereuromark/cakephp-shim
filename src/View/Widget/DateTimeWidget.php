@@ -668,8 +668,8 @@ class DateTimeWidget extends BasicWidget {
 			'second' => 0,
 		];
 		if (
-			!is_numeric($dateTime['year']) || !is_numeric($dateTime['month']) || !is_numeric($dateTime['day']) ||
-			!is_numeric($dateTime['hour']) || !is_numeric($dateTime['minute']) || !is_numeric($dateTime['second'])
+			!is_numeric($dateTime['year']) || !is_numeric($dateTime['month']) || !is_numeric($dateTime['day'])
+			|| !is_numeric($dateTime['hour']) || !is_numeric($dateTime['minute']) || !is_numeric($dateTime['second'])
 		) {
 			return null;
 		}

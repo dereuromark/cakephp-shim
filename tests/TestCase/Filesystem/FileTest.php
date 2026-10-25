@@ -80,10 +80,10 @@ class FileTest extends TestCase {
 			'mime' => 'text/plain',
 		];
 		if (
-			!function_exists('finfo_open') &&
-			(!function_exists('mime_content_type') ||
-			function_exists('mime_content_type') &&
-			mime_content_type($this->File->pwd()) === false)
+			!function_exists('finfo_open')
+			&& (!function_exists('mime_content_type')
+			|| function_exists('mime_content_type')
+			&& mime_content_type($this->File->pwd()) === false)
 		) {
 			$expecting['mime'] = false;
 		}

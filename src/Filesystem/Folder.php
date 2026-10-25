@@ -304,10 +304,10 @@ class Folder {
 			return false;
 		}
 
-		return $path[0] === '/' ||
-			(bool)preg_match('/^[A-Z]:\\\\/i', $path) ||
-			str_starts_with($path, '\\\\') ||
-			static::isRegisteredStreamWrapper($path);
+		return $path[0] === '/'
+			|| (bool)preg_match('/^[A-Z]:\\\\/i', $path)
+			|| str_starts_with($path, '\\\\')
+			|| static::isRegisteredStreamWrapper($path);
 	}
 
 	/**
@@ -317,8 +317,8 @@ class Folder {
 	 * @return bool True if path is registered stream wrapper.
 	 */
 	public static function isRegisteredStreamWrapper(string $path): bool {
-		return (bool)preg_match('/^[^:\/]+?(?=:\/\/)/', $path, $matches) &&
-			in_array($matches[0], stream_get_wrappers(), true);
+		return (bool)preg_match('/^[^:\/]+?(?=:\/\/)/', $path, $matches)
+			&& in_array($matches[0], stream_get_wrappers(), true);
 	}
 
 	/**

@@ -266,10 +266,10 @@ class RequestHandlerComponent extends Component {
 		$request = $controller->getRequest();
 
 		if (
-			!$request->is('post') &&
-			!$request->is('put') &&
-			!$request->is('patch') &&
-			!$request->is('delete')
+			!$request->is('post')
+			&& !$request->is('put')
+			&& !$request->is('patch')
+			&& !$request->is('delete')
 		) {
 			return null;
 		}
